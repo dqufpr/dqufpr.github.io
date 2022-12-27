@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Roboto, Avenir, Calibri, sans-serif;
     font-size: 100%;
     background: #fff;
     margin: 0;
@@ -41,40 +41,36 @@ a:hover {
     box-sizing: border-box;
 }
 
-
 /* descrição */
 #descricao {
     width: 100%;
     margin: 0;
-    padding: 0 0 1em 0;
+    padding: 10px 20px 0px 20px;
     font-size: 16px;
     font-weight: bold;
-    line-height: 1em;
-    background: #fff;
+    line-height: 2em;
+    background: rgb(132, 178, 217);
+    box-sizing: border-box;
+    color: rgb(61, 102, 138);
 }
+
 
 /* mapa informacoes */
-#mapa {
-    position: relative;
-    overflow: hidden;
-    min-height: 600px;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: #ccc;
+.container {
+  border: none;
+  width: 100%;
+  min-height: 300px;
+  height: auto;
+  background: #fff;
+  margin: 0 auto;
 }
 
-#mapa.home {
-    /* fundo div mapa*/
-    background-color: #f9c;
-    /*! background-clip: border-box; */
-    background-image: url(mapa-home.svg);
-    background-repeat: no-repeat;
-    /*! background-origin: ; */
-    background-attachment: scroll;
-    background-position: 50% 50%;
-    background-size: cover;
+.container iframe {
+    width: 100%;
+    min-height: 550px;
+    border: none;
 }
+
 
 h1 {
     font-size: 16px;
@@ -96,7 +92,8 @@ h1 {
 }
 
 #colunas #coluna #cb {
-    min-height: 600px;
+    min-height: 450px;
+    height: auto;
     display: inline-table;
     padding: 0;
     height: auto;
@@ -114,7 +111,7 @@ h1 {
 
 #colunas #coluna #cb #conteudocoluna.principal {
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #colunas #coluna #cb #conteudocoluna.principal h4 {
@@ -147,7 +144,7 @@ h1 {
 
 /*-- menu principal --*/
 #menu {
-    background: rgb(15, 69, 154);
+    background: rgb(29, 60, 105);
     height: 50px;
     display: flex;
     float: left;
@@ -187,13 +184,13 @@ ul li.itemmenubar a:hover {
 #rodape {
     display: table;
     clear: both;
-    background: #efefef;
+    background: #e7e7e7;
     color: #444;
     width: 100%;
-    padding: 20px;
-    border-top: 2px solid #175bc0;
+    padding: 35px;
+    border-top: 1px solid #c0c0c0;
     margin: 0;
-    font-size: 80%;
+    font-size: 86%;
     box-sizing: border-box;
 }
 
@@ -256,7 +253,85 @@ ul li.itemmenubar a:hover {
     }
     #rodape #coluna.rodape1, #rodape #coluna.rodape2 {
         text-align: center;
-        padding: 20px;
+        padding: 10px 20px 0 20px;
     }
+    #descricao {
+        text-align: center;
+     }
+
+}
+
+/*destaque home*/
+#caixadestaque {
+    width: 70%;
+    border: none;
+    box-shadow: 0px 0px 20px #ddd;
+    background: #fff;
+    border-radius: 6px;
+    display: table;
+    height: auto;
+    padding: 16px;
+    margin: 3em auto;
+    box-sizing: border-box
+}
+
+#caixadestaque::before {
+    content: "Navegue pelas categorias:";
+    border: none;
+    display: table;
+    padding: 0;
+    margin: 10px auto;
+    font-size: 20px;
+    font-family: Roboto;
+}
+
+#caixadestaque #bottom {
+    float: left;
+    padding: 0px 20px;
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+    display: block;
+}
+
+#caixadestaque #bottom a {
+    margin: 10px 0;
+    border: none;
+    display: inherit;
+    padding: 20px 0;
+    color: rgb(46, 82, 140);
+    border-radius: 6px;
+    font-size: 120%;
+    font-weight: 900;
+    text-decoration: none;
+    background-color: rgb(147, 190, 223);
+    box-sizing: border-box;
+}
+
+#caixadestaque #bottom span {
+    line-height: 1.5em;
+}
+
+#caixadestaque #bottom a:hover {
+    color: rgb(73, 98, 163);
+    text-decoration: none;
+    opacity: 85%
+}
+
+@media (max-width: 600px) {
     
+    #caixadestaque {
+        width: 90%;
+        border: none;
+        display: table;
+        padding: 1em
+    }
+    #caixadestaque #bottom {
+        float: left;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        line-height: 0
+    }
+   
 }
