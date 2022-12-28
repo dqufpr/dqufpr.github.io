@@ -57,12 +57,12 @@ a:hover {
 
 /* mapa informacoes */
 .container {
-  border: none;
-  width: 100%;
-  min-height: 300px;
-  height: auto;
-  background: #fff;
-  margin: 0 auto;
+    border: none;
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    background: #fff;
+    margin: 0 auto;
 }
 
 .container iframe {
@@ -172,8 +172,9 @@ ul.menubar .itemmenubar a {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     color: #fff;
-    padding: 10px 20px;
+    padding: 10px 15px;
     font-weight: bold;
+    text-align: center;
 }
 
 ul li.itemmenubar a:hover {
@@ -233,29 +234,48 @@ ul li.itemmenubar a:hover {
 @media (max-width: 650px) {
     #cabecalho {
         width: 100%;
-        text-align:center;
+        text-align: center;
     }
+
     #menu {
         width: 100%;
         position: relative;
         padding: 0;
         margin: 0 auto;
+        background: #19345b;
     }
-    
+
+    #menu ul.menubar {
+        width: 100%;
+    }
+
+    ul.menubar .itemmenubar {
+        width: 33%;
+    }
+
+    ul.menubar .itemmenubar a {
+        font-size: 10px;
+        padding: 10px 0px;
+    }
+
     #rodape {
         width: 100%;
         text-align: center;
     }
+
     #rodape #coluna {
         width: 100%;
     }
-    #rodape #coluna.rodape1, #rodape #coluna.rodape2 {
+
+    #rodape #coluna.rodape1,
+    #rodape #coluna.rodape2 {
         text-align: center;
         padding: 10px 20px 0 20px;
     }
+
     #descricao {
         text-align: center;
-     }
+    }
 
 }
 
@@ -325,6 +345,7 @@ ul li.itemmenubar a:hover {
         box-shadow: none;
         margin: 0 auto;
     }
+
     #caixadestaque #bottom {
         float: left;
         padding: 0;
@@ -332,5 +353,5 @@ ul li.itemmenubar a:hover {
         margin: 0;
         line-height: 0
     }
-   
+
 }
