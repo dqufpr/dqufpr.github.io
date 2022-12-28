@@ -45,13 +45,15 @@ a:hover {
 #descricao {
     width: 100%;
     margin: 0;
-    padding: 10px 20px 0px 20px;
+    padding: 5px 20px 5px 20px;
     font-size: 16px;
     font-weight: bold;
     line-height: 2em;
     background: rgb(222, 228, 234);
     box-sizing: border-box;
     color: rgb(61, 102, 138);
+    display: flow-root;
+    text-align: center;
 }
 
 
@@ -281,15 +283,14 @@ ul li.itemmenubar a:hover {
 
 /*destaque home*/
 #caixadestaque {
-    width: 70%;
+    width: 80%;
     border: none;
-    box-shadow: 0px 0px 20px #ddd;
     background: #fff;
     border-radius: 6px;
-    display: table;
+    display: inline-table;
     height: auto;
-    padding: 16px;
-    margin: 3em auto;
+    padding: 20px;
+    margin: 0 auto 4em auto;
     box-sizing: border-box
 }
 
@@ -314,16 +315,17 @@ ul li.itemmenubar a:hover {
 
 #caixadestaque #bottom a {
     margin: 10px 0;
-    border: none;
+    border: 1px solid #f2f2f2;
     display: inherit;
     padding: 20px 0;
-    color: rgb(46, 82, 140);
+    color: rgb(34, 78, 151);
     border-radius: 6px;
     font-size: 120%;
     font-weight: 900;
     text-decoration: none;
-    background-color: rgb(147, 190, 223);
+    background-color: rgb(255, 255, 255);
     box-sizing: border-box;
+    box-shadow: 0px 5px 10px #e3e3e3;
 }
 
 #caixadestaque #bottom span {
@@ -333,7 +335,9 @@ ul li.itemmenubar a:hover {
 #caixadestaque #bottom a:hover {
     color: rgb(73, 98, 163);
     text-decoration: none;
-    opacity: 85%
+    opacity: 85%;
+    background: #f4f4f4;
+    transition: 0.1s;
 }
 
 @media (max-width: 600px) {
