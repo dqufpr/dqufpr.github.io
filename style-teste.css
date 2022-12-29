@@ -1,0 +1,377 @@
+/* conteudos */
+html {
+    font-family: sans-serif;
+}
+
+body {
+    font-family: Roboto, Avenir, Calibri, sans-serif;
+    font-size: 100%;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #132660
+}
+
+a:hover {
+    text-decoration: none;
+    color: #132660
+}
+
+#pagina {
+    margin: 0 auto;
+    width: 100%;
+    border: none;
+    background: #fff;
+    padding: 0;
+    display: block;
+}
+
+/*-- colunas --*/
+#colunas {
+    width: 100%;
+    display: block;
+    padding: 0;
+    float: left;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* descrição */
+#descricao {
+    width: 100%;
+    margin: 0;
+    padding: 5px 20px 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 2em;
+    background: rgb(222, 228, 234);
+    box-sizing: border-box;
+    color: rgb(61, 102, 138);
+    display: flow-root;
+    text-align: center;
+}
+
+
+/* mapa informacoes */
+.container {
+    border: none;
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    background: #fff;
+    margin: 0 auto;
+}
+
+.container iframe {
+    width: 100%;
+    min-height: 550px;
+    border: none;
+}
+
+
+h1 {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #1152a8;
+    padding: 6px 0 10px 0;
+}
+
+
+#colunas #coluna {
+    width: 100%;
+    display: table;
+    padding: 20px;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#colunas #coluna #cb {
+    min-height: 450px;
+    height: auto;
+    display: inline-table;
+    padding: 0;
+    height: auto;
+    margin: 0;
+}
+
+#colunas #coluna #cb.esquerda {
+    width: 100%;
+    background: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+#colunas #coluna #cb #conteudocoluna.principal {
+    text-align: center;
+    font-size: 16px;
+}
+
+#colunas #coluna #cb #conteudocoluna.principal h4 {
+    text-align: justify;
+    font-size: 16px;
+    margin: 0px 0 10px 0
+}
+
+/*-- cabeçalho --*/
+#cabecalho {
+    display: block;
+    float: left;
+    width: 80%;
+    margin: 0;
+    background-color: #1d3c69;
+    color: #f6f6f7;
+    padding: 0 20px;
+    height: 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-size: 50%;
+    background-image: url(https://dqufpr.github.io/img/logo-site-hv.svg);
+}
+
+#cabecalho #titulo {
+    padding: 0;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    background: none;
+    display: none;
+}
+
+/*-- menu principal --*/
+#menu {
+    background: rgb(29, 60, 105);
+    height: 50px;
+    display: inline-flex;
+    float: left;
+    position: relative;
+    width: 20%;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#menu ul.menubar {
+    margin: 0;
+    padding: 8px 0 0 0;
+    font-size: 100%;
+    width: 100%;
+}
+
+ul.menubar .itemmenubar {
+    list-style: none;
+    float: left;
+    width: 33.32%;
+}
+
+ul.menubar .itemmenubar a {
+    display: block;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+ul li.itemmenubar a:hover {
+    color: #549db3;
+}
+
+/*-- rodapé--*/
+#rodape {
+    display: table;
+    clear: both;
+    background: #dee4ea;
+    color: #5b5b5b;
+    width: 100%;
+    padding: 35px;
+    border-top: 1px solid #c0c0c0;
+    margin: 0;
+    font-size: 86%;
+    box-sizing: border-box;
+    font-family: Gotham;
+}
+
+#rodape a {
+    text-decoration: none;
+    color: #0b08a8
+}
+
+#rodape #coluna {
+    width: 50%;
+    margin: 0;
+    box-sizing: border-box;
+    float: left;
+}
+
+#rodape #coluna.rodape1 {
+    text-align: left;
+    padding: 0;
+}
+
+#rodape #coluna.rodape2 {
+    text-align: right;
+    padding: 0;
+}
+
+#rodape2 {
+    border-top: 1px solid #ccc;
+    color: #555;
+    display: block;
+    background: #fff;
+    width: 100%;
+    /*! min-height: ; */
+    font-size: 70%;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* responsivo */
+@media (max-width: 650px) {
+    #cabecalho {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        background-position: center;
+        background-size: 60%;
+        background-image: url(https://dqufpr.github.io/img/logo-site-mobile.svg);
+    }
+
+    #menu {
+        width: 100%;
+        position: relative;
+        padding: 0;
+        margin: 0 auto;
+        background: #19345b;
+        height: auto;
+    }
+
+    #menu ul.menubar {
+        width: 100%;
+        padding: 0;
+    }
+
+    ul.menubar .itemmenubar {
+        width: 33.33%;
+    }
+
+    ul.menubar .itemmenubar a {
+        font-size: 10px;
+        padding: 10px 0px;
+    }
+
+    #rodape {
+        width: 100%;
+        text-align: center;
+    }
+
+    #rodape #coluna {
+        width: 100%;
+    }
+
+    #rodape #coluna.rodape1,
+    #rodape #coluna.rodape2 {
+        text-align: center;
+        padding: 10px 20px 0 20px;
+    }
+
+    #descricao {
+        text-align: center;
+    }
+
+}
+
+
+/*destaque home*/
+#caixadestaque {
+    width: 80%;
+    border: none;
+    background: #fff;
+    border-radius: 6px;
+    display: inline-table;
+    height: auto;
+    padding: 20px;
+    margin: 0 auto 1em auto;
+    box-sizing: border-box
+}
+
+#caixadestaque::before {
+    content: "Navegue pelas categorias:";
+    border: none;
+    display: table;
+    padding: 0;
+    margin: 10px auto;
+    font-size: 20px;
+    font-family: Gotham;
+    font-weight: 500;
+}
+
+#caixadestaque #bottom {
+    float: left;
+    padding: 0px 20px;
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+    display: block;
+}
+
+#caixadestaque #bottom a {
+    margin: 10px 0;
+    border: 1px solid #f2f2f2;
+    display: inherit;
+    padding: 20px 0;
+    color: #6081b1;
+    border-radius: 6px;
+    font-size: 120%;
+    font-weight: 900;
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    box-shadow: 0px 5px 10px #e3e3e3;
+}
+
+#caixadestaque #bottom span {
+    line-height: 1.5em;
+}
+
+#caixadestaque #bottom a:hover {
+    color: #388da6;
+    text-decoration: none;
+    opacity: 85%;
+    background: #f4f4f4;
+    transition: 0.1s;
+}
+
+@media (max-width: 600px) {
+    #caixadestaque {
+        width: 100%;
+        border: none;
+        display: table;
+        padding: 1em;
+        box-shadow: none;
+        margin: 0 auto;
+    }
+
+    #caixadestaque #bottom {
+        float: left;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        line-height: 0
+    }
+
+}
