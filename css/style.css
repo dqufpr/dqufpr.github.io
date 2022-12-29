@@ -331,7 +331,7 @@ ul li.itemmenubar a:hover {
     border: 1px solid #f2f2f2;
     display: inherit;
     padding: 20px 0;
-    color: rgb(34, 78, 151);
+    color: #6081b1;
     border-radius: 6px;
     font-size: 120%;
     font-weight: 900;
@@ -346,7 +346,7 @@ ul li.itemmenubar a:hover {
 }
 
 #caixadestaque #bottom a:hover {
-    color: rgb(73, 98, 163);
+    color: #388da6;
     text-decoration: none;
     opacity: 85%;
     background: #f4f4f4;
