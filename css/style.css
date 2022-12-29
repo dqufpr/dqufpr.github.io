@@ -292,6 +292,7 @@ ul li.itemmenubar a:hover {
 
 }
 
+
 /*destaque home*/
 #caixadestaque {
     width: 80%;
@@ -312,7 +313,8 @@ ul li.itemmenubar a:hover {
     padding: 0;
     margin: 10px auto;
     font-size: 20px;
-    font-family: Roboto;
+    font-family: Gotham;
+    font-weight: 500;
 }
 
 #caixadestaque #bottom {
