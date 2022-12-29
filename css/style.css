@@ -310,7 +310,7 @@ ul li.itemmenubar a:hover {
 }
 
 #caixadestaque::before {
-    content: "Navegue pelas categorias:";
+    content: "Serviços";
     border: none;
     display: table;
     padding: 0;
