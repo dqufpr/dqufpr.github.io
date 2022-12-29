@@ -166,11 +166,13 @@ h1 {
     margin: 0;
     padding: 8px 0 0 0;
     font-size: 100%;
+    width: 100%;
 }
 
 ul.menubar .itemmenubar {
     list-style: none;
     float: left;
+    width: 33.32%;
 }
 
 ul.menubar .itemmenubar a {
