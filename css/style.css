@@ -305,7 +305,7 @@ ul li.itemmenubar a:hover {
     display: inline-table;
     height: auto;
     padding: 20px;
-    margin: 0 auto 4em auto;
+    margin: 0 auto 1em auto;
     box-sizing: border-box
 }
 
