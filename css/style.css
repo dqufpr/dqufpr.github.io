@@ -137,7 +137,7 @@ h1 {
     background-repeat: no-repeat;
     background-origin: content-box;
     background-size: 50%;
-    background-image: url(img/logo-site-hv.svg);
+    background-image: url(https://dqufpr.github.io/img/logo-site-hv.svg);
 }
 
 #cabecalho #titulo {
@@ -245,7 +245,7 @@ ul li.itemmenubar a:hover {
         background-origin: content-box;
         background-position: center;
         background-size: 60%;
-        background-image: url(img/logo-site-mobile.svg);
+        background-image: url(https://dqufpr.github.io/img/logo-site-mobile.svg);
     }
 
     #menu {
