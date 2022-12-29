@@ -13,12 +13,12 @@ body {
 
 a {
     text-decoration: none;
-    color: #132660
+    color: #1d3c69;
 }
 
 a:hover {
     text-decoration: none;
-    color: #132660
+    color: #1d3c69;
 }
 
 #pagina {
@@ -207,7 +207,7 @@ ul li.itemmenubar a:hover {
 
 #rodape a {
     text-decoration: none;
-    color: #0b08a8
+    color: #1d3c69;
 }
 
 #rodape #coluna {
@@ -349,7 +349,7 @@ ul li.itemmenubar a:hover {
 }
 
 #caixadestaque #bottom a:hover {
-    color: #388da6;
+    color: #1d3c69;
     text-decoration: none;
     opacity: 85%;
     background: #f4f4f4;
