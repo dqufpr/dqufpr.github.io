@@ -456,6 +456,13 @@ ul li.itemmenubar a:hover {
     background-repeat: no-repeat;
 }
 
+#model #destaque.servico {
+    background-image: url(https://dqufpr.github.io/img/capa-home2.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 #model .titulo {
     width: 100%;
     height: auto;
