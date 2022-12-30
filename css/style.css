@@ -225,7 +225,13 @@ ul li.itemmenubar a:hover {
 
 #rodape a {
     text-decoration: none;
-    color: #ddd;
+    color: #373969;
+}
+
+#rodape p {
+    line-height: 1.2em;
+    padding: 0;
+    margin: 8px 0 0 0;
 }
 
 #rodape #coluna {
