@@ -269,6 +269,15 @@ ul li.itemmenubar a:hover {
         background-image: url(https://dqufpr.github.io/img/logo-site-mobile.svg);
     }
 
+     #contentsite {
+        width: 100%;
+        display: inherit;
+        padding: 0 20px;
+        height: auto;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
     #menu {
         width: 100%;
         position: relative;
@@ -312,6 +321,7 @@ ul li.itemmenubar a:hover {
     }
 
 }
+
 
 /*--navegacao mapas --*/
 #nav {
