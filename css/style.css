@@ -295,87 +295,6 @@ ul li.itemmenubar a:hover {
 
 }
 
-
-/*destaque home*/
-#caixadestaque {
-    width: 80%;
-    border: none;
-    background: #fff;
-    border-radius: 6px;
-    display: inline-table;
-    height: auto;
-    padding: 20px;
-    margin: 0 auto 1em auto;
-    box-sizing: border-box
-}
-
-#caixadestaque::before {
-    content: "Serviços";
-    border: none;
-    display: table;
-    padding: 0;
-    margin: 10px auto;
-    font-size: 20px;
-    font-family: Gotham;
-    font-weight: 500;
-    color: #96a9c1;
-}
-
-#caixadestaque #bottom {
-    float: left;
-    padding: 0px 20px;
-    text-align: center;
-    width: 50%;
-    box-sizing: border-box;
-    display: block;
-}
-
-#caixadestaque #bottom a {
-    margin: 10px 0;
-    border: 1px solid #f2f2f2;
-    display: inherit;
-    padding: 20px 0;
-    color: #6081b1;
-    border-radius: 6px;
-    font-size: 120%;
-    font-weight: 900;
-    text-decoration: none;
-    background-color: rgb(255, 255, 255);
-    box-sizing: border-box;
-    box-shadow: 0px 5px 10px #e3e3e3;
-}
-
-#caixadestaque #bottom span {
-    line-height: 1.5em;
-}
-
-#caixadestaque #bottom a:hover {
-    color: #1d3c69;
-    text-decoration: none;
-    opacity: 85%;
-    background: #f4f4f4;
-    transition: 0.1s;
-}
-
-@media (max-width: 600px) {
-    #caixadestaque {
-        width: 100%;
-        border: none;
-        display: table;
-        padding: 1em;
-        box-shadow: none;
-        margin: 0 auto;
-    }
-
-    #caixadestaque #bottom {
-        float: left;
-        padding: 0;
-        width: 100%;
-        margin: 0;
-        line-height: 0
-    }
-
-}
 /*--navegacao mapas --*/
 #nav {
     width: 100%;
@@ -493,4 +412,158 @@ ul li.itemmenubar a:hover {
         width: 100%;
         margin: 0;
     }
+}
+
+#homemodel {
+    width: 80%;
+    margin: 2.5em auto;
+}
+
+#model {
+    width: 46%;
+    background-color: #fff;
+    margin: 10px;
+    padding: 0;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px #eee;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Gotham;
+}
+
+#model #destaque {
+    width: 100%;
+    height: 180px;
+    background-color: #eee;
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px 8px 0px 0px;
+}
+
+#model #destaque.mapa {
+    background-image: url(https://laesb.ufpr.br/wp-content/uploads/2022/10/premio-excelencia-academica-da-pos-graduacao.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#model .titulo {
+    width: 100%;
+    height: auto;
+}
+
+#model .titulo span {
+    font-size: 26px;
+    font-weight: 900;
+    width: 100%;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #fff;
+}
+
+#model .descricao {
+    width: 100%;
+}
+
+#model .descricao span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #848484;
+    line-height: 1.5em;
+    width: 100%;
+    padding: 8px 40px 20px 40px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+@media (max-width: 650px) {
+    #homemodel {width: 90%;margin: 1em auto;
+    }
+    #model {width: 100%; margin: 20px auto}
+}
+
+/*destaque home*/
+#caixadestaque {
+    width: 80%;
+    border: none;
+    background: #fff;
+    border-radius: 6px;
+    display: inline-table;
+    height: auto;
+    padding: 20px;
+    margin: 0 auto 1em auto;
+    box-sizing: border-box
+}
+
+#caixadestaque::before {
+    content: "Serviços";
+    border: none;
+    display: table;
+    padding: 0;
+    margin: 10px auto;
+    font-size: 20px;
+    font-family: Gotham;
+    font-weight: 500;
+    color: #96a9c1;
+}
+
+#caixadestaque #bottom {
+    float: left;
+    padding: 0px 20px;
+    text-align: center;
+    width: 50%;
+    box-sizing: border-box;
+    display: block;
+}
+
+#caixadestaque #bottom a {
+    margin: 10px 0;
+    border: 1px solid #f2f2f2;
+    display: inherit;
+    padding: 20px 0;
+    color: #6081b1;
+    border-radius: 6px;
+    font-size: 120%;
+    font-weight: 900;
+    text-decoration: none;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    box-shadow: 0px 5px 10px #e3e3e3;
+}
+
+#caixadestaque #bottom span {
+    line-height: 1.5em;
+}
+
+#caixadestaque #bottom a:hover {
+    color: #1d3c69;
+    text-decoration: none;
+    opacity: 85%;
+    background: #f4f4f4;
+    transition: 0.1s;
+}
+
+@media (max-width: 600px) {
+    #caixadestaque {
+        width: 100%;
+        border: none;
+        display: table;
+        padding: 1em;
+        box-shadow: none;
+        margin: 0 auto;
+    }
+
+    #caixadestaque #bottom {
+        float: left;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        line-height: 0
+    }
+
 }
