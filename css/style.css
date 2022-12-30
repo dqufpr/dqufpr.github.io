@@ -515,9 +515,17 @@ ul li.itemmenubar a:hover {
     font-size: 28px;
     font-weight: 900;
     width: 100%;
-    padding: 15px 40px;
+    padding: 30px 40px;
     box-sizing: border-box;
     display: inline-block;
+}
+
+#model span.inativo {
+    background-color: #ffdfdf;
+    background-image: url(https://dqufpr.github.io/img/nota.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 25%;
 }
 
 #model .descricao {
@@ -525,12 +533,12 @@ ul li.itemmenubar a:hover {
 }
 
 #model .descricao span {
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 400;
     color: #8693a3;
-    line-height: 1.5em;
+    min-height: 80px;
     width: 100%;
-    padding: 0px 40px 20px 40px;
+    padding: 10px 40px 20px 40px;
     box-sizing: border-box;
     display: inline-block;
 }
