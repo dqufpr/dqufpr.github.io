@@ -224,13 +224,14 @@ ul li.itemmenubar a:hover {
 }
 
 #rodape span {
-    background-color: none;
     background-image: url(https://dqufpr.github.io/img/logo-rodape.svg);
     background-position: left center;
     background-repeat: no-repeat;
     color: transparent;
-    width: 100%;
-    padding: 1em 0;
+    width: 33%;
+    min-height: 25px;
+    float: left;
+    padding: 1em 0; 
     margin: 0 auto;
     display: inline-block;
     position: relative;
@@ -315,6 +316,12 @@ ul li.itemmenubar a:hover {
 
     #rodape #coluna {
         width: 100%;
+    }
+
+    #rodape span {
+        background-position: top;
+        width: 100%;
+        min-height: 35px;    
     }
 
     #rodape #coluna.rodape1,
