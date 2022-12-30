@@ -383,13 +383,6 @@ ul li.itemmenubar a:hover {
         margin: 0;
         line-height: 0
     }
-
-    /* formulario */
-
-    #formulario {
-        width: 100%;
-        margin: 0;
-    }
 }
 
 
@@ -402,12 +395,19 @@ ul li.itemmenubar a:hover {
 #formulario .caixa1,
 #formulario .caixa2 {
     background: #f6f6f6;
-    padding: 15px;
+    padding: 10px;
     box-sizing: border-box;
     border: 1px solid #cecece;
     border-radius: 3px;
     font-size: 110%;
     font-family: Roboto;
+}
+
+#formulario .caixa2 {
+    width: 100%;
+    max-width: 100%;
+    min-height: 110px;
+    max-height: 110px;
 }
 
 #formulario input[type="submit"] {
