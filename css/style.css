@@ -521,7 +521,6 @@ ul li.itemmenubar a:hover {
 }
 
 #model span.inativo {
-    background-color: #ffdfdf;
     background-image: url(https://dqufpr.github.io/img/nota.svg);
     background-position: right center;
     background-repeat: no-repeat;
