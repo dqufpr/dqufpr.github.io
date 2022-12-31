@@ -550,6 +550,7 @@ ul li.itemmenubar a:hover {
     background-image: url(https://dqufpr.github.io/img/nota.svg);
     background-position: right center;
     background-repeat: no-repeat;
+    background-position: 100% 10%;
     background-size: 25%;
 }
 
@@ -557,6 +558,7 @@ ul li.itemmenubar a:hover {
     background-image: url(https://dqufpr.github.io/img/new.svg);
     background-position: right center;
     background-repeat: no-repeat;
+    background-position: 100% 10%;
     background-size: 25%;
 }
 
@@ -564,6 +566,7 @@ ul li.itemmenubar a:hover {
     background-image: url(https://dqufpr.github.io/img/ext.svg);
     background-position: right center;
     background-repeat: no-repeat;
+    background-position: 100% 10%;
     background-size: 25%;
 }
 
