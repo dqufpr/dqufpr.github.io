@@ -18,7 +18,7 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: #1d3c69;
+    color: #476b9f;
 }
 
 #pagina {
@@ -78,7 +78,7 @@ a:hover {
 .container {
     border: none;
     width: 100%;
-    min-height: 250px;
+    min-height: 500px;
     height: auto;
     background: #fff;
     margin: 0 auto;
@@ -217,7 +217,7 @@ ul li.itemmenubar a:hover {
     background: #dee4ea;
     color: #5b5b5b;
     width: 100%;
-    padding: 35px;
+    padding: 40px;
     border-top: none;
     margin: 0;
     font-size: 88%;
@@ -314,6 +314,7 @@ ul li.itemmenubar a:hover {
     #rodape {
         width: 100%;
         text-align: center;
+        font-size: 80%;
     }
 
     #rodape #coluna {
@@ -321,9 +322,10 @@ ul li.itemmenubar a:hover {
     }
 
     #rodape span {
-        background-position: top;
+        background-position: center;
         width: 100%;
-        min-height: 35px;    
+        min-height: 40px;    
+        margin: 0 0 20px 0;
     }
 
     #rodape #coluna.rodape1,
@@ -410,6 +412,12 @@ ul li.itemmenubar a:hover {
         margin: 0;
         line-height: 0
     }
+
+    /* formulario */
+    #formulario {
+        width: 100%;
+        margin: 0;
+    }
 }
 
 
@@ -462,17 +470,18 @@ ul li.itemmenubar a:hover {
 /*página inicial elementos*/
 #homemodel {
     width: 80%;
-    margin: 2.5em auto;
+    margin: 3em auto;
+    display: inline-block;
 }
 
 #model {
-    width: 48%;
+    width: 46%;
     background-color: #fff;
-    margin: 10px;
+    margin: 2%;
     padding: 0;
     border: none;
-    border-radius: 8px;
-    box-shadow: 0px 0px 20px #eee;
+    border-radius: 6px;
+    box-shadow: 0px 0px 14px #d8d8d8;
     position: relative;
     float: left;
     box-sizing: border-box;
@@ -545,15 +554,14 @@ ul li.itemmenubar a:hover {
     display: inline-block;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 550px) {
     #homemodel {
         width: 90%;
-        margin: 1em auto;
+        margin: 40px auto;
     }
-
     #model {
         width: 100%;
-        margin: 20px auto
+        margin: 20px auto;
     }
 }
 
