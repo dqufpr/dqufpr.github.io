@@ -157,6 +157,7 @@ h2 {
     background-repeat: no-repeat;
     background-origin: content-box;
     background-size: 50%;
+    background-position: left center;
     background-image: url(https://dqufpr.github.io/img/logo-site-hv.svg);
 }
 
@@ -476,7 +477,7 @@ ul li.itemmenubar a:hover {
 }
 
 #model {
-    width: 46%;
+    width: 28%;
     background-color: #fff;
     margin: 2%;
     padding: 0;
@@ -519,22 +520,48 @@ ul li.itemmenubar a:hover {
     background-repeat: no-repeat;
 }
 
+#model #destaque.dq {
+    background-image: url(https://dqufpr.github.io/img/capa-home3.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 #model .titulo {
     width: 100%;
     height: auto;
+    width: 100%;
+    padding: 0;
+    display: inline-block;
+    min-height: 80px;
 }
 
 #model .titulo span {
     font-size: 28px;
     font-weight: 900;
     width: 100%;
-    padding: 30px 40px;
+    padding: 20px 30px;
     box-sizing: border-box;
     display: inline-block;
+    background-color: #fff;
 }
 
 #model span.inativo {
     background-image: url(https://dqufpr.github.io/img/nota.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 25%;
+}
+
+#model span.new {
+    background-image: url(https://dqufpr.github.io/img/new.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 25%;
+}
+
+#model span.ext {
+    background-image: url(https://dqufpr.github.io/img/ext.svg);
     background-position: right center;
     background-repeat: no-repeat;
     background-size: 25%;
