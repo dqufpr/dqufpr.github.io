@@ -1,2 +1,0 @@
-# dqufpr.github.io
-WebPage
