@@ -22,7 +22,8 @@ a:hover {
 
 #pagina {
     margin: 0 auto;
-    width: 100%;
+    min-width: 100%;
+    height: auto;
     border: none;
     padding: 0;
     display: block;
@@ -36,7 +37,7 @@ a:hover {
     height: auto;
     margin: 0 auto;
     box-sizing: border-box;
-    background: #fff;
+    background: #f2f0f041;
 }
 
 /*conteudo do site*/
@@ -51,10 +52,9 @@ a:hover {
 }
 
 #contentsite p {
-    line-height: 1.5em;
+    line-height: 1.4em;
     padding: 10px 0;
-    font-weight: 300;
-    font-family: Roboto, Arial;
+    font-weight: 400;
 }
 
 /* descrição */
@@ -94,16 +94,17 @@ a:hover {
 /* títulos */
 h1 {
     font-size: 26px;
-    font-weight: 600;
+    font-weight: 700;
     color: #1d3c69;
     padding: 20px 0;
+    border: none;
 }
 
 h2 {
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 700;
     color: #3f4a57;
-    padding: 20px 0;
+    padding: 15px 0 5px 0;
 }
 
 /* colunas */
@@ -114,7 +115,7 @@ h2 {
     height: auto;
     margin: 0 auto;
     box-sizing: border-box;
-    position: relative;
+
 }
 
 #colunas #coluna #cb {
@@ -216,10 +217,10 @@ ul li.itemmenubar a:hover {
     background: #dee4ea;
     color: #5b5b5b;
     width: 100%;
-    padding: 40px;
+    padding: 40px 30px;
     border-top: none;
     margin: 0;
-    font-size: 88%;
+    font-size: 85%;
     box-sizing: border-box;
     font-family: Gotham;
 }
@@ -229,7 +230,7 @@ ul li.itemmenubar a:hover {
     background-position: left center;
     background-repeat: no-repeat;
     color: transparent;
-    width: 33%;
+    width: 30%;
     min-height: 25px;
     float: left;
     padding: 1em 0;
@@ -274,7 +275,8 @@ ul li.itemmenubar a:hover {
         background-repeat: no-repeat;
         background-origin: content-box;
         background-position: center;
-        background-size: 60%;
+        padding: 30px 0;
+        background-size: 40%;
         background-image: url(../img/logo-site-mobile.svg);
     }
 
@@ -337,9 +339,16 @@ ul li.itemmenubar a:hover {
     #descricao {
         text-align: center;
     }
-
 }
 
+@media (min-width: 651px) and (max-width: 1000px) {
+    #rodape span {      
+        background-position: top left;
+        width: 100%;
+        min-height: 25px;
+        padding: 0 0 40px 0;
+    }
+}
 
 /*--navegacao mapas --*/
 #nav {
@@ -483,7 +492,7 @@ ul li.itemmenubar a:hover {
     padding: 0;
     border: none;
     border-radius: 6px;
-    box-shadow: 0 0 15px 5px #eee;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 15%);
     position: relative;
     float: left;
     box-sizing: border-box;
@@ -493,7 +502,7 @@ ul li.itemmenubar a:hover {
 
 #model:hover {
     transition: 0.2s;
-    box-shadow: 0px 0px 30px #ddd;
+    box-shadow: 0px 3px 22px 0 rgb(0 0 0 / 18%);
 }
 
 #model #destaque {
@@ -585,7 +594,7 @@ ul li.itemmenubar a:hover {
     display: inline-block;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 650px) {
     #homemodel {
         width: 90%;
         margin: 40px auto;
@@ -594,6 +603,18 @@ ul li.itemmenubar a:hover {
     #model {
         width: 100%;
         margin: 20px auto;
+    }
+}
+
+@media (min-width: 651px) and (max-width: 1000px) {
+    #homemodel {
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    #model {
+        width: 45%;
+        background-color: #fff;
     }
 }
 
@@ -659,7 +680,7 @@ ul li.itemmenubar a:hover {
     transition: 0.1s;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     #caixadestaque {
         width: 100%;
         border: none;
