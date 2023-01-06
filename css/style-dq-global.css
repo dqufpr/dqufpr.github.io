@@ -261,6 +261,10 @@ ul li.itemmenubar a:hover {
 #formulario {
     width: 60%;
     margin: 0 auto 3em auto;
+    padding: 1em 2em;
+    background: #fff;
+    border-radius: 6px;
+    box-sizing: border-box;
 }
 
 #formulario .caixa1,
