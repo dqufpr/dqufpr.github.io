@@ -99,12 +99,12 @@ a:hover {
     font-size: 18px;
     font-weight: 600;
     line-height: 1em;
-    background: #f4f4f4;
     box-sizing: border-box;
-    color: #3d668a;
     display: inline-block;
     text-align: center;
     font-family: Gotham;
+    background: #f4f4f4;
+    color: #3d668a;
 }
 
 /* títulos */
@@ -648,8 +648,7 @@ ul li.itemmenubar a:hover {
     margin: 0 auto 50px auto;
     width: 95%;
     box-sizing: border-box;
-    background: #fcfcfc;
-    border: 1px solid #d2d2d2;
+    background: #f4f4f4;
     border-radius: 6px;
     text-align: center;
 }
@@ -661,7 +660,7 @@ ul li.itemmenubar a:hover {
     font-size: 120%;
     font-family: Gotham;
     font-weight: 500;
-    color: #819898;
+    color: #3d668a;
 }
 
 #navmap ul {
@@ -832,8 +831,6 @@ ul li.itemmenubar a:hover {
         background-position: 100% 10%;
     }
 }
-
-
 
 /* /////////////// responsivo max 800px /////////////// */
 @media (max-width: 800px) {
