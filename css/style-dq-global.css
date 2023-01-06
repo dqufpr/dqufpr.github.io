@@ -714,7 +714,7 @@ ul li.itemmenubar a:hover {
     font-size: 120%;
     font-family: Gotham;
     font-weight: 500;
-    color: #819898;
+    color: #3d668a;
 }
 
 #content-leg #leg {
@@ -810,7 +810,7 @@ ul li.itemmenubar a:hover {
         width: 100%;
         border: none;
         display: table;
-        padding: 20px;
+        padding: 0 20px;
         box-shadow: none;
         margin: 0 auto;
     }
