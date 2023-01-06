@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* /////////////// css global /////////////// */
 html {
     font-family: sans-serif;
@@ -886,4 +887,894 @@ ul li.itemmenubar a:hover {
         background-position: 100% 10%;
         background-size: 26%;
     }
+=======
+/* /////////////// css global /////////////// */
+html {
+    font-family: sans-serif;
+}
+
+body {
+    font-family: Roboto, Avenir, Calibri, sans-serif;
+    font-size: 100%;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #1d3c69;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #476b9f;
+}
+
+#pagina {
+    margin: 0 auto;
+    width: 100%;
+    border: none;
+    padding: 0;
+    display: block;
+}
+
+/* colunas */
+#colunas {
+    width: 100%;
+    display: block;
+    padding: 0;
+    float: left;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #f2f0f041;
+}
+
+/* colunas content */
+#colunas #coluna {
+    width: 100%;
+    display: table;
+    padding: 20px;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#colunas #coluna #cb {
+    min-height: 450px;
+    height: auto;
+    display: inline-table;
+    padding: 0;
+    height: auto;
+    margin: 0;
+}
+
+#colunas #coluna #cb.esquerda {
+    width: 100%;
+    background: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+}
+
+#colunas #coluna #cb #conteudocoluna.principal {
+    text-align: left;
+    font-size: 16px;
+}
+
+#contentsite {
+    width: 80%;
+    display: inherit;
+    padding: 0px 40px;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+#contentsite p {
+    line-height: 1.4em;
+    padding: 10px 0;
+    font-weight: 400;
+}
+
+#descricao {
+    width: 100%;
+    margin: 0;
+    padding: 20px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1em;
+    background: #f4f4f4;
+    box-sizing: border-box;
+    color: #3d668a;
+    display: inline-block;
+    text-align: center;
+    font-family: Gotham;
+}
+
+/* títulos */
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1d3c69;
+    padding: 20px 0;
+    border: none;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #3f4a57;
+    padding: 15px 0 5px 0;
+}
+
+/*-- cabeçalho --*/
+#cabecalho {
+    display: block;
+    float: left;
+    width: 80%;
+    margin: 0;
+    background-color: #1d3c69;
+    color: #f6f6f7;
+    padding: 0 20px;
+    height: 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-size: 50%;
+    background-position: left center;
+}
+
+#cabecalho #titulo {
+    padding: 0;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    background: none;
+    display: none;
+}
+
+/*-- menu principal --*/
+#menu {
+    background: #1d3c69;
+    height: 50px;
+    display: inline-flex;
+    float: left;
+    position: relative;
+    width: 20%;
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#menu ul.menubar {
+    margin: 0;
+    padding: 8px 0 0 0;
+    font-size: 100%;
+    width: 100%;
+}
+
+ul.menubar .itemmenubar {
+    list-style: none;
+    float: left;
+    width: 33.32%;
+}
+
+ul.menubar .itemmenubar a {
+    display: block;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+ul li.itemmenubar a:hover {
+    color: #549db3;
+}
+
+/*-- rodapé--*/
+#rodape {
+    display: table;
+    clear: both;
+    background: #dee4ea;
+    color: #5b5b5b;
+    width: 100%;
+    padding: 40px 30px;
+    border-top: none;
+    margin: 0;
+    font-size: 85%;
+    box-sizing: border-box;
+    font-family: Gotham;
+}
+
+#rodape span {
+    background-image: url(../img/logo-rodape.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    color: transparent;
+    width: 30%;
+    min-height: 25px;
+    float: left;
+    padding: 1em 0;
+    margin: 0 auto;
+    display: inline-block;
+    position: relative;
+
+}
+
+#rodape #coluna {
+    width: 50%;
+    margin: 0;
+    box-sizing: border-box;
+    float: left;
+}
+
+#rodape #coluna.rodape1 {
+    text-align: left;
+    padding: 0;
+}
+
+#rodape #coluna.rodape2 {
+    text-align: right;
+    padding: 0;
+}
+
+#rodape a {
+    text-decoration: none;
+    color: #373969;
+}
+
+#rodape p {
+    line-height: 1.2em;
+    padding: 0;
+    margin: 8px 0 0 0;
+}
+
+/* formularios */
+#formulario {
+    width: 60%;
+    margin: 0 auto 2em auto;
+}
+
+#formulario .caixa1,
+#formulario .caixa2 {
+    background: #f6f6f6;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #cecece;
+    border-radius: 3px;
+    font-size: 110%;
+    font-family: Roboto;
+}
+
+#formulario .caixa2 {
+    width: 100%;
+    max-width: 100%;
+    min-height: 110px;
+    max-height: 110px;
+}
+
+#formulario input[type="submit"] {
+    background: #1d3c69;
+    margin: 0;
+    padding: 1em 6em;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 900;
+    width: 100%;
+    margin: 20px 0;
+}
+
+#formulario input[type="submit"]:hover {
+    background: #426392;
+    cursor: pointer;
+}
+
+
+
+/* /////////////// responsivo max 650px /////////////// */
+@media (max-width: 650px) {
+    #cabecalho {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        background-position: center;
+        background-size: 60%;
+        background-image: url(../img/logo-site-mobile.svg);
+    }
+
+    #contentsite {
+        width: 100%;
+        display: inherit;
+        padding: 0 20px;
+        height: auto;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    #menu {
+        width: 100%;
+        position: relative;
+        padding: 0;
+        margin: 0 auto;
+        background: #19345b;
+        height: auto;
+    }
+
+    #menu ul.menubar {
+        width: 100%;
+        padding: 0;
+    }
+
+    ul.menubar .itemmenubar {
+        width: 33.33%;
+    }
+
+    ul.menubar .itemmenubar a {
+        font-size: 10px;
+        padding: 10px 0px;
+    }
+
+    #rodape {
+        width: 100%;
+        text-align: center;
+        font-size: 80%;
+        padding: 20px 20px 30px 20px;
+    }
+
+    #rodape #coluna {
+        width: 100%;
+    }
+
+    #rodape span {
+        background-position: center;
+        width: 100%;
+        min-height: 40px;
+        margin: 0 0 20px 0;
+    }
+
+    #rodape #coluna.rodape1,
+    #rodape #coluna.rodape2 {
+        text-align: center;
+        padding: 10px 0 10px 0;
+    }
+
+    #descricao {
+        text-align: center;
+    }
+
+    #formulario {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+/* /////////////// responsivo min 650 max 1000px /////////////// */
+@media (min-width: 651px) and (max-width: 1000px) {
+    #rodape span {
+        background-position: top left;
+        width: 100%;
+        min-height: 25px;
+        padding: 0 0 40px 0;
+    }
+}
+
+
+/* /////////////// css elementos site principal /////////////// */
+
+/* página inicial elementos site base e servicos */
+#homemodel {
+    width: 80%;
+    margin: 3em auto;
+    display: inline-block;
+}
+
+#model {
+    width: 28%;
+    background-color: #fff;
+    margin: 2%;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 15%);
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: Gotham;
+}
+
+#model:hover {
+    transition: 0.2s;
+    box-shadow: 0px 3px 22px 0 rgb(0 0 0 / 18%);
+}
+
+#model #destaque {
+    width: 100%;
+    height: 180px;
+    background-color: #eee;
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px 8px 0px 0px;
+    background-position: 50% 50%;
+    background-image: url(../img/capa-home.svg);
+}
+
+#model #destaque.mapa {
+    background-image: url(../img/capa-home1.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#model #destaque.servico {
+    background-image: url(../img/capa-home2.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#model #destaque.dq {
+    background-image: url(../img/capa-home3.png);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+#model span.inativo {
+    background-image: url(https://dqufpr.github.io/img/nota.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model span.new {
+    background-image: url(https://dqufpr.github.io/img/new.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model span.ext {
+    background-image: url(https://dqufpr.github.io/img/ext.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model .descricao {
+    width: 100%;
+}
+
+#model .titulo {
+    width: 100%;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    display: inline-block;
+    min-height: 80px;
+}
+
+#model .titulo span {
+    font-size: 28px;
+    font-weight: 900;
+    width: 100%;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: #fff;
+}
+
+#model span.inativo {
+    background-image: url(../img/nota.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model span.new {
+    background-image: url(../img/new.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model span.ext {
+    background-image: url(../img/ext.svg);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#model .descricao {
+    width: 100%;
+}
+
+#model .descricao span {
+    font-size: 18px;
+    font-weight: 400;
+    color: #8693a3;
+    min-height: 80px;
+    width: 100%;
+    padding: 10px 40px 20px 40px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+@media (max-width: 650px) {
+    #homemodel {
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    #model {
+        width: 100%;
+        margin: 20px auto;
+    }
+}
+
+@media (min-width: 651px) and (max-width: 1000px) {
+    #homemodel {
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    #model {
+        width: 45%;
+        background-color: #fff;
+    }
+}
+
+
+/* /////////////// css elementos site mapa digital /////////////// */
+
+/*--- destaque principal inicio ---*/
+#caixadestaque {
+    width: 80%;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    display: inline-table;
+    height: auto;
+    padding: 20px;
+    margin: 0 auto 1em auto;
+    box-sizing: border-box
+}
+
+#caixadestaque #bottom {
+    float: left;
+    padding: 0px 10px;
+    text-align: center;
+    width: 33.3%;
+    box-sizing: border-box;
+    display: block;
+}
+
+#caixadestaque #bottom a {
+    margin: 10px 0;
+    border: 1px solid transparent;
+    display: inherit;
+    padding: 45px 0;
+    color: #1d3c69;
+    border-radius: 6px;
+    font-size: 120%;
+    font-weight: 900;
+    text-decoration: none;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 16%);
+}
+
+#caixadestaque #bottom a.inativo {
+    background-image: url(https://dqufpr.github.io/img/nota.svg);
+    background-repeat: no-repeat;
+    background-position: 100% 10%;
+    background-size: 25%;
+}
+
+#caixadestaque #bottom span {
+    line-height: 1.5em;
+}
+
+#caixadestaque #bottom a:hover {
+    color: #476b9f;
+    text-decoration: none;
+    opacity: 95%;
+    transition: 0.3s;
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.22);
+    border: 1px solid #eff0f0;
+}
+
+
+/* mapa informacoes */
+.container {
+    border: none;
+    width: 100%;
+    min-height: 500px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.container iframe {
+    width: 100%;
+    min-height: 870px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*-- navegacao mapas paginas mapas--*/
+#navmap {
+    padding: 0;
+    margin: 0 auto 50px auto;
+    width: 95%;
+    box-sizing: border-box;
+    background: #fcfcfc;
+    border: 1px solid #d2d2d2;
+    border-radius: 6px;
+}
+
+#navmap::before {
+    content: "Navegue pelas categorias:";
+    display: inline-table;
+    padding: 15px 0 5px 0;
+    font-size: 120%;
+    font-family: Gotham;
+    font-weight: 500;
+    color: #819898;
+}
+
+#navmap ul {
+    list-style-type: none;
+    padding: 0 0 25px 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+#navmap ul li {
+    width: 15%;
+    display: inline-block;
+    border: 1px solid #e6e6e6;
+    background-color: #d9e2e9;
+    padding: 12px 20px;
+    margin: 0.6%;
+    font-weight: 900;
+    border-radius: 6px;
+}
+
+#navmap ul li:hover {
+    background-color: #ebeff1;
+    transition: .3s;
+}
+
+/*--- legendas espacos site mapa ---*/
+#dataon {
+    width: 100%;
+    background-color: #fff;
+    display: inline-table;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: 200px;
+}
+
+#dataon .data {
+    width: 96%;
+    display: inline-table;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+#dataon::before {
+    content: "Informações sobre os locais";
+    display: inline-table;
+    padding: 15px 0 15px 0;
+    font-size: 120%;
+    font-family: Gotham;
+    font-weight: 500;
+    color: #819898;
+}
+
+#content-leg #leg {
+    padding: 0;
+    background-color: #F4F4F4;
+    text-align: left;
+    width: 48%;
+    box-sizing: border-box;
+    display: block;
+    margin: 0.6%;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    min-height: 80px;
+    float: left;
+}
+
+#content-leg #leg h2 {
+    margin: 0;
+    padding: 0;
+    color: #16697c;
+    text-align: left;
+    font-size: 130%;
+}
+
+#content-leg #leg p {
+    margin: 0;
+    padding: 0;
+}
+
+#content-leg #leg #numero {
+    background-color: #5b5b5b;
+    box-sizing: border-box;
+    float: left;
+    padding: 0;
+    width: 13%;
+    text-align: center;
+    font-size: 35px;
+    font-weight: 600;
+    color: #383f4c;
+    border-radius: 6px 0px 0px 6px;
+    display: inherit;
+    min-height: 80px;
+}
+
+#content-leg #leg #numero p {
+    margin: 18px 0 0 0;
+}
+
+#content-leg #leg .conteudo {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    box-sizing: border-box;
+    margin: 0;
+    width: 84%;
+}
+
+/*--- legendas cores numeros mapa ---*/
+#content-leg #leg #numero.salaaula {
+    background-color: #4067A1;
+}
+
+#content-leg #leg #numero.salaprof {
+    background-color: #377375;
+}
+
+#content-leg #leg #numero.labensino {
+    background-color: #A3CCE4;
+}
+
+#content-leg #leg #numero.labpesquisa {
+    background-color: #6693AE;
+}
+
+#content-leg #leg #numero.servico {
+    background-color: #965F8A;
+}
+
+#content-leg #leg #numero.banheiro {
+    background-color: #CC7FB5;
+}
+
+#content-leg #leg #numero.outros {
+    background-color: #e3e3e3;
+}
+
+
+/* /////////////// responsivo max 650px /////////////// */
+@media (max-width: 650px) {
+    /*destaque principal*/
+    #caixadestaque {
+        width: 100%;
+        border: none;
+        display: table;
+        padding: 20px;
+        box-shadow: none;
+        margin: 0 auto;
+    }
+
+    #caixadestaque #bottom {
+        float: left;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        line-height: 0
+    }
+
+    #caixadestaque #bottom a {
+        padding: 15px 0;
+    }
+
+    #caixadestaque #bottom a.inativo {
+        background-position: 100% 10%;
+    }
+}
+
+
+/* /////////////// responsivo max 800px /////////////// */
+@media (max-width: 800px) {
+    /*-- navegacao mapas paginas mapas--*/
+    #navmap {
+        width: 95%;
+        margin: 1em auto;
+    }
+
+    #navmap ul li {
+        width: 75%;
+        margin: 4px 0;
+        padding: 8px 20px;
+    }
+
+     /*--- legendas espacos site mapa ---*/
+     #content-leg #leg {
+        width: 100%;
+        padding: 0;
+        margin: 6px 0;
+    }
+
+    #content-leg #leg #numero {
+        padding: 0;
+        font-size: 20px;
+        min-height: 90px;
+    }
+
+    #content-leg #leg .conteudo {
+        padding: 8px;
+    }
+
+    #content-leg #leg p {
+        font-size: 80%;
+    }
+
+    #content-leg #leg h2 {
+        font-size: 111%;
+    }
+
+    #dataon .data {
+        width: 94%;
+    }
+}
+
+
+/* /////////////// responsivo min 650 max 1000px /////////////// */
+@media (min-width: 651px) and (max-width: 1000px) {
+    
+    /*destaque principal*/
+    #caixadestaque {
+        width: 95%;
+    }
+
+    #caixadestaque #bottom {
+        padding: 0;
+        width: 45%;
+        margin: 0.3% 2%;
+        line-height: 0
+    }
+
+    #caixadestaque #bottom a {
+        padding: 40px 20px;
+    }
+
+    #caixadestaque #bottom a.inativo {
+        background-position: 100% 10%;
+        background-size: 26%;
+    }
+>>>>>>> 5dc2ac7026200183d0f71cfbf495c47b12f8d4a3
 }
