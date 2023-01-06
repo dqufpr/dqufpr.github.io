@@ -557,7 +557,6 @@ ul li.itemmenubar a:hover {
     border: none;
     background: transparent;
     border-radius: 6px;
-    display: inline-table;
     height: auto;
     padding: 20px;
     margin: 0 auto 1em auto;
