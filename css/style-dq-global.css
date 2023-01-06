@@ -45,7 +45,7 @@ a:hover {
 #colunas #coluna {
     width: 100%;
     display: table;
-    padding: 20px;
+    padding: 50px 20px;
     height: auto;
     margin: 0 auto;
     box-sizing: border-box;
@@ -88,7 +88,8 @@ a:hover {
 #contentsite p {
     line-height: 1.4em;
     padding: 10px 0;
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 115%;
 }
 
 #descricao {
@@ -108,18 +109,25 @@ a:hover {
 
 /* títulos */
 h1 {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
-    color: #1d3c69;
-    padding: 20px 0;
+    color: #1a4272;
+    padding: 0;
     border: none;
 }
 
 h2 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #3f4a57;
-    padding: 15px 0 5px 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: #1a4272;
+    padding: 10px 0;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a4272;
+    padding: 15px 0;
 }
 
 /*-- cabeçalho --*/
@@ -136,7 +144,7 @@ h2 {
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-origin: content-box;
-    background-size: 50%;
+    background-size: 55%;
     background-position: left center;
 }
 
@@ -209,8 +217,9 @@ ul li.itemmenubar a:hover {
     background-image: url(../img/logo-rodape.svg);
     background-position: left center;
     background-repeat: no-repeat;
+    background-size: 80%;
     color: transparent;
-    width: 30%;
+    width: 35%;
     min-height: 25px;
     float: left;
     padding: 1em 0;
@@ -251,13 +260,13 @@ ul li.itemmenubar a:hover {
 /* formularios */
 #formulario {
     width: 60%;
-    margin: 0 auto 2em auto;
+    margin: 0 auto 3em auto;
 }
 
 #formulario .caixa1,
 #formulario .caixa2 {
-    background: #f6f6f6;
-    padding: 10px;
+    background: #f1f1f2;
+    padding: 12px;
     box-sizing: border-box;
     border: 1px solid #cecece;
     border-radius: 3px;
@@ -274,12 +283,14 @@ ul li.itemmenubar a:hover {
 
 #formulario input[type="submit"] {
     background: #1d3c69;
-    margin: 0;
-    padding: 1em 6em;
+    margin: 0 auto;
+    padding: 18px 10px;
     border: none;
     border-radius: 3px;
     color: #fff;
-    font-weight: 900;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 110%;
     width: 100%;
     margin: 20px 0;
 }
@@ -296,7 +307,7 @@ ul li.itemmenubar a:hover {
         background-repeat: no-repeat;
         background-origin: content-box;
         background-position: center;
-        background-size: 60%;
+        background-size: 70%;
         background-image: url(../img/logo-site-mobile.svg);
     }
 
@@ -312,7 +323,7 @@ ul li.itemmenubar a:hover {
     #menu {
         width: 100%;
         position: relative;
-        padding: 0;
+        padding: 4px 0;
         margin: 0 auto;
         background: #19345b;
         height: auto;
@@ -337,6 +348,10 @@ ul li.itemmenubar a:hover {
         text-align: center;
         font-size: 80%;
         padding: 20px 20px 30px 20px;
+    }
+
+    #rodape span {
+        background-size: 45%;
     }
 
     #rodape #coluna {
@@ -373,6 +388,7 @@ ul li.itemmenubar a:hover {
         width: 100%;
         min-height: 25px;
         padding: 0 0 40px 0;
+        background-size: 60%;
     }
 }
 
@@ -382,7 +398,7 @@ ul li.itemmenubar a:hover {
 /* página inicial elementos site base e servicos */
 #homemodel {
     width: 80%;
-    margin: 3em auto;
+    margin: 40px auto;
 }
 
 #model {
@@ -527,7 +543,7 @@ ul li.itemmenubar a:hover {
 @media (max-width: 650px) {
     #homemodel {
         width: 90%;
-        margin: 40px auto;
+        margin: 0px auto;
     }
 
     #model {
@@ -539,7 +555,7 @@ ul li.itemmenubar a:hover {
 @media (min-width: 651px) and (max-width: 1000px) {
     #homemodel {
         width: 90%;
-        margin: 40px auto;
+        margin: 0 auto;
     }
 
     #model {
@@ -611,7 +627,7 @@ ul li.itemmenubar a:hover {
 .container {
     border: none;
     width: 100%;
-    min-height: 500px;
+    min-height: 450px;
     height: auto;
     margin: 0 auto;
 }
@@ -787,6 +803,7 @@ ul li.itemmenubar a:hover {
 
 /* /////////////// responsivo max 650px /////////////// */
 @media (max-width: 650px) {
+
     /*destaque principal*/
     #caixadestaque {
         width: 100%;
@@ -818,6 +835,7 @@ ul li.itemmenubar a:hover {
 
 /* /////////////// responsivo max 800px /////////////// */
 @media (max-width: 800px) {
+
     /*-- navegacao mapas paginas mapas--*/
     #navmap {
         width: 95%;
@@ -830,8 +848,8 @@ ul li.itemmenubar a:hover {
         padding: 8px 20px;
     }
 
-     /*--- legendas espacos site mapa ---*/
-     #content-leg #leg {
+    /*--- legendas espacos site mapa ---*/
+    #content-leg #leg {
         width: 100%;
         padding: 0;
         margin: 6px 0;
@@ -863,7 +881,7 @@ ul li.itemmenubar a:hover {
 
 /* /////////////// responsivo min 650 max 1000px /////////////// */
 @media (min-width: 651px) and (max-width: 1000px) {
-    
+
     /*destaque principal*/
     #caixadestaque {
         width: 95%;
