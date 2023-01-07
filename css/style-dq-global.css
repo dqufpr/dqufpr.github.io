@@ -599,7 +599,7 @@ ul li.itemmenubar a:hover {
     margin: 10px 0;
     border: 1px solid transparent;
     display: inherit;
-    padding: 45px 0;
+    padding: 66px 0;
     color: #1d3c69;
     border-radius: 6px;
     font-size: 120%;
@@ -614,7 +614,7 @@ ul li.itemmenubar a:hover {
     background-image: url(https://dqufpr.github.io/img/nota.svg);
     background-repeat: no-repeat;
     background-position: 100% 10%;
-    background-size: 25%;
+    background-size: 26%;
 }
 
 #caixadestaque #bottom span {
