@@ -222,7 +222,6 @@ ul li.itemmenubar a:hover {
     padding: 1em 0;
     margin: 0 auto;
     position: relative;
-
 }
 
 #rodape #coluna {
@@ -428,7 +427,7 @@ ul li.itemmenubar a:hover {
     background-origin: border-box;
     background-size: cover;
     background-repeat: no-repeat;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 6px 6px 0px 0px;
     background-position: 50% 50%;
     background-image: url(../img/capa-home.svg);
 }
