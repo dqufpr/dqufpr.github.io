@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    font-family: Roboto, Avenir, Calibri, sans-serif;
+    font-family: Roboto, Arial, sans-serif;
     font-size: 100%;
     background: #fff;
     margin: 0;
@@ -102,7 +102,6 @@ a:hover {
     box-sizing: border-box;
     display: inline-block;
     text-align: center;
-    font-family: Gotham;
     background: #f4f4f4;
     color: #3d668a;
 }
@@ -186,7 +185,6 @@ ul.menubar .itemmenubar {
 ul.menubar .itemmenubar a {
     display: block;
     text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     color: #fff;
     padding: 10px 15px;
@@ -210,7 +208,6 @@ ul li.itemmenubar a:hover {
     margin: 0;
     font-size: 85%;
     box-sizing: border-box;
-    font-family: Gotham;
 }
 
 #rodape span {
@@ -273,7 +270,6 @@ ul li.itemmenubar a:hover {
     border: 1px solid #cecece;
     border-radius: 3px;
     font-size: 110%;
-    font-family: Roboto;
 }
 
 #formulario .caixa2 {
@@ -418,7 +414,6 @@ ul li.itemmenubar a:hover {
     float: left;
     box-sizing: border-box;
     text-align: center;
-    font-family: Gotham;
 }
 
 #model:hover {
@@ -663,7 +658,6 @@ ul li.itemmenubar a:hover {
     display: inline-table;
     padding: 15px 0 5px 0;
     font-size: 120%;
-    font-family: Gotham;
     font-weight: 500;
     color: #3d668a;
 }
@@ -717,7 +711,6 @@ ul li.itemmenubar a:hover {
     display: inline-table;
     padding: 15px 0 15px 0;
     font-size: 120%;
-    font-family: Gotham;
     font-weight: 500;
     color: #3d668a;
 }
