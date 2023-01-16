@@ -1,4 +1,6 @@
-/* /////////////// css global plataforma DQ Digital /////////////// */
+/************************************************************/
+/*//////////// css global plataforma DQ Digital ////////////*/
+/************************************************************/
 html {
     font-family: Roboto, Arial, sans-serif;
 }
@@ -129,7 +131,9 @@ h3 {
     padding: 15px 0;
 }
 
+/************************************************************/
 /*-- cabeçalho --*/
+/************************************************************/
 #cabecalho {
     display: block;
     float: left;
@@ -155,8 +159,9 @@ h3 {
     background: none;
     display: none;
 }
-
+/************************************************************/
 /*-- menu principal --*/
+/************************************************************/
 #menu {
     background: #1d3c69;
     height: 50px;
@@ -251,8 +256,9 @@ ul li.itemmenubar a:hover {
     padding: 0;
     margin: 8px 0 0 0;
 }
-
-/* formularios */
+/************************************************************/
+/*-- formularios --*/
+/************************************************************/
 #formulario {
     width: 60%;
     margin: 0 auto 3em auto;
@@ -299,7 +305,10 @@ ul li.itemmenubar a:hover {
     cursor: pointer;
 }
 
-/* /////////////// responsivo max 650px /////////////// */
+
+/************************************************************/
+/*-- responsivo max 650px --*/
+/************************************************************/
 @media (max-width: 650px) {
     #cabecalho {
         width: 100%;
@@ -381,8 +390,9 @@ ul li.itemmenubar a:hover {
         background-color: transparent;
     }
 }
-
-/* /////////////// responsivo min 650 max 1000px /////////////// */
+/************************************************************/
+/*-- responsivo min 650 max 1000px --*/
+/************************************************************/
 @media (min-width: 651px) and (max-width: 1000px) {
     #rodape span {
         background-position: top left;
@@ -394,7 +404,9 @@ ul li.itemmenubar a:hover {
 }
 
 
-/* /////////////// css elementos site principal /////////////// */
+/************************************************************/
+/*-- css elementos site principal --*/
+/************************************************************/
 
 /* página inicial elementos site base e servicos */
 #homemodel {
@@ -796,8 +808,9 @@ ul li.itemmenubar a:hover {
 #content-leg #leg #numero.outros {
     background-color: #e3e3e3;
 }
-
-/* /////////////// responsivo max 650px /////////////// */
+/************************************************************/
+/*-- responsivo max 650px --*/
+/************************************************************/
 @media (max-width: 650px) {
 
     /*destaque principal*/
@@ -826,8 +839,9 @@ ul li.itemmenubar a:hover {
         background-position: 100% 10%;
     }
 }
-
-/* /////////////// responsivo max 800px /////////////// */
+/************************************************************/
+/*-- responsivo max 800px --*/
+/************************************************************/
 @media (max-width: 800px) {
 
     /*-- navegacao mapas paginas mapas--*/
@@ -872,8 +886,9 @@ ul li.itemmenubar a:hover {
     }
 }
 
-
-/* /////////////// responsivo min 650 max 1000px /////////////// */
+/************************************************************/
+/*-- responsivo min 650 max 1000px --*/
+/************************************************************/
 @media (min-width: 651px) and (max-width: 1000px) {
 
     /*destaque principal*/
