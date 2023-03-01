@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exemplo de consulta de planilha do Google Sheets</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+</head>
+
+<body>
+	<h1>Exemplo de consulta de planilha do Google Sheets</h1>
+
+	<div id="content"></div>
+
+	<script>
+	// Carregue a biblioteca Google Sheets API Client Libraries
+gapi.load('client', function() {
+    // Inicialize a biblioteca Google Sheets API Client Libraries
+    gapi.client.init({
+        apiKey: 'AIzaSyDH8Ix9ooc1MgnqXeJdW67-vXdy8HtI8wI',
+        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    }).then(function() {
+        // Faça a solicitação para obter os dados da planilha
+        return gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: '1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ',
+            range: '3!A1:D',
+        });
+    }).then(function(response) {
+        // Processar a resposta da solicitação
+        var range = response.result;
+        if (range.values.length > 0) {
+            // Exibir os dados em HTML
+            var output = '';
+            for (var i = 0; i < range.values.length; i++) {
+                var row = range.values[i];
+                output += '<div class="item">';
+                output += '<div id="id">' + row[0] + '</div>';
+                output += '<div id="local">' + row[1] + '</div>';
+                output += '<div id="desc">' + row[2] + '</div>';
+                output += '<div id="tipo">' + row[3] + '</div>';
+                output += '</div>';
+            }
+            document.querySelector('#content').innerHTML = output;
+        }
+    }, function(reason) {
+        // Tratar erros
+        console.error('Erro: ' + reason.result.error.message);
+    });
+});
+
+	</script>
+</body>
+
+
+
+</html>
