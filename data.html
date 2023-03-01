@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>Dados da Planilha Google Sheets</title>
-
     <style>
       body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
       }
+    
       h1 {
         background-color: #1e90ff;
         color: #fff;
@@ -17,12 +17,18 @@
         margin: 0;
         padding: 20px;
       }
+    
       #content-leg {
         width: 100%;
         margin-top: 10px;
         margin-bottom: 10px;
       }
+    
       #leg {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         width: 90%;
         margin: auto;
         padding: 20px;
@@ -30,34 +36,68 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
-      #numero {
-        display: inline-block;
+    
+      .numero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 5px;
         font-size: 20px;
         font-weight: bold;
         border-radius: 5px;
         margin-right: 20px;
         color: #fff;
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+        min-height: 60px;
       }
+    
       #id {
         background-color: #4169e1;
       }
+    
       #local {
         background-color: #6495ed;
       }
+    
       #desc {
         background-color: #87ceeb;
       }
+    
       #tipo {
         background-color: #00bfff;
       }
+    
       .conteudo {
-        display: inline-block;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 20px;
       }
+    
       .descricao {
         margin-top: 10px;
       }
-    </style>
+    
+      @media (max-width: 768px) {
+        #leg {
+          flex-direction: column;
+          align-items: center;
+        }
+    
+        .numero {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+    
+        .conteudo {
+          margin-left: 0;
+        }
+      }
+    </style>    
     
   </head>
   <body>
