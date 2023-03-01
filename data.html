@@ -1,54 +1,100 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Exemplo de consulta de planilha do Google Sheets</title>
-    <script src="https://apis.google.com/js/api.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Dados da Planilha Google Sheets</title>
 
-<body>
-	<h1>Exemplo de consulta de planilha do Google Sheets</h1>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        background-color: #1e90ff;
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+      }
+      #content-leg {
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      #leg {
+        width: 90%;
+        margin: auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      #numero {
+        display: inline-block;
+        padding: 5px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 5px;
+        margin-right: 20px;
+        color: #fff;
+      }
+      #id {
+        background-color: #4169e1;
+      }
+      #local {
+        background-color: #6495ed;
+      }
+      #desc {
+        background-color: #87ceeb;
+      }
+      #tipo {
+        background-color: #00bfff;
+      }
+      .conteudo {
+        display: inline-block;
+      }
+      .descricao {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dados da Planilha Google Sheets</h1>
 
-	<div id="content"></div>
+    <div class="data"></div>
 
-	<script>
-	// Carregue a biblioteca Google Sheets API Client Libraries
-gapi.load('client', function() {
-    // Inicialize a biblioteca Google Sheets API Client Libraries
-    gapi.client.init({
-        apiKey: 'AIzaSyDH8Ix9ooc1MgnqXeJdW67-vXdy8HtI8wI',
-        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-    }).then(function() {
-        // Faça a solicitação para obter os dados da planilha
-        return gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: '1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ',
-            range: '3!A1:D108',
-        });
-    }).then(function(response) {
-        // Processar a resposta da solicitação
-        var range = response.result;
-        if (range.values.length > 0) {
-            // Exibir os dados em HTML
-            var output = '';
-            for (var i = 0; i < range.values.length; i++) {
-                var row = range.values[i];
-                output += '<div class="item">';
-                output += '<div id="id">' + row[0] + '</div>';
-                output += '<div id="local">' + row[1] + '</div>';
-                output += '<div id="desc">' + row[2] + '</div>';
-                output += '<div id="tipo">' + row[3] + '</div>';
-                output += '</div>';
-            }
-            document.querySelector('#content').innerHTML = output;
-        }
-    }, function(reason) {
-        // Tratar erros
-        console.error('Erro: ' + reason.result.error.message);
-    });
-});
+    <script>
+      const sheetId = "1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ";
+      const sheetNumber = "3";
 
-	</script>
-</body>
-
-
-
+      fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetNumber}`)
+        .then(res => res.text())
+        .then(text => {
+          const json = JSON.parse(text.substring(47, text.length - 2)).table.rows;
+          let output = "";
+          json.forEach(row => {
+            const id = row.c[0].v;
+            const local = row.c[1].v;
+            const desc = row.c[2].v;
+            const tipo = row.c[3].v;
+            output += `
+              <div id="content-leg">
+                <div id="leg" class="data">
+                  <div id="numero" class="${tipo}" >
+                    <p id="id"> ${id}</p>
+                  </div>
+                  <div class="conteudo">
+                    <h2 id="local"> ${local}</h2>
+                    <p class="descricao" id="desc"> ${desc}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          document.querySelector(".data").innerHTML = output;
+        })
+        .catch(err => console.error(err));
+    </script>
+  </body>
 </html>
