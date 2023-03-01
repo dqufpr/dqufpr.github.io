@@ -21,7 +21,7 @@ gapi.load('client', function() {
         // Faça a solicitação para obter os dados da planilha
         return gapi.client.sheets.spreadsheets.values.get({
             spreadsheetId: '1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ',
-            range: '3!A1:D',
+            range: '3!A1:D108',
         });
     }).then(function(response) {
         // Processar a resposta da solicitação
