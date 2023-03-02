@@ -305,7 +305,6 @@ ul li.itemmenubar a:hover {
     cursor: pointer;
 }
 
-
 /************************************************************/
 /*-- responsivo max 650px --*/
 /************************************************************/
@@ -390,6 +389,9 @@ ul li.itemmenubar a:hover {
         background-color: transparent;
     }
 }
+
+
+
 /************************************************************/
 /*-- responsivo min 650 max 1000px --*/
 /************************************************************/
@@ -402,6 +404,7 @@ ul li.itemmenubar a:hover {
         background-size: 60%;
     }
 }
+
 
 
 /************************************************************/
@@ -577,6 +580,8 @@ ul li.itemmenubar a:hover {
     }
 }
 
+
+
 /* /////////////// css elementos site mapa digital /////////////// */
 /*--- destaque principal inicio ---*/
 #caixadestaque {
@@ -726,12 +731,12 @@ ul li.itemmenubar a:hover {
     color: #3d668a;
 }
 
-/************************************************************/
+
+/***********************************************************/
 /*--- mapa novo modelo ---*/
 /************************************************************/
-
 #content-leg {
-    width: 31%;
+    width: 31.5%;
     display: inline-block;
     position: relative;
     float: left;
@@ -759,14 +764,16 @@ ul li.itemmenubar a:hover {
   #numero {
     display: inline-block;
     float: left;
-    padding: 10px 20px;
+    padding: 3px 20px;
+    margin: 6px 0 0 0; 
+    line-height: .5em;
     background-color: #eee;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 900;
     border-radius: 6px;
     color: #0a0221;
   }
-  
+ 
   #numero.salaaula {
     background-color: #4067A1;
   }
@@ -821,16 +828,18 @@ ul li.itemmenubar a:hover {
     font-size: 26px;
     color: #0b2b4d;
     line-height: normal;
-    padding: 0;
-    margin: 15px 0 15px 15px;
+    padding: 10px;
+    margin: 15px 0 15px 0px;
+    text-align: left;
   }
 
   .descricao {
     margin-top: 0px;
-    background-color: none;
-    padding: 20px;
+    background-color: transparent;
+    padding: 10px;
     box-sizing: border-box;
     display: block;
+    text-align: left;
  }
 
 /************************************************************/
