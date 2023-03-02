@@ -727,92 +727,14 @@ ul li.itemmenubar a:hover {
 }
 
 /************************************************************/
-/*-- responsivo max 650px --*/
-/************************************************************/
-@media (max-width: 650px) {
-
-    /*destaque principal*/
-    #caixadestaque {
-        width: 100%;
-        border: none;
-        display: table;
-        padding: 0 20px;
-        box-shadow: none;
-        margin: 0 auto;
-    }
-
-    #caixadestaque #bottom {
-        float: left;
-        padding: 0;
-        width: 100%;
-        margin: 0;
-        line-height: 0
-    }
-
-    #caixadestaque #bottom a {
-        padding: 15px 0;
-    }
-
-    #caixadestaque #bottom a.inativo {
-        background-position: 100% 10%;
-    }
-}
-/************************************************************/
-/*-- responsivo max 800px --*/
-/************************************************************/
-@media (max-width: 800px) {
-
-    /*-- navegacao mapas paginas mapas--*/
-    #navmap {
-        width: 95%;
-        margin: 1em auto;
-    }
-
-    #navmap ul li {
-        width: 75%;
-        margin: 4px 0;
-        padding: 8px 20px;
-    }
-}
-
-/************************************************************/
-/*-- responsivo min 650 max 1000px --*/
-/************************************************************/
-@media (min-width: 651px) and (max-width: 1000px) {
-
-    /*destaque principal*/
-    #caixadestaque {
-        width: 95%;
-    }
-
-    #caixadestaque #bottom {
-        padding: 0;
-        width: 45%;
-        margin: 0.3% 2%;
-        line-height: 0
-    }
-
-    #caixadestaque #bottom a {
-        padding: 40px 20px;
-    }
-
-    #caixadestaque #bottom a.inativo {
-        background-position: 100% 10%;
-        background-size: 26%;
-    }
-}
-
-
-
-/***************************************************************/
 /*-- mapa novo modelo --*/
+/************************************************************/
 #content-leg {
     width: 31%;
     display: inline-block;
     position: relative;
     float: left;
     height: 250px;
-    ;
     margin: 10px;
     background-color: #fff;
     border-radius: 6px;
@@ -908,4 +830,81 @@ ul li.itemmenubar a:hover {
     padding: 20px;
     box-sizing: border-box;
     display: block;
-  }
+ }
+
+/************************************************************/
+/*-- responsivo max 650px --*/
+/************************************************************/
+@media (max-width: 650px) {
+
+    /*destaque principal*/
+    #caixadestaque {
+        width: 100%;
+        border: none;
+        display: table;
+        padding: 0 20px;
+        box-shadow: none;
+        margin: 0 auto;
+    }
+
+    #caixadestaque #bottom {
+        float: left;
+        padding: 0;
+        width: 100%;
+        margin: 0;
+        line-height: 0
+    }
+
+    #caixadestaque #bottom a {
+        padding: 15px 0;
+    }
+
+    #caixadestaque #bottom a.inativo {
+        background-position: 100% 10%;
+    }
+}
+/************************************************************/
+/*-- responsivo max 800px --*/
+/************************************************************/
+@media (max-width: 800px) {
+
+    /*-- navegacao mapas paginas mapas--*/
+    #navmap {
+        width: 95%;
+        margin: 1em auto;
+    }
+
+    #navmap ul li {
+        width: 75%;
+        margin: 4px 0;
+        padding: 8px 20px;
+    }
+}
+
+/************************************************************/
+/*-- responsivo min 650 max 1000px --*/
+/************************************************************/
+@media (min-width: 651px) and (max-width: 1000px) {
+
+    /*destaque principal*/
+    #caixadestaque {
+        width: 95%;
+    }
+
+    #caixadestaque #bottom {
+        padding: 0;
+        width: 45%;
+        margin: 0.3% 2%;
+        line-height: 0
+    }
+
+    #caixadestaque #bottom a {
+        padding: 40px 20px;
+    }
+
+    #caixadestaque #bottom a.inativo {
+        background-position: 100% 10%;
+        background-size: 26%;
+    }
+}
+
