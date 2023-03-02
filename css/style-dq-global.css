@@ -746,7 +746,7 @@ ul li.itemmenubar a:hover {
     border-radius: 6px;
     box-sizing: border-box;
     padding: 10px;
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 12%);
   }
 
   @media (max-width: 768px) {
@@ -754,7 +754,7 @@ ul li.itemmenubar a:hover {
       width: 45%;
     }
   }
-    
+  
   @media (max-width: 480px) {
     #content-leg {
       width: 90%;
