@@ -727,8 +727,9 @@ ul li.itemmenubar a:hover {
 }
 
 /************************************************************/
-/*-- mapa novo modelo --*/
+/*--- mapa novo modelo ---*/
 /************************************************************/
+
 #content-leg {
     width: 31%;
     display: inline-block;
@@ -907,4 +908,3 @@ ul li.itemmenubar a:hover {
         background-size: 26%;
     }
 }
-
