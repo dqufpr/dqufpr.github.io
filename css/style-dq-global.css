@@ -726,88 +726,6 @@ ul li.itemmenubar a:hover {
     color: #3d668a;
 }
 
-#content-leg #leg {
-    padding: 0;
-    background-color: #F4F4F4;
-    text-align: left;
-    width: 48%;
-    box-sizing: border-box;
-    display: block;
-    margin: 0.6%;
-    border: 1px solid #fff;
-    border-radius: 6px;
-    min-height: 80px;
-    float: left;
-}
-
-#content-leg #leg h2 {
-    margin: 0;
-    padding: 0;
-    color: #16697c;
-    text-align: left;
-    font-size: 130%;
-}
-
-#content-leg #leg p {
-    margin: 0;
-    padding: 0;
-}
-
-#content-leg #leg #numero {
-    background-color: #5b5b5b;
-    box-sizing: border-box;
-    float: left;
-    padding: 0;
-    width: 13%;
-    text-align: center;
-    font-size: 35px;
-    font-weight: 600;
-    color: #383f4c;
-    border-radius: 6px 0px 0px 6px;
-    display: inherit;
-    min-height: 80px;
-}
-
-#content-leg #leg #numero p {
-    margin: 18px 0 0 0;
-}
-
-#content-leg #leg .conteudo {
-    display: inline-block;
-    padding: 5px 10px 5px 10px;
-    box-sizing: border-box;
-    margin: 0;
-    width: 84%;
-}
-
-/*--- legendas cores numeros mapa ---*/
-#content-leg #leg #numero.salaaula {
-    background-color: #4067A1;
-}
-
-#content-leg #leg #numero.salaprof {
-    background-color: #377375;
-}
-
-#content-leg #leg #numero.labensino {
-    background-color: #A3CCE4;
-}
-
-#content-leg #leg #numero.labpesquisa {
-    background-color: #6693AE;
-}
-
-#content-leg #leg #numero.servico {
-    background-color: #965F8A;
-}
-
-#content-leg #leg #numero.banheiro {
-    background-color: #CC7FB5;
-}
-
-#content-leg #leg #numero.outros {
-    background-color: #e3e3e3;
-}
 /************************************************************/
 /*-- responsivo max 650px --*/
 /************************************************************/
@@ -854,35 +772,6 @@ ul li.itemmenubar a:hover {
         width: 75%;
         margin: 4px 0;
         padding: 8px 20px;
-    }
-
-    /*--- legendas espacos site mapa ---*/
-    #content-leg #leg {
-        width: 100%;
-        padding: 0;
-        margin: 6px 0;
-    }
-
-    #content-leg #leg #numero {
-        padding: 0;
-        font-size: 20px;
-        min-height: 90px;
-    }
-
-    #content-leg #leg .conteudo {
-        padding: 8px;
-    }
-
-    #content-leg #leg p {
-        font-size: 80%;
-    }
-
-    #content-leg #leg h2 {
-        font-size: 111%;
-    }
-
-    #dataon .data {
-        width: 94%;
     }
 }
 
