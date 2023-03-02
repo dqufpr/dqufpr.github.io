@@ -11,77 +11,122 @@
       padding: 0;
       font-family: Arial, sans-serif;
     }
-
+  
     h1 {
-      background-color: #1e90ff;
+      background-color: #0b2b4d;
       color: #fff;
       text-align: center;
       margin: 0;
-      padding: 20px;
+      padding: 16px;
     }
-
+  
     #content {
       width: 90%;
-      margin: auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      margin: 0 auto;
     }
-
+  
     #content-leg {
-      width: 30%;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: #f2f2f2;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 31%;
+      display: inline-block;
+      position: relative;
+      float: left;
+      height: 250px;
+      ;
+      margin: 10px;
+      background-color: #fff;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 10px;
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
     }
-
+  
     @media (max-width: 768px) {
       #content-leg {
         width: 45%;
       }
     }
-
+      
     @media (max-width: 480px) {
       #content-leg {
         width: 90%;
       }
     }
-
+  
     #numero {
       display: inline-block;
-      padding: 5px;
-      font-size: 20px;
+      float: left;
+      padding: 10px 20px;
+      background-color: #eee;
+      font-size: 16px;
       font-weight: bold;
-      border-radius: 5px;
-      margin-right: 20px;
-      color: #fff;
+      border-radius: 6px;
+      color: #0a0221;
     }
-
+    
+    #numero.salaaula {
+      background-color: #4067A1;
+    }
+  
+    #numero.salaprof {
+      background-color: #377375;
+    }
+  
+    #numero.labensino {
+      background-color: #A3CCE4;
+    }
+  
+    #numero.labpesquisa {
+      background-color: #6693AE;
+    }
+  
+    #numero.servico {
+      background-color: #965F8A;
+    }
+  
+    #numero.banheiro {
+      background-color: #CC7FB5;
+    }
+  
+    #numero.outros {
+      background-color: #e3e3e3;
+    }
+  
     #id {
-      background-color: #4169e1;
+      background-color: none;
     }
-
+  
     #local {
-      background-color: #6495ed;
+      background-color: none;
     }
-
+  
     #desc {
-      background-color: #87ceeb;
+      background-color: none;
+      font-size: 90%;
     }
-
+  
     #tipo {
       background-color: #00bfff;
     }
-
+  
     .conteudo {
       display: inline-block;
+      float: left;
     }
-
+  
+    .conteudo h2 {
+      font-size: 26px;
+      color: #0b2b4d;
+      line-height: normal;
+      padding: 0;
+      margin: 15px 0 15px 15px;
+    }
+  
     .descricao {
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin-top: 0px;
+      background-color: none;
+      padding: 20px;
+      box-sizing: border-box;
+      display: block;
     }
   </style>
 
