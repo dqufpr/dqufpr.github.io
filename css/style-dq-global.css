@@ -803,15 +803,14 @@ ul li.itemmenubar a:hover {
   }
 
   #id {
-    background-color: none;
+    background-color: transparent;
   }
 
   #local {
-    background-color: none;
+    background-color: transparent;
   }
 
   #desc {
-    background-color: none;
     font-size: 90%;
   }
 
