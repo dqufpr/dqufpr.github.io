@@ -762,7 +762,7 @@ ul li.itemmenubar a:hover {
     line-height: normal;
 }
 
-#content-leg #leg #numero {
+#content-leg #leg #numero {  
     width: 14.8%;
     min-height: 50px;
     margin: 0;
@@ -772,8 +772,10 @@ ul li.itemmenubar a:hover {
     float: left;
     font-weight: 900;
     font-size: 160%;
-    color: #336;
+    color: #fff;
     border-radius: 6px;
+    text-shadow: 1px 1px 10px #162941;
+    border: 1px solid #061a2e;
 }
 
 #content-leg #leg .conteudo {
