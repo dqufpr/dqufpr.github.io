@@ -828,8 +828,8 @@ ul li.itemmenubar a:hover {
 }
 
 @media (max-width: 480px) {
-    #content-leg { width: 98%}
-    #content-leg #leg #numero {font-size: 110%;}
+    #content-leg { width: 95%}
+    #content-leg #leg #numero {font-size: 100%;padding-top: 15px;}
 }
 /*cores ids locais*/
 #numero.salaaula {background-color: #4067A1;}
