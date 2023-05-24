@@ -131,6 +131,7 @@ h3 {
     padding: 15px 0;
 }
 
+
 /************************************************************/
 /*-- cabeçalho --*/
 /************************************************************/
@@ -159,6 +160,7 @@ h3 {
     background: none;
     display: none;
 }
+
 
 /************************************************************/
 /*-- menu principal --*/
@@ -258,6 +260,7 @@ ul li.itemmenubar a:hover {
     margin: 8px 0 0 0;
 }
 
+
 /************************************************************/
 /*-- formularios --*/
 /************************************************************/
@@ -306,6 +309,7 @@ ul li.itemmenubar a:hover {
     background: #426392;
     cursor: pointer;
 }
+
 
 /************************************************************/
 /*-- responsivo max 650px --*/
@@ -391,7 +395,6 @@ ul li.itemmenubar a:hover {
         background-color: transparent;
     }
 }
-
 
 
 /************************************************************/
@@ -583,7 +586,6 @@ ul li.itemmenubar a:hover {
 }
 
 
-
 /* /////////////// css elementos site mapa digital /////////////// */
 /*--- destaque principal inicio ---*/
 #caixadestaque {
@@ -733,47 +735,99 @@ ul li.itemmenubar a:hover {
     color: #3d668a;
 }
 
-
 /***********************************************************/
 /*--- mapa novo modelo ---*/
 /************************************************************/
 #content-leg {
-    width: 31.5%;
-    display: inline-block;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     float: left;
-    height: 250px;
+    width: 31%;
+    height: auto;
     margin: 10px;
     background-color: #fff;
     border-radius: 6px;
     box-sizing: border-box;
     padding: 10px;
-    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
+    border: 1px solid #f1f1f1;
+}
+
+#content-leg #leg {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: left;
+    line-height: normal;
+}
+
+#content-leg #leg #numero {
+    width: 14.8%;
+    min-height: 50px;
+    margin: 0;
+    text-align: center;
+    padding: 10px 0 0 0;
+    box-sizing: border-box;
+    float: left;
+    font-weight: 900;
+    font-size: 160%;
+    color: #336;
+    border-radius: 10px;
+}
+
+#content-leg #leg .conteudo {
+    width: 85%;
+    min-height: 180px;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    float: left;
+}
+
+#content-leg #leg .conteudo .nome {
+    font-size: 22px;
+    color: #0b2b4d;
+    text-align: left;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    float: left;
+    min-width: 100%;
+    min-height: 40px;
+}
+
+#content-leg #leg .conteudo .abrev {
+    font-size: 16px;
+    color: #666;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    float: left;
+    min-width: 100%;
+}
+
+#content-leg #leg .conteudo .idlocal {
+    font-size: 16px;
+    color: #666;
+    font-weight: 400;
+    margin: 0 0 5px 0;
+    float: left;
+    min-width: 100%;
+}
+
+#content-leg #leg .conteudo .descricao {
+    font-size: 17px;
+    color: #666;
+    font-weight: 400;
+    margin: 0 0 5px 0;
+    float: left;
+    min-width: 100%;
 }
 
 @media (max-width: 768px) {
-    #content-leg {
-        width: 45%;
-    }
+    #content-leg {width: 45%}
 }
 
 @media (max-width: 480px) {
-    #content-leg {
-        width: 90%;
-    }
-}
-
-#numero {
-    display: inline-block;
-    float: left;
-    padding: 3px 20px;
-    margin: 6px 0 0 0;
-    line-height: .5em;
-    background-color: #eee;
-    font-size: 20px;
-    font-weight: 900;
-    border-radius: 6px;
-    color: #0a0221;
+    #content-leg { width: 90%}
 }
 
 #numero.salaaula {
@@ -810,37 +864,6 @@ ul li.itemmenubar a:hover {
 
 #local {
     background-color: transparent;
-}
-
-#desc {
-    font-size: 90%;
-}
-
-#tipo {
-    background-color: #00bfff;
-}
-
-.conteudo {
-    display: inline-block;
-    float: left;
-}
-
-.conteudo h2 {
-    font-size: 26px;
-    color: #0b2b4d;
-    line-height: normal;
-    padding: 10px;
-    margin: 15px 0 15px 0px;
-    text-align: left;
-}
-
-.descricao {
-    margin: 0;
-    background-color: transparent;
-    padding: 0;
-    box-sizing: border-box;
-    display: block;
-    text-align: left;
 }
 
 /**********************************************************/
