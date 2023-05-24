@@ -587,6 +587,7 @@ ul li.itemmenubar a:hover {
 
 
 /* /////////////// css elementos site mapa digital /////////////// */
+
 /*--- destaque principal inicio ---*/
 #caixadestaque {
     width: 80%;
@@ -779,24 +780,23 @@ ul li.itemmenubar a:hover {
     width: 85%;
     min-height: 180px;
     margin: 0;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     box-sizing: border-box;
     float: left;
 }
 
 #content-leg #leg .conteudo .nome {
-    font-size: 22px;
+    font-size: 20px;
     color: #0b2b4d;
     text-align: left;
     font-weight: 500;
-    margin: 0 0 10px 0;
-    float: left;
+    margin: 0 0 5px 0;
     min-width: 100%;
-    min-height: 40px;
+    min-height: 30px;
 }
 
 #content-leg #leg .conteudo .abrev {
-    font-size: 16px;
+    font-size: 15px;
     color: #666;
     font-weight: 600;
     margin: 0 0 5px 0;
@@ -805,7 +805,7 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .idlocal {
-    font-size: 16px;
+    font-size: 15px;
     color: #666;
     font-weight: 400;
     margin: 0 0 5px 0;
@@ -814,7 +814,7 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .descricao {
-    font-size: 17px;
+    font-size: 13px;
     color: #666;
     font-weight: 400;
     margin: 0 0 5px 0;
@@ -829,42 +829,17 @@ ul li.itemmenubar a:hover {
 @media (max-width: 480px) {
     #content-leg { width: 90%}
 }
+/*cores ids locais*/
+#numero.salaaula {background-color: #4067A1;}
+#numero.salaprof {background-color: #377375;}
+#numero.labensino {background-color: #A3CCE4;}
+#numero.labpesquisa {background-color: #6693AE;}
+#numero.servico {background-color: #965F8A;}
+#numero.banheiro {background-color: #CC7FB5;}
+#numero.outros {background-color: #e3e3e3;}
+#id {background-color: transparent;}
+#local {background-color: transparent;}
 
-#numero.salaaula {
-    background-color: #4067A1;
-}
-
-#numero.salaprof {
-    background-color: #377375;
-}
-
-#numero.labensino {
-    background-color: #A3CCE4;
-}
-
-#numero.labpesquisa {
-    background-color: #6693AE;
-}
-
-#numero.servico {
-    background-color: #965F8A;
-}
-
-#numero.banheiro {
-    background-color: #CC7FB5;
-}
-
-#numero.outros {
-    background-color: #e3e3e3;
-}
-
-#id {
-    background-color: transparent;
-}
-
-#local {
-    background-color: transparent;
-}
 
 /**********************************************************/
 /*-- responsivo max 650px --*/
