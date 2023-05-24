@@ -824,11 +824,12 @@ ul li.itemmenubar a:hover {
 }
 
 @media (max-width: 768px) {
-    #content-leg {width: 45%}
+    #content-leg {width: 46%}
 }
 
 @media (max-width: 480px) {
-    #content-leg { width: 90%}
+    #content-leg { width: 98%}
+    #content-leg #leg #numero {font-size: 110%;}
 }
 /*cores ids locais*/
 #numero.salaaula {background-color: #4067A1;}
