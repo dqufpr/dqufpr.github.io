@@ -773,7 +773,7 @@ ul li.itemmenubar a:hover {
     font-weight: 900;
     font-size: 160%;
     color: #336;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 #content-leg #leg .conteudo {
@@ -790,8 +790,9 @@ ul li.itemmenubar a:hover {
     color: #0b2b4d;
     text-align: left;
     font-weight: 500;
-    margin: 0 0 5px 0;
-    min-width: 100%;
+    margin: 0 0 10px 0;
+    width: 100%;
+    display: inline-block;
     min-height: 30px;
 }
 
