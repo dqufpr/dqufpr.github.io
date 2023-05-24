@@ -459,7 +459,6 @@ ul li.itemmenubar a:hover {
 }
 
 #model #destaque.servico {
-    background-image: url(../img/capa-home2.png);
     background-origin: border-box;
     background-size: cover;
     background-repeat: no-repeat;
