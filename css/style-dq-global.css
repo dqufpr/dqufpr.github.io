@@ -669,41 +669,42 @@ ul li.itemmenubar a:hover {
     margin: 0 auto 50px auto;
     width: 95%;
     box-sizing: border-box;
-    background: #f4f4f4;
+    background: #f8f8f8;
     border-radius: 6px;
     text-align: center;
+    border: 1px solid #ccc;
 }
 
 #navmap::before {
     content: "Navegue pelas categorias:";
     display: inline-table;
-    padding: 15px 0 5px 0;
-    font-size: 120%;
+    padding: 10px 0 5px 0;
+    font-size: 130%;
     font-weight: 500;
     color: #3d668a;
 }
 
 #navmap ul {
     list-style-type: none;
-    padding: 0 0 25px 0;
+    padding: 0 0 15px 0;
     margin: 0 auto;
     box-sizing: border-box;
 }
 
 #navmap ul li {
-    width: 15%;
+    width: 16%;
     display: inline-block;
     border: 1px solid #e6e6e6;
     background-color: #d9e2e9;
-    padding: 12px 20px;
+    padding: 12px 12px;
     margin: 0.6%;
-    font-weight: 900;
-    border-radius: 6px;
+    font-weight: 400;
+    border-radius: 200px;
 }
 
 #navmap ul li:hover {
     background-color: #ebeff1;
-    transition: .3s;
+    transition: .4s;
 }
 
 /*--- legendas espacos site mapa ---*/
@@ -774,21 +775,20 @@ ul li.itemmenubar a:hover {
     font-size: 160%;
     color: #fff;
     border-radius: 6px;
-    text-shadow: 1px 1px 10px #162941;
-    border: 1px solid #061a2e;
+    text-shadow: 1px 1px 4px #232323;
 }
 
 #content-leg #leg .conteudo {
     width: 85%;
     min-height: 180px;
     margin: 0;
-    padding: 0 10px 10px 10px;
+    padding: 0 0px 0px 15px;
     box-sizing: border-box;
     float: left;
 }
 
 #content-leg #leg .conteudo .nome {
-    font-size: 20px;
+    font-size: 23px;
     color: #0b2b4d;
     text-align: left;
     font-weight: 500;
@@ -799,9 +799,9 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .abrev {
-    font-size: 15px;
+    font-size: 16px;
     color: #666;
-    font-weight: 600;
+    font-weight: 400;
     margin: 0 0 5px 0;
     float: left;
     min-width: 100%;
@@ -817,7 +817,7 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .descricao {
-    font-size: 13px;
+    font-size: 15px;
     color: #666;
     font-weight: 400;
     margin: 0 0 5px 0;
@@ -834,16 +834,13 @@ ul li.itemmenubar a:hover {
     #content-leg #leg #numero {font-size: 100%;padding-top: 15px;}
 }
 /*cores ids locais*/
-#numero.salaaula {background-color: #4067A1;}
-#numero.salaprof {background-color: #377375;}
-#numero.labensino {background-color: #A3CCE4;}
-#numero.labpesquisa {background-color: #6693AE;}
-#numero.servico {background-color: #965F8A;}
-#numero.banheiro {background-color: #CC7FB5;}
-#numero.outros {background-color: #e3e3e3;}
-#id {background-color: transparent;}
-#local {background-color: transparent;}
-
+#numero.salaaula {background-color: #4067A1;border: 1px solid #a15a8c;}
+#numero.salaprof {background-color: #377375;border: 1px solid #1c4142;}
+#numero.labensino {background-color: #A3CCE4;border: 1px solid #6c91a6;}
+#numero.labpesquisa {background-color: #6693AE;border: 1px solid #4b7086;}
+#numero.servico {background-color: #965F8A;border: 1px solid #a15a8c;}
+#numero.banheiro {background-color: #CC7FB5;border: 1px solid #a15a8c;}
+#numero.outros {background-color: #e3e3e3;border: 1px solid #a15a8c;}
 
 /**********************************************************/
 /*-- responsivo max 650px --*/
