@@ -765,10 +765,10 @@ ul li.itemmenubar a:hover {
 
 #content-leg #leg #numero {
     width: 14%;
-    min-height: 50px;
+    min-height: 56px;
     margin: 0;
     text-align: center;
-    padding: 11px 0 0 0;
+    padding: 13px 0 0 0;
     box-sizing: border-box;
     float: left;
     font-weight: 900;
