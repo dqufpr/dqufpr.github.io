@@ -430,7 +430,7 @@ ul li.itemmenubar a:hover {
     padding: 0;
     border: none;
     border-radius: 6px;
-    box-shadow: 0 0 3rem 0 rgb(0 0 0 / 15%);
+    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 15%);
     position: relative;
     float: left;
     box-sizing: border-box;
