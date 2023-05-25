@@ -622,7 +622,7 @@ ul li.itemmenubar a:hover {
     text-decoration: none;
     background-color: #fff;
     box-sizing: border-box;
-    box-shadow: 0 0 2.5rem 0 rgb(0 0 0 / 10%);
+    box-shadow: 0px 5px 10px 0px #cccccc96;
 }
 
 #caixadestaque #bottom a.inativo {
@@ -641,7 +641,7 @@ ul li.itemmenubar a:hover {
     text-decoration: none;
     opacity: 95%;
     transition: 0.3s;
-    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.28);
     border: 1px solid #eff0f0;
 }
 
@@ -673,7 +673,7 @@ ul li.itemmenubar a:hover {
     border-radius: 6px;
     text-align: center;
     border: 1px solid #f2f2f2;
-    box-shadow: 0px 8px 8px 0px #cccccc4a;
+    box-shadow: 0px 5px 10px 0px #cccccc96;
 }
 
 #navmap::before {
@@ -752,8 +752,7 @@ ul li.itemmenubar a:hover {
     background-color: #fff;
     border-radius: 6px;
     box-sizing: border-box;
-    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
-    border: 1px solid #f1f1f1;
+    box-shadow: 0px 5px 10px 0px #cccccc96;
 }
 
 #content-leg #leg {
