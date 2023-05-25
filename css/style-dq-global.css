@@ -465,6 +465,7 @@ ul li.itemmenubar a:hover {
     background-origin: border-box;
     background-size: cover;
     background-repeat: no-repeat;
+    background-image: url(../img/capa-home2.png);
 }
 
 #model #destaque.dq {
