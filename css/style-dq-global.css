@@ -208,13 +208,13 @@ ul li.itemmenubar a:hover {
 #rodape {
     display: table;
     clear: both;
-    background: #dee4ea;
-    color: #5b5b5b;
+    background: #efefef;
+    color: #5c6a74;
     width: 100%;
-    padding: 40px 30px;
+    padding: 30px 50px;
     border-top: none;
     margin: 0;
-    font-size: 85%;
+    font-size: 87%;
     box-sizing: border-box;
 }
 
