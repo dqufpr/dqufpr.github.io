@@ -748,10 +748,10 @@ ul li.itemmenubar a:hover {
     width: 31%;
     height: auto;
     margin: 10px;
+    padding: 0;
     background-color: #fff;
     border-radius: 6px;
     box-sizing: border-box;
-    padding: 10px;
     box-shadow: 0 5px 10px 0 rgb(0 0 0 / 15%);
     border: 1px solid #f1f1f1;
 }
@@ -775,7 +775,7 @@ ul li.itemmenubar a:hover {
     font-weight: 900;
     font-size: 140%;
     color: #fff;
-    border-radius: 2px;
+    border-radius: 6px 0 0 6px;
     text-shadow: 1px 1px 4px #766e6e;
 }
 
