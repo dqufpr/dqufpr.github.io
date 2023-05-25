@@ -613,7 +613,7 @@ ul li.itemmenubar a:hover {
 
 #caixadestaque #bottom a {
     margin: 10px 0;
-    border: 1px solid transparent;
+    border: 1px solid #ececec;
     display: inherit;
     padding: 40px 0;
     color: #1d3c69;
