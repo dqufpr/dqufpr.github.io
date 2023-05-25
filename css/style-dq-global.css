@@ -766,7 +766,7 @@ ul li.itemmenubar a:hover {
 
 #content-leg #leg #numero {
     width: 14%;
-    min-height: 56px;
+    min-height: 180px;
     margin: 0;
     text-align: center;
     padding: 13px 0 0 0;
@@ -775,8 +775,8 @@ ul li.itemmenubar a:hover {
     font-weight: 900;
     font-size: 140%;
     color: #fff;
-    border-radius: 50%;
-    text-shadow: 1px 1px 4px #232323;
+    border-radius: 2px;
+    text-shadow: 1px 1px 4px #766e6e;
 }
 
 #content-leg #leg .conteudo {
@@ -827,57 +827,23 @@ ul li.itemmenubar a:hover {
 }
 
 @media (max-width: 768px) {
-    #content-leg {
-        width: 46%
-    }
+    #content-leg {width: 46%}
 }
 
 @media (max-width: 480px) {
-    #content-leg {
-        width: 95%
-    }
-
-    #content-leg #leg #numero {
-        font-size: 100%;
-        padding-top: 15px;
-    }
+    #content-leg {width: 95%}
+    #content-leg #leg #numero {font-size: 100%;padding-top: 15px;}
 }
 
 /*cores ids locais*/
-#numero.salaaula {
-    background-color: #4067A1;
-    border: 1px solid #a15a8c;
-}
+#numero.salaaula {background-color: #4067A1;}
+#numero.salaprof {background-color: #377375;}
+#numero.labensino {background-color: #A3CCE4;}
+#numero.labpesquisa {background-color: #6693AE;}
+#numero.servico {background-color: #965F8A;}
+#numero.banheiro {background-color: #CC7FB5;}
+#numero.outros {background-color: #e3e3e3;}
 
-#numero.salaprof {
-    background-color: #377375;
-    border: 1px solid #1c4142;
-}
-
-#numero.labensino {
-    background-color: #A3CCE4;
-    border: 1px solid #6c91a6;
-}
-
-#numero.labpesquisa {
-    background-color: #6693AE;
-    border: 1px solid #4b7086;
-}
-
-#numero.servico {
-    background-color: #965F8A;
-    border: 1px solid #a15a8c;
-}
-
-#numero.banheiro {
-    background-color: #CC7FB5;
-    border: 1px solid #a15a8c;
-}
-
-#numero.outros {
-    background-color: #e3e3e3;
-    border: 1px solid #a15a8c;
-}
 
 /**********************************************************/
 /*-- responsivo max 650px --*/
