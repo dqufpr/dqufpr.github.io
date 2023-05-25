@@ -790,13 +790,13 @@ ul li.itemmenubar a:hover {
 
 #content-leg #leg .conteudo .nome {
     font-size: 23px;
-    color: #0b2b4d;
+    color: #05192f;
     text-align: left;
     font-weight: 500;
-    margin: 0 0 10px 0;
+    margin: 10px 0 10px 0;
     width: 100%;
     display: inline-block;
-    min-height: 30px;
+    min-height: 40px;
 }
 
 #content-leg #leg .conteudo .abrev {
