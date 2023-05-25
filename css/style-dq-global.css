@@ -763,18 +763,18 @@ ul li.itemmenubar a:hover {
     line-height: normal;
 }
 
-#content-leg #leg #numero {  
-    width: 14.8%;
+#content-leg #leg #numero {
+    width: 14%;
     min-height: 50px;
     margin: 0;
     text-align: center;
-    padding: 10px 0 0 0;
+    padding: 11px 0 0 0;
     box-sizing: border-box;
     float: left;
     font-weight: 900;
-    font-size: 160%;
+    font-size: 140%;
     color: #fff;
-    border-radius: 6px;
+    border-radius: 50%;
     text-shadow: 1px 1px 4px #232323;
 }
 
@@ -833,6 +833,7 @@ ul li.itemmenubar a:hover {
     #content-leg { width: 95%}
     #content-leg #leg #numero {font-size: 100%;padding-top: 15px;}
 }
+
 /*cores ids locais*/
 #numero.salaaula {background-color: #4067A1;border: 1px solid #a15a8c;}
 #numero.salaprof {background-color: #377375;border: 1px solid #1c4142;}
