@@ -15,7 +15,7 @@ body {
 
 a {
     text-decoration: underline;
-    color: #1d3c69;
+    color: #274e88;
 }
 
 a:hover {
@@ -533,10 +533,10 @@ ul li.itemmenubar a:hover {
 }
 
 #model .titulo span {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 900;
     width: 100%;
-    padding: 20px 30px;
+    padding: 30px 10px;
     box-sizing: border-box;
     display: inline-block;
     background-color: #fff;
@@ -571,13 +571,13 @@ ul li.itemmenubar a:hover {
 }
 
 #model .descricao span {
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 400;
-    color: #8693a3;
+    color: #808790;
     text-align: center;
     min-height: 80px;
     width: 100%;
-    padding: 10px 40px 20px 40px;
+    padding: 10px 20px 20px 20px;
     box-sizing: border-box;
     display: inline-block;
 }
@@ -688,6 +688,7 @@ ul li.itemmenubar a:hover {
 #navmap a {
     text-decoration: none;
 }
+
 #navmap {
     padding: 0;
     margin: 0 auto 50px auto;
@@ -850,22 +851,50 @@ ul li.itemmenubar a:hover {
 }
 
 @media (max-width: 768px) {
-    #content-leg {width: 46%}
+    #content-leg {
+        width: 46%
+    }
 }
 
 @media (max-width: 480px) {
-    #content-leg {width: 95%}
-    #content-leg #leg #numero {font-size: 100%;padding-top: 15px;}
+    #content-leg {
+        width: 95%
+    }
+
+    #content-leg #leg #numero {
+        font-size: 100%;
+        padding-top: 15px;
+    }
 }
 
 /*cores ids locais*/
-#numero.salaaula {background-color: #4067A1;}
-#numero.salaprof {background-color: #377375;}
-#numero.labensino {background-color: #A3CCE4;}
-#numero.labpesquisa {background-color: #6693AE;}
-#numero.servico {background-color: #965F8A;}
-#numero.banheiro {background-color: #CC7FB5;}
-#numero.outros {background-color: #e3e3e3;}
+#numero.salaaula {
+    background-color: #4067A1;
+}
+
+#numero.salaprof {
+    background-color: #377375;
+}
+
+#numero.labensino {
+    background-color: #A3CCE4;
+}
+
+#numero.labpesquisa {
+    background-color: #6693AE;
+}
+
+#numero.servico {
+    background-color: #965F8A;
+}
+
+#numero.banheiro {
+    background-color: #CC7FB5;
+}
+
+#numero.outros {
+    background-color: #e3e3e3;
+}
 
 
 /**********************************************************/
