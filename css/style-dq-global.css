@@ -471,27 +471,27 @@ ul li.itemmenubar a:hover {
 }
 
 #model #destaque.mapa-completo {
-    background-image: url(../img/capa-home3.png);
+    background-image: url(../mapa/img/mapa-completo.svg);
 }
 
-#model #destaque.servicos {
-    background-image: url(../img/capa-home3.png);
+#model #destaque.servico {
+    background-image: url(../mapa/img/servico.svg);
 }
 
 #model #destaque.salaaula {
-    background-image: url(../img/capa-home3.png);
+    background-image: url(../mapa/img/sala-aula.svg);
 }
 
 #model #destaque.salaprofessor {
-    background-image: url(../img/capa-home3.png);
+    background-image: url(../mapa/img/sala-prof.svg);
 }
 
 #model #destaque.labpesquisa {
-    background-image: url(../img/capa-home3.png);
+    background-image: url(../mapa/img/lab-pesquisa.svg);
 }
 
 #model #destaque.labensino {
-    background-image: url(../img/capa-home3.png);
+    background-image: url(../mapa/img/lab-ensino.svg);
 }
 
 
