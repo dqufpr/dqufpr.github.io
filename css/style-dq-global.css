@@ -755,7 +755,6 @@ ul li.itemmenubar a:hover {
 }
 
 #dataon::before {
-    content: "Informações sobre os locais";
     display: inline-table;
     padding: 15px 0 15px 0;
     font-size: 130%;
