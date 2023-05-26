@@ -452,29 +452,47 @@ ul li.itemmenubar a:hover {
     border-radius: 6px 6px 0px 0px;
     background-position: 50% 50%;
     background-image: url(../img/capa-home.svg);
+    background-origin: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+
 }
 
 #model #destaque.mapa {
     background-image: url(../img/capa-home1.png);
-    background-origin: border-box;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #model #destaque.servico {
-    background-origin: border-box;
-    background-size: cover;
-    background-repeat: no-repeat;
     background-image: url(../img/capa-home2.png);
 }
 
 #model #destaque.dq {
     background-image: url(../img/capa-home3.png);
-    background-origin: border-box;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
+#model #destaque.mapa-completo {
+    background-image: url(../img/capa-home3.png);
+}
+
+#model #destaque.servicos {
+    background-image: url(../img/capa-home3.png);
+}
+
+#model #destaque.salaaula {
+    background-image: url(../img/capa-home3.png);
+}
+
+#model #destaque.salaprofessor {
+    background-image: url(../img/capa-home3.png);
+}
+
+#model #destaque.labpesquisa {
+    background-image: url(../img/capa-home3.png);
+}
+
+#model #destaque.labensino {
+    background-image: url(../img/capa-home3.png);
+}
 
 
 #model span.inativo {
