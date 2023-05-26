@@ -720,7 +720,6 @@ ul li.itemmenubar a:hover {
 #navmap ul li {
     width: 16%;
     display: inline-block;
-    border: 1px solid #e6e6e6;
     background-color: #d9e2e9;
     padding: 12px 12px;
     margin: 0.6%;
@@ -729,7 +728,7 @@ ul li.itemmenubar a:hover {
 }
 
 #navmap ul li:hover {
-    background-color: #ebeff1;
+    background-color: #b8c8d0;
     transition: .4s;
 }
 
