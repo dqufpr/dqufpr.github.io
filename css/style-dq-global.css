@@ -208,8 +208,8 @@ ul li.itemmenubar a:hover {
 #rodape {
     display: table;
     clear: both;
-    background: #efefef;
-    color: #5c6a74;
+    background: #0b1f3b;
+    color: #5c7199;
     width: 100%;
     padding: 30px 50px;
     border-top: none;
@@ -251,7 +251,7 @@ ul li.itemmenubar a:hover {
 
 #rodape a {
     text-decoration: none;
-    color: #373969;
+    color: #a9aac6;
 }
 
 #rodape p {
@@ -737,7 +737,7 @@ ul li.itemmenubar a:hover {
     content: "Informações sobre os locais";
     display: inline-table;
     padding: 15px 0 15px 0;
-    font-size: 120%;
+    font-size: 130%;
     font-weight: 500;
     color: #3d668a;
 }
