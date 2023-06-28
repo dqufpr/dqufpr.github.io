@@ -546,6 +546,8 @@ ul li.itemmenubar a:hover {
     background-repeat: no-repeat;
     background-position: 100% 10%;
     background-size: 25%;
+    background-color: #ffecec;
+    color: #ea8787;
 }
 
 #model span.new {
