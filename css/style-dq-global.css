@@ -718,10 +718,10 @@ ul li.itemmenubar a:hover {
 #navmap ul li {
     width: 16%;
     display: inline-block;
-    background-color: #366080;
+    background-color: #1f3c52;
     padding: 12px 12px;
     margin: 0.6%;
-    font-weight: 400;
+    font-weight: 600;
     border-radius: 200px;
     color: #fff;
 }
