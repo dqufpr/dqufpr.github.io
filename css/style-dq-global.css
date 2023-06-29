@@ -47,7 +47,7 @@ a:hover {
 #colunas #coluna {
     width: 100%;
     display: table;
-    padding: 30px 20px 90px 20px;
+    padding: 50px 20px;
     height: auto;
     margin: 0 auto;
     box-sizing: border-box;
