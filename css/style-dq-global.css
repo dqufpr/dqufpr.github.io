@@ -97,8 +97,8 @@ a:hover {
 #descricao {
     width: 100%;
     margin: 0;
-    padding: 20px 20px;
-    font-size: 18px;
+    padding: 16px 0;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1em;
     box-sizing: border-box;
@@ -678,20 +678,18 @@ ul li.itemmenubar a:hover {
 
 .container iframe {
     width: 100%;
-    min-height: 870px;
+    min-height: 840px;
     border: none;
     padding: 0;
     margin: 0;
 }
 
 /*-- navegacao mapas paginas mapas--*/
-#navmap a {
-    text-decoration: none;
-}
+#navmap a {text-decoration: none;}
 
 #navmap {
     padding: 0;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 60px auto;
     width: 95%;
     box-sizing: border-box;
     background: #fff;
@@ -720,7 +718,7 @@ ul li.itemmenubar a:hover {
 #navmap ul li {
     width: 16%;
     display: inline-block;
-    background-color: #1f3c52;
+    background-color:#1d3c69;
     padding: 12px 12px;
     margin: 0.6%;
     font-weight: 600;
@@ -729,8 +727,8 @@ ul li.itemmenubar a:hover {
 }
 
 #navmap ul li:hover {
-    background-color: #b8c8d0;
-    transition: .4s;
+    background-color: #627fa9;
+    transition: .3s;
 }
 
 /*--- legendas espacos site mapa ---*/
