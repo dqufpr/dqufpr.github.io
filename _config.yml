@@ -4,4 +4,3 @@ defaults:
     values:
       permissions-policy: "interest-cohort=()"
       
-google_analytics: G-0HMX2K2MHE
