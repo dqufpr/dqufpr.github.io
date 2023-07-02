@@ -334,10 +334,10 @@ ul li.itemmenubar a:hover {
 /************************************************************/
 #nota {
     width: 100%;
-    padding: 0;
+    padding: 1em 0;
     margin: 0 auto;
     display: inline-block;
-    color:#808790;
+    color: #a3acb8;
     text-align: center;
 }
 
