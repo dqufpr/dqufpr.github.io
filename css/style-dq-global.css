@@ -1,9 +1,7 @@
 /************************************************************/
 /*//////////// css global plataforma DQ Digital ////////////*/
 /************************************************************/
-html {
-    font-family: Roboto, Arial, sans-serif;
-}
+html {font-family: Roboto, Arial, sans-serif;}
 
 body {
     font-family: Roboto, Arial, sans-serif;
@@ -22,6 +20,28 @@ a:hover {
     text-decoration: none;
     color: #476b9f;
 }
+
+
+/************************************************************/
+/*-- atualização ano--*/
+/************************************************************/
+#rodape::after {
+    content: "©2023 - Todos os direitos reservados";
+    font-size: 90%;
+    font-weight: 500;
+    color: #3d668a;
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0 0 0;
+    padding: 10px 0;
+    text-align: center;
+    border-top: 1px solid #f98; 
+}
+
+
+/************************************************************/
+/*-- estrutura base --*/
+/************************************************************/
 
 #pagina {
     margin: 0 auto;
