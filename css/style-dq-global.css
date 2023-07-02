@@ -27,7 +27,7 @@ a:hover {
 /************************************************************/
 #rodape::after {
     content: "©2023 — Todos os direitos reservados";
-    font-size: 90%;
+    font-size: 100%;
     font-weight: 500;
     color: #3d668a;
     display: inline-block;
@@ -705,7 +705,6 @@ ul li.itemmenubar a:hover {
 
 /*-- navegacao mapas paginas mapas--*/
 #navmap a {text-decoration: none;}
-
 #navmap {
     padding: 0;
     margin: 0 auto 60px auto;
@@ -949,11 +948,10 @@ ul li.itemmenubar a:hover {
 /*-- responsivo max 800px --*/
 /*********************************************************/
 @media (max-width: 800px) {
-
     /*-- navegacao mapas paginas mapas--*/
     #navmap {
         width: 95%;
-        margin: 1em auto;
+        margin: 36px auto;
     }
 
     #navmap ul li {
