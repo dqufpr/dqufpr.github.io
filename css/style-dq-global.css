@@ -26,18 +26,17 @@ a:hover {
 /*-- atualização ano--*/
 /************************************************************/
 #rodape::after {
-    content: "©2023 - Todos os direitos reservados";
+    content: "©2023 — Todos os direitos reservados";
     font-size: 90%;
     font-weight: 500;
     color: #3d668a;
     display: inline-block;
     width: 100%;
-    margin: 10px 0 0 0;
+    margin: 13px 0 0 0;
     padding: 10px 0;
     text-align: center;
-    border-top: 1px solid #f98; 
+    border-top: 1px solid #203656; 
 }
-
 
 /************************************************************/
 /*-- estrutura base --*/
