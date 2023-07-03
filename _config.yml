@@ -3,5 +3,3 @@ defaults:
       path: ""
     values:
       permissions-policy: "interest-cohort=()"
-      
-  X-Frame-Options: "SAMEORIGIN"  
