@@ -1,6 +1,3 @@
-const sheetId = "1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ";
-const sheetName = "Completo";
-
 fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`)
     .then(res => res.text())
     .then(text => {
