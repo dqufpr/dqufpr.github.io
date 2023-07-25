@@ -448,15 +448,20 @@ ul li.itemmenubar a:hover {
 
 /* página inicial elementos site base e servicos */
 #homemodel {
-    width: 90%;
+    width: 88%;
     margin: 30px auto;
-    display: table;
+    display: flex;
+    align-items: normal;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 #model {
-    width: 28%;
     background-color: #fff;
-    margin: 2%;
+    width: 31.7%;
+    margin: 0.8%;
     padding: 0;
     border: none;
     border-radius: 6px;
@@ -465,6 +470,10 @@ ul li.itemmenubar a:hover {
     float: left;
     box-sizing: border-box;
     text-align: center;
+    display: grid;
+    align-content: stretch;
+    align-items: stretch;
+    justify-items: center;
 }
 
 #model:hover {
