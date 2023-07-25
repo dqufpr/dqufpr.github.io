@@ -718,10 +718,11 @@ ul li.itemmenubar a:hover {
 
 /*-- navegacao mapas paginas mapas--*/
 #navmap a {text-decoration: none;}
+
 #navmap {
     padding: 0;
     margin: 0 auto 60px auto;
-    width: 95%;
+    width: 97%;
     box-sizing: border-box;
     background: #fff;
     border-radius: 6px;
