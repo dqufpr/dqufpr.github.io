@@ -1,7 +1,9 @@
 /************************************************************/
 /*//////////// css global plataforma DQ Digital ////////////*/
 /************************************************************/
-html {font-family: Roboto, Arial, sans-serif;}
+html {
+    font-family: Roboto, Arial, sans-serif;
+}
 
 body {
     font-family: Roboto, Arial, sans-serif;
@@ -35,7 +37,7 @@ a:hover {
     margin: 13px 0 0 0;
     padding: 10px 0;
     text-align: center;
-    border-top: 1px solid #203656; 
+    border-top: 1px solid #203656;
 }
 
 /************************************************************/
@@ -726,7 +728,9 @@ ul li.itemmenubar a:hover {
 }
 
 /*-- navegacao mapas paginas mapas--*/
-#navmap a {text-decoration: none;}
+#navmap a {
+    text-decoration: none;
+}
 
 #navmap {
     padding: 0;
@@ -759,7 +763,7 @@ ul li.itemmenubar a:hover {
 #navmap ul li {
     width: 16%;
     display: inline-block;
-    background-color:#1d3c69;
+    background-color: #1d3c69;
     padding: 12px 12px;
     margin: 0.6%;
     font-weight: 600;
@@ -788,7 +792,10 @@ ul li.itemmenubar a:hover {
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    background:#fff;
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #dataon::before {
@@ -969,6 +976,7 @@ ul li.itemmenubar a:hover {
 /*-- responsivo max 800px --*/
 /*********************************************************/
 @media (max-width: 800px) {
+
     /*-- navegacao mapas paginas mapas--*/
     #navmap {
         width: 95%;
