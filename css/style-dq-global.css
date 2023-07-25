@@ -887,13 +887,14 @@ ul li.itemmenubar a:hover {
 
 @media (max-width: 768px) {
     #content-leg {
-        width: 46%
+        width: 47%
     }
 }
 
 @media (max-width: 480px) {
     #content-leg {
-        width: 95%
+        width: 95%;
+        margin-top: 4%;
     }
 
     #content-leg #leg #numero {
