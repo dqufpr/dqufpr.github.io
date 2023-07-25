@@ -775,22 +775,20 @@ ul li.itemmenubar a:hover {
 /*--- legendas espacos site mapa ---*/
 #dataon {
     width: 100%;
-    background-color: #fff;
-    display: inline-table;
+    background-color: transparent;
     height: auto;
     margin: 0 auto;
     box-sizing: border-box;
     min-height: 200px;
     text-align: center;
+    display: block;
 }
 
 #dataon .data {
-    width: 96%;
-    display: inline-table;
+    width: 100%;
     height: auto;
-    margin: 0 auto;
     box-sizing: border-box;
-    background: #fff;
+    background:#fff;
 }
 
 #dataon::before {
@@ -805,23 +803,22 @@ ul li.itemmenubar a:hover {
 /*--- mapa novo modelo ---*/
 /************************************************************/
 #content-leg {
-    display: flex;
-    flex-wrap: wrap;
-    float: left;
-    width: 30%;
+    display: inline-grid;
     height: auto;
-    margin: 10px;
-    padding: 0;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    border: 1px solid #dedede;
+    background-color: #ffffff;
+    width: 31.5%;
+    margin: 0.6%;
+    border-radius: 7px;
+    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 7%);
     box-sizing: border-box;
+    align-items: unset;
+    justify-content: stretch;
 }
 
 #content-leg #leg {
     width: 100%;
     box-sizing: border-box;
-    display: inline-block;
     text-align: left;
     line-height: normal;
 }
@@ -851,7 +848,7 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .nome {
-    font-size: 23px;
+    font-size: 26px;
     color: #05192f;
     text-align: left;
     font-weight: 500;
@@ -862,7 +859,7 @@ ul li.itemmenubar a:hover {
 }
 
 #content-leg #leg .conteudo .abrev {
-    font-size: 16px;
+    font-size: 18px;
     color: #666;
     font-weight: 400;
     margin: 0 0 5px 0;
