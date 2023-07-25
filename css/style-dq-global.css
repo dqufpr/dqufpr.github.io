@@ -805,12 +805,12 @@ ul li.itemmenubar a:hover {
 #content-leg {
     display: inline-grid;
     height: auto;
-    border: 1px solid #dedede;
+    border: 1px solid #e2e2e2;
     background-color: #ffffff;
     width: 31.5%;
     margin: 0.6%;
     border-radius: 7px;
-    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 7%);
+    box-shadow: 0 6px 10px 0 rgb(0 0 0 / 5%);
     box-sizing: border-box;
     align-items: unset;
     justify-content: stretch;
