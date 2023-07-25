@@ -778,7 +778,7 @@ ul li.itemmenubar a:hover {
 
 /*--- legendas espacos site mapa ---*/
 #dataon {
-    width: 100%;
+    width: 97%;
     background-color: transparent;
     height: auto;
     margin: 0 auto;
@@ -796,6 +796,7 @@ ul li.itemmenubar a:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #dataon::before {
@@ -814,8 +815,8 @@ ul li.itemmenubar a:hover {
     height: auto;
     border: 1px solid #e2e2e2;
     background-color: #ffffff;
-    width: 31.5%;
-    margin: 0.6%;
+    width: 31.8%;
+    margin: 0.7%;
     border-radius: 7px;
     box-shadow: 0 6px 10px 0 rgb(0 0 0 / 5%);
     box-sizing: border-box;
@@ -900,7 +901,7 @@ ul li.itemmenubar a:hover {
 
 @media (max-width: 480px) {
     #content-leg {
-        width: 95%;
+        width: 100%;
         margin-top: 4%;
     }
 
