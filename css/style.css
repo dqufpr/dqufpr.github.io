@@ -1,9 +1,7 @@
 /************************************************************/
 /*//////////// css global plataforma DQ Digital ////////////*/
 /*/////////////     Floriatan Santos Costa    //////////////*/
-/*/////////////            LAESB UFPR         //////////////*/
 /************************************************************/
-
 
 /*-- cabeçalho principal --*/
 #cabecalho {
@@ -15,4 +13,3 @@
         background-image: url(../img/logo-site-mobile.svg);
     }
 }
-
