@@ -29,7 +29,7 @@ a:hover {
 /*-- atualização ano--*/
 /************************************************************/
 #rodape::after {
-    content: "©2024 Todos os direitos reservados";
+    content: "©2023 – 2024 Todos os direitos reservados";
     font-size: 100%;
     font-weight: 500;
     color: #3d668a;
