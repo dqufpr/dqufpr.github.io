@@ -32,3 +32,4 @@ fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sh
         document.querySelector(".data").innerHTML = output;
     })
     .catch(err => console.error(err));
+    
