@@ -104,7 +104,7 @@ ul li.itemmenubar a:hover { color: #549db3; }
 /* 6. RODAPÉ                                                */
 /************************************************************/
 #rodape { display: table; clear: both; background: #0b1f3b; color: #3d668a; width: 100%; padding: 30px 50px; border-top: 5px solid #496389; margin: 0; font-size: 87%; box-sizing: border-box; }
-#rodape::after { content: "©2025 — Todos os direitos reservados"; font-size: 100%; font-weight: 500; color: #3d668a; display: inline-block; width: 100%; margin: 13px 0 0 0; padding: 10px 0; text-align: center; border-top: 1px solid #203656; }
+#rodape::after { content: "©2023-2026 — Todos os direitos reservados"; font-size: 100%; font-weight: 500; color: #3d668a; display: inline-block; width: 100%; margin: 13px 0 0 0; padding: 10px 0; text-align: center; border-top: 1px solid #203656; }
 #rodape span { background-image: url(../img/logo-rodape.svg); background-position: left center; background-repeat: no-repeat; background-size: 80%; color: transparent; width: 35%; min-height: 25px; float: left; padding: 1em 0; margin: 0 auto; position: relative; }
 #rodape #coluna { width: 50%; margin: 0; box-sizing: border-box; float: left; }
 #rodape #coluna.rodape1 { text-align: left; padding: 0; }
