@@ -147,7 +147,7 @@
 
   /* Estrutura */
   --container: 1440px;
-  --gutter: 16px;               /* margem lateral; 24px a partir de 640px */
+  --gutter: 24px;               /* margem lateral; 24px a partir de 640px */
   --header-h: 60px;             /* 68px a partir de 960px */
   --tap: 44px;                  /* área mínima de toque */
   --z-header: 100;
@@ -490,7 +490,7 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
 
 /* ---------- Tablet: a partir de 640px ---------- */
 @media (min-width: 640px) {
-  :root { --gutter: 24px; }
+  :root { --gutter: 30px; }
   .brand__logo { width: 40px; height: 40px; }
   .brand__sub { display: block; }
   .grid--2, .grid--3 { grid-template-columns: repeat(2, 1fr); }
