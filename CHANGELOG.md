@@ -4,6 +4,7 @@
 
 ### Mudado
 - Cabeçalho com o logo quadrado do Mapa Digital (`img/logo.svg`) e o nome "Mapa Digital"; a marca leva à planta (`/mapa/completo`), e "Início" no menu continua levando ao portal.
+- Rodapé com a mesma marca do cabeçalho (logo do Mapa Digital + nome), `© <ano> · Todos os direitos reservados.` com o ano automático, crédito "Representação Discente · PPGQ · UFPR" e aviso de que o site não tem vínculo institucional com a UFPR.
 
 ## 2.1.1 — 2026-10-31
 
