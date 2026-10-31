@@ -1,5 +1,11 @@
 # Histórico de mudanças
 
+## 2026-10-31 — Cores das categorias e planta do mapa
+
+### Mudado
+- Novas cores das categorias do Mapa Digital (`--loc-*`): um tom por categoria, distinguíveis com protanopia, deuteranopia e tritanopia. Guia de estilos atualizado.
+- Atalhos da página inicial abrem a planta do mapa com a categoria destacada (`/mapa/completo?destaque=…`).
+
 ## 2026-10-31 — Reorganização e novo portal
 
 ### Novo

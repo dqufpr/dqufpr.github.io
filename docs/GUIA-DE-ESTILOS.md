@@ -103,16 +103,16 @@ Use o token. O código hexadecimal aparece aqui só como referência.
 
 ### Categorias do Mapa Digital
 
-As mesmas cores do mapa impresso. Use para identificar o tipo de local, nunca como cor de texto.
+Um tom por categoria, escolhido para continuar distinguível com os três tipos de daltonismo. Use para identificar o tipo de local, nunca como cor de texto. Sobre `--loc-lab-ensino`, `--loc-banheiro` e `--loc-outros`, que são claras, o texto vai escuro (`--brand-navy-deep`); sobre as demais, branco.
 
 | Token | Cor | Categoria |
 |---|---|---|
-| `--loc-sala-aula` | `#4067a1` | Sala de aula |
-| `--loc-sala-prof` | `#377375` | Sala de professor |
-| `--loc-lab-ensino` | `#a3cce4` | Laboratório de ensino |
-| `--loc-lab-pesquisa` | `#6693ae` | Laboratório de pesquisa |
-| `--loc-servico` | `#965f8a` | Serviço |
-| `--loc-banheiro` | `#cc7fb5` | Banheiro |
+| `--loc-sala-aula` | `#3d5fa8` | Sala de aula |
+| `--loc-sala-prof` | `#2f7d6d` | Sala de professor |
+| `--loc-lab-ensino` | `#e0a63a` | Laboratório de ensino |
+| `--loc-lab-pesquisa` | `#b4532f` | Laboratório de pesquisa |
+| `--loc-servico` | `#5e3a7a` | Serviço |
+| `--loc-banheiro` | `#d4709e` | Banheiro |
 | `--loc-outros` | `#c9ced6` (escuro: `#5b6676`) | Outros |
 
 ### Regras
@@ -206,7 +206,7 @@ Cabeçalho fixo no topo (`position: sticky`), sempre no azul institucional, nos 
 
 - **Logotipo:** `logo-site-mobile.svg` no celular e `logo-site-hv.svg` a partir de 640px, trocados por `<picture>`. Link para `/`.
 - **Menu:** `<nav id="site-nav">` com até 5 itens. No celular e tablet abre como painel abaixo do cabeçalho pelo botão ☰ (`[data-menu-toggle]`); no desktop fica em linha.
-- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/sala-de-aula`). O estilo vem do CSS; não marque à mão.
+- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/completo`). O estilo vem do CSS; não marque à mão.
 - **Tema:** `<details class="theme-menu">` com três botões `[data-theme-set]`. O ícone do botão mostra o modo atual (sol, lua ou meio círculo).
 - `Esc` fecha os menus; clicar fora também.
 - Primeiro elemento do `<body>`: link "Pular para o conteúdo" (`.skip-link`) apontando para `<main id="main">`.
@@ -269,7 +269,7 @@ Imagens de capa: 940×280px, PNG/SVG/WebP, informação importante no centro (as
 
 ```html
 <span class="badge badge--new">Novo</span>
-<a class="loc-tag loc--lab-ensino" href="/mapa/laboratorios-de-ensino">Laboratórios de ensino</a>
+<a class="loc-tag loc--lab-ensino" href="/mapa/completo?destaque=lab-ensino">Laboratórios de ensino</a>
 ```
 
 | Selo | Quando usar |

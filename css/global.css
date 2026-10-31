@@ -92,13 +92,14 @@
   --danger-soft: #fdecea;
   --info-soft: #e5f0f8;
 
-  /* Categorias de local do Mapa Digital (mesmas cores do mapa impresso) */
-  --loc-sala-aula: #4067a1;
-  --loc-sala-prof: #377375;
-  --loc-lab-ensino: #a3cce4;
-  --loc-lab-pesquisa: #6693ae;
-  --loc-servico: #965f8a;
-  --loc-banheiro: #cc7fb5;
+  /* Categorias de local do Mapa Digital: um tom por categoria, distinguíveis também
+     com daltonismo (protanopia, deuteranopia e tritanopia) */
+  --loc-sala-aula: #3d5fa8;
+  --loc-sala-prof: #2f7d6d;
+  --loc-lab-ensino: #e0a63a;
+  --loc-lab-pesquisa: #b4532f;
+  --loc-servico: #5e3a7a;
+  --loc-banheiro: #d4709e;
   --loc-outros: #c9ced6;
 
   /* Tipografia: use só estes tamanhos e pesos */
