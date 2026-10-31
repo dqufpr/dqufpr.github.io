@@ -1,5 +1,22 @@
 # Histórico de mudanças
 
+## 2.1.0 — 2026-10-31
+
+### Novo
+- Guia de atualização dos dados (`docs/ATUALIZAR-DADOS.md`), com casos comuns, avisos do script e checklist.
+- `sitemap.xml` com as páginas do mapa (apontado no `robots.txt` do portal).
+- Aviso "Locais em atualização" no topo da planta.
+- Favicon próprio do Mapa Digital (`img/favicon.svg`).
+
+### Mudado
+- Abertura da página, lista e avisos com a mesma largura da planta; espaço antes do aviso final.
+- Número da sala no painel centralizado.
+- Meta-descrições revistas; `_config.yml` com título, descrição, endereço e regras de indexação.
+- O script avisa com clareza quando falta uma coluna na planilha.
+
+### Removido
+- Logotipos próprios sem uso (`img/logo-site-*.svg`): as páginas usam os do portal.
+
 ## 2026-10-31 — Planta interativa
 
 ### Novo

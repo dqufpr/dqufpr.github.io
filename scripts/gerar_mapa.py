@@ -65,7 +65,11 @@ def le_planilha():
     ws = openpyxl.load_workbook(DADOS / "locais.xlsx", data_only=True).active
     linhas = ws.iter_rows(values_only=True)
     cab = [limpa(c) for c in next(linhas)]
-    col = {nome: cab.index(nome) for nome in ("n", "ID_fisico", "Nome do Local", "Sigla", "Descrição", "Tipo de local")}
+    obrigatorias = ("n", "ID_fisico", "Nome do Local", "Sigla", "Descrição", "Tipo de local")
+    faltando = [c for c in obrigatorias if c not in cab]
+    if faltando:
+        sys.exit("dados/locais.xlsx: falta a coluna " + ", ".join(faltando) + " na primeira linha (veja docs/ATUALIZAR-DADOS.md)")
+    col = {nome: cab.index(nome) for nome in obrigatorias}
     itens = []
     for i, r in enumerate(linhas, start=2):
         local = limpa(r[col["ID_fisico"]])
@@ -98,7 +102,7 @@ def monta_locais(itens, areas):
     sem_area = sorted(set(por_local) - set(areas_por_local), key=chave_natural)
     sem_dados = sorted(set(areas_por_local) - set(por_local), key=chave_natural)
     for l in sem_area:
-        print(f"aviso: o local {l} está na planilha, mas não tem área na planta (dados/planta-areas.json)")
+        print(f"aviso: o local {l} está na planilha, mas não tem área na planta (dados/planta-areas.json); aparece só na lista")
     for l in sem_dados:
         print(f"aviso: a área {l} da planta não tem linhas na planilha")
 

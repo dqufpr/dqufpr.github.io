@@ -6,12 +6,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Planta do prédio · Mapa Digital · DQ Digital</title>
-  <meta name="description" content="Planta interativa do prédio do Departamento de Química da UFPR: salas de aula, salas de professores, laboratórios e serviços.">
+  <meta name="description" content="Planta interativa do Departamento de Química da UFPR: encontre salas de aula, professores, laboratórios e serviços pelo número da sala ou pelo nome.">
   <link rel="canonical" href="https://dqufpr.github.io/mapa/completo">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DQ Digital">
   <meta property="og:title" content="Planta do prédio · Mapa Digital · DQ Digital">
-  <meta property="og:description" content="Planta interativa do prédio do Departamento de Química da UFPR: salas de aula, salas de professores, laboratórios e serviços.">
+  <meta property="og:description" content="Planta interativa do Departamento de Química da UFPR: encontre salas de aula, professores, laboratórios e serviços pelo número da sala ou pelo nome.">
   <meta property="og:url" content="https://dqufpr.github.io/mapa/completo">
   <meta property="og:image" content="https://dqufpr.github.io/mapa/img/social-media.png">
   <meta property="og:image:width" content="760">
@@ -19,7 +19,7 @@
   <meta property="og:locale" content="pt_BR">
   <meta name="theme-color" content="#1d3c69" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0f2340" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/mapa/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/js/theme-init.js"></script>
   <link rel="stylesheet" href="/css/global.css">
@@ -71,7 +71,11 @@
 </header>
 
 <main id="main" tabindex="-1">
-  <section class="page-hero container">
+  <section class="page-hero container container--mapa">
+    <div class="alert alert--warning aviso-topo" role="note">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#clock"></use></svg>
+      <p><strong>Locais em atualização.</strong> A planta e a lista estão sendo revistas de acordo com a nova organização do departamento, e algumas salas podem estar desatualizadas. Viu algo errado? <a href="/fale-conosco">Avise a gente</a>.</p>
+    </div>
     <p class="eyebrow">Mapa Digital</p>
     <h1>Planta do prédio</h1>
     <p class="lead">Toque numa sala para ver o que funciona nela, busque por nome ou destaque uma categoria inteira.</p>
@@ -341,7 +345,7 @@
   </section>
 
   <section class="section section--alt" aria-labelledby="lista-title">
-    <div class="container">
+    <div class="container container--mapa">
       <div class="section-head">
         <h2 id="lista-title">Todos os locais</h2>
         <p>Em ordem de número da sala. A busca e os destaques da planta também filtram esta lista.</p>
@@ -1264,10 +1268,12 @@
     </div>
   </section>
 
-  <div class="container">
-    <div class="alert mt-0">
-      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg>
+  <div class="section section--tight">
+    <div class="container container--mapa">
+      <div class="alert">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg>
       <p><strong>Viu algo desatualizado?</strong> Salas mudam de uso com frequência. <a href="/fale-conosco">Avise a gente</a> com o número da sala e o que está diferente.</p>
+      </div>
     </div>
   </div>
 </main>

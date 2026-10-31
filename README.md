@@ -34,7 +34,9 @@ O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de est
 │   ├── planta-base.svg       Paredes, corredores e portas (sem números)
 │   └── locais.json           GERADO: locais agrupados por sala (lido pelo navegador)
 ├── scripts/gerar_mapa.py     Gera locais.json e atualiza a planta e a lista em completo.html
-├── img/                      Logotipo, favicon e imagem de compartilhamento
+├── docs/ATUALIZAR-DADOS.md   Guia passo a passo para atualizar os locais
+├── sitemap.xml               Páginas para buscadores (o robots.txt fica no portal)
+├── img/                      Favicon e imagem de compartilhamento (os logotipos vêm do portal)
 ├── index.html                Só redireciona para completo.html
 ├── sala-de-aula.html …       Só redirecionamentos: páginas antigas por categoria
 ├── p/                        Só redirecionamentos: endereços antigos (/mapa/p/...)
@@ -71,6 +73,9 @@ A primeira linha é o cabeçalho; as colunas são encontradas pelo **nome**, nã
 - Várias linhas com o mesmo `ID_fisico` formam uma sala só (ex.: os professores que dividem uma sala). A cor da sala é a do primeiro item.
 
 ### Atualizar os locais
+
+O passo a passo completo, com os casos comuns, os avisos do script e um checklist, está em **[docs/ATUALIZAR-DADOS.md](docs/ATUALIZAR-DADOS.md)**. Resumo:
+
 
 1. Edite `dados/locais.xlsx`.
 2. Na raiz do repositório:
