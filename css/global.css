@@ -147,7 +147,7 @@
 
   /* Estrutura */
   --container: 1440px;
-  --gutter: 24px;               /* margem lateral; 24px a partir de 640px */
+  --gutter: 30px;               
   --header-h: 60px;             /* 68px a partir de 960px */
   --tap: 44px;                  /* área mínima de toque */
   --z-header: 100;
