@@ -1,5 +1,10 @@
 # Histórico de mudanças
 
+## 2.2.0 — 2026-10-31
+
+### Mudado
+- Cabeçalho com o logo quadrado do Mapa Digital (`img/logo.svg`) e o nome "Mapa Digital"; a marca leva à planta (`/mapa/completo`), e "Início" no menu continua levando ao portal.
+
 ## 2.1.1 — 2026-10-31
 
 ### Mudado
