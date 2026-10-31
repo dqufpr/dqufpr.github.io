@@ -206,7 +206,7 @@ Cabeçalho fixo no topo (`position: sticky`), sempre no azul institucional, nos 
 
 - **Logotipo:** `logo-site-mobile.svg` no celular e `logo-site-hv.svg` a partir de 640px, trocados por `<picture>`. Link para `/`.
 - **Menu:** `<nav id="site-nav">` com até 5 itens. No celular e tablet abre como painel abaixo do cabeçalho pelo botão ☰ (`[data-menu-toggle]`); no desktop fica em linha.
-- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/p/...`). O estilo vem do CSS; não marque à mão.
+- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/sala-de-aula`). O estilo vem do CSS; não marque à mão.
 - **Tema:** `<details class="theme-menu">` com três botões `[data-theme-set]`. O ícone do botão mostra o modo atual (sol, lua ou meio círculo).
 - `Esc` fecha os menus; clicar fora também.
 - Primeiro elemento do `<body>`: link "Pular para o conteúdo" (`.skip-link`) apontando para `<main id="main">`.
@@ -269,7 +269,7 @@ Imagens de capa: 940×280px, PNG/SVG/WebP, informação importante no centro (as
 
 ```html
 <span class="badge badge--new">Novo</span>
-<a class="loc-tag loc--lab-ensino" href="/mapa/p/laboratorios-de-ensino">Laboratórios de ensino</a>
+<a class="loc-tag loc--lab-ensino" href="/mapa/laboratorios-de-ensino">Laboratórios de ensino</a>
 ```
 
 | Selo | Quando usar |

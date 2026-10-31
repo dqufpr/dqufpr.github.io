@@ -66,7 +66,7 @@
     var here = normalize(window.location.pathname);
     document.querySelectorAll('#site-nav a').forEach(function (a) {
       var target = normalize(new URL(a.getAttribute('href'), window.location.href).pathname);
-      // Itens de módulo (ex.: /mapa) também ficam ativos nas subpáginas (/mapa/p/...)
+      // Itens de módulo (ex.: /mapa) também ficam ativos nas subpáginas (/mapa/sala-de-aula)
       var match = target === here || (target !== '/' && here.indexOf(target + '/') === 0);
       if (match) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
