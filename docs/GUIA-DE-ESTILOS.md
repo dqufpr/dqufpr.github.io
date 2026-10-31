@@ -321,7 +321,7 @@ Sprite em `/img/icons/sprite.svg`: traço de 2px, grade 24×24, cor herdada do t
 <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#map"></use></svg>
 ```
 
-Disponíveis: `map`, `pin`, `flask`, `building`, `mail`, `arrow-right`, `external`, `info`, `check`, `alert`, `clock`, `sun`, `moon`, `contrast`, `menu`, `close`.
+Disponíveis: `map`, `pin`, `flask`, `building`, `mail`, `arrow-right`, `external`, `info`, `check`, `alert`, `clock`, `sun`, `moon`, `contrast`, `menu`, `close`, `expand`, `shrink`.
 
 - Ícone ao lado de texto: `aria-hidden="true"`.
 - Botão só com ícone: `aria-label` no botão descrevendo a ação ("Abrir menu").
