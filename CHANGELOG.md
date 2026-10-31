@@ -1,5 +1,17 @@
 # Histórico de mudanças
 
+## 2026-10-31 — Ajustes da versão 2
+
+### Novo
+- Mapa com a largura toda da janela no computador (fora do `.container`).
+- Indicadores de carregamento: aviso com ícone girando sobre o mapa e cartões provisórios na lista de locais.
+- Linha do tempo na página de atualizações, com o histórico desde dezembro de 2022.
+
+### Mudado
+- Endereços sem `/p/`: `/mapa/sala-de-aula` em vez de `/mapa/p/sala-de-aula`. A pasta `p/` guarda só redirecionamentos para os endereços antigos.
+- `js/locais.js` virou `js/mapa.js` (lista de locais + aviso de carregamento do mapa).
+- Aviso legal reescrito: resumo, caráter não oficial, precisão, responsabilidade, nomes de pessoas e dados de quem visita.
+
 ## 2026-10-31 — Migração para a base visual do DQ Digital
 
 ### Novo

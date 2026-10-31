@@ -1,8 +1,11 @@
-/* locais.js — lista de locais do Mapa Digital, lida da planilha do Google.
-   Uso: <div class="locais" data-locais="NomeDaAba"> com, dentro dele,
-   [data-locais-busca] (campo de busca), [data-locais-status] e [data-locais-lista].
-   Acrescente data-locais-categoria para mostrar o nome da categoria em cada local (mapa completo).
-   Carregue com defer: <script src="/mapa/js/locais.js" defer></script>
+/* mapa.js — páginas de categoria do Mapa Digital.
+   Carregue com defer: <script src="/mapa/js/mapa.js" defer></script>
+
+   1. Desenho do mapa: [data-mapa-frame] com um <iframe> e um aviso [data-mapa-loading],
+      exibido até o desenho terminar de carregar.
+   2. Lista de locais: <div class="locais" data-locais="NomeDaAba"> com, dentro dele,
+      [data-locais-busca] (campo de busca), [data-locais-status] e [data-locais-lista].
+      Acrescente data-locais-categoria para mostrar o nome da categoria em cada local (mapa completo).
 
    Planilha: cada aba tem as colunas id · nome · abrev · local · desc · tipo (linha 1 = cabeçalho).
    A planilha precisa estar compartilhada como "qualquer pessoa com o link pode ver". */
@@ -10,6 +13,8 @@
   'use strict';
 
   var SHEET_ID = '1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ';
+  var ESQUELETOS = 6; // cartões provisórios exibidos durante o carregamento
+  var AVISO_MAX_MS = 15000; // tempo máximo do aviso "Carregando o mapa…"
 
   // Coluna "tipo" da planilha → classe de cor (global.css) e nome da categoria
   var TIPOS = {
@@ -99,6 +104,7 @@
     return n === 1 ? '1 local' : n + ' locais';
   }
 
+  /* ---------- Lista de locais ---------- */
   function init(box) {
     var aba = box.getAttribute('data-locais');
     var lista = box.querySelector('[data-locais-lista]');
@@ -137,8 +143,26 @@
       if (busca) busca.disabled = true;
     }
 
+    // Enquanto a planilha não responde: ícone girando no aviso e cartões "fantasmas" na lista
+    function carregando(ativo) {
+      status.classList.toggle('is-loading', ativo);
+      if (ativo) {
+        box.setAttribute('aria-busy', 'true');
+        for (var i = 0; i < ESQUELETOS; i++) {
+          var li = el('li', 'local local--esqueleto');
+          li.setAttribute('aria-hidden', 'true');
+          li.appendChild(el('span', 'local__num'));
+          li.appendChild(el('span', 'local__body'));
+          lista.appendChild(li);
+        }
+      } else {
+        box.removeAttribute('aria-busy');
+        lista.textContent = '';
+      }
+    }
+
     if (busca) busca.disabled = true;
-    box.setAttribute('aria-busy', 'true');
+    carregando(true);
 
     fetch(sheetUrl(aba))
       .then(function (res) {
@@ -146,6 +170,7 @@
         return res.text();
       })
       .then(function (text) {
+        carregando(false);
         var locais = parseGviz(text).map(toLocal).filter(function (l) { return l.id || l.nome; });
         var frag = document.createDocumentFragment();
         locais.forEach(function (l) { frag.appendChild(renderItem(l, mostrarCategoria)); });
@@ -159,12 +184,37 @@
       })
       .catch(function (err) {
         console.error('Mapa Digital: erro ao carregar a aba "' + aba + '"', err);
+        carregando(false);
         erro();
-      })
-      .then(function () { box.removeAttribute('aria-busy'); });
+      });
+  }
+
+  /* ---------- Desenho do mapa (iframe) ---------- */
+  // O aviso começa com "hidden" no HTML: sem JavaScript ele nunca aparece.
+  function initFrame(frame) {
+    var iframe = frame.querySelector('iframe');
+    var aviso = frame.querySelector('[data-mapa-loading]');
+    if (!iframe || !aviso) return;
+
+    function pronto() {
+      frame.classList.remove('is-loading');
+      aviso.hidden = true;
+    }
+
+    // O desenho pode ter terminado antes deste script rodar (cache)
+    var doc = null;
+    try { doc = iframe.contentDocument; } catch (e) { /* outro domínio: espera o evento */ }
+    if (doc && doc.readyState === 'complete' && doc.URL !== 'about:blank') return;
+
+    frame.classList.add('is-loading');
+    aviso.hidden = false;
+    iframe.addEventListener('load', pronto);
+    // Se a conexão travar sem disparar "load", o aviso não pode cobrir o mapa para sempre
+    window.setTimeout(pronto, AVISO_MAX_MS);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-mapa-frame]').forEach(initFrame);
     document.querySelectorAll('[data-locais]').forEach(init);
   });
 })();

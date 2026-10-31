@@ -11,7 +11,7 @@ O portal (`dqufpr/dqufpr.github.io`) fornece a base visual compartilhada. Este r
 | Vem do portal (caminho absoluto) | Vem deste repositório (`/mapa/...`) |
 |---|---|
 | `/js/theme-init.js`, `/css/global.css`, `/js/app.js` | `css/style.css`: visualizador do mapa e lista de locais |
-| `/img/icons/sprite.svg`, logotipos, `/fonts/` | `js/locais.js`: carrega os locais da planilha |
+| `/img/icons/sprite.svg`, logotipos, `/fonts/` | `js/mapa.js`: carrega os locais da planilha |
 | `/fale-conosco` (formulário de contato único) | `map/*.html`: desenhos do mapa (SVG) |
 | `/js/analytics.js` (só na página inicial do mapa) | `img/*.svg`: capas das categorias |
 
@@ -22,23 +22,25 @@ O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de est
 ```
 .
 ├── index.html              Página inicial do mapa: cartões das categorias
-├── p/                      Uma página por categoria: mapa + atalhos + lista de locais
-│   ├── completo.html
-│   ├── sala-de-aula.html
-│   ├── sala-de-professor.html
-│   ├── laboratorios-de-ensino.html
-│   ├── laboratorios-de-pesquisa.html
-│   ├── servicos.html
-│   └── sbpc.html           Mapa especial da SBPC 2023 (sem lista, fora do menu)
-├── map/                    Desenhos do mapa (SVG salvo como .html), abertos num iframe
-├── css/style.css           Estilos só do mapa, carregado depois do global.css
-├── js/locais.js            Lê a planilha e monta a lista de locais com busca
-├── img/                    Capas das categorias (940×280), logotipo e imagem de compartilhamento
+├── completo.html           Uma página por categoria: mapa + atalhos + lista de locais
+├── sala-de-aula.html
+├── sala-de-professor.html
+├── laboratorios-de-ensino.html
+├── laboratorios-de-pesquisa.html
+├── servicos.html
+├── sbpc.html               Mapa especial da SBPC 2023 (sem lista, fora do menu)
 ├── sobre.html              Sobre o Mapa Digital
 ├── atualizacao.html        Histórico de atualizações
 ├── legal.html              Aviso legal
+├── map/                    Desenhos do mapa (SVG salvo como .html), abertos num iframe
+├── css/style.css           Estilos só do mapa, carregado depois do global.css
+├── js/mapa.js              Aviso de carregamento do mapa; lista de locais lida da planilha, com busca
+├── img/                    Capas das categorias (940×280), logotipo e imagem de compartilhamento
+├── p/                      Só redirecionamentos: endereços antigos (/mapa/p/...) levam aos novos
 └── fale-conosco.html       Só redireciona para /fale-conosco (links antigos)
 ```
+
+Endereços: `https://dqufpr.github.io/mapa/sala-de-aula` (o GitHub Pages dispensa o `.html`). Os antigos, como `/mapa/p/sala-de-aula`, continuam funcionando por redirecionamento: não apague a pasta `p/`, porque podem existir QR codes e links impressos com eles.
 
 ## De onde vêm os locais
 
@@ -50,12 +52,12 @@ Os locais **não** ficam no HTML. Cada página de categoria lê, no navegador, u
 
 | Página | Aba da planilha |
 |---|---|
-| `p/completo` | `Completo` |
-| `p/sala-de-aula` | `SalaAula` |
-| `p/sala-de-professor` | `SalaProf` |
-| `p/laboratorios-de-ensino` | `LabEnsino` |
-| `p/laboratorios-de-pesquisa` | `labPesquisa` |
-| `p/servicos` | `Serv` |
+| `completo` | `Completo` |
+| `sala-de-aula` | `SalaAula` |
+| `sala-de-professor` | `SalaProf` |
+| `laboratorios-de-ensino` | `LabEnsino` |
+| `laboratorios-de-pesquisa` | `labPesquisa` |
+| `servicos` | `Serv` |
 
 Colunas de cada aba (linha 1 é o cabeçalho; a ordem importa, o nome não):
 
@@ -72,14 +74,14 @@ Valores de `tipo`: `salaaula`, `salaprof`, `labensino`, `labpesquisa`, `servico`
 
 Para atualizar um local, edite a planilha: a mudança aparece no site na próxima visita, sem commit. A ordem das linhas é a ordem da lista. Linhas sem `id` e sem `nome` são ignoradas.
 
-`js/locais.js` monta cada item com `textContent`, então o conteúdo da planilha nunca é interpretado como HTML. Se a planilha não responder, a página mostra um aviso com link para recarregar.
+`js/mapa.js` monta cada item com `textContent`, então o conteúdo da planilha nunca é interpretado como HTML. Se a planilha não responder, a página mostra um aviso com link para recarregar.
 
 ### Adicionar uma categoria
 
 1. Crie a aba na planilha com as mesmas colunas.
-2. Copie uma página de `p/`, troque título, textos, o `src` do iframe e o `data-locais`.
-3. Inclua a categoria nos atalhos (`.quick-links`) de todas as páginas de `p/` e um cartão em `index.html`.
-4. Se for um `tipo` novo, acrescente-o em `TIPOS` (`js/locais.js`) e crie o token de cor `--loc-*` no `global.css` do portal.
+2. Copie uma página de categoria (ex.: `servicos.html`), troque título, textos, o `src` do iframe e o `data-locais`.
+3. Inclua a categoria nos atalhos (`.quick-links`) de todas as páginas de categoria e um cartão em `index.html`.
+4. Se for um `tipo` novo, acrescente-o em `TIPOS` (`js/mapa.js`) e crie o token de cor `--loc-*` no `global.css` do portal.
 
 ## Segurança (CSP)
 

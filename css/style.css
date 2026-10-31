@@ -6,9 +6,11 @@
    Sumário
    1. Abertura de página
    2. Atalhos de categoria
-   3. Visualizador do mapa
-   4. Lista de locais
-   5. Impressão
+   3. Indicador de carregamento
+   4. Visualizador do mapa
+   5. Lista de locais
+   6. Linha do tempo (atualizações)
+   7. Impressão
 ================================================================== */
 
 /* 1. Abertura de página: o sobretítulo pode ser um link de volta ao mapa */
@@ -20,25 +22,50 @@
 .quick-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--surface-2); font-weight: var(--fw-bold); }
 
-/* 3. Visualizador do mapa: o SVG fica num iframe e rola por dentro no celular */
+/* 3. Indicador de carregamento: <span class="spinner" aria-hidden="true">.
+   Com movimento reduzido, o global.css para a animação e fica só o texto ao lado. */
+.spinner {
+  display: inline-block; flex: none; width: 1.25em; height: 1.25em;
+  border: 3px solid var(--border-strong); border-top-color: var(--accent); border-radius: 50%;
+  animation: dq-spin 0.8s linear infinite;
+}
+@keyframes dq-spin { to { transform: rotate(360deg); } }
+@keyframes dq-pulse { 50% { opacity: 0.45; } }
+
+/* 4. Visualizador do mapa: o SVG fica num iframe e rola por dentro no celular.
+   .map-wide fica fora do .container: no computador usa a largura toda da janela. */
+.map-wide { padding-inline: var(--gutter); }
 .map-view { margin: 0; }
 .map-view__frame {
-  overflow: hidden;
+  position: relative; overflow: hidden;
   border: 1px solid var(--border); border-radius: var(--radius-lg);
   background: #ffffff; /* o desenho do mapa é sempre claro */
   box-shadow: var(--shadow-sm);
 }
 .map-view__frame iframe { display: block; width: 100%; height: min(70vh, 560px); border: 0; }
+.map-view__loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; gap: var(--space-3);
+  background: #ffffff; color: var(--brand-navy); /* sobre o fundo branco do desenho, nos dois temas */
+  font-weight: var(--fw-medium);
+}
+.map-view__loading[hidden] { display: none; }
+.map-view__loading .spinner { border-color: var(--brand-ice); border-top-color: var(--brand-navy); }
 .map-view__caption {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4);
   margin-top: var(--space-2); color: var(--text-muted); font-size: var(--fs-sm);
 }
 .map-view__caption a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--tap); font-weight: var(--fw-medium); }
 
-/* 4. Lista de locais (preenchida por /mapa/js/locais.js) */
+/* 5. Lista de locais (preenchida por /mapa/js/mapa.js) */
 .locais__busca { max-width: 420px; margin-bottom: var(--space-4); }
-.locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
+.locais__status { display: flex; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
 .locais__status:empty { display: none; }
+.locais__status.is-loading::before {
+  content: ""; width: 1.25em; height: 1.25em; flex: none;
+  border: 3px solid var(--border-strong); border-top-color: var(--accent); border-radius: 50%;
+  animation: dq-spin 0.8s linear infinite;
+}
 .locais .alert { margin-bottom: var(--space-4); }
 .locais__lista { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin: 0; padding: 0; list-style: none; }
 
@@ -66,6 +93,34 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
 .local__cat { font-weight: var(--fw-medium); color: var(--text); }
 .local__desc { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
 
+/* Cartão provisório durante o carregamento: duas linhas cinza pulsando */
+.local--esqueleto { min-height: 96px; animation: dq-pulse 1.4s ease-in-out infinite; }
+.local--esqueleto .local__num { background: var(--surface-2); }
+.local--esqueleto .local__body { flex: 1; align-content: center; }
+.local--esqueleto .local__body::before,
+.local--esqueleto .local__body::after { content: ""; height: 12px; border-radius: var(--radius-pill); background: var(--surface-2); }
+.local--esqueleto .local__body::before { width: 75%; }
+.local--esqueleto .local__body::after { width: 45%; }
+
+/* 6. Linha do tempo (atualizacao.html) */
+.timeline-ano { margin: var(--space-6) 0 var(--space-4); }
+.timeline-ano:first-child { margin-top: 0; }
+.timeline { margin: 0; padding: 0 0 0 var(--space-5); list-style: none; border-left: 2px solid var(--border); }
+.timeline__item { position: relative; padding-bottom: var(--space-5); }
+.timeline__item:last-child { padding-bottom: 0; }
+/* Marcador sobre a linha vertical */
+.timeline__item::before {
+  content: ""; position: absolute; top: 0.35em; left: calc(-1 * var(--space-5) - 7px);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--border-strong);
+}
+.timeline__item--destaque::before { background: var(--accent); border-color: var(--accent); }
+.timeline__data { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-1); color: var(--text-muted); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+.timeline__titulo { margin: 0 0 var(--space-2); font-size: var(--fs-md); }
+.timeline__item p:not(.timeline__data) { margin: 0 0 var(--space-2); }
+.timeline__item ul { margin: 0; padding-left: 1.25em; }
+.timeline__item li + li { margin-top: var(--space-1); }
+
 @media (min-width: 640px) {
   .locais__lista { grid-template-columns: repeat(2, 1fr); }
 }
@@ -77,9 +132,10 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
   .locais__lista { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* 5. Impressão: mapa e lista, sem busca nem atalhos */
+/* 7. Impressão: mapa e lista, sem busca nem atalhos */
 @media print {
-  .quick-links, .locais__busca, .map-view__caption { display: none !important; }
+  .quick-links, .locais__busca, .map-view__caption, .map-view__loading { display: none !important; }
+  .map-wide { padding-inline: 0; }
   .map-view__frame iframe { height: auto; aspect-ratio: 1500 / 800; }
   .local { break-inside: avoid; }
 }

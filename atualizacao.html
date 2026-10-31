@@ -71,22 +71,65 @@
   <section class="page-hero container container--narrow">
     <p class="eyebrow">Mapa Digital</p>
     <h1>Atualizações</h1>
-    <p class="lead">Histórico de mudanças na plataforma e na base de locais.</p>
+    <p class="lead">O que mudou no Mapa Digital desde o início do projeto, da versão mais recente para a mais antiga.</p>
   </section>
 
   <div class="container container--narrow">
-    <div class="prose">
-      <h2>2026</h2>
-      <ul>
-        <li><strong>31 de outubro</strong>: nova interface, no padrão visual do DQ Digital, com tema escuro, busca na lista de locais e layout para celular.</li>
-      </ul>
+    <h2 class="timeline-ano">2026</h2>
+    <ol class="timeline">
+      <li class="timeline__item timeline__item--destaque">
+        <p class="timeline__data"><time datetime="2026-10-31">31 de outubro</time> <span class="badge badge--new">Versão 2</span></p>
+        <h3 class="timeline__titulo">Novo visual do Mapa Digital</h3>
+        <p>O mapa foi redesenhado e passou a seguir o mesmo padrão visual do <a href="/">DQ Digital</a>.</p>
+        <ul>
+          <li>Layout pensado primeiro para o celular, com menu recolhível.</li>
+          <li>Tema claro, escuro ou que segue o sistema.</li>
+          <li>Mapa com a largura toda da tela no computador e link para tela cheia.</li>
+          <li>Busca na lista de locais, por nome, sigla, número ou descrição.</li>
+          <li>Indicador de carregamento do mapa e da lista.</li>
+          <li>Endereços mais curtos: <code>/mapa/sala-de-aula</code> em vez de <code>/mapa/p/sala-de-aula</code> (os antigos continuam funcionando).</li>
+          <li>Melhorias de acessibilidade: contraste, navegação por teclado e textos para leitores de tela.</li>
+          <li>Aviso legal reescrito, com informações sobre dados de quem visita.</li>
+        </ul>
+      </li>
+      <li class="timeline__item">
+        <p class="timeline__data"><time datetime="2026-08-21">21 de agosto</time></p>
+        <h3 class="timeline__titulo">Manutenção programada</h3>
+        <p>A página inicial passou a exibir um aviso de manutenção enquanto a nova versão era preparada.</p>
+      </li>
+    </ol>
 
-      <h2>2023</h2>
-      <ul>
-        <li><strong>26 de maio</strong>: última atualização do banco de dados.</li>
-        <li><strong>25 de maio</strong>: lançamento oficial (versão 1.1 beta).</li>
-      </ul>
-    </div>
+    <h2 class="timeline-ano">2023</h2>
+    <ol class="timeline">
+      <li class="timeline__item">
+        <p class="timeline__data"><time datetime="2023-07-24">24 de julho</time></p>
+        <h3 class="timeline__titulo">Mapa especial da SBPC</h3>
+        <p><a href="/mapa/sbpc">Mapa com os locais</a> usados pela 75ª Reunião Anual da SBPC no Departamento de Química.</p>
+      </li>
+      <li class="timeline__item">
+        <p class="timeline__data"><time datetime="2023-05-26">26 de maio</time></p>
+        <h3 class="timeline__titulo">Atualização da base de locais</h3>
+      </li>
+      <li class="timeline__item timeline__item--destaque">
+        <p class="timeline__data"><time datetime="2023-05-25">25 de maio</time> <span class="badge">Versão 1 beta</span></p>
+        <h3 class="timeline__titulo">Lançamento oficial</h3>
+        <p>Mapas por categoria (salas de aula, salas de professores, laboratórios e serviços) e mapa completo.</p>
+      </li>
+      <li class="timeline__item">
+        <p class="timeline__data"><time datetime="2023-03-02">2 de março</time></p>
+        <h3 class="timeline__titulo">Locais em planilha online</h3>
+        <p>A lista de locais passou a ser lida de uma planilha, o que permite corrigir dados sem mexer no site.</p>
+      </li>
+    </ol>
+
+    <h2 class="timeline-ano">2022</h2>
+    <ol class="timeline">
+      <li class="timeline__item">
+        <p class="timeline__data"><time datetime="2022-12">Dezembro</time></p>
+        <h3 class="timeline__titulo">Início do desenvolvimento</h3>
+        <p>Primeiros desenhos do mapa do prédio e das páginas por categoria.</p>
+      </li>
+    </ol>
   </div>
 </main>
 
@@ -101,7 +144,7 @@
     <div>
       <h2>Mapa Digital</h2>
       <ul>
-        <li><a href="/mapa/p/completo">Mapa completo</a></li>
+        <li><a href="/mapa/completo">Mapa completo</a></li>
         <li><a href="/mapa/sobre">Sobre o mapa</a></li>
         <li><a href="/mapa/atualizacao">Atualizações</a></li>
         <li><a href="/mapa/legal">Aviso legal</a></li>
