@@ -1,8 +1,8 @@
 /* mapa.js — páginas de categoria do Mapa Digital.
    Carregue com defer: <script src="/mapa/js/mapa.js" defer></script>
 
-   1. Desenho do mapa: [data-mapa-frame] com um <iframe> e um aviso [data-mapa-loading],
-      exibido até o desenho terminar de carregar.
+   1. Desenho do mapa: [data-mapa-frame] com um <iframe>, um aviso [data-mapa-loading],
+      exibido até o desenho terminar de carregar, e o botão [data-mapa-ampliar] (tela cheia).
    2. Lista de locais: <div class="locais" data-locais="NomeDaAba"> com, dentro dele,
       [data-locais-busca] (campo de busca), [data-locais-status] e [data-locais-lista].
       Acrescente data-locais-categoria para mostrar o nome da categoria em cada local (mapa completo).
@@ -213,8 +213,65 @@
     window.setTimeout(pronto, AVISO_MAX_MS);
   }
 
+  /* ---------- Botão Ampliar/Reduzir ---------- */
+  // Usa a tela cheia do navegador quando existe; senão (iPhone), fixa o quadro sobre a página.
+  function initAmpliar(frame) {
+    var btn = frame.querySelector('[data-mapa-ampliar]');
+    if (!btn) return;
+    var texto = btn.querySelector('[data-mapa-ampliar-texto]');
+    var dica = document.querySelector('[data-mapa-ampliar-dica]');
+    var pedirTelaCheia = frame.requestFullscreen || frame.webkitRequestFullscreen;
+    var sairTelaCheia = document.exitFullscreen || document.webkitExitFullscreen;
+
+    function emTelaCheia() {
+      return (document.fullscreenElement || document.webkitFullscreenElement) === frame;
+    }
+
+    function marcar(ampliado) {
+      btn.setAttribute('aria-pressed', ampliado ? 'true' : 'false');
+      texto.textContent = ampliado ? 'Reduzir' : 'Ampliar';
+    }
+
+    function expandir(ativo) {
+      frame.classList.toggle('is-expanded', ativo);
+      document.documentElement.classList.toggle('mapa-ampliado', ativo);
+      marcar(ativo);
+    }
+
+    btn.addEventListener('click', function () {
+      if (pedirTelaCheia) {
+        if (emTelaCheia()) sairTelaCheia.call(document);
+        else {
+          var p = pedirTelaCheia.call(frame);
+          // Se o navegador recusar (ex.: dentro de outro iframe), usa o modo fixo
+          if (p && p.catch) p.catch(function () { expandir(true); });
+        }
+      } else {
+        expandir(!frame.classList.contains('is-expanded'));
+      }
+    });
+
+    ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (ev) {
+      document.addEventListener(ev, function () { marcar(emTelaCheia()); });
+    });
+
+    // Esc fecha o modo fixo (a tela cheia do navegador já fecha sozinha)
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && frame.classList.contains('is-expanded')) {
+        expandir(false);
+        btn.focus();
+      }
+    });
+
+    btn.hidden = false;
+    if (dica) dica.hidden = false;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-mapa-frame]').forEach(initFrame);
+    document.querySelectorAll('[data-mapa-frame]').forEach(function (frame) {
+      initFrame(frame);
+      initAmpliar(frame);
+    });
     document.querySelectorAll('[data-locais]').forEach(init);
   });
 })();

@@ -81,10 +81,13 @@
       <div class="map-view__frame" data-mapa-frame>
         <iframe src="/mapa/map/laboratorios-de-ensino" title="Mapa do prédio com os laboratórios de ensino destacados" width="1500" height="800"></iframe>
         <div class="map-view__loading" role="status" data-mapa-loading hidden><span class="spinner" aria-hidden="true"></span>Carregando o mapa…</div>
+        <button type="button" class="btn btn--sm map-view__zoom" aria-pressed="false" data-mapa-ampliar hidden>
+          <svg class="icon icon-expand" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#expand"></use></svg><svg class="icon icon-shrink" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#shrink"></use></svg><span data-mapa-ampliar-texto>Ampliar</span>
+        </button>
       </div>
       <figcaption class="map-view__caption">
         <span class="map-view__hint">Arraste para mover o mapa.</span>
-        <a href="/mapa/map/laboratorios-de-ensino" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#external"></use></svg>Abrir o mapa em tela cheia<span class="visually-hidden"> (abre em nova aba)</span></a>
+        <span class="map-view__tip" data-mapa-ampliar-dica hidden>Use <strong>Ampliar</strong> para ver o mapa na tela inteira.</span>
       </figcaption>
     </figure>
   </div>

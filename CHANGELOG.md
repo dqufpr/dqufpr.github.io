@@ -3,7 +3,8 @@
 ## 2026-10-31 — Ajustes da versão 2
 
 ### Novo
-- Mapa com a largura toda da janela no computador (fora do `.container`).
+- Mapa no computador com o maior tamanho que cabe inteiro na altura da tela, sem ficar mais estreito que o texto da página nem mais largo que a janela.
+- Botão "Ampliar/Reduzir" no canto do mapa: tela cheia do navegador ou, no iPhone, o mapa fixo sobre a página. Substitui o link que abria o desenho em outra aba.
 - Indicadores de carregamento: aviso com ícone girando sobre o mapa e cartões provisórios na lista de locais.
 - Linha do tempo na página de atualizações, com o histórico desde dezembro de 2022.
 

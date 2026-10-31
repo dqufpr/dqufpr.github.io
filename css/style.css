@@ -33,9 +33,9 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
 @keyframes dq-pulse { 50% { opacity: 0.45; } }
 
 /* 4. Visualizador do mapa: o SVG fica num iframe e rola por dentro no celular.
-   .map-wide fica fora do .container: no computador usa a largura toda da janela. */
+   .map-wide fica fora do .container para o mapa poder passar da largura do texto no computador. */
 .map-wide { padding-inline: var(--gutter); }
-.map-view { margin: 0; }
+.map-view { margin: 0 auto; }
 .map-view__frame {
   position: relative; overflow: hidden;
   border: 1px solid var(--border); border-radius: var(--radius-lg);
@@ -55,7 +55,24 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4);
   margin-top: var(--space-2); color: var(--text-muted); font-size: var(--fs-sm);
 }
-.map-view__caption a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--tap); font-weight: var(--fw-medium); }
+.map-view__caption > * { min-height: var(--tap); display: inline-flex; align-items: center; }
+.map-view__tip[hidden] { display: none; }
+
+/* Botão Ampliar/Reduzir, no canto do quadro (visível também em tela cheia) */
+.map-view__zoom { position: absolute; top: var(--space-2); right: var(--space-2); z-index: 2; box-shadow: var(--shadow-md); }
+.map-view__zoom[hidden] { display: none; }
+.map-view__zoom .icon-shrink { display: none; }
+.map-view__zoom[aria-pressed="true"] .icon-expand { display: none; }
+.map-view__zoom[aria-pressed="true"] .icon-shrink { display: block; }
+
+/* Mapa ampliado: tela cheia do navegador (:fullscreen) ou, sem esse recurso
+   (iPhone), o quadro fixo sobre a página (.is-expanded, aplicado por js/mapa.js) */
+.map-view__frame:fullscreen { border: 0; border-radius: 0; }
+.map-view__frame:fullscreen iframe { width: 100%; height: 100%; aspect-ratio: auto; }
+.map-view__frame:fullscreen::backdrop { background: #ffffff; }
+.map-view__frame.is-expanded { position: fixed; inset: 0; z-index: var(--z-skip); border: 0; border-radius: 0; }
+.map-view__frame.is-expanded iframe { width: 100%; height: 100%; aspect-ratio: auto; }
+.mapa-ampliado { overflow: hidden; }
 
 /* 5. Lista de locais (preenchida por /mapa/js/mapa.js) */
 .locais__busca { max-width: 420px; margin-bottom: var(--space-4); }
@@ -126,7 +143,12 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
 }
 
 @media (min-width: 960px) {
-  /* Mapa inteiro visível, na proporção do desenho (1500 × 800) */
+  /* Mapa inteiro visível, na proporção do desenho (1500 × 800): o maior tamanho que
+     cabe na altura da tela (descontando cabeçalho e legenda), nunca mais estreito que
+     o texto da página (--container) nem mais largo que a janela */
+  .map-view {
+    width: clamp(min(var(--container), 100%), (100svh - var(--header-h) - 7rem) * 1500 / 800, 100%);
+  }
   .map-view__frame iframe { height: auto; aspect-ratio: 1500 / 800; }
   .map-view__hint { visibility: hidden; }
   .locais__lista { grid-template-columns: repeat(3, 1fr); }
@@ -134,7 +156,7 @@ a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--sur
 
 /* 7. Impressão: mapa e lista, sem busca nem atalhos */
 @media print {
-  .quick-links, .locais__busca, .map-view__caption, .map-view__loading { display: none !important; }
+  .quick-links, .locais__busca, .map-view__caption, .map-view__loading, .map-view__zoom { display: none !important; }
   .map-wide { padding-inline: 0; }
   .map-view__frame iframe { height: auto; aspect-ratio: 1500 / 800; }
   .local { break-inside: avoid; }
