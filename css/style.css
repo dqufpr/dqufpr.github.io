@@ -18,7 +18,6 @@
 
 /* 1. Tokens do módulo: cores do desenho da planta, nos dois temas */
 :root {
-  --mapa-largura: 1440px;       /* largura máxima da planta e do conteúdo da página do mapa */
   --planta-fundo: #ffffff;
   --planta-corredor: #dee4ea;
   --planta-parede: #1d3c69;
@@ -31,9 +30,7 @@
   --planta-selecao: #ffffff;
 }
 
-/* 2. Abertura de página: mesma largura da planta */
-.container--mapa { max-width: calc(var(--mapa-largura) + 2 * var(--gutter)); }
-.aviso-topo { margin-bottom: var(--space-5); }
+/* 2. Abertura de página */
 .eyebrow a { color: inherit; text-decoration: none; }
 .eyebrow a:hover { text-decoration: underline; color: inherit; }
 
@@ -60,7 +57,7 @@ button.loc-tag[aria-pressed="true"] {
 /* 5. Explorador: largura maior que o texto da página, centralizado */
 .explorador {
   display: grid; gap: var(--space-4);
-  max-width: calc(var(--mapa-largura) + 2 * var(--gutter)); margin: 0 auto var(--space-7); padding-inline: var(--gutter);
+  max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto var(--space-7); padding-inline: var(--gutter);
 }
 .explorador__barra { display: grid; gap: var(--space-4); }
 .explorador__busca { max-width: 420px; }
@@ -75,6 +72,7 @@ button.loc-tag[aria-pressed="true"] {
   grid-template-rows: auto minmax(0, 1fr);
 }
 .explorador.is-expanded { position: fixed; inset: 0; z-index: var(--z-skip); }
+.explorador:fullscreen .aviso-atualizacao, .explorador.is-expanded .aviso-atualizacao { display: none; }
 .explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { min-height: 0; }
 .explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 70svh; }
 .mapa-ampliado { overflow: hidden; }

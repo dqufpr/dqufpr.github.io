@@ -1,5 +1,11 @@
 # Histórico de mudanças
 
+## 2.1.1 — 2026-10-31
+
+### Mudado
+- A página da planta usa a largura do portal (`--container`, agora 1440px); a classe `.container--mapa` e o token `--mapa-largura` saíram.
+- O aviso "Locais em atualização" passou do topo da página para logo abaixo da planta (some no modo ampliado).
+
 ## 2.1.0 — 2026-10-31
 
 ### Novo

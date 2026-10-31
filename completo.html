@@ -71,11 +71,7 @@
 </header>
 
 <main id="main" tabindex="-1">
-  <section class="page-hero container container--mapa">
-    <div class="alert alert--warning aviso-topo" role="note">
-      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#clock"></use></svg>
-      <p><strong>Locais em atualização.</strong> A planta e a lista estão sendo revistas de acordo com a nova organização do departamento, e algumas salas podem estar desatualizadas. Viu algo errado? <a href="/fale-conosco">Avise a gente</a>.</p>
-    </div>
+  <section class="page-hero container">
     <p class="eyebrow">Mapa Digital</p>
     <h1>Planta do prédio</h1>
     <p class="lead">Toque numa sala para ver o que funciona nela, busque por nome ou destaque uma categoria inteira.</p>
@@ -342,10 +338,15 @@
         <noscript><div class="painel__corpo"><p>A planta interativa precisa de JavaScript. A lista completa de locais está logo abaixo.</p></div></noscript>
       </aside>
     </div>
+
+    <div class="alert alert--warning aviso-atualizacao" role="note">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#clock"></use></svg>
+      <p><strong>Locais em atualização.</strong> A planta e a lista estão sendo revistas de acordo com a nova organização do departamento, e algumas salas podem estar desatualizadas. Viu algo errado? <a href="/fale-conosco">Avise a gente</a>.</p>
+    </div>
   </section>
 
   <section class="section section--alt" aria-labelledby="lista-title">
-    <div class="container container--mapa">
+    <div class="container">
       <div class="section-head">
         <h2 id="lista-title">Todos os locais</h2>
         <p>Em ordem de número da sala. A busca e os destaques da planta também filtram esta lista.</p>
@@ -1269,7 +1270,7 @@
   </section>
 
   <div class="section section--tight">
-    <div class="container container--mapa">
+    <div class="container">
       <div class="alert">
         <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg>
       <p><strong>Viu algo desatualizado?</strong> Salas mudam de uso com frequência. <a href="/fale-conosco">Avise a gente</a> com o número da sala e o que está diferente.</p>
