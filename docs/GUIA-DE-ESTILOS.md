@@ -46,7 +46,6 @@ A vitrine ao vivo de cada componente, nos temas claro e escuro, está em **[/des
 | `/js/app.js` | Menu de tema, menu do celular, link ativo, ano do rodapé | Todas as páginas, com `defer` |
 | `/img/icons/sprite.svg` | Ícones | Por `<use href>` |
 | `/fonts/*.woff2` | Roboto variável (licença em `fonts/License.txt`) | Pelo `global.css` |
-| `/css/style-dq-global.css` | **Legado.** CSS antigo usado pelo `/mapa/` | Só o mapa, até a migração |
 
 Ordem no `<head>`:
 
@@ -406,14 +405,6 @@ Copie de `sobre.html` (página de texto) ou `fale-conosco.html` (formulário). O
 ```
 
 Cabeçalho e rodapé são iguais em todas as páginas: ao mudar um, atualize todos (busque por `<header class="site-header">` e `<footer class="site-footer">`).
-
-### Migrar um módulo antigo (ex.: `/mapa/`)
-
-1. Trocar `https://dqufpr.github.io/css/style-dq-global.css` por `/js/theme-init.js` + `/css/global.css` + `/js/app.js`.
-2. Substituir a marcação antiga (`#pagina`, `#colunas`, `#cabecalho`, `#menu`, `#rodape`) pelo cabeçalho, `<main>` e rodapé novos.
-3. Trocar ids de estilo por classes (`#content-leg` → cartão; `#numero.salaaula` → `.loc--sala-aula`; `#navmap` → `.quick-links` com `.loc-tag`).
-4. Levar ao `css/style.css` do módulo só o que for exclusivo dele, usando os tokens.
-5. Quando nenhum módulo usar mais `style-dq-global.css`, apagar o arquivo.
 
 ## 19. Checklist antes de publicar
 

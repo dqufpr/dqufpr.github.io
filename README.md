@@ -37,18 +37,18 @@ O GitHub Pages publica cada repositório da organização como uma subpasta do m
 ├── 404.html                Página de erro
 ├── css/
 │   ├── global.css          Base visual compartilhada com todos os módulos
-│   ├── pages.css           Estilos só do site principal (início, guia, 404)
-│   └── style-dq-global.css LEGADO: ainda usado pelo /mapa/; não usar em páginas novas
+│   └── pages.css           Estilos só do site principal (início, guia, 404)
 ├── js/
 │   ├── theme-init.js       Aplica o tema no <head>, antes da renderização
 │   ├── app.js              Menu de tema, menu do celular, página atual, ano do rodapé
 │   └── analytics.js        Google Analytics (só na página inicial)
-├── img/                    Logotipos, favicon, capas e selos (compartilhados)
+├── img/                    Logotipos, favicon e capas (compartilhados)
 │   └── icons/sprite.svg    Ícones
 ├── fonts/                  Roboto variável (licença OFL em fonts/License.txt)
 ├── docs/
 │   └── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
-├── _arquivo/               Arquivos antigos guardados como referência (não publicados)
+├── robots.txt              Regras para buscadores (vale para todo o domínio, inclusive /mapa/)
+├── sitemap.xml             Páginas do portal para buscadores
 ├── _config.yml             Configuração do Jekyll (GitHub Pages)
 ├── CHANGELOG.md            Histórico de mudanças
 └── PENDENCIAS.md           O que falta fazer
@@ -88,8 +88,8 @@ Para testar um módulo com a base nova antes de publicar, coloque a pasta do mó
 ## Cuidados ao alterar a base visual
 
 - Mudanças em `css/global.css`, `js/app.js` e `img/icons/sprite.svg` valem para todos os módulos assim que são publicadas. Confira o site principal e cada módulo em 360px, 768px e 1280px, nos temas claro e escuro.
-- `css/style-dq-global.css` é legado: só o `/mapa/` usa. Não altere; quando o mapa migrar, apague. O passo a passo está no guia de estilos.
-- Esse CSS legado referencia imagens do repositório `mapa` (`../mapa/img/...`). Se esse repositório for renomeado, essas capas quebram.
+- `robots.txt` só vale na raiz do domínio, então é este repositório que aponta os sitemaps de todos os módulos. Ao criar um módulo com `sitemap.xml`, acrescente a linha `Sitemap:` dele aqui.
+- Ao criar ou remover uma página do portal, atualize `sitemap.xml`.
 
 ## Créditos
 

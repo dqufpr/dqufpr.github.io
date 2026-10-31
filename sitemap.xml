@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Páginas do portal. Os módulos têm sitemap próprio (ex.: /mapa/sitemap.xml), listado no robots.txt. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dqufpr.github.io/</loc><lastmod>2026-10-31</lastmod><priority>1.0</priority></url>
+  <url><loc>https://dqufpr.github.io/sobre</loc><lastmod>2026-10-31</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dqufpr.github.io/fale-conosco</loc><lastmod>2026-10-31</lastmod><priority>0.5</priority></url>
+  <url><loc>https://dqufpr.github.io/design</loc><lastmod>2026-10-31</lastmod><priority>0.3</priority></url>
+</urlset>

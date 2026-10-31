@@ -1,5 +1,18 @@
-# GitHub Pages (Jekyll): o site é HTML estático, o Jekyll só copia os arquivos.
-# Pastas iniciadas por "_" (como _arquivo/) não são publicadas.
+# Configuração do GitHub Pages (Jekyll) do portal DQ Digital.
+# O site é HTML estático: o Jekyll só copia os arquivos (não há layouts nem plugins).
+# Estas informações descrevem o site; títulos e descrições de cada página ficam no <head> do HTML.
+
+title: DQ Digital
+description: Serviços digitais do Departamento de Química da UFPR, com o Mapa Digital do prédio.
+url: https://dqufpr.github.io
+baseurl: ""
+lang: pt-BR
+author: Representação Discente 2022-2023 · PPGQ/UFPR
+
+# Indexação: o site pode ser indexado. Regras em robots.txt e páginas em sitemap.xml.
+# Cada módulo (ex.: /mapa/) tem o próprio sitemap.xml, apontado no robots.txt daqui.
+
+# Não publicados
 exclude:
   - README.md
   - CHANGELOG.md

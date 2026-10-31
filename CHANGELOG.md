@@ -1,5 +1,18 @@
 # Histórico de mudanças
 
+## 2.1.0 — 2026-10-31
+
+### Novo
+- `robots.txt` (vale para todo o domínio, inclusive `/mapa/`) e `sitemap.xml`.
+- Novo favicon.
+
+### Mudado
+- Meta-descrições revistas; `_config.yml` com título, descrição, endereço e regras de indexação.
+
+### Removido
+- `css/style-dq-global.css` (legado; o `/mapa/` não usa mais) e as imagens que só ele usava (`img/ext.svg`, `img/new.svg`, `img/nota.svg`).
+- Pasta `_arquivo/` (arquivos antigos; continuam no histórico do Git) e `.claude/launch.json`.
+
 ## 2026-10-31 — Cores das categorias e planta do mapa
 
 ### Mudado
