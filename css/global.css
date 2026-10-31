@@ -418,7 +418,7 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
 .alert {
   --alert: var(--info);
   display: flex; gap: var(--space-3); align-items: flex-start;
-  padding: var(--space-4); border: 1px solid var(--border); border-left: 4px solid var(--alert); border-radius: var(--radius-md);
+  padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-md);
   background: var(--info-soft); color: var(--text);
 }
 .alert > .icon { color: var(--alert); margin-top: 2px; }
