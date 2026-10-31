@@ -1,6 +1,6 @@
 # Mapa Digital
 
-Módulo do DQ Digital com os locais do prédio do Departamento de Química da UFPR, publicado em <https://dqufpr.github.io/mapa/>.
+Módulo do DQ Digital com a planta interativa do prédio do Departamento de Química da UFPR, publicado em <https://dqufpr.github.io/mapa/completo>.
 
 Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR.
 
@@ -10,10 +10,11 @@ O portal (`dqufpr/dqufpr.github.io`) fornece a base visual compartilhada. Este r
 
 | Vem do portal (caminho absoluto) | Vem deste repositório (`/mapa/...`) |
 |---|---|
-| `/js/theme-init.js`, `/css/global.css`, `/js/app.js` | `css/style.css`: visualizador do mapa e lista de locais |
-| `/img/icons/sprite.svg`, logotipos, `/fonts/` | `js/mapa.js`: carrega os locais da planilha |
-| `/fale-conosco` (formulário de contato único) | `map/*.html`: desenhos do mapa (SVG) |
-| `/js/analytics.js` (só na página inicial do mapa) | `img/*.svg`: capas das categorias |
+| `/js/theme-init.js`, `/css/global.css`, `/js/app.js` | `css/style.css`: planta, painel e lista de locais |
+| `/img/icons/sprite.svg`, logotipos, `/fonts/` | `js/mapa.js`: zoom, seleção, busca e destaques |
+| Cores das categorias (`--loc-*` no `global.css`) | `dados/locais.json`: locais, gerado da planilha |
+| `/fale-conosco` (formulário de contato único) | `scripts/gerar_mapa.py`: gera os dados e a planta |
+| `/js/analytics.js` (só em `completo.html`) | |
 
 O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de estilos do portal](https://github.com/dqufpr/dqufpr.github.io/blob/main/docs/GUIA-DE-ESTILOS.md) e na vitrine [`/design`](https://dqufpr.github.io/design).
 
@@ -21,77 +22,85 @@ O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de est
 
 ```
 .
-├── index.html              Página inicial do mapa: cartões das categorias
-├── completo.html           Uma página por categoria: mapa + atalhos + lista de locais
-├── sala-de-aula.html
-├── sala-de-professor.html
-├── laboratorios-de-ensino.html
-├── laboratorios-de-pesquisa.html
-├── servicos.html
-├── sbpc.html               Mapa especial da SBPC 2023 (sem lista, fora do menu)
-├── sobre.html              Sobre o Mapa Digital
-├── atualizacao.html        Histórico de atualizações
-├── legal.html              Aviso legal
-├── map/                    Desenhos do mapa (SVG salvo como .html), abertos num iframe
-├── css/style.css           Estilos só do mapa, carregado depois do global.css
-├── js/mapa.js              Aviso de carregamento do mapa; lista de locais lida da planilha, com busca
-├── img/                    Capas das categorias (940×280), logotipo e imagem de compartilhamento
-├── p/                      Só redirecionamentos: endereços antigos (/mapa/p/...) levam aos novos
-└── fale-conosco.html       Só redireciona para /fale-conosco (links antigos)
+├── completo.html             A página do mapa: planta interativa, painel e lista de todos os locais
+├── sobre.html                Sobre o Mapa Digital
+├── atualizacao.html          Histórico de atualizações
+├── legal.html                Aviso legal
+├── css/style.css             Estilos só do mapa, carregado depois do global.css
+├── js/mapa.js                Interações da planta
+├── dados/
+│   ├── locais.xlsx           FONTE: planilha de locais (editar aqui)
+│   ├── planta-areas.json     Áreas clicáveis do desenho, cada uma com o número físico da sala
+│   ├── planta-base.svg       Paredes, corredores e portas (sem números)
+│   └── locais.json           GERADO: locais agrupados por sala (lido pelo navegador)
+├── scripts/gerar_mapa.py     Gera locais.json e atualiza a planta e a lista em completo.html
+├── img/                      Logotipo, favicon e imagem de compartilhamento
+├── index.html                Só redireciona para completo.html
+├── sala-de-aula.html …       Só redirecionamentos: páginas antigas por categoria
+├── p/                        Só redirecionamentos: endereços antigos (/mapa/p/...)
+└── fale-conosco.html         Só redireciona para /fale-conosco
 ```
 
-Endereços: `https://dqufpr.github.io/mapa/sala-de-aula` (o GitHub Pages dispensa o `.html`). Os antigos, como `/mapa/p/sala-de-aula`, continuam funcionando por redirecionamento: não apague a pasta `p/`, porque podem existir QR codes e links impressos com eles.
+Não apague os redirecionamentos: podem existir QR codes e links impressos com os endereços antigos. Cada página antiga de categoria abre a planta com aquela categoria destacada.
 
 ## De onde vêm os locais
 
-Os locais **não** ficam no HTML. Cada página de categoria lê, no navegador, uma aba da planilha do Google:
+Tudo sai da planilha `dados/locais.xlsx`. Não há mais leitura do Google Sheets nem Apps Script: o site só lê arquivos dele mesmo.
 
-- Planilha: `1ym99Rtiw74VlWNmVA2PzIIkSxbZ54mT9XkKgUuASybQ` (compartilhada como "qualquer pessoa com o link pode ver").
-- Endereço lido: `https://docs.google.com/spreadsheets/d/<id>/gviz/tq?tqx=out:json&sheet=<aba>` (consulta pública do Google Visualization, sem Apps Script e sem chave).
-- A página diz qual aba ler: `<div class="locais" data-locais="SalaAula">`.
+```
+dados/locais.xlsx ─┐
+dados/planta-areas.json ─┼─ scripts/gerar_mapa.py ─┬─ dados/locais.json  (painel de detalhes)
+dados/planta-base.svg ─┘                           └─ completo.html       (planta + botões de destaque + lista)
+```
 
-| Página | Aba da planilha |
+### Colunas da planilha
+
+A primeira linha é o cabeçalho; as colunas são encontradas pelo **nome**, não pela posição.
+
+| Coluna | Exemplo | Uso |
+|---|---|---|
+| `n` | `139` | Ordem dos itens dentro de uma sala (o primeiro dá nome à sala) |
+| `ID_fisico` | `45-B` | **Número da sala, o mesmo da porta.** Liga a linha à área da planta |
+| `Nome do Local` | `Secretaria da Pós-graduação em Química` | Nome do item (laboratório, pessoa, serviço) |
+| `Sigla` | `PPGQ` | Selo ao lado do nome (omitido se já estiver no nome) |
+| `Descrição` | `Acesso mediante reserva prévia` | Texto abaixo do nome |
+| `Tipo de local` | `servico` | Categoria e cor |
+
+- `ID_digital` não é mais usado e pode ser apagado da planilha.
+- Valores de `Tipo de local`: `salaaula`, `salaprof`, `labensino`, `labpesquisa`, `servico`, `banheiro` (qualquer outro vira "Outros", em cinza).
+- Várias linhas com o mesmo `ID_fisico` formam uma sala só (ex.: os professores que dividem uma sala). A cor da sala é a do primeiro item.
+
+### Atualizar os locais
+
+1. Edite `dados/locais.xlsx`.
+2. Na raiz do repositório:
+   ```bash
+   pip install openpyxl
+   ```
+   ```bash
+   python scripts/gerar_mapa.py
+   ```
+3. Confira os avisos que o script imprimir (sala da planilha sem área na planta, tipo desconhecido) e faça o commit de `dados/` e `completo.html`.
+
+### A planta
+
+- `dados/planta-base.svg` é o desenho fixo (paredes, corredores, portas).
+- `dados/planta-areas.json` lista as áreas clicáveis: `{"local": "45-B", "pontos": [[x, y], …], "rotulo": [x, y]}`. As coordenadas usam o `viewBox` `480 600 6460 2760`.
+- Se uma sala mudar de número, troque o `local` da área correspondente. Uma sala pode ter mais de uma área (ex.: a 48).
+
+## Endereços da planta
+
+| Endereço | Abre |
 |---|---|
-| `completo` | `Completo` |
-| `sala-de-aula` | `SalaAula` |
-| `sala-de-professor` | `SalaProf` |
-| `laboratorios-de-ensino` | `LabEnsino` |
-| `laboratorios-de-pesquisa` | `labPesquisa` |
-| `servicos` | `Serv` |
+| `/mapa/completo` | A planta inteira |
+| `/mapa/completo?local=45-B` | A planta com a sala 45-B marcada e o painel aberto |
+| `/mapa/completo?destaque=sala-aula,banheiro` | A planta com essas categorias destacadas |
 
-Colunas de cada aba (linha 1 é o cabeçalho; a ordem importa, o nome não):
-
-| Coluna | Campo | Exemplo | Aparece como |
-|---|---|---|---|
-| A | `id` | `38` | Número no quadrado colorido (o mesmo do desenho) |
-| B | `nome` | `Sala de aula - PQ07` | Título do local |
-| C | `abrev` | `LQAQ` | Selo com a sigla (omitido se já estiver no nome) |
-| D | `local` | `Sala: 95` | Texto ao lado da sigla |
-| E | `desc` | `Professor/Química Inorgânica` | Descrição |
-| F | `tipo` | `salaaula` | Cor da categoria |
-
-Valores de `tipo`: `salaaula`, `salaprof`, `labensino`, `labpesquisa`, `servico`, `banheiro` (qualquer outro vira "Outros", em cinza).
-
-Para atualizar um local, edite a planilha: a mudança aparece no site na próxima visita, sem commit. A ordem das linhas é a ordem da lista. Linhas sem `id` e sem `nome` são ignoradas.
-
-`js/mapa.js` monta cada item com `textContent`, então o conteúdo da planilha nunca é interpretado como HTML. Se a planilha não responder, a página mostra um aviso com link para recarregar.
-
-### Adicionar uma categoria
-
-1. Crie a aba na planilha com as mesmas colunas.
-2. Copie uma página de categoria (ex.: `servicos.html`), troque título, textos, o `src` do iframe e o `data-locais`.
-3. Inclua a categoria nos atalhos (`.quick-links`) de todas as páginas de categoria e um cartão em `index.html`.
-4. Se for um `tipo` novo, acrescente-o em `TIPOS` (`js/mapa.js`) e crie o token de cor `--loc-*` no `global.css` do portal.
+Categorias para `destaque`: `sala-aula`, `sala-prof`, `lab-ensino`, `lab-pesquisa`, `servico`, `banheiro`. O endereço muda sozinho conforme a pessoa usa a planta, então pode ser copiado e compartilhado.
 
 ## Segurança (CSP)
 
-As páginas têm Content-Security-Policy por `<meta>`, como o portal. Além do padrão, liberam:
-
-- `connect-src https://docs.google.com`: leitura da planilha;
-- `frame-src 'self'`: o mapa em iframe;
-- Google Analytics só em `index.html`.
-
-Nada de `style=""` ou `<script>` inline nas páginas: a CSP bloqueia.
+As páginas têm Content-Security-Policy por `<meta>`, como o portal. Só `completo.html` libera o Google Analytics. Nada de `style=""` ou `<script>` inline: a CSP bloqueia. O painel monta o conteúdo da planilha com `textContent`, então ele nunca é interpretado como HTML.
 
 ## Rodar localmente
 
@@ -101,7 +110,7 @@ Os caminhos começam com `/` e dependem do portal. Coloque esta pasta dentro do 
 python -m http.server 8000
 ```
 
-Abra <http://localhost:8000/mapa/index.html>. O `http.server` não resolve endereços sem `.html` (o GitHub Pages resolve), então acrescente `.html` ao navegar.
+Abra <http://localhost:8000/mapa/completo.html>. O `http.server` não resolve endereços sem `.html` (o GitHub Pages resolve), então acrescente `.html` ao navegar.
 
 ## Créditos
 

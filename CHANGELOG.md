@@ -1,5 +1,24 @@
 # Histórico de mudanças
 
+## 2026-10-31 — Planta interativa
+
+### Novo
+- `completo.html` é a única página do mapa: planta interativa com zoom, arraste, pinça e Ctrl + roda do mouse, botão Ampliar e painel de detalhes.
+- Clique numa sala para ver o que funciona nela; destaque categorias inteiras e combine com a busca (planta e lista filtram juntas).
+- Endereços compartilháveis: `?local=45-B` e `?destaque=sala-aula,servico`.
+- Salas identificadas pelo número físico (`ID_fisico`); o `ID_digital` deixou de ser usado.
+- `dados/locais.xlsx` como fonte; `scripts/gerar_mapa.py` gera `dados/locais.json` e escreve a planta, os botões de destaque e a lista em `completo.html`.
+- No celular, a planta começa preenchendo a altura do quadro; um dedo na horizontal move a planta e na vertical rola a página.
+
+### Mudado
+- Novas cores das categorias (no `global.css` do portal), distinguíveis com daltonismo.
+- Páginas por categoria, `index.html` e `sbpc.html` viraram redirecionamentos para a planta (com a categoria destacada).
+- Aviso legal: a lista de locais não depende mais do Google.
+
+### Removido
+- Leitura da planilha do Google (gviz) e a dependência de `docs.google.com` na CSP.
+- Desenhos antigos `map/*.html` (numerados pelo ID digital) e capas das categorias `img/*.svg`.
+
 ## 2026-10-31 — Ajustes da versão 2
 
 ### Novo

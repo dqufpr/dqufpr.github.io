@@ -4,3 +4,7 @@ exclude:
   - CHANGELOG.md
   - .editorconfig
   - .claude/
+  - scripts/
+  - dados/locais.xlsx
+  - dados/planta-areas.json
+  - dados/planta-base.svg
