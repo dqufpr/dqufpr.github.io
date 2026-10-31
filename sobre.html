@@ -1,80 +1,137 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="robots" content="index, follow">
-  <meta property="og:image" content="https://dqufpr.github.io/img/social-media.png">
-  <meta property="og:image:width" content="760">
-  <meta property="og:image:height" content="466">
-  <meta property="og:image:type" content="image/png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Sobre · DQ Digital</title>
+  <meta name="description" content="O que é o DQ Digital, quem faz e como o site funciona.">
+  <link rel="canonical" href="https://dqufpr.github.io/sobre">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="DQ DIGITAL - Departamento de Química UFPR">
-  <meta property="og:description" content="Serviços digitais - Departamento de Química UFPR">
-  <meta property="og:url" content="https://dqufpr.github.io/">
-  <meta name="description" content="Encontre serviços, locais e informações - Departamento de Química UFPR">
-  <meta property="og:site_name" content="DQ DIGITAL">
-  <meta name="theme-color" content="#1d3c69">
-  <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
-  <title>Sobre - DQ DIGITAL - Departamento de Química UFPR</title>
-  
-  <!-- estilo global -->
-  <link rel="stylesheet" href="https://dqufpr.github.io/css/style-dq-global.css">
-  <!-- estilo local -->
-  <link rel="stylesheet" href="css/style.css">
+  <meta property="og:site_name" content="DQ Digital">
+  <meta property="og:title" content="Sobre · DQ Digital">
+  <meta property="og:description" content="O que é o DQ Digital, quem faz e como o site funciona.">
+  <meta property="og:url" content="https://dqufpr.github.io/sobre">
+  <meta property="og:image" content="https://dqufpr.github.io/img/social-media.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1d3c69" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f2340" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <script src="/js/app.js" defer></script>
 </head>
-
 <body>
-  <div id="pagina">
-    <div id="colunas">
-      <!-- cabeçalho -->
-      <header id="cabecalho">
-        <div id="titulo">
-          <p>Mapa Digital - Departamento de Química UFPR</p>
-        </div>
-      </header>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
 
-      <!-- menu principal -->
-      <div id="menu">
-        <ul id="menu_dropdown" class="menubar">
-          <li class="itemmenubar"><a href="/">INÍCIO</a></li>
-          <li class="itemmenubar"><a href="sobre">SOBRE</a></li>
-          <li class="itemmenubar"><a href="fale-conosco">CONTATO</a></li>
+<!-- CABEÇALHO: igual em todas as páginas (modelo em docs/GUIA-DE-ESTILOS.md) -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="DQ Digital, página inicial">
+      <picture>
+        <source media="(min-width: 640px)" srcset="/img/logo-site-hv.svg" width="730" height="60">
+        <img src="/img/logo-site-mobile.svg" alt="" width="430" height="70">
+      </picture>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+        <li><a href="/fale-conosco">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <details class="theme-menu">
+        <summary class="icon-btn" aria-label="Tema de cores" title="Tema de cores">
+          <svg class="icon tm-light" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>
+          <svg class="icon tm-dark" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>
+          <svg class="icon tm-system" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>
+        </summary>
+        <ul class="theme-menu__list">
+          <li><button type="button" data-theme-set="light" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>Claro</button></li>
+          <li><button type="button" data-theme-set="dark" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>Escuro</button></li>
+          <li><button type="button" data-theme-set="system" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>Seguir o sistema</button></li>
         </ul>
-      </div>
-      <!-- descricao page -->
-
-      <div id="coluna">
-        <!--coluna esquerda-->
-        <div id="cb" class="esquerda">
-          <div id="conteudocoluna" class="principal">
-            <div class="container">
-              <!-- conteudo site -->
-              <div id="contentsite">
-                <h1>Sobre</h1>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- rodape inicio -->
-      <div id="rodape">
-        <div id="coluna" class="rodape1">
-          <a href="/" title="Página inicial - DQ DIGITAL"><span class="logo-pd"></span></a>
-          Departamento de Química<br />
-          Universidade Federal do Paraná<br />
-          <a target="blank" href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" title="Veja no Google Maps">Centro Politécnico, Jardim das Américas, 100, 81531-980</a>
-        </div>
-        <div id="coluna" class="rodape2">
-          <p>Representação Discente — 2022-2023 PPGQ UFPR</p>
-        </div>
-      </div>
-      <!-- rodape fim -->
+      </details>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">
+        <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#menu"></use></svg>
+        <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg>
+      </button>
     </div>
   </div>
-</body>
+</header>
 
+<main id="main" tabindex="-1">
+  <section class="page-hero container container--narrow">
+    <p class="eyebrow">Sobre</p>
+    <h1>O que é o DQ Digital</h1>
+    <p class="lead">Uma porta de entrada digital para o Departamento de Química da UFPR: locais, serviços e informações do prédio, pensados para consulta rápida no celular.</p>
+  </section>
+
+  <div class="container container--narrow">
+    <div class="prose">
+      <h2>Por que existe</h2>
+      <p>Quem chega ao Departamento de Química, seja estudante, visitante ou servidor, precisa encontrar salas, laboratórios e serviços em um prédio grande. O DQ Digital reúne essas informações em um só endereço, acessível de qualquer celular, sem instalar aplicativo.</p>
+
+      <h2>O que você encontra</h2>
+      <ul class="list-check">
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Mapa Digital:</strong> salas de aula, salas de professores, laboratórios de ensino e de pesquisa e serviços do prédio.</span></li>
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Novos serviços:</strong> cada nova função ganha um módulo próprio, publicado neste mesmo endereço.</span></li>
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Canal de contato:</strong> para sugerir melhorias e corrigir informações desatualizadas.</span></li>
+      </ul>
+
+      <h2>Quem faz</h2>
+      <p>O DQ Digital é uma iniciativa da Representação Discente 2022-2023 do Programa de Pós-Graduação em Química (PPGQ) da Universidade Federal do Paraná.</p>
+
+      <h2>Como funciona</h2>
+      <p>O site é feito em HTML, CSS e JavaScript, sem frameworks, e publicado pelo GitHub Pages. Ele se adapta a celulares, tablets e computadores e oferece tema claro, escuro ou que segue o sistema. O código está no <a href="https://github.com/dqufpr/dqufpr.github.io" target="_blank" rel="noopener noreferrer">repositório do projeto no GitHub<span class="visually-hidden"> (abre em nova aba)</span></a>, e o padrão visual está no <a href="/design">guia visual</a>.</p>
+
+      <h2>Privacidade</h2>
+      <p>A página inicial usa o Google Analytics para contar visitas. O site guarda no seu navegador só a escolha de tema (claro, escuro ou sistema). As mensagens enviadas pelo <a href="/fale-conosco">formulário de contato</a> são registradas em um formulário do Google e lidas pela equipe do projeto.</p>
+    </div>
+
+    <div class="alert mt-0">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg>
+      <p><strong>Encontrou um erro?</strong> Salas mudam de uso com frequência. Se uma informação estiver desatualizada, <a href="/fale-conosco">avise a gente</a>.</p>
+    </div>
+  </div>
+</main>
+
+<!-- RODAPÉ: igual em todas as páginas -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src="/img/logo-rodape.svg" alt="DQ Digital" width="200" height="40">
+      <p>Departamento de Química<br>Universidade Federal do Paraná</p>
+      <p><a href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" target="_blank" rel="noopener noreferrer">Centro Politécnico, Jardim das Américas, 100<br>CEP 81531-980 · Curitiba, PR<span class="visually-hidden"> (abre o Google Maps em nova aba)</span></a></p>
+    </div>
+    <div>
+      <h2>Serviços</h2>
+      <ul>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="http://www.quimica.ufpr.br/paginas/departamento/" target="_blank" rel="noopener noreferrer">Site do DQ<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Projeto</h2>
+      <ul>
+        <li><a href="/sobre">Sobre o DQ Digital</a></li>
+        <li><a href="/fale-conosco">Fale conosco</a></li>
+        <li><a href="/design">Guia visual</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p class="mb-0">© 2023–<span data-year>2026</span> DQ Digital. Todos os direitos reservados.</p>
+    <p class="mb-0">Representação Discente 2022-2023 · PPGQ/UFPR</p>
+  </div>
+</footer>
+</body>
 </html>

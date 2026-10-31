@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Guia visual · DQ Digital</title>
+  <meta name="description" content="Cores, tipografia, botões, cartões e demais componentes do DQ Digital, nos temas claro e escuro.">
+  <link rel="canonical" href="https://dqufpr.github.io/design">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DQ Digital">
+  <meta property="og:title" content="Guia visual · DQ Digital">
+  <meta property="og:description" content="Cores, tipografia, botões, cartões e demais componentes do DQ Digital, nos temas claro e escuro.">
+  <meta property="og:url" content="https://dqufpr.github.io/design">
+  <meta property="og:image" content="https://dqufpr.github.io/img/social-media.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#1d3c69" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f2340" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+<!-- CABEÇALHO: igual em todas as páginas (modelo em docs/GUIA-DE-ESTILOS.md) -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="DQ Digital, página inicial">
+      <picture>
+        <source media="(min-width: 640px)" srcset="/img/logo-site-hv.svg" width="730" height="60">
+        <img src="/img/logo-site-mobile.svg" alt="" width="430" height="70">
+      </picture>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+        <li><a href="/fale-conosco">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <details class="theme-menu">
+        <summary class="icon-btn" aria-label="Tema de cores" title="Tema de cores">
+          <svg class="icon tm-light" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>
+          <svg class="icon tm-dark" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>
+          <svg class="icon tm-system" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>
+        </summary>
+        <ul class="theme-menu__list">
+          <li><button type="button" data-theme-set="light" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>Claro</button></li>
+          <li><button type="button" data-theme-set="dark" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>Escuro</button></li>
+          <li><button type="button" data-theme-set="system" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>Seguir o sistema</button></li>
+        </ul>
+      </details>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">
+        <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#menu"></use></svg>
+        <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="page-hero container">
+    <p class="eyebrow">Guia visual</p>
+    <h1>Componentes do DQ Digital</h1>
+    <p class="lead">Vitrine ao vivo de <code>/css/global.css</code>. Troque o tema no botão do cabeçalho para ver cada peça no modo claro e no escuro. As regras de uso estão em <a href="https://github.com/dqufpr/dqufpr.github.io/blob/main/docs/GUIA-DE-ESTILOS.md" target="_blank" rel="noopener noreferrer">docs/GUIA-DE-ESTILOS.md<span class="visually-hidden"> (abre em nova aba)</span></a>.</p>
+  </section>
+
+  <div class="container">
+    <nav class="guide-nav" aria-label="Seções do guia">
+      <a class="btn btn--sm btn--secondary" href="#cores">Cores</a>
+      <a class="btn btn--sm btn--secondary" href="#tipografia">Tipografia</a>
+      <a class="btn btn--sm btn--secondary" href="#espacos">Espaços</a>
+      <a class="btn btn--sm btn--secondary" href="#botoes">Botões</a>
+      <a class="btn btn--sm btn--secondary" href="#cartoes">Cartões</a>
+      <a class="btn btn--sm btn--secondary" href="#selos">Selos</a>
+      <a class="btn btn--sm btn--secondary" href="#avisos">Avisos</a>
+      <a class="btn btn--sm btn--secondary" href="#formularios">Formulários</a>
+      <a class="btn btn--sm btn--secondary" href="#icones">Ícones</a>
+    </nav>
+
+    <section class="guide-section" id="cores" aria-labelledby="t-cores">
+      <h2 id="t-cores">Cores</h2>
+      <p>Use sempre o token, nunca o código hexadecimal. As amostras de superfície, texto e estado mudam com o tema; as de marca são fixas.</p>
+
+      <h3>Marca</h3>
+      <div class="swatches">
+        <figure class="swatch sw-navy"><div class="swatch__color"></div><figcaption>Azul institucional<code>--brand-navy · #1d3c69</code></figcaption></figure>
+        <figure class="swatch sw-navy-deep"><div class="swatch__color"></div><figcaption>Azul profundo<code>--brand-navy-deep · #0b1f3b</code></figcaption></figure>
+        <figure class="swatch sw-blue"><div class="swatch__color"></div><figcaption>Azul de link<code>--brand-blue · #274e88</code></figcaption></figure>
+        <figure class="swatch sw-sky"><div class="swatch__color"></div><figcaption>Azul-claro<code>--brand-sky · #a7c4d2</code></figcaption></figure>
+        <figure class="swatch sw-teal"><div class="swatch__color"></div><figcaption>Petróleo claro<code>--brand-teal · #549db3</code></figcaption></figure>
+        <figure class="swatch sw-ice"><div class="swatch__color"></div><figcaption>Gelo<code>--brand-ice · #d9e2e9</code></figcaption></figure>
+      </div>
+
+      <h3 class="mt-0">Superfícies e texto</h3>
+      <div class="swatches">
+        <figure class="swatch sw-bg"><div class="swatch__color"></div><figcaption>Fundo da página<code>--bg</code></figcaption></figure>
+        <figure class="swatch sw-surface"><div class="swatch__color"></div><figcaption>Superfície<code>--surface</code></figcaption></figure>
+        <figure class="swatch sw-surface-2"><div class="swatch__color"></div><figcaption>Superfície 2<code>--surface-2</code></figcaption></figure>
+        <figure class="swatch sw-border"><div class="swatch__color"></div><figcaption>Borda<code>--border</code></figcaption></figure>
+        <figure class="swatch sw-heading"><div class="swatch__color"></div><figcaption>Títulos<code>--heading</code></figcaption></figure>
+        <figure class="swatch sw-text"><div class="swatch__color"></div><figcaption>Texto<code>--text</code></figcaption></figure>
+        <figure class="swatch sw-text-muted"><div class="swatch__color"></div><figcaption>Texto secundário<code>--text-muted</code></figcaption></figure>
+        <figure class="swatch sw-link"><div class="swatch__color"></div><figcaption>Link<code>--link</code></figcaption></figure>
+        <figure class="swatch sw-accent"><div class="swatch__color"></div><figcaption>Destaque<code>--accent</code></figcaption></figure>
+      </div>
+
+      <h3 class="mt-0">Estados</h3>
+      <div class="swatches">
+        <figure class="swatch sw-success"><div class="swatch__color"></div><figcaption>Sucesso<code>--success</code></figcaption></figure>
+        <figure class="swatch sw-warning"><div class="swatch__color"></div><figcaption>Atenção<code>--warning</code></figcaption></figure>
+        <figure class="swatch sw-danger"><div class="swatch__color"></div><figcaption>Erro<code>--danger</code></figcaption></figure>
+        <figure class="swatch sw-info"><div class="swatch__color"></div><figcaption>Informação<code>--info</code></figcaption></figure>
+      </div>
+
+      <h3 class="mt-0">Categorias do Mapa Digital</h3>
+      <div class="swatches">
+        <figure class="swatch sw-loc-sala-aula"><div class="swatch__color"></div><figcaption>Sala de aula<code>--loc-sala-aula</code></figcaption></figure>
+        <figure class="swatch sw-loc-sala-prof"><div class="swatch__color"></div><figcaption>Sala de professor<code>--loc-sala-prof</code></figcaption></figure>
+        <figure class="swatch sw-loc-lab-ensino"><div class="swatch__color"></div><figcaption>Lab. de ensino<code>--loc-lab-ensino</code></figcaption></figure>
+        <figure class="swatch sw-loc-lab-pesquisa"><div class="swatch__color"></div><figcaption>Lab. de pesquisa<code>--loc-lab-pesquisa</code></figcaption></figure>
+        <figure class="swatch sw-loc-servico"><div class="swatch__color"></div><figcaption>Serviço<code>--loc-servico</code></figcaption></figure>
+        <figure class="swatch sw-loc-banheiro"><div class="swatch__color"></div><figcaption>Banheiro<code>--loc-banheiro</code></figcaption></figure>
+        <figure class="swatch sw-loc-outros"><div class="swatch__color"></div><figcaption>Outros<code>--loc-outros</code></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="guide-section" id="tipografia" aria-labelledby="t-tipo">
+      <h2 id="t-tipo">Tipografia</h2>
+      <p>Fonte Roboto variável, servida pelo próprio site. Os títulos crescem com a tela (<code>clamp()</code>); o texto fica em 16px para não forçar zoom no celular.</p>
+      <div class="type-scale">
+        <div><span class="h1-demo"><strong>Título de página (h1)</strong></span><code>--fs-3xl · 30–44px · 800</code></div>
+        <div><h2 class="mb-0">Título de seção (h2)</h2><code>--fs-2xl · 24–32px · 700</code></div>
+        <div><h3 class="mb-0">Subtítulo (h3)</h3><code>--fs-lg · 20px · 700</code></div>
+        <div><p class="lead mb-0">Texto de destaque (.lead) para a abertura das páginas.</p><code>--fs-md · 18px · 400</code></div>
+        <div><p class="mb-0">Texto corrido. O Departamento de Química fica no Centro Politécnico da UFPR.</p><code>--fs-base · 16px · 400 · altura de linha 1,6</code></div>
+        <div><p class="mb-0 text-muted"><small>Nota, legenda ou rodapé.</small></p><code>--fs-sm · 14px</code></div>
+        <div><p class="eyebrow mb-0">Sobretítulo (.eyebrow)</p><code>--fs-sm · 700 · maiúsculas</code></div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="espacos" aria-labelledby="t-espacos">
+      <h2 id="t-espacos">Espaços e raios</h2>
+      <p>Espaços em múltiplos de 4px. Margem lateral (<code>--gutter</code>): 16px no celular, 24px a partir de 640px.</p>
+      <div class="space-demo">
+        <div><span class="sp-1"></span><code>--space-1 · 4px</code></div>
+        <div><span class="sp-2"></span><code>--space-2 · 8px</code></div>
+        <div><span class="sp-3"></span><code>--space-3 · 12px</code></div>
+        <div><span class="sp-4"></span><code>--space-4 · 16px</code></div>
+        <div><span class="sp-5"></span><code>--space-5 · 24px</code></div>
+        <div><span class="sp-6"></span><code>--space-6 · 32px</code></div>
+        <div><span class="sp-7"></span><code>--space-7 · 48px</code></div>
+        <div><span class="sp-8"></span><code>--space-8 · 64px</code></div>
+      </div>
+      <h3>Raios</h3>
+      <div class="radius-demo">
+        <div class="r-sm">sm · 6px</div>
+        <div class="r-md">md · 10px</div>
+        <div class="r-lg">lg · 16px</div>
+        <div class="r-pill">pill</div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="botoes" aria-labelledby="t-botoes">
+      <h2 id="t-botoes">Botões</h2>
+      <p>Altura mínima de 44px (área de toque). Um único botão principal por bloco. No celular, botões dentro de <code>.btn-group</code> ocupam a largura toda.</p>
+      <div class="demo-row">
+        <a class="btn" href="#botoes">Principal</a>
+        <a class="btn btn--secondary" href="#botoes">Secundário</a>
+        <a class="btn btn--ghost" href="#botoes">Discreto</a>
+        <button class="btn btn--danger" type="button">Perigo</button>
+        <button class="btn" type="button" disabled>Desativado</button>
+      </div>
+      <div class="demo-row">
+        <a class="btn btn--sm" href="#botoes">Pequeno</a>
+        <a class="btn" href="#botoes">Médio</a>
+        <a class="btn btn--lg" href="#botoes"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#map"></use></svg>Grande com ícone</a>
+      </div>
+      <div class="btn-group">
+        <a class="btn" href="#botoes">Ação principal</a>
+        <a class="btn btn--secondary" href="#botoes">Ação secundária</a>
+      </div>
+    </section>
+
+    <section class="guide-section" id="cartoes" aria-labelledby="t-cartoes">
+      <h2 id="t-cartoes">Cartões</h2>
+      <p>Grade de 1 coluna no celular, 2 no tablet e 3 no desktop (<code>.grid.grid--3</code>). Em <code>.card--link</code> o cartão inteiro é clicável.</p>
+      <div class="grid grid--3">
+        <article class="card card--link">
+          <div class="card__media"><img src="/img/capa-home1.png" alt="" width="940" height="280" loading="lazy"></div>
+          <div class="card__body">
+            <div class="card__top"><h3 class="card__title"><a href="#cartoes">Cartão com imagem</a></h3><span class="badge badge--new">Novo</span></div>
+            <p class="card__text">Imagem na proporção 940×280, título, selo e texto.</p>
+            <p class="card__footer" aria-hidden="true">Abrir <svg class="icon" focusable="false"><use href="/img/icons/sprite.svg#arrow-right"></use></svg></p>
+          </div>
+        </article>
+        <article class="card card--link">
+          <div class="card__body">
+            <span class="card__icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#flask"></use></svg></span>
+            <h3 class="card__title"><a href="#cartoes">Cartão com ícone</a></h3>
+            <p class="card__text">Sem imagem: um ícone de 44px abre o cartão.</p>
+            <p class="card__footer" aria-hidden="true">Ver mais <svg class="icon" focusable="false"><use href="/img/icons/sprite.svg#arrow-right"></use></svg></p>
+          </div>
+        </article>
+        <article class="card card--muted">
+          <div class="card__body">
+            <div class="card__top"><h3 class="card__title">Cartão inativo</h3><span class="badge badge--soon">Em breve</span></div>
+            <p class="card__text">Serviço ainda indisponível: sem link e com fundo apagado.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="guide-section" id="selos" aria-labelledby="t-selos">
+      <h2 id="t-selos">Selos e etiquetas de local</h2>
+      <div class="demo-row">
+        <span class="badge">Padrão</span>
+        <span class="badge badge--new">Novo</span>
+        <span class="badge badge--ext">Externo</span>
+        <span class="badge badge--soon">Em breve</span>
+        <span class="badge badge--off">Inativo</span>
+      </div>
+      <div class="quick-links">
+        <span class="loc-tag loc--sala-aula">Sala de aula</span>
+        <span class="loc-tag loc--sala-prof">Sala de professor</span>
+        <span class="loc-tag loc--lab-ensino">Lab. de ensino</span>
+        <span class="loc-tag loc--lab-pesquisa">Lab. de pesquisa</span>
+        <span class="loc-tag loc--servico">Serviço</span>
+        <span class="loc-tag loc--banheiro">Banheiro</span>
+        <span class="loc-tag loc--outros">Outros</span>
+      </div>
+    </section>
+
+    <section class="guide-section" id="avisos" aria-labelledby="t-avisos">
+      <h2 id="t-avisos">Avisos</h2>
+      <div class="stack">
+        <div class="alert"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg><p><strong>Informação.</strong> O mapa foi atualizado em outubro.</p></div>
+        <div class="alert alert--success"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><p><strong>Pronto.</strong> Sua mensagem foi enviada.</p></div>
+        <div class="alert alert--warning"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#clock"></use></svg><p><strong>Manutenção programada.</strong> Alguns serviços podem ficar fora do ar.</p></div>
+        <div class="alert alert--danger"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#alert"></use></svg><p><strong>Erro.</strong> Não foi possível carregar os dados.</p></div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="formularios" aria-labelledby="t-form">
+      <h2 id="t-form">Formulários</h2>
+      <p>Rótulo visível acima do campo, fonte de 16px nos campos (evita o zoom do iOS) e <code>autocomplete</code> sempre que possível.</p>
+      <form class="form form-card container--narrow" action="#formularios">
+        <div class="field">
+          <label class="label" for="demo-nome">Nome <span class="required" aria-hidden="true">*</span></label>
+          <input class="input" id="demo-nome" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label class="label" for="demo-cat">Categoria</label>
+          <select class="select" id="demo-cat">
+            <option>Sala de aula</option>
+            <option>Laboratório</option>
+            <option>Serviço</option>
+          </select>
+          <p class="hint">Texto de ajuda abaixo do campo.</p>
+        </div>
+        <div class="field">
+          <label class="label" for="demo-msg">Mensagem</label>
+          <textarea class="textarea" id="demo-msg" rows="4"></textarea>
+        </div>
+        <button class="btn btn--block" type="button">Enviar</button>
+      </form>
+    </section>
+
+    <section class="guide-section" id="icones" aria-labelledby="t-icones">
+      <h2 id="t-icones">Ícones</h2>
+      <p>Sprite em <code>/img/icons/sprite.svg</code>: traço de 2px, grade 24×24, cor herdada do texto.</p>
+      <div class="table-scroll">
+        <table class="token-table">
+          <thead><tr><th scope="col">Ícone</th><th scope="col">Nome</th><th scope="col">Uso</th></tr></thead>
+          <tbody>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#map"></use></svg></td><td><code>map</code></td><td>Mapa Digital</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#pin"></use></svg></td><td><code>pin</code></td><td>Local, endereço</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#flask"></use></svg></td><td><code>flask</code></td><td>Laboratórios</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#building"></use></svg></td><td><code>building</code></td><td>Prédio, serviços</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#mail"></use></svg></td><td><code>mail</code></td><td>Contato</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#arrow-right"></use></svg></td><td><code>arrow-right</code></td><td>Seguir para outra página</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#external"></use></svg></td><td><code>external</code></td><td>Link para outro site</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg></td><td><code>info</code></td><td>Aviso informativo</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg></td><td><code>check</code></td><td>Sucesso, lista de itens</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#alert"></use></svg></td><td><code>alert</code></td><td>Erro, atenção</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#clock"></use></svg></td><td><code>clock</code></td><td>Horários, manutenção</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg> <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg> <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg></td><td><code>sun · moon · contrast</code></td><td>Tema claro, escuro, sistema</td></tr>
+            <tr><td><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#menu"></use></svg> <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg></td><td><code>menu · close</code></td><td>Abrir e fechar o menu</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- RODAPÉ: igual em todas as páginas -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src="/img/logo-rodape.svg" alt="DQ Digital" width="200" height="40">
+      <p>Departamento de Química<br>Universidade Federal do Paraná</p>
+      <p><a href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" target="_blank" rel="noopener noreferrer">Centro Politécnico, Jardim das Américas, 100<br>CEP 81531-980 · Curitiba, PR<span class="visually-hidden"> (abre o Google Maps em nova aba)</span></a></p>
+    </div>
+    <div>
+      <h2>Serviços</h2>
+      <ul>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="http://www.quimica.ufpr.br/paginas/departamento/" target="_blank" rel="noopener noreferrer">Site do DQ<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Projeto</h2>
+      <ul>
+        <li><a href="/sobre">Sobre o DQ Digital</a></li>
+        <li><a href="/fale-conosco">Fale conosco</a></li>
+        <li><a href="/design">Guia visual</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p class="mb-0">© 2023–<span data-year>2026</span> DQ Digital. Todos os direitos reservados.</p>
+    <p class="mb-0">Representação Discente 2022-2023 · PPGQ/UFPR</p>
+  </div>
+</footer>
+</body>
+</html>
