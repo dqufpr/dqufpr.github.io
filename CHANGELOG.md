@@ -1,5 +1,10 @@
 # Histórico de mudanças
 
+## 2.1.1 — 2026-10-31
+
+### Mudado
+- Largura máxima do conteúdo (`--container`) passou de 1160px para 1440px, no portal e em todos os módulos.
+
 ## 2.1.0 — 2026-10-31
 
 ### Novo

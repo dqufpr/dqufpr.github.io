@@ -184,7 +184,7 @@ Estrutura:
 
 | Classe | Uso |
 |---|---|
-| `.container` | Largura máxima de 1160px + margem lateral (`--gutter`) |
+| `.container` | Largura máxima de 1440px (`--container`) + margem lateral (`--gutter`) |
 | `.container--narrow` | Coluna de leitura de 760px (textos, formulários) |
 | `.section` | Bloco com respiro vertical |
 | `.section--alt` | Faixa com fundo `--surface` e bordas, para alternar blocos |
