@@ -1,3 +1,9 @@
+/* ==================================================================
+   LEGADO — NÃO USAR EM PÁGINAS NOVAS
+   CSS antigo, ainda carregado pelas páginas do módulo /mapa/.
+   Fica congelado até o Mapa migrar para /css/global.css + /js/app.js.
+   O site principal não usa mais este arquivo. Ver docs/GUIA-DE-ESTILOS.md.
+================================================================== */
 /************************************************************/
 /* 1. VARIÁVEIS GLOBAIS E TIPOGRAFIA                        */
 /************************************************************/

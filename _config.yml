@@ -1,3 +1,13 @@
+# GitHub Pages (Jekyll): o site é HTML estático, o Jekyll só copia os arquivos.
+# Pastas iniciadas por "_" (como _arquivo/) não são publicadas.
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - PENDENCIAS.md
+  - docs/
+  - .editorconfig
+  - .claude/
+
 defaults:
   - scope:
       path: ""

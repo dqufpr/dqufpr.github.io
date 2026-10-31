@@ -10,122 +10,86 @@ O DQ Digital é formado por vários repositórios da organização `dqufpr` no G
 
 | Repositório | Endereço | Papel |
 |---|---|---|
-| `dqufpr.github.io` (este) | `https://dqufpr.github.io/` | Site principal: página inicial, estilo global, imagens compartilhadas, páginas institucionais |
+| `dqufpr.github.io` (este) | `https://dqufpr.github.io/` | Portal: página inicial, base visual compartilhada (CSS, JS, ícones, fontes), páginas institucionais |
 | `mapa` | `https://dqufpr.github.io/mapa/` | Mapa Digital: locais do departamento (salas, laboratórios, serviços) |
 | outros módulos | `https://dqufpr.github.io/<nome>/` | Cada nova função ganha um repositório próprio |
 
-O GitHub Pages publica cada repositório da organização como uma subpasta do domínio principal. Por isso um módulo pode usar caminhos como `/` (início do site principal) ou `/css/style-dq-global.css`.
+O GitHub Pages publica cada repositório da organização como uma subpasta do mesmo domínio. Por isso um módulo carrega a base visual por caminho absoluto: `/css/global.css`, `/js/app.js`.
 
-### O que o site principal fornece aos módulos
+## Funcionalidades
 
-- `css/style-dq-global.css`: layout, cabeçalho, menu, cartões, formulário, componentes do mapa, rodapé e regras responsivas. Os módulos devem carregar este arquivo pela URL absoluta.
-- `img/`: logos, favicon, selos (`new.svg`, `ext.svg`, `nota.svg`) e capas usadas pelo CSS global.
-
-Cada módulo pode ter um `css/style.css` local, carregado **depois** do global, só para ajustes próprios.
+- Portal com acesso ao Mapa Digital, atalhos por categoria de local e cartões dos serviços.
+- Layout pensado primeiro para o celular, ampliado para tablet (640px) e computador (960px).
+- Tema claro, escuro ou "seguir o sistema", aplicado antes da página aparecer (sem piscar).
+- Cabeçalho fixo com menu recolhível no celular e marcação automática da página atual.
+- Guia visual ao vivo em [`/design`](https://dqufpr.github.io/design) e guia escrito em [`docs/GUIA-DE-ESTILOS.md`](docs/GUIA-DE-ESTILOS.md).
+- Acessibilidade: link "pular para o conteúdo", foco visível, áreas de toque de 44px, contraste AA nos dois temas, respeito a `prefers-reduced-motion`.
+- Segurança: Content-Security-Policy por `<meta>`, nenhum script ou estilo inline, `rel="noopener noreferrer"` em links externos.
 
 ## Estrutura deste repositório
 
 ```
 .
-├── index.html            Página inicial (hoje exibe aviso de manutenção)
-├── sobre.html            Página "Sobre" (sem conteúdo ainda)
-├── fale-conosco.html     Formulário de contato (envia para um Google Forms)
+├── index.html              Página inicial (portal)
+├── sobre.html              Sobre o projeto
+├── fale-conosco.html       Formulário de contato (envia para um Google Forms)
+├── design.html             Guia visual: vitrine dos componentes
+├── 404.html                Página de erro
 ├── css/
-│   ├── style-dq-global.css   Estilo global, compartilhado com todos os módulos
-│   └── style.css             Ajustes locais do site principal (logo do cabeçalho)
+│   ├── global.css          Base visual compartilhada com todos os módulos
+│   ├── pages.css           Estilos só do site principal (início, guia, 404)
+│   └── style-dq-global.css LEGADO: ainda usado pelo /mapa/; não usar em páginas novas
 ├── js/
-│   └── map-label.js      Leitura da planilha de locais (não é usado por nenhuma página hoje)
-├── img/                  Imagens compartilhadas
-├── _config.yml           Configuração do Jekyll (GitHub Pages)
-├── _includes/            Vazio (só contém Read.txt)
-└── logs.txt              Lista de tarefas pendentes
+│   ├── theme-init.js       Aplica o tema no <head>, antes da renderização
+│   ├── app.js              Menu de tema, menu do celular, página atual, ano do rodapé
+│   └── analytics.js        Google Analytics (só na página inicial)
+├── img/                    Logotipos, favicon, capas e selos (compartilhados)
+│   └── icons/sprite.svg    Ícones
+├── fonts/                  Roboto variável (licença OFL em fonts/License.txt)
+├── docs/
+│   └── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
+├── _arquivo/               Arquivos antigos guardados como referência (não publicados)
+├── _config.yml             Configuração do Jekyll (GitHub Pages)
+├── CHANGELOG.md            Histórico de mudanças
+└── PENDENCIAS.md           O que falta fazer
 ```
 
-## Esqueleto de uma página
+## O que o site principal fornece aos módulos
 
-Toda página, no site principal ou em um módulo, segue a mesma marcação:
+| Arquivo | Como carregar |
+|---|---|
+| `/js/theme-init.js` | `<script src="/js/theme-init.js"></script>` no `<head>`, sem `defer`, antes do CSS |
+| `/css/global.css` | `<link rel="stylesheet" href="/css/global.css">` |
+| `/js/app.js` | `<script src="/js/app.js" defer></script>` |
+| `/img/icons/sprite.svg` | `<svg class="icon"><use href="/img/icons/sprite.svg#map"></use></svg>` |
 
-```html
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Título - DQ DIGITAL - Departamento de Química UFPR</title>
-  <link rel="icon" href="https://dqufpr.github.io/img/favicon.svg" type="image/svg+xml">
-
-  <!-- estilo global -->
-  <link rel="stylesheet" href="https://dqufpr.github.io/css/style-dq-global.css">
-  <!-- estilo local -->
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <div id="pagina">
-    <div id="colunas">
-      <header id="cabecalho">
-        <div id="titulo"><p>Nome do módulo</p></div>
-      </header>
-
-      <div id="menu">
-        <ul id="menu_dropdown" class="menubar">
-          <li class="itemmenubar"><a href="/">INÍCIO</a></li>
-          <li class="itemmenubar"><a href="sobre">SOBRE</a></li>
-          <li class="itemmenubar"><a href="fale-conosco">CONTATO</a></li>
-        </ul>
-      </div>
-
-      <div id="coluna">
-        <div id="cb" class="esquerda">
-          <div id="conteudocoluna" class="principal">
-            <div class="container">
-              <div id="contentsite">
-                <h1>Título</h1>
-                <!-- conteúdo -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="rodape">
-        <!-- copiar o rodapé de index.html -->
-      </div>
-    </div>
-  </div>
-</body>
-</html>
-```
+Cada módulo pode ter um `css/style.css` próprio, carregado depois do global, só para o que for exclusivo dele, sempre usando os tokens (`var(--…)`).
 
 ## Criar um novo módulo
 
 1. Crie um repositório na organização `dqufpr` com o nome que vai aparecer na URL (por exemplo `servicos`).
 2. Ative o GitHub Pages na branch `main`.
-3. Monte as páginas com o esqueleto acima, carregando o CSS global pela URL absoluta.
+3. Monte as páginas a partir do modelo da seção 18 do [guia de estilos](docs/GUIA-DE-ESTILOS.md#18-modelo-de-página), copiando cabeçalho e rodapé de `index.html`.
 4. Coloque só o que for específico do módulo no `css/style.css` local.
-5. Adicione um cartão para o módulo na página inicial deste repositório (componente `#homemodel` / `#model`).
+5. Adicione um cartão para o módulo em `index.html` (seção "Serviços") e, se for o caso, um item no menu de todas as páginas.
 
 ## Rodar localmente
 
-O site é HTML estático. Qualquer servidor local serve:
+O site é HTML estático. Na pasta do repositório:
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8000
 ```
 
-O CSS global vem sempre de `https://dqufpr.github.io/`, então mudanças em `css/style-dq-global.css` só aparecem nos módulos depois de publicadas. Para testar antes, troque temporariamente o `href` pelo caminho local.
+Abra <http://localhost:8000>. Os caminhos começam com `/`, então sirva a partir da raiz do repositório (abrir o arquivo direto no navegador não carrega os ícones).
 
-## Cuidados ao alterar o CSS global
+Para testar um módulo com a base nova antes de publicar, coloque a pasta do módulo dentro desta (ex.: `./mapa/`) e acesse <http://localhost:8000/mapa/>. Não faça commit dessa pasta.
 
-Qualquer mudança em `css/style-dq-global.css` afeta todos os módulos assim que é publicada. Antes de alterar, confira as páginas do site principal e de cada módulo em largura de celular (até 650px), tablet (651px a 1000px) e desktop.
+## Cuidados ao alterar a base visual
 
-O CSS global também referencia imagens do repositório `mapa` (`../mapa/img/...`). Se esse repositório for renomeado ou removido, essas capas quebram.
-
-## Pendências conhecidas
-
-- Página inicial em modo de manutenção, sem menu e sem os cartões dos módulos.
-- `sobre.html` sem conteúdo e com o título "Mapa Digital" no cabeçalho.
-- Cabeçalho, menu e rodapé copiados em cada página de cada repositório.
-- Itens de `logs.txt`: novo design, responsividade completa, modo escuro, nova exibição do mapa, atualização da base de dados.
+- Mudanças em `css/global.css`, `js/app.js` e `img/icons/sprite.svg` valem para todos os módulos assim que são publicadas. Confira o site principal e cada módulo em 360px, 768px e 1280px, nos temas claro e escuro.
+- `css/style-dq-global.css` é legado: só o `/mapa/` usa. Não altere; quando o mapa migrar, apague. O passo a passo está no guia de estilos.
+- Esse CSS legado referencia imagens do repositório `mapa` (`../mapa/img/...`). Se esse repositório for renomeado, essas capas quebram.
 
 ## Créditos
 
