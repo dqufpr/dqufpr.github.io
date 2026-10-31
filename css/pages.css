@@ -21,8 +21,8 @@
 }
 .home-hero .container { position: relative; z-index: 1; padding-block: var(--space-7) var(--space-8); }
 .home-hero .eyebrow { color: var(--brand-sky); }
-.home-hero h1 { color: var(--header-text); max-width: 18ch; }
-.home-hero .lead { color: var(--header-muted); max-width: 52ch; margin-bottom: var(--space-5); }
+.home-hero h1 { color: var(--header-text); max-width: 40ch; }
+.home-hero .lead { color: var(--header-muted); max-width: 80ch; margin-bottom: var(--space-5); }
 .home-hero .btn { background: #ffffff; color: var(--brand-navy); }
 .home-hero .btn:hover { background: var(--brand-ice); color: var(--brand-navy-deep); }
 .home-hero .btn--secondary { background: transparent; color: #ffffff; border-color: rgba(255, 255, 255, 0.55); }
