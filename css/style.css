@@ -1,38 +1,85 @@
-/************************************************************/
-/* 1. CABEÇALHO                                             */
-/************************************************************/
-#cabecalho { background-image: url(../img/logo-site-hv.svg); }
+/* ==================================================================
+   style.css — Mapa Digital (/mapa/)
+   Só o que é exclusivo do módulo. Carregado DEPOIS de /css/global.css,
+   sempre com os tokens de lá (var(--…)). Guia: dqufpr.github.io/design
 
-/************************************************************/
-/* 2. PERSONALIZAÇÃO                                        */
-/************************************************************/
-#model #destaque { height: 100px; }
-#model .titulo { border-radius: 3px; }
-#model .descricao span { display: none; }
+   Sumário
+   1. Abertura de página
+   2. Atalhos de categoria
+   3. Visualizador do mapa
+   4. Lista de locais
+   5. Impressão
+================================================================== */
 
-/************************************************************/
-/* 3. AVISOS E ATUALIZAÇÕES                                 */
-/************************************************************/
-#aviso { width: 97%; padding: 10px; background-color: #f3da9f; border: 1px solid #ddceab; margin: 0 auto; color: #333; font-weight: 800; border-radius: 6px; text-align: center; box-sizing: border-box; font-size: 105%; }
-#aviso a { color: #6f5619; }
-#aviso:hover { background-color: #dcc58e; }
+/* 1. Abertura de página: o sobretítulo pode ser um link de volta ao mapa */
+.eyebrow a { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; color: inherit; }
+.map-subtitle { margin-bottom: var(--space-3); font-size: var(--fs-lg); }
 
-/************************************************************/
-/* 4. CONFIGURAÇÕES DE IMPRESSÃO                            */
-/************************************************************/
-/* === Seletores de coluna combinados para otimização === */
-@media print {
-    body { font-size: 12px; }
-    #cabecalho, #menu, #navmap, #rodape { display: none; }
-    #coluna, #colunas #coluna { width: 100%; padding: 0; margin: 0; min-height: 0; height: auto; }
-    #colunas #coluna #cb { min-height: 0; }
+/* 2. Atalhos de categoria (.loc-tag do global.css) */
+.quick-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+a.loc-tag[aria-current="page"] { border-color: var(--loc); background: var(--surface-2); font-weight: var(--fw-bold); }
+
+/* 3. Visualizador do mapa: o SVG fica num iframe e rola por dentro no celular */
+.map-view { margin: 0; }
+.map-view__frame {
+  overflow: hidden;
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  background: #ffffff; /* o desenho do mapa é sempre claro */
+  box-shadow: var(--shadow-sm);
+}
+.map-view__frame iframe { display: block; width: 100%; height: min(70vh, 560px); border: 0; }
+.map-view__caption {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-2); color: var(--text-muted); font-size: var(--fs-sm);
+}
+.map-view__caption a { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--tap); font-weight: var(--fw-medium); }
+
+/* 4. Lista de locais (preenchida por /mapa/js/locais.js) */
+.locais__busca { max-width: 420px; margin-bottom: var(--space-4); }
+.locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
+.locais__status:empty { display: none; }
+.locais .alert { margin-bottom: var(--space-4); }
+.locais__lista { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin: 0; padding: 0; list-style: none; }
+
+/* A cor da categoria (--loc) vem da classe loc--* do global.css */
+.local {
+  --loc-ink: #ffffff; /* cor do número sobre a cor da categoria */
+  display: flex; min-width: 0;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.local[hidden] { display: none; }
+/* Categorias claras levam número escuro (contraste AA) */
+.local.loc--lab-ensino, .local.loc--banheiro { --loc-ink: var(--brand-navy-deep); }
+.local.loc--outros { --loc-ink: var(--text); }
+
+.local__num {
+  flex: none; width: 56px; padding-top: var(--space-4);
+  background: var(--loc, var(--loc-outros)); color: var(--loc-ink);
+  font-size: var(--fs-lg); font-weight: var(--fw-black); line-height: var(--lh-tight); text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.local__body { display: grid; gap: var(--space-1); align-content: start; min-width: 0; padding: var(--space-4); }
+.local__nome { margin: 0; font-size: var(--fs-base); overflow-wrap: anywhere; }
+.local__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+.local__cat { font-weight: var(--fw-medium); color: var(--text); }
+.local__desc { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+
+@media (min-width: 640px) {
+  .locais__lista { grid-template-columns: repeat(2, 1fr); }
 }
 
-/************************************************************/
-/* 5. RESPONSIVIDADE                                        */
-/************************************************************/
-/* === Regras para telas até 650px agrupadas === */
-@media (max-width: 650px) {
-    #cabecalho { background-image: url(../img/logo-site-mobile.svg); }
-    #aviso { width: 90%; padding: 20px; margin: 0 auto 1em auto; }
+@media (min-width: 960px) {
+  /* Mapa inteiro visível, na proporção do desenho (1500 × 800) */
+  .map-view__frame iframe { height: auto; aspect-ratio: 1500 / 800; }
+  .map-view__hint { visibility: hidden; }
+  .locais__lista { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 5. Impressão: mapa e lista, sem busca nem atalhos */
+@media print {
+  .quick-links, .locais__busca, .map-view__caption { display: none !important; }
+  .map-view__frame iframe { height: auto; aspect-ratio: 1500 / 800; }
+  .local { break-inside: avoid; }
 }

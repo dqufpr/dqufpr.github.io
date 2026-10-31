@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll): o site é HTML estático, o Jekyll só copia os arquivos.
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - .editorconfig
+  - .claude/

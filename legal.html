@@ -1,85 +1,119 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="robots" content="index, follow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self' https://docs.google.com; img-src 'self' data:; style-src 'self'; font-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Aviso legal · Mapa Digital · DQ Digital</title>
+  <meta name="description" content="Aviso legal dos desenvolvedores do Mapa Digital do Departamento de Química da UFPR.">
+  <link rel="canonical" href="https://dqufpr.github.io/mapa/legal">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DQ Digital">
+  <meta property="og:title" content="Aviso legal · Mapa Digital · DQ Digital">
+  <meta property="og:description" content="Aviso legal dos desenvolvedores do Mapa Digital do Departamento de Química da UFPR.">
+  <meta property="og:url" content="https://dqufpr.github.io/mapa/legal">
   <meta property="og:image" content="https://dqufpr.github.io/mapa/img/social-media.png">
   <meta property="og:image:width" content="760">
   <meta property="og:image:height" content="466">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="MAPA DIGITAL">
-  <meta property="og:description" content="Mapa Digital - Departamento de Química UFPR">
-  <meta property="og:url" content="https://dqufpr.github.io/mapa">
-  <meta name="description" content="Encontre serviços, locais e informações - Departamento de Química UFPR">
-  <meta property="og:site_name" content="MAPA DIGITAL">
-  <meta name="theme-color" content="#1d3c69">
-  <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
-  <title>Aviso legal - Mapa Digital - Departamento de Química UFPR</title>
-
-  <!-- estilo global -->
-  <link rel="stylesheet" href="https://dqufpr.github.io/css/style-dq-global.css">
-  <!-- estilo local -->
-  <link rel="stylesheet" href="css/style.css">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="theme-color" content="#1d3c69" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f2340" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/mapa/css/style.css">
+  <script src="/js/app.js" defer></script>
 </head>
-
 <body>
-  <div id="pagina">
-    <div id="colunas">
-      <!-- cabeçalho -->
-      <header id="cabecalho">
-        <div id="titulo">
-          <p>Mapa Digital - Departamento de Química UFPR</p>
-        </div>
-      </header>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
 
-      <!-- menu principal -->
-      <div id="menu">
-        <ul id="menu_dropdown" class="menubar">
-          <li class="itemmenubar"><a href="/mapa/">INÍCIO</a></li>
-          <li class="itemmenubar"><a href="sobre">SOBRE</a></li>
-          <li class="itemmenubar"><a href="fale-conosco">CONTATO</a></li>
+<!-- CABEÇALHO: igual em todas as páginas do DQ Digital (modelo em dqufpr.github.io/docs/GUIA-DE-ESTILOS.md) -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="DQ Digital, página inicial">
+      <picture>
+        <source media="(min-width: 640px)" srcset="/img/logo-site-hv.svg" width="730" height="60">
+        <img src="/img/logo-site-mobile.svg" alt="" width="430" height="70">
+      </picture>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+        <li><a href="/fale-conosco">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <details class="theme-menu">
+        <summary class="icon-btn" aria-label="Tema de cores" title="Tema de cores">
+          <svg class="icon tm-light" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>
+          <svg class="icon tm-dark" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>
+          <svg class="icon tm-system" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>
+        </summary>
+        <ul class="theme-menu__list">
+          <li><button type="button" data-theme-set="light" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>Claro</button></li>
+          <li><button type="button" data-theme-set="dark" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>Escuro</button></li>
+          <li><button type="button" data-theme-set="system" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>Seguir o sistema</button></li>
         </ul>
-      </div>
-      <!-- descricao page -->
-
-      <div id="coluna">
-        <!--coluna esquerda-->
-        <div id="cb" class="esquerda">
-          <div id="conteudocoluna" class="principal">
-            <div class="container">
-              <!-- conteudo site -->
-              <div id="contentsite">
-                <h1>Aviso legal</h1>
-                <p>Os desenvolvedores fizeram esforços para obter informações precisas sobre os locais e serviços mencionados. No entanto, podem ocorrer inconsistências, especialmente devido a reformas, mudanças não relatadas e alterações nos espaços, salas ou locais sem aviso prévio.</p>
-                <p>Os desenvolvedores não podem ser responsabilizados por quaisquer erros contidos nesta plataforma, nem por quaisquer danos incidentais ou consequenciais relacionados ao fornecimento, desempenho ou uso da mesma. As informações, descrições e especificações fornecidas nesta plataforma estão sujeitas a alterações sem aviso prévio. Recomenda-se verificar as informações mais recentes antes de tomar qualquer decisão ou ação com base nelas.</p>
-                <p>Dúvidas e questões podem ser encaminhadas no <a href="../mapa/fale-conosco">formulário de contato</a>.</p>
-                <br><p><b>Atualizado em: </b>25 de maio de 2023.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- rodape inicio -->
-      <div id="rodape">
-        <div id="coluna" class="rodape1">
-          <a href="/" title="Página inicial - DQ DIGITAL"><span class="logo-pd"></span></a>
-          Departamento de Química<br />
-          Universidade Federal do Paraná<br />
-          <a target="blank" href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" title="Veja no Google Maps">Centro Politécnico,
-            Jardim das Américas, 100, 81531-980</a>
-        </div>
-        <div id="coluna" class="rodape2">
-          <p>Representação Discente — 2022-2023 PPGQ UFPR</p>
-          <p><a href="legal" title="Aviso legal dos desenvolvedores">Aviso legal</a></p>
-        </div>
-      </div>
-      <!-- rodape fim -->
+      </details>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">
+        <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#menu"></use></svg>
+        <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg>
+      </button>
     </div>
   </div>
-</body>
+</header>
 
+<main id="main" tabindex="-1">
+  <section class="page-hero container container--narrow">
+    <p class="eyebrow">Mapa Digital</p>
+    <h1>Aviso legal</h1>
+    <p class="lead">Limites de responsabilidade sobre as informações do Mapa Digital.</p>
+  </section>
+
+  <div class="container container--narrow">
+    <div class="prose">
+      <p>Os desenvolvedores se esforçaram para obter informações precisas sobre os locais e serviços mencionados. Ainda assim, podem ocorrer inconsistências, principalmente por causa de reformas, mudanças não informadas e alterações nos espaços, salas ou locais sem aviso prévio.</p>
+      <p>Os desenvolvedores não podem ser responsabilizados por erros contidos nesta plataforma, nem por danos incidentais ou consequentes relacionados ao fornecimento, ao desempenho ou ao uso dela. As informações, descrições e especificações aqui apresentadas podem mudar sem aviso prévio. Recomenda-se conferir as informações mais recentes antes de tomar qualquer decisão com base nelas.</p>
+      <p>Dúvidas podem ser enviadas pelo <a href="/fale-conosco">formulário de contato</a>.</p>
+      <p class="text-muted"><strong>Atualizado em:</strong> 25 de maio de 2023.</p>
+    </div>
+  </div>
+</main>
+
+<!-- RODAPÉ: igual em todas as páginas do Mapa Digital -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <img class="footer-logo" src="/img/logo-rodape.svg" alt="DQ Digital" width="200" height="40">
+      <p>Departamento de Química<br>Universidade Federal do Paraná</p>
+      <p><a href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" target="_blank" rel="noopener noreferrer">Centro Politécnico, Jardim das Américas, 100<br>CEP 81531-980 · Curitiba, PR<span class="visually-hidden"> (abre o Google Maps em nova aba)</span></a></p>
+    </div>
+    <div>
+      <h2>Mapa Digital</h2>
+      <ul>
+        <li><a href="/mapa/p/completo">Mapa completo</a></li>
+        <li><a href="/mapa/sobre">Sobre o mapa</a></li>
+        <li><a href="/mapa/atualizacao">Atualizações</a></li>
+        <li><a href="/mapa/legal">Aviso legal</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>DQ Digital</h2>
+      <ul>
+        <li><a href="/">Página inicial</a></li>
+        <li><a href="/fale-conosco">Fale conosco</a></li>
+        <li><a href="http://www.quimica.ufpr.br/paginas/departamento/" target="_blank" rel="noopener noreferrer">Site do DQ<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p class="mb-0">© 2023–<span data-year>2026</span> DQ Digital. Todos os direitos reservados.</p>
+    <p class="mb-0">Representação Discente 2022-2023 · PPGQ/UFPR</p>
+  </div>
+</footer>
+</body>
 </html>
