@@ -5,9 +5,10 @@
 ### Mudado
 - Cabeçalho com o novo logo quadrado (`img/logo.svg`) e o nome "DQ Digital" ao lado; a partir de 640px, linha de apoio "Departamento de Química · UFPR". Componentes `.brand__logo`, `.brand__nome` e `.brand__sub` no `global.css`.
 - Item atual do menu sem borda: só fundo destacado e negrito.
+- Rodapé (`.brand--rodape`, `.footer-aviso`) com a mesma marca do cabeçalho (logo quadrado + nome), `© <ano> · Todos os direitos reservados.` com o ano automático, crédito "Representação Discente · PPGQ · UFPR" e aviso de que o site não tem vínculo institucional com a UFPR.
 
 ### Removido
-- Logotipos horizontais antigos (`img/logo-site-hv.svg`, `img/logo-site-mobile.svg`).
+- Logotipos antigos (`img/logo-site-hv.svg`, `img/logo-site-mobile.svg`, `img/logo-rodape.svg`).
 
 ## 2.1.1 — 2026-10-31
 

@@ -329,7 +329,11 @@ Disponíveis: `map`, `pin`, `flask`, `building`, `mail`, `arrow-right`, `externa
 
 ## 15. Rodapé
 
-Três colunas no desktop (institucional · Serviços · Projeto), duas no tablet, uma no celular. Linha final com direitos (`© 2023–<ano>`; o ano é atualizado por `app.js` em `[data-year]`) e crédito à Representação Discente. Fundo `--footer-bg` nos dois temas.
+Três colunas no desktop (institucional · Serviços · Projeto), duas no tablet, uma no celular. Fundo `--footer-bg` nos dois temas.
+
+- **Marca:** a mesma do cabeçalho (logo quadrado + nome + linha de apoio), em `<p class="brand brand--rodape">`, sem link.
+- **Linha final** (`.footer-bottom`): `© <ano> · Todos os direitos reservados.` (o ano é atualizado por `app.js` em `[data-year]`) e o crédito `Representação Discente · PPGQ · UFPR`.
+- **Aviso legal** (`.footer-aviso`), por último: o site é mantido por estudantes, não tem vínculo institucional com a UFPR e não é canal oficial. Mantenha o mesmo texto em todas as páginas e módulos.
 
 ## 16. Acessibilidade
 

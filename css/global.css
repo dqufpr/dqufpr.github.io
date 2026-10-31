@@ -466,7 +466,9 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
 /* 13. Rodapé */
 .site-footer { margin-top: var(--space-8); background: var(--footer-bg); color: var(--footer-text); font-size: var(--fs-sm); border-top: 4px solid var(--brand-navy); }
 .footer-grid { display: grid; gap: var(--space-6); padding-block: var(--space-7) var(--space-6); }
-.footer-logo { height: 28px; width: auto; margin-bottom: var(--space-4); }
+/* Marca no rodapé: a mesma do cabeçalho, sem link e sempre com a linha de apoio */
+.brand--rodape { margin: 0 0 var(--space-4); min-height: 0; }
+.brand--rodape .brand__sub { display: block; }
 .site-footer h2 { margin-bottom: var(--space-3); color: var(--footer-strong); font-size: var(--fs-sm); letter-spacing: 0.08em; text-transform: uppercase; }
 .site-footer p { margin: 0 0 var(--space-2); }
 .site-footer ul { list-style: none; margin: 0; padding: 0; }
@@ -474,7 +476,10 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
 .site-footer a { color: var(--footer-strong); text-decoration: none; }
 .site-footer a:hover { color: var(--brand-sky); text-decoration: underline; }
 .site-footer a:focus-visible { outline-color: var(--brand-sky); }
-.footer-bottom { display: flex; flex-direction: column; gap: var(--space-2); padding-block: var(--space-4) var(--space-5); border-top: 1px solid var(--footer-border); }
+.footer-bottom { display: flex; flex-direction: column; gap: var(--space-2); padding-block: var(--space-4); border-top: 1px solid var(--footer-border); }
+/* Aviso legal na última linha do rodapé */
+.footer-aviso { padding-block: 0 var(--space-5); font-size: var(--fs-xs); line-height: var(--lh-base); }
+.footer-aviso p { max-width: 110ch; }
 
 /* 14. Utilitários */
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
