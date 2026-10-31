@@ -1,5 +1,14 @@
 # Histórico de mudanças
 
+## 2.2.0 — 2026-10-31
+
+### Mudado
+- Cabeçalho com o novo logo quadrado (`img/logo.svg`) e o nome "DQ Digital" ao lado; a partir de 640px, linha de apoio "Departamento de Química · UFPR". Componentes `.brand__logo`, `.brand__nome` e `.brand__sub` no `global.css`.
+- Item atual do menu sem borda: só fundo destacado e negrito.
+
+### Removido
+- Logotipos horizontais antigos (`img/logo-site-hv.svg`, `img/logo-site-mobile.svg`).
+
 ## 2.1.1 — 2026-10-31
 
 ### Mudado
