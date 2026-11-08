@@ -8,8 +8,11 @@
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
    - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
-   - no celular (até 499px): busca recolhida num botão, detalhes num cartão fixo no pé
-     da tela e lista de locais recolhida (classes mapa-js, is-buscando e tem-folha). */
+   - lista de locais recolhida (acordeão) e "Mostrar todos os locais" no painel;
+   - tablet e desktop (500px+): painel flutuando à direita da planta; enquadramentos
+     descontam a faixa que ele cobre;
+   - no celular (até 499px): busca recolhida num botão e detalhes num cartão fixo no pé
+     da tela (classes mapa-js, is-buscando e tem-folha). */
 (function () {
   'use strict';
 
@@ -39,7 +42,7 @@
   var dados = null;               // conteúdo de locais.json
   var porId = {};                 // id do local → objeto do local
   var nomesCat = {};              // id da categoria → nome
-  var estado = { local: null, busca: '', destaques: [] };
+  var estado = { local: null, busca: '', destaques: [], todos: false };
 
   /* ---------- Utilidades ---------- */
   function normalize(s) {
@@ -74,7 +77,7 @@
     return p.matrixTransform(svg.getScreenCTM().inverse());
   }
   function zoomEm(f, px, py) {
-    var w = Math.min(Math.max(vb.w * f, ZOOM_MIN_W), INTEIRA.w * 1.2);
+    var w = Math.min(Math.max(vb.w * f, ZOOM_MIN_W), Math.max(INTEIRA.w * 1.2, vistaCheia().w * 1.1));
     f = w / vb.w;
     aplica({ x: px - (px - vb.x) * f, y: py - (py - vb.y) * f, w: vb.w * f, h: vb.h * f });
   }
@@ -111,8 +114,27 @@
     var r = svg.getBoundingClientRect(), prop = r.height / r.width || INTEIRA.h / INTEIRA.w;
     var w = Math.max((x1 - x0) * 4, 1600), h = w * prop;
     if (h < (y1 - y0) * 2) { h = (y1 - y0) * 2; w = h / prop; }
-    var f = fracaoVisivel();
-    animaPara({ x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h * f / 2, w: w, h: h });
+    var f = fracaoVisivel(), fx = fracaoVisivelX();
+    animaPara({ x: (x0 + x1) / 2 - w * fx / 2, y: (y0 + y1) / 2 - h * f / 2, w: w, h: h });
+  }
+  // Tablet e desktop: onde começa, na tela, o painel que flutua sobre a direita da planta
+  function limiteDireito() {
+    var r = svg.getBoundingClientRect();
+    if (celular.matches || !painelEl.offsetParent) return r.right;
+    return Math.max(r.left + 120, Math.min(r.right, painelEl.getBoundingClientRect().left - 12));
+  }
+  function fracaoVisivelX() {
+    var r = svg.getBoundingClientRect();
+    return r.width ? (limiteDireito() - r.left) / r.width : 1;
+  }
+  // A planta inteira entre os botões de zoom e o painel (o viewBox cobre o quadro todo)
+  function vistaCheia() {
+    var r = svg.getBoundingClientRect();
+    if (!r.width || !r.height) return INTEIRA;
+    var esq = celular.matches ? 0 : 60, vw = limiteDireito() - r.left - esq;
+    var s = Math.min(vw / INTEIRA.w, r.height / INTEIRA.h);
+    var w = r.width / s, h = r.height / s;
+    return { x: INTEIRA.x - esq / s - (vw / s - INTEIRA.w) / 2, y: INTEIRA.y - (h - INTEIRA.h) / 2, w: w, h: h };
   }
   // Onde termina, na tela, a parte da planta que o cartão fixo não cobre
   function limiteVisivel() {
@@ -124,9 +146,9 @@
     var r = svg.getBoundingClientRect();
     return r.height ? (limiteVisivel() - r.top) / r.height : 1;
   }
-  // Toque numa sala no celular: se ela ficou embaixo do cartão, desliza a planta sem mudar o zoom
+  // Toque numa sala: se ela ficou embaixo do cartão (celular) ou do painel (telas maiores),
+  // desliza a planta sem mudar o zoom
   function garanteVisivel(id) {
-    if (!celular.matches) return;
     var areas = svg.querySelectorAll('.area[data-local="' + esc(id) + '"]');
     if (!areas.length) return;
     var r = svg.getBoundingClientRect(), base = areas[0].getBoundingClientRect();
@@ -135,9 +157,9 @@
       var b = a.getBoundingClientRect();
       x0 = Math.min(x0, b.left); y0 = Math.min(y0, b.top); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom);
     });
-    var lim = limiteVisivel(), folga = 16, dx = 0, dy = 0;
+    var lim = limiteVisivel(), limX = limiteDireito(), folga = 16, dx = 0, dy = 0;
     if (y1 > lim - folga || y0 < r.top + folga) dy = (y0 + y1) / 2 - (r.top + lim) / 2;
-    if (x1 > r.right - folga || x0 < r.left + folga) dx = (x0 + x1) / 2 - (r.left + r.right) / 2;
+    if (x1 > limX - folga || x0 < r.left + folga) dx = (x0 + x1) / 2 - (r.left + limX) / 2;
     if (!dx && !dy) return;
     var s = escala();
     animaPara({ x: vb.x + dx / s, y: vb.y + dy / s, w: vb.w, h: vb.h });
@@ -201,7 +223,7 @@
 
   root.querySelector('[data-zoom-mais]').addEventListener('click', function () { zoomEm(ZOOM_PASSO, vb.x + vb.w / 2, vb.y + vb.h / 2); });
   root.querySelector('[data-zoom-menos]').addEventListener('click', function () { zoomEm(1 / ZOOM_PASSO, vb.x + vb.w / 2, vb.y + vb.h / 2); });
-  root.querySelector('[data-zoom-inteira]').addEventListener('click', function () { animaPara(INTEIRA); });
+  root.querySelector('[data-zoom-inteira]').addEventListener('click', function () { animaPara(vistaCheia()); });
 
   /* ---------- Filtro: busca + destaques ---------- */
   function textoBusca(l) {
@@ -310,17 +332,20 @@
     painel.appendChild(el('p', 'painel__eyebrow', 'Planta do prédio'));
     painel.appendChild(el('h2', 'painel__titulo', dados.locais.length + ' locais'));
     var p = el('p', 'painel__texto');
-    p.textContent = 'Toque ou clique numa sala para ver o que funciona nela. Para ver todos os locais de um tipo, use “Destacar na planta”.';
+    p.textContent = 'Toque ou clique numa sala para ver o que funciona nela. Para ver todos os locais de um tipo, use os botões de destaque.';
     painel.appendChild(p);
-    var ul = el('ul', 'painel__legenda');
-    dados.categorias.forEach(function (c) {
-      var li = el('li', 'loc--' + c.id);
-      li.appendChild(el('span', 'painel__cor'));
-      li.appendChild(el('span', '', c.plural));
-      li.appendChild(el('span', 'painel__conta', String(c.locais)));
-      ul.appendChild(li);
-    });
-    painel.appendChild(ul);
+    // A lista de todos os locais começa oculta; o botão a mostra aqui no painel
+    var t = el('button', 'btn btn--secondary btn--sm painel__todos',
+      estado.todos ? 'Ocultar os locais' : 'Mostrar todos os locais');
+    t.type = 'button';
+    t.setAttribute('data-todos', '');
+    t.setAttribute('aria-expanded', estado.todos ? 'true' : 'false');
+    painel.appendChild(t);
+    if (estado.todos) {
+      var ul = el('ul', 'painel__lista');
+      dados.locais.forEach(function (l) { ul.appendChild(botaoLocal(l)); });
+      painel.appendChild(ul);
+    }
   }
 
   function botaoFechar(rotulo) {
@@ -424,9 +449,14 @@
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista]');
+    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos]');
     if (!t) return;
-    if (t.hasAttribute('data-ir')) seleciona(t.getAttribute('data-ir'), true);
+    if (t.hasAttribute('data-todos')) {
+      estado.todos = !estado.todos;
+      render();
+      var b = painel.querySelector('[data-todos]');
+      if (b) b.focus();
+    } else if (t.hasAttribute('data-ir')) seleciona(t.getAttribute('data-ir'), true);
     else if (t.hasAttribute('data-voltar')) desseleciona();
     else if (t.hasAttribute('data-centralizar')) enquadra(estado.local);
     else if (t.hasAttribute('data-fechar')) fechaFolha();
@@ -614,7 +644,7 @@
     if (mexeu || estado.local) return;
     var r = svg.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    if (r.width / r.height > (INTEIRA.w / INTEIRA.h) * 0.6) aplica({ x: INTEIRA.x, y: INTEIRA.y, w: INTEIRA.w, h: INTEIRA.h });
+    if (r.width / r.height > (INTEIRA.w / INTEIRA.h) * 0.6) aplica(vistaCheia());
     else aplica({ x: INTEIRA.x, y: INTEIRA.y, w: INTEIRA.h * r.width / r.height, h: INTEIRA.h });
   }
   if (window.ResizeObserver) new ResizeObserver(vistaInicial).observe(svg);
