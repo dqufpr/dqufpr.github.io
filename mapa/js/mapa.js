@@ -43,6 +43,7 @@
   var dados = null;               // conteúdo de locais.json
   var porId = {};                 // id do local → objeto do local
   var nomesCat = {};              // id da categoria → nome
+  var nomesAndar = ['Térreo', '1º andar']; // substituídos pelos de locais.json
   var estado = { local: null, busca: '', destaques: [], todos: false };
 
   /* ---------- Utilidades ---------- */
@@ -228,7 +229,9 @@
 
   /* ---------- Filtro: busca + destaques ---------- */
   function textoBusca(l) {
-    var partes = [l.id, (l.categorias || []).map(function (c) { return nomesCat[c]; }).join(' ')];
+    var partes = [l.id, (l.categorias || []).map(function (c) { return nomesCat[c]; }).join(' '),
+      // Andar sem algarismos, para "1" continuar achando só as salas com 1 no número
+      l.andar ? 'primeiro andar piso superior' : 'terreo'];
     l.itens.forEach(function (i) { partes.push(i.nome, i.sigla, i.descricao); });
     return normalize(partes.join(' '));
   }
@@ -323,10 +326,12 @@
     // O primeiro item dá nome ao local (mesma regra de scripts/gerar_mapa.py)
     return l.itens.filter(function (i) { return i.categoria !== 'sala-prof'; })[0].nome;
   }
+  function andarDe(l) { return nomesAndar[l.andar || 0] || nomesAndar[0]; }
   function subtitulo(l) {
     var profs = l.itens.length && l.itens.every(function (i) { return i.categoria === 'sala-prof'; });
-    if (profs) return l.itens.map(function (i) { return i.nome; }).join(', ');
-    return l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ');
+    var base = profs ? l.itens.map(function (i) { return i.nome; }).join(', ')
+      : l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ');
+    return andarDe(l) + ' · ' + base;
   }
 
   function renderVisaoGeral() {
@@ -393,6 +398,7 @@
     var tt = el('div', 'painel__cabeca-txt');
     tt.appendChild(el('p', 'painel__eyebrow', 'Sala ' + l.id + ' · ' + l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ')));
     tt.appendChild(el('h2', 'painel__titulo', titulo(l)));
+    tt.appendChild(el('span', 'painel__andar painel__andar--' + (l.andar || 0), andarDe(l)));
     cab.appendChild(tt);
     painel.appendChild(cab);
 
@@ -785,7 +791,7 @@
     }
     var sub = document.querySelector('[data-impressao-sub]');
     if (sub) {
-      sub.textContent = (l ? 'Sala ' + l.id + ' · ' : '') + 'dqufpr.github.io/mapa · impresso em ' +
+      sub.textContent = (l ? 'Sala ' + l.id + ' · ' + andarDe(l) + ' · ' : '') + 'dqufpr.github.io/mapa · impresso em ' +
         new Date().toLocaleDateString('pt-BR');
     }
   }
@@ -820,6 +826,7 @@
       dados = json;
       dados.categorias.forEach(function (c) { nomesCat[c.id] = c.nome; });
       nomesCat.outros = nomesCat.outros || 'Outros';
+      (dados.andares || []).forEach(function (a) { nomesAndar[a.id] = a.nome; });
       dados.locais.forEach(function (l) { l._busca = textoBusca(l); porId[l.id] = l; });
       vistaInicial(); // depois do carregamento: a página já tem o tamanho final
       leEndereco();

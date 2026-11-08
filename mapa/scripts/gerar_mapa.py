@@ -51,6 +51,17 @@ CLARAS = {"lab-ensino", "banheiro", "outros"}
 
 VIEWBOX = "480 600 6460 2760"
 
+# Andares. Os locais de número 23 a 45 (com 45-A a 45-E) ficam no 1º andar; os demais, no
+# térreo. Na planta, o 1º andar é a faixa de baixo, desenhada à parte.
+ANDARES = [{"id": 0, "nome": "Térreo", "curto": "Térreo"}, {"id": 1, "nome": "1º andar", "curto": "1º andar"}]
+PRIMEIRO_ANDAR = range(23, 46)
+
+
+def andar(local):
+    """0 (térreo) ou 1 (1º andar), pelo número da sala."""
+    m = re.match(r"\d+", local)
+    return 1 if m and int(m.group(0)) in PRIMEIRO_ANDAR else 0
+
 
 def limpa(v):
     """Texto da célula sem espaços sobrando; vazio vira None."""
@@ -115,7 +126,7 @@ def monta_locais(itens, areas):
     for local in sorted(set(por_local) | set(areas_por_local), key=chave_natural):
         its = por_local.get(local, [])
         cats = list(dict.fromkeys(i["categoria"] for i in its)) or ["outros"]
-        locais.append({"id": local, "categoria": cats[0], "categorias": cats, "itens": its})
+        locais.append({"id": local, "andar": andar(local), "categoria": cats[0], "categorias": cats, "itens": its})
     return locais
 
 
@@ -148,9 +159,31 @@ def gera_planta(locais, areas, base):
         f"{corpo}\n"
         f'<g class="areas">\n' + "\n".join(poly) + "\n</g>\n"
         f'<g class="rotulos" aria-hidden="true">\n' + "\n".join(rot) + "\n</g>\n"
+        + gera_andares(areas) +
         f'<g class="selecao" aria-hidden="true" data-planta-selecao></g>\n'
         "</svg>"
     )
+
+
+def gera_andares(areas):
+    """Nome de cada andar acima do seu bloco e uma linha tracejada entre eles."""
+    caixas = {}
+    for a in areas:
+        xs = [x for x, _ in a["pontos"]]
+        ys = [y for _, y in a["pontos"]]
+        c = caixas.setdefault(andar(a["local"]), [min(xs), min(ys), max(xs), max(ys)])
+        c[:] = [min(c[0], min(xs)), min(c[1], min(ys)), max(c[2], max(xs)), max(c[3], max(ys))]
+    partes = []
+    for a in ANDARES:
+        if a["id"] in caixas:
+            x0, y0 = caixas[a["id"]][:2]
+            partes.append(f'<text class="andar__nome" x="{x0:g}" y="{y0 - 22:g}">{html.escape(a["nome"].upper())}</text>')
+    if 0 in caixas and 1 in caixas:
+        y = round((caixas[0][3] + caixas[1][1]) / 2 - 40)
+        x0 = min(caixas[0][0], caixas[1][0])
+        x1 = max(caixas[0][2], caixas[1][2])
+        partes.append(f'<line class="andar__divisa" x1="{x0:g}" y1="{y}" x2="{x1:g}" y2="{y}"/>')
+    return f'<g class="andares" aria-hidden="true">\n' + "\n".join(partes) + "\n</g>\n"
 
 
 def gera_lista(locais):
@@ -165,6 +198,7 @@ def gera_lista(locais):
             desc = f'<p class="local__desc">{html.escape(i["descricao"])}</p>' if i.get("descricao") else ""
             itens.append(f'<li><span class="local__item">{html.escape(i["nome"])}</span>{sig}{desc}</li>')
         cat_txt = " · ".join(nomes_cat[c] for c in l["categorias"])
+        piso = ANDARES[l["andar"]]["nome"]
         # Card recolhido: número, nome e tipo. O nome é o botão que abre os detalhes (js/mapa.js);
         # sem JavaScript, os detalhes ficam sempre à mostra.
         out.append(
@@ -172,7 +206,7 @@ def gera_lista(locais):
             f'  <span class="local__num"><span class="visually-hidden">Sala </span>{e}</span>\n'
             f'  <div class="local__body">\n'
             f'    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">{html.escape(titulo(l))}</button></h3>\n'
-            f'    <p class="local__meta"><span class="local__cat">{cat_txt}</span></p>\n'
+            f'    <p class="local__meta"><span class="local__cat">{cat_txt}</span> · <span class="local__andar">{piso}</span></p>\n'
             f'    <div class="local__detalhes" id="local-{e}-detalhes">\n'
             f'      <ul class="local__itens">{"".join(itens)}</ul>\n'
             f'      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>\n'
@@ -210,7 +244,8 @@ def main():
         {"id": c[0], "nome": c[1], "plural": c[2], "locais": contagem.get(c[0], 0)}
         for c in list(CATEGORIAS.values()) + [OUTROS] if contagem.get(c[0])
     ]
-    saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "locais": locais}
+    andares = [{"id": a["id"], "nome": a["nome"]} for a in ANDARES]
+    saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "andares": andares, "locais": locais}
     (DADOS / "locais.json").write_text(
         json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 

@@ -35,6 +35,9 @@ const dados = JSON.parse(fs.readFileSync(path.join(MAPA, 'dados', 'locais.json')
 const nomesCat = {};
 dados.categorias.forEach((c) => { nomesCat[c.id] = c.nome; });
 nomesCat.outros = nomesCat.outros || 'Outros';
+const nomesAndar = ['Térreo', '1º andar'];
+(dados.andares || []).forEach((a) => { nomesAndar[a.id] = a.nome; });
+const andarDe = (l) => nomesAndar[l.andar || 0];
 const indexHtml = fs.readFileSync(path.join(MAPA, 'index.html'), 'utf8');
 const planta = /<!-- PLANTA:INICIO -->([\s\S]*?)<!-- PLANTA:FIM -->/.exec(indexHtml)[1];
 
@@ -49,7 +52,7 @@ function subtitulo(l) {
   return l.categorias.map((c) => nomesCat[c]).join(' · ');
 }
 function descricao(l) {
-  const partes = [subtitulo(l)];
+  const partes = [andarDe(l) + ' · ' + subtitulo(l)];
   const outros = l.itens.map((i) => i.nome).filter((n) => n !== titulo(l) && partes[0].indexOf(n) === -1);
   if (outros.length) partes.push(outros.join(', '));
   partes.push('Veja onde fica na planta do Departamento de Química da UFPR.');
@@ -96,6 +99,9 @@ const CARTAO = `<!DOCTYPE html>
     align-self: flex-start; margin-top: auto; padding: 10px 22px; border-radius: 14px;
     background: var(--loc); color: var(--loc-ink, #fff); font-size: 54px; font-weight: 900; line-height: 1;
   }
+  .andar { align-self: flex-start; margin-top: -6px; padding: 5px 14px; border-radius: 999px;
+    background: var(--brand-navy); color: #fff; font-size: 17px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .andar--0 { background: #e8edf3; color: var(--brand-navy); }
   .loc--lab-ensino.num, .loc--banheiro.num { --loc-ink: var(--brand-navy-deep); }
   .tit { margin: 0; color: var(--brand-navy); font-size: 38px; line-height: 1.12; font-weight: 800;
     display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
@@ -109,6 +115,7 @@ const CARTAO = `<!DOCTYPE html>
   <div class="cartao">
     <div class="marca"><img src="/mapa/img/logo.svg" alt=""><span>Mapa Digital<small>Química UFPR</small></span></div>
     <span class="num"></span>
+    <span class="andar"></span>
     <p class="tit"></p>
     <p class="sub"></p>
   </div>
@@ -138,6 +145,9 @@ const CARTAO = `<!DOCTYPE html>
     var num = document.querySelector('.num');
     num.className = 'num loc--' + l.categoria;
     num.textContent = l.id;
+    var an = document.querySelector('.andar');
+    an.className = 'andar andar--' + l.andar;
+    an.textContent = l.andarNome;
     var tit = document.querySelector('.tit');
     tit.textContent = l.titulo;
     tit.classList.toggle('longo', l.titulo.length > 48);
@@ -147,7 +157,7 @@ const CARTAO = `<!DOCTYPE html>
 </script></body></html>`;
 
 function pagina(l, img) {
-  const t = 'Sala ' + l.id + ' · ' + titulo(l);
+  const t = 'Sala ' + l.id + ' (' + andarDe(l) + ') · ' + titulo(l);
   const d = descricao(l);
   const destino = '/mapa/?local=' + encodeURIComponent(l.id);
   return `<!DOCTYPE html>
@@ -200,7 +210,7 @@ function pagina(l, img) {
   const feitos = new Set();
   let n = 0;
   for (const l of dados.locais) {
-    const ok = await page.evaluate((x) => window.desenha(x), { id: l.id, categoria: l.categoria, titulo: titulo(l), subtitulo: subtitulo(l) });
+    const ok = await page.evaluate((x) => window.desenha(x), { id: l.id, categoria: l.categoria, andar: l.andar || 0, andarNome: andarDe(l), titulo: titulo(l), subtitulo: subtitulo(l) });
     if (!ok) { console.warn('Sem área na planta, pulado: ' + l.id); continue; }
     const arq = l.id + '.jpg';
     const buf = await page.screenshot({ type: 'jpeg', quality: 82 });
