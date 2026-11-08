@@ -432,6 +432,7 @@
     else if (t.hasAttribute('data-fechar')) fechaFolha();
     else if (t.hasAttribute('data-ver-lista')) {
       e.preventDefault();
+      e.stopPropagation(); // senão o clique "fora" fecharia o card que vai abrir
       var id = t.getAttribute('data-ver-lista');
       abreLista(true);
       abreCard(document.getElementById('local-' + id), true);
@@ -463,12 +464,45 @@
   abreCardDoEndereco();
   listaAlternar.hidden = false;
 
-  // Cards da lista: o nome abre e fecha os detalhes
+  // Cards da lista: o nome abre e fecha os detalhes. O card aberto cresce por cima dos
+  // de baixo (as linhas da grade têm altura fixa, ver css/style.css); um aberto por vez.
+  var cardAberto = null;
+  function alturaCheia(li) { return li.scrollHeight + li.offsetHeight - li.clientHeight; } // conteúdo + bordas
   function abreCard(li, on) {
-    if (!li) return;
-    li.classList.toggle('is-aberto', on);
+    if (!li || li.classList.contains('is-aberto') === on) return;
     li.querySelector('.local__abrir').setAttribute('aria-expanded', on ? 'true' : 'false');
+    window.clearTimeout(li._fim);
+    if (on) {
+      if (cardAberto) abreCard(cardAberto, false);
+      li.classList.remove('is-fechando');
+      li.classList.add('is-aberto');
+      li.style.height = alturaCheia(li) + 'px'; // anima da altura fixa até a do conteúdo
+      cardAberto = li;
+    } else {
+      li.classList.remove('is-aberto');
+      li.classList.add('is-fechando'); // continua por cima enquanto encolhe
+      li.style.height = '';
+      li._fim = window.setTimeout(function () { li.classList.remove('is-fechando'); }, 320);
+      if (cardAberto === li) cardAberto = null;
+    }
   }
+  // Clique fora ou Esc fecham o card aberto
+  document.addEventListener('click', function (e) {
+    if (cardAberto && !cardAberto.contains(e.target)) abreCard(cardAberto, false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && cardAberto) {
+      var b = cardAberto.querySelector('.local__abrir');
+      abreCard(cardAberto, false);
+      b.focus();
+    }
+  });
+  // A largura mudou (girar o tablet): reajusta a altura do card aberto
+  window.addEventListener('resize', function () {
+    if (!cardAberto) return;
+    cardAberto.style.height = 'auto';
+    cardAberto.style.height = alturaCheia(cardAberto) + 'px';
+  });
   function abreCardDoEndereco() {
     var m = /^#local-(.+)$/.exec(window.location.hash);
     if (m) { abreLista(true); abreCard(document.getElementById('local-' + decodeURIComponent(m[1])), true); }

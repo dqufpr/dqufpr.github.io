@@ -230,7 +230,18 @@ button.loc-tag[aria-pressed="true"] {
 .local__abrir[aria-expanded="true"]::before { transform: translateY(0.25em) rotate(-135deg); }
 .local:hover { border-color: var(--border-strong); }
 .mapa-js .local__meta { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* Linhas de altura fixa: o card aberto cresce por cima dos de baixo, sem empurrar a grade.
+   js/mapa.js anima a altura (de --local-h até a do conteúdo) e mantém um card aberto por vez. */
+.mapa-js .locais__lista { --local-h: 100px; grid-auto-rows: var(--local-h); }
+.mapa-js .local {
+  height: var(--local-h);
+  transition: height 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.28s ease, border-color var(--t-fast);
+}
+.mapa-js .local.is-aberto, .mapa-js .local.is-fechando { z-index: 3; }
+.mapa-js .local.is-aberto { border-color: var(--border-strong); box-shadow: var(--shadow-lg); }
 .mapa-js .local:not(.is-aberto) .local__detalhes { display: none; }
+.mapa-js .local.is-aberto .local__detalhes { animation: detalhes-entra 0.3s ease 0.06s both; }
+@keyframes detalhes-entra { from { opacity: 0; } }
 .mapa-js .local.is-aberto .local__abrir { display: block; min-height: 0; }
 .mapa-js .local.is-aberto .local__meta { white-space: normal; }
 .local__detalhes { position: relative; z-index: 2; } /* links e botões acima do botão que cobre o card */

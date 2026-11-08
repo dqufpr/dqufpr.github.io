@@ -1,5 +1,10 @@
 # Histórico de mudanças
 
+## 2.4.1 — 2026-11-08
+
+### Mudado
+- O card aberto da lista cresce por cima dos de baixo, sem empurrar a grade, com animação suave da altura e esmaecimento dos detalhes. Um card aberto por vez; clique fora ou Esc fecham.
+
 ## 2.4.0 — 2026-11-08
 
 ### Mudado
