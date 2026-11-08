@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Páginas do portal. Os módulos têm sitemap próprio (ex.: /mapa/sitemap.xml), listado no robots.txt. -->
+<!-- Todas as páginas indexáveis do DQ Digital (portal e Mapa Digital). Listado em robots.txt.
+     Ficam de fora as páginas de redirecionamento (endereços antigos, com "noindex") e o 404.
+     Ao mudar o conteúdo de uma página, atualize o <lastmod> dela. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://dqufpr.github.io/</loc><lastmod>2026-10-31</lastmod><priority>1.0</priority></url>
-  <url><loc>https://dqufpr.github.io/sobre</loc><lastmod>2026-10-31</lastmod><priority>0.6</priority></url>
-  <url><loc>https://dqufpr.github.io/fale-conosco</loc><lastmod>2026-10-31</lastmod><priority>0.5</priority></url>
-  <url><loc>https://dqufpr.github.io/design</loc><lastmod>2026-10-31</lastmod><priority>0.3</priority></url>
+  <url><loc>https://dqufpr.github.io/</loc><lastmod>2026-11-08</lastmod><priority>1.0</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/</loc><lastmod>2026-11-08</lastmod><priority>0.9</priority></url>
+  <url><loc>https://dqufpr.github.io/sobre</loc><lastmod>2026-11-08</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/sobre</loc><lastmod>2026-11-08</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dqufpr.github.io/fale-conosco</loc><lastmod>2026-11-08</lastmod><priority>0.5</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/atualizacao</loc><lastmod>2026-11-08</lastmod><priority>0.4</priority></url>
+  <url><loc>https://dqufpr.github.io/design</loc><lastmod>2026-11-08</lastmod><priority>0.3</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/legal</loc><lastmod>2026-11-08</lastmod><priority>0.3</priority></url>
 </urlset>
