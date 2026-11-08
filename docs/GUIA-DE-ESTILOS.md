@@ -56,7 +56,7 @@ Ordem no `<head>`:
 <script src="/js/app.js" defer></script>
 ```
 
-Use **caminhos absolutos a partir da raiz** (`/css/…`, `/img/…`). Todos os repositórios da organização são publicados no mesmo domínio, então `/css/global.css` funciona em qualquer módulo.
+Use **caminhos absolutos a partir da raiz** (`/css/…`, `/img/…`). Portal e módulos (`/mapa/`, …) ficam no mesmo repositório e domínio, então `/css/global.css` funciona em qualquer módulo.
 
 ## 3. Cores
 
@@ -203,10 +203,10 @@ Regras para celular:
 
 Cabeçalho fixo no topo (`position: sticky`), sempre no azul institucional, nos dois temas.
 
-- **Marca:** logo quadrado (`img/logo.svg`, 36px no celular e 40px a partir de 640px) + nome do site (`.brand__nome`) e, a partir de 640px, uma linha de apoio (`.brand__sub`). O texto leva `aria-hidden` e o link, um `aria-label`. O portal mostra "DQ Digital" e leva a `/`; um módulo usa o próprio logo e nome e leva à sua página principal (ex.: "Mapa Digital" → `/mapa/completo`). "Início" no menu continua levando a `/`.
+- **Marca:** logo quadrado (`img/logo.svg`, 36px no celular e 40px a partir de 640px) + nome do site (`.brand__nome`) e, a partir de 640px, uma linha de apoio (`.brand__sub`). O texto leva `aria-hidden` e o link, um `aria-label`. O portal mostra "DQ Digital" e leva a `/`; um módulo usa o próprio logo e nome e leva à sua página principal (ex.: "Mapa Digital" → `/mapa/`). "Início" no menu continua levando a `/`.
 - **Página atual no menu:** fundo destacado e negrito, sem borda.
 - **Menu:** `<nav id="site-nav">` com até 5 itens. No celular e tablet abre como painel abaixo do cabeçalho pelo botão ☰ (`[data-menu-toggle]`); no desktop fica em linha.
-- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/completo`). O estilo vem do CSS; não marque à mão.
+- **Página atual:** `app.js` marca o item com `aria-current="page"` (inclusive em subpáginas de um módulo, como `/mapa/`). O estilo vem do CSS; não marque à mão.
 - **Tema:** `<details class="theme-menu">` com três botões `[data-theme-set]`. O ícone do botão mostra o modo atual (sol, lua ou meio círculo).
 - `Esc` fecha os menus; clicar fora também.
 - Primeiro elemento do `<body>`: link "Pular para o conteúdo" (`.skip-link`) apontando para `<main id="main">`.
@@ -269,7 +269,7 @@ Imagens de capa: 940×280px, PNG/SVG/WebP, informação importante no centro (as
 
 ```html
 <span class="badge badge--new">Novo</span>
-<a class="loc-tag loc--lab-ensino" href="/mapa/completo?destaque=lab-ensino">Laboratórios de ensino</a>
+<a class="loc-tag loc--lab-ensino" href="/mapa/?destaque=lab-ensino">Laboratórios de ensino</a>
 ```
 
 | Selo | Quando usar |

@@ -2,7 +2,7 @@
 
 Guia passo a passo para quem mantém o mapa: trocar o nome de um laboratório, mudar um professor de sala, incluir um serviço novo e publicar a mudança.
 
-**Resumo:** edite `dados/locais.xlsx` → rode `python scripts/gerar_mapa.py` → confira → faça o commit e o push. O site atualiza sozinho em 1 ou 2 minutos.
+**Resumo:** edite `mapa/dados/locais.xlsx` → rode `python mapa/scripts/gerar_mapa.py` → confira → faça o commit e o push. O site atualiza sozinho em 1 ou 2 minutos.
 
 ## Sumário
 
@@ -26,13 +26,13 @@ Guia passo a passo para quem mantém o mapa: trocar o nome de um laboratório, m
 | Python 3 | Rodar o script que gera os dados | <https://www.python.org/downloads/> (no Windows, marque "Add Python to PATH" ao instalar) |
 | Biblioteca `openpyxl` | O script usa para ler a planilha | Uma vez só: `pip install openpyxl` |
 | Git ou GitHub Desktop | Publicar a mudança | <https://desktop.github.com/> é o caminho mais simples |
-| Acesso ao repositório | Permissão de escrita em `dqufpr/mapa` | Peça a quem administra a organização `dqufpr` |
+| Acesso ao repositório | Permissão de escrita em `dqufpr/dqufpr.github.io` | Peça a quem administra a organização `dqufpr` |
 
-Baixe o repositório uma vez (GitHub Desktop: *File → Clone repository → dqufpr/mapa*). Antes de cada atualização, traga as mudanças mais recentes (*Fetch origin / Pull*).
+Baixe o repositório uma vez (GitHub Desktop: *File → Clone repository → dqufpr/dqufpr.github.io*). Antes de cada atualização, traga as mudanças mais recentes (*Fetch origin / Pull*).
 
 ## 2. Entenda a planilha
 
-O arquivo é **`dados/locais.xlsx`**. É a única fonte dos locais: o site não lê mais o Google Sheets. Cada **linha** é um item que aparece numa sala: um laboratório, um professor, um serviço.
+O arquivo é **`mapa/dados/locais.xlsx`**. É a única fonte dos locais: o site não lê mais o Google Sheets. Cada **linha** é um item que aparece numa sala: um laboratório, um professor, um serviço.
 
 | Coluna | Obrigatória | Exemplo | O que faz |
 |---|---|---|---|
@@ -90,7 +90,7 @@ Veja a [seção 8](#8-quando-a-sala-não-existe-no-desenho).
 Salve a planilha e feche o Excel (com o arquivo aberto, o Windows pode bloquear a leitura). Depois abra um terminal **na pasta do repositório** (GitHub Desktop: *Repository → Open in Command Prompt*) e rode:
 
 ```bash
-python scripts/gerar_mapa.py
+python mapa/scripts/gerar_mapa.py
 ```
 
 Se aparecer "Instale o openpyxl", rode uma vez:
@@ -101,9 +101,9 @@ pip install openpyxl
 
 O script:
 
-1. lê `dados/locais.xlsx`;
-2. gera `dados/locais.json`, que o navegador usa para o painel de detalhes;
-3. reescreve, em `completo.html`, a planta, os botões "Destacar na planta" (com as contagens) e a lista "Todos os locais".
+1. lê `mapa/dados/locais.xlsx`;
+2. gera `mapa/dados/locais.json`, que o navegador usa para o painel de detalhes;
+3. reescreve, em `mapa/index.html`, a planta, os botões "Destacar na planta" (com as contagens) e a lista "Todos os locais".
 
 Saída esperada (os números mudam conforme a planilha):
 
@@ -118,12 +118,10 @@ Linhas começando com `aviso:` pedem atenção: veja a [seção 7](#7-avisos-do-
 
 ## 5. Conferir antes de publicar
 
-O jeito mais seguro é abrir o site no seu computador. As páginas usam a base visual do portal, então é preciso ter os dois repositórios:
+O jeito mais seguro é abrir o site no seu computador. O portal e o mapa ficam no mesmo repositório, então basta:
 
-1. Baixe também `dqufpr/dqufpr.github.io`.
-2. Copie a pasta do mapa para dentro dele com o nome `mapa` (não faça commit dessa cópia).
-3. Na pasta do portal, rode `python -m http.server 8000`.
-4. Abra <http://localhost:8000/mapa/completo.html>.
+1. Na raiz do repositório, rode `python -m http.server 8000`.
+2. Abra <http://localhost:8000/mapa/>.
 
 Confira:
 
@@ -131,20 +129,20 @@ Confira:
 - a busca encontra o que você incluiu;
 - os números dos botões "Destacar na planta" fazem sentido.
 
-Se não der para testar localmente, ao menos abra `completo.html` num editor de texto e procure (Ctrl+F) pelo nome que você mudou.
+Se não der para testar localmente, ao menos abra `mapa/index.html` num editor de texto e procure (Ctrl+F) pelo nome que você mudou.
 
 ## 6. Publicar
 
 Faça o commit dos três arquivos que mudaram:
 
-- `dados/locais.xlsx`
-- `dados/locais.json`
-- `completo.html`
+- `mapa/dados/locais.xlsx`
+- `mapa/dados/locais.json`
+- `mapa/index.html`
 
 No GitHub Desktop: escreva um resumo (ex.: "Atualiza salas dos professores de Química Orgânica"), clique em **Commit to main** e depois em **Push origin**. Pela linha de comando:
 
 ```bash
-git add dados/locais.xlsx dados/locais.json completo.html
+git add mapa/dados/locais.xlsx mapa/dados/locais.json mapa/index.html
 ```
 
 ```bash
@@ -155,9 +153,9 @@ git commit -m "Atualiza salas dos professores de Química Orgânica"
 git push
 ```
 
-Em 1 ou 2 minutos a mudança aparece em <https://dqufpr.github.io/mapa/completo>. Se não aparecer, recarregue com Ctrl+F5.
+Em 1 ou 2 minutos a mudança aparece em <https://dqufpr.github.io/mapa/>. Se não aparecer, recarregue com Ctrl+F5.
 
-Registre mudanças grandes (muitas salas de uma vez, nova categoria) na página [`atualizacao.html`](../atualizacao.html), no início do ano corrente.
+Registre mudanças grandes (muitas salas de uma vez, nova categoria) na página [`mapa/atualizacao.html`](../mapa/atualizacao.html), no início do ano corrente.
 
 ## 7. Avisos do script e como resolver
 
@@ -174,8 +172,8 @@ Registre mudanças grandes (muitas salas de uma vez, nova categoria) na página 
 
 O desenho da planta fica em dois arquivos:
 
-- `dados/planta-base.svg`: paredes, corredores e portas. Não tem números.
-- `dados/planta-areas.json`: as áreas clicáveis. Cada uma tem o número da sala (`local`), os cantos do polígono (`pontos`) e a posição do número (`rotulo`):
+- `mapa/dados/planta-base.svg`: paredes, corredores e portas. Não tem números.
+- `mapa/dados/planta-areas.json`: as áreas clicáveis. Cada uma tem o número da sala (`local`), os cantos do polígono (`pontos`) e a posição do número (`rotulo`):
 
 ```json
 {"local": "45-B", "pontos": [[5288.8, 3020.1], [5414.9, 3020.1], [5414.9, 3273.3], [5288.8, 3273.3]], "rotulo": [5352, 3147]}
@@ -190,8 +188,8 @@ O desenho da planta fica em dois arquivos:
 ## 9. Checklist
 
 - [ ] Fiz *Pull* antes de começar.
-- [ ] Editei `dados/locais.xlsx` seguindo as regras da seção 2.
-- [ ] Rodei `python scripts/gerar_mapa.py` e não sobrou nenhum `aviso:` inesperado.
+- [ ] Editei `mapa/dados/locais.xlsx` seguindo as regras da seção 2.
+- [ ] Rodei `python mapa/scripts/gerar_mapa.py` e não sobrou nenhum `aviso:` inesperado.
 - [ ] Conferi a sala alterada na planta (seção 5).
-- [ ] Fiz commit de `locais.xlsx`, `locais.json` e `completo.html` juntos.
+- [ ] Fiz commit de `locais.xlsx`, `locais.json` e `mapa/index.html` juntos.
 - [ ] Fiz *Push* e conferi o site publicado.

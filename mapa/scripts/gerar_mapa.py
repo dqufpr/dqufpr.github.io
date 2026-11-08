@@ -13,7 +13,7 @@ Entradas
 
 Saídas
     dados/locais.json         Locais agrupados por número físico (lido por js/mapa.js)
-    completo.html             Recebe o desenho da planta e a lista de locais entre os marcadores
+    index.html                Recebe o desenho da planta e a lista de locais entre os marcadores
                               <!-- DESTAQUES:… -->, <!-- PLANTA:… --> e <!-- LISTA:… -->
 """
 import collections
@@ -189,7 +189,7 @@ def gera_destaques(categorias):
 def substitui(texto, marcador, conteudo):
     padrao = re.compile(rf"(<!-- {marcador}:INICIO -->)(.*?)(<!-- {marcador}:FIM -->)", re.S)
     if not padrao.search(texto):
-        sys.exit(f"completo.html: marcador {marcador} não encontrado")
+        sys.exit(f"index.html: marcador {marcador} não encontrado")
     return padrao.sub(lambda m: m.group(1) + "\n" + conteudo + "\n" + m.group(3), texto)
 
 
@@ -209,7 +209,7 @@ def main():
     (DADOS / "locais.json").write_text(
         json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
-    pagina = RAIZ / "completo.html"
+    pagina = RAIZ / "index.html"
     texto = pagina.read_text(encoding="utf-8")
     texto = substitui(texto, "DESTAQUES", gera_destaques(categorias))
     texto = substitui(texto, "PLANTA", gera_planta(locais, areas, base))

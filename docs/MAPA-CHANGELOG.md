@@ -1,4 +1,11 @@
-# Histórico de mudanças
+# Histórico de mudanças do Mapa Digital
+
+## 3.0.0 — 2026-11-08
+
+### Mudado
+- O mapa passou para a pasta `mapa/` do repositório `dqufpr.github.io`. A planta fica em `/mapa/` (era `/mapa/completo`, que agora redireciona mantendo a sala e os destaques do endereço).
+- `completo.html` virou `index.html`; `scripts/gerar_mapa.py` escreve em `index.html`.
+- O `sitemap.xml` e o `_config.yml` próprios saíram: valem os da raiz.
 
 ## 2.4.1 — 2026-11-08
 

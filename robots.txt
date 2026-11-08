@@ -1,7 +1,5 @@
-# DQ Digital: todo o site pode ser indexado.
-# Este arquivo vale para o domínio inteiro, inclusive os módulos (/mapa/).
+# DQ Digital: todo o site pode ser indexado, inclusive o Mapa Digital (/mapa/).
 User-agent: *
 Allow: /
 
 Sitemap: https://dqufpr.github.io/sitemap.xml
-Sitemap: https://dqufpr.github.io/mapa/sitemap.xml

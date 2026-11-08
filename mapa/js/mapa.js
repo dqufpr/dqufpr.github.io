@@ -1,4 +1,4 @@
-/* mapa.js — planta interativa do Mapa Digital (/mapa/completo).
+/* mapa.js — planta interativa do Mapa Digital (/mapa/).
    Carregue com defer: <script src="/mapa/js/mapa.js" defer></script>
 
    A planta (SVG) e a lista de locais já vêm no HTML, geradas por scripts/gerar_mapa.py.

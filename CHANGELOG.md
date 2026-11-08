@@ -1,5 +1,22 @@
 # Histórico de mudanças
 
+## 3.0.0 — 2026-11-08
+
+### Mudado
+- Repositório único: o Mapa Digital saiu do repositório `dqufpr/mapa` e passou para a pasta `mapa/` deste repositório, com o histórico de commits. Os repositórios `mapa` e `servicos` deixam de ser usados.
+- A planta do prédio fica em `/mapa/` (antes `/mapa/completo`). Links do portal, atalhos por categoria e redirecionamentos antigos apontam para o novo endereço; `/mapa/completo` continua funcionando e mantém `?local=`, `?destaque=` e `#local-…`.
+- Um só `sitemap.xml` com as páginas do portal e do mapa, datas atualizadas; `robots.txt` aponta só para ele.
+- Título da planta para buscadores: "Mapa Digital · Planta do Departamento de Química UFPR".
+- Documentação do mapa em `docs/MAPA.md`, `docs/MAPA-ATUALIZAR-DADOS.md` e `docs/MAPA-CHANGELOG.md`; pendências do mapa em `PENDENCIAS.md`.
+
+### Novo
+- Dados estruturados (JSON-LD `WebSite`) na página inicial, para o Google mostrar "DQ Digital" como nome do site; `WebPage` com trilha (breadcrumb) na planta.
+- `twitter:card` nas páginas do mapa.
+
+### Corrigido
+- `404.html` sem `canonical` (a página tem `noindex`).
+- `CLAUDE.md`, a planilha, os arquivos da planta e o script do mapa não são mais publicados.
+
 ## 2.2.0 — 2026-10-31
 
 ### Mudado

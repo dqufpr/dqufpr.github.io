@@ -1,47 +1,48 @@
 # Mapa Digital
 
-Módulo do DQ Digital com a planta interativa do prédio do Departamento de Química da UFPR, publicado em <https://dqufpr.github.io/mapa/completo>.
+Planta interativa do prédio do Departamento de Química da UFPR, publicada em <https://dqufpr.github.io/mapa/>. Fica na pasta `mapa/` deste repositório (antes era o repositório `dqufpr/mapa`, cujo histórico foi trazido para cá).
 
 Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR.
 
-## Como o módulo se encaixa no DQ Digital
+## Como o mapa se encaixa no DQ Digital
 
-O portal (`dqufpr/dqufpr.github.io`) fornece a base visual compartilhada. Este repositório só acrescenta o que é exclusivo do mapa.
+O portal fornece a base visual compartilhada. A pasta `mapa/` só acrescenta o que é exclusivo do mapa.
 
-| Vem do portal (caminho absoluto) | Vem deste repositório (`/mapa/...`) |
+| Vem do portal (raiz do repositório) | Vem da pasta `mapa/` |
 |---|---|
 | `/js/theme-init.js`, `/css/global.css`, `/js/app.js` | `css/style.css`: planta, painel e lista de locais |
 | `/img/icons/sprite.svg`, logotipos, `/fonts/` | `js/mapa.js`: zoom, seleção, busca e destaques |
 | Cores das categorias (`--loc-*` no `global.css`) | `dados/locais.json`: locais, gerado da planilha |
 | `/fale-conosco` (formulário de contato único) | `scripts/gerar_mapa.py`: gera os dados e a planta |
-| `/js/analytics.js` (só em `completo.html`) | |
+| `/js/analytics.js` (só em `mapa/index.html`) | |
 
-O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de estilos do portal](https://github.com/dqufpr/dqufpr.github.io/blob/main/docs/GUIA-DE-ESTILOS.md) e na vitrine [`/design`](https://dqufpr.github.io/design).
+O padrão visual (cores, componentes, acessibilidade, CSP) está no [guia de estilos](GUIA-DE-ESTILOS.md) e na vitrine [`/design`](https://dqufpr.github.io/design).
 
 ## Estrutura
 
 ```
-.
-├── completo.html             A página do mapa: planta interativa, painel e lista de todos os locais
+mapa/
+├── index.html                A página do mapa (/mapa/): planta interativa, painel e lista de todos os locais
 ├── sobre.html                Sobre o Mapa Digital
 ├── atualizacao.html          Histórico de atualizações
 ├── legal.html                Aviso legal
 ├── css/style.css             Estilos só do mapa, carregado depois do global.css
 ├── js/mapa.js                Interações da planta
+├── js/redirecionar.js        Leva /mapa/completo?… para /mapa/?… mantendo a sala e os destaques
 ├── dados/
-│   ├── locais.xlsx           FONTE: planilha de locais (editar aqui)
-│   ├── planta-areas.json     Áreas clicáveis do desenho, cada uma com o número físico da sala
-│   ├── planta-base.svg       Paredes, corredores e portas (sem números)
+│   ├── locais.xlsx           FONTE: planilha de locais (editar aqui; não é publicada)
+│   ├── planta-areas.json     Áreas clicáveis do desenho, cada uma com o número físico da sala (não publicada)
+│   ├── planta-base.svg       Paredes, corredores e portas, sem números (não publicada)
 │   └── locais.json           GERADO: locais agrupados por sala (lido pelo navegador)
-├── scripts/gerar_mapa.py     Gera locais.json e atualiza a planta e a lista em completo.html
-├── docs/ATUALIZAR-DADOS.md   Guia passo a passo para atualizar os locais
-├── sitemap.xml               Páginas para buscadores (o robots.txt fica no portal)
-├── img/                      Favicon e imagem de compartilhamento (os logotipos vêm do portal)
-├── index.html                Só redireciona para completo.html
+├── scripts/gerar_mapa.py     Gera locais.json e atualiza a planta e a lista em index.html (não publicado)
+├── img/                      Favicon e imagem de compartilhamento do mapa (os logotipos vêm do portal)
+├── completo.html             Só redireciona: endereço antigo /mapa/completo
 ├── sala-de-aula.html …       Só redirecionamentos: páginas antigas por categoria
 ├── p/                        Só redirecionamentos: endereços antigos (/mapa/p/...)
 └── fale-conosco.html         Só redireciona para /fale-conosco
 ```
+
+O guia de atualização dos dados está em [MAPA-ATUALIZAR-DADOS.md](MAPA-ATUALIZAR-DADOS.md) e o histórico em [MAPA-CHANGELOG.md](MAPA-CHANGELOG.md). As páginas do mapa estão no `sitemap.xml` da raiz.
 
 Não apague os redirecionamentos: podem existir QR codes e links impressos com os endereços antigos. Cada página antiga de categoria abre a planta com aquela categoria destacada.
 
@@ -52,7 +53,7 @@ Tudo sai da planilha `dados/locais.xlsx`. Não há mais leitura do Google Sheets
 ```
 dados/locais.xlsx ─┐
 dados/planta-areas.json ─┼─ scripts/gerar_mapa.py ─┬─ dados/locais.json  (painel de detalhes)
-dados/planta-base.svg ─┘                           └─ completo.html       (planta + botões de destaque + lista)
+dados/planta-base.svg ─┘                           └─ index.html          (planta + botões de destaque + lista)
 ```
 
 ### Colunas da planilha
@@ -74,18 +75,18 @@ A primeira linha é o cabeçalho; as colunas são encontradas pelo **nome**, nã
 
 ### Atualizar os locais
 
-O passo a passo completo, com os casos comuns, os avisos do script e um checklist, está em **[docs/ATUALIZAR-DADOS.md](docs/ATUALIZAR-DADOS.md)**. Resumo:
+O passo a passo completo, com os casos comuns, os avisos do script e um checklist, está em **[MAPA-ATUALIZAR-DADOS.md](MAPA-ATUALIZAR-DADOS.md)**. Resumo:
 
 
 1. Edite `dados/locais.xlsx`.
-2. Na raiz do repositório:
+2. Na pasta `mapa/`:
    ```bash
    pip install openpyxl
    ```
    ```bash
    python scripts/gerar_mapa.py
    ```
-3. Confira os avisos que o script imprimir (sala da planilha sem área na planta, tipo desconhecido) e faça o commit de `dados/` e `completo.html`.
+3. Confira os avisos que o script imprimir (sala da planilha sem área na planta, tipo desconhecido) e faça o commit de `mapa/dados/` e `mapa/index.html`.
 
 ### A planta
 
@@ -97,25 +98,25 @@ O passo a passo completo, com os casos comuns, os avisos do script e um checklis
 
 | Endereço | Abre |
 |---|---|
-| `/mapa/completo` | A planta inteira |
-| `/mapa/completo?local=45-B` | A planta com a sala 45-B marcada e o painel aberto |
-| `/mapa/completo?destaque=sala-aula,banheiro` | A planta com essas categorias destacadas |
+| `/mapa/` | A planta inteira |
+| `/mapa/?local=45-B` | A planta com a sala 45-B marcada e o painel aberto |
+| `/mapa/?destaque=sala-aula,banheiro` | A planta com essas categorias destacadas |
 
 Categorias para `destaque`: `sala-aula`, `sala-prof`, `lab-ensino`, `lab-pesquisa`, `servico`, `banheiro`. O endereço muda sozinho conforme a pessoa usa a planta, então pode ser copiado e compartilhado.
 
 ## Segurança (CSP)
 
-As páginas têm Content-Security-Policy por `<meta>`, como o portal. Só `completo.html` libera o Google Analytics. Nada de `style=""` ou `<script>` inline: a CSP bloqueia. O painel monta o conteúdo da planilha com `textContent`, então ele nunca é interpretado como HTML.
+As páginas têm Content-Security-Policy por `<meta>`, como o portal. Só `mapa/index.html` libera o Google Analytics. Nada de `style=""` ou `<script>` inline: a CSP bloqueia. O painel monta o conteúdo da planilha com `textContent`, então ele nunca é interpretado como HTML.
 
 ## Rodar localmente
 
-Os caminhos começam com `/` e dependem do portal. Coloque esta pasta dentro do repositório do portal como `./mapa/` (sem fazer commit lá) e, na raiz do portal:
+Na raiz do repositório:
 
 ```bash
 python -m http.server 8000
 ```
 
-Abra <http://localhost:8000/mapa/completo.html>. O `http.server` não resolve endereços sem `.html` (o GitHub Pages resolve), então acrescente `.html` ao navegar.
+Abra <http://localhost:8000/mapa/>. O `http.server` não resolve endereços sem `.html` (o GitHub Pages resolve), então acrescente `.html` ao navegar nas outras páginas.
 
 ## Créditos
 

@@ -6,15 +6,15 @@ Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR.
 
 ## Como o site é organizado
 
-O DQ Digital é formado por vários repositórios da organização `dqufpr` no GitHub Pages:
+Todo o DQ Digital fica neste único repositório. Cada função ocupa uma pasta, publicada como subpasta do domínio:
 
-| Repositório | Endereço | Papel |
+| Pasta | Endereço | Papel |
 |---|---|---|
-| `dqufpr.github.io` (este) | `https://dqufpr.github.io/` | Portal: página inicial, base visual compartilhada (CSS, JS, ícones, fontes), páginas institucionais |
-| `mapa` | `https://dqufpr.github.io/mapa/` | Mapa Digital: locais do departamento (salas, laboratórios, serviços) |
-| outros módulos | `https://dqufpr.github.io/<nome>/` | Cada nova função ganha um repositório próprio |
+| raiz | `https://dqufpr.github.io/` | Portal: página inicial, base visual compartilhada (CSS, JS, ícones, fontes), páginas institucionais |
+| `mapa/` | `https://dqufpr.github.io/mapa/` | Mapa Digital: planta interativa do prédio (salas, laboratórios, serviços). Documentação em [`docs/MAPA.md`](docs/MAPA.md) |
+| novas funções | `https://dqufpr.github.io/<nome>/` | Cada nova função ganha uma pasta própria |
 
-O GitHub Pages publica cada repositório da organização como uma subpasta do mesmo domínio. Por isso um módulo carrega a base visual por caminho absoluto: `/css/global.css`, `/js/app.js`.
+Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados: o histórico do mapa foi trazido para a pasta `mapa/`. Os módulos carregam a base visual por caminho absoluto: `/css/global.css`, `/js/app.js`.
 
 ## Funcionalidades
 
@@ -41,20 +41,24 @@ O GitHub Pages publica cada repositório da organização como uma subpasta do m
 ├── js/
 │   ├── theme-init.js       Aplica o tema no <head>, antes da renderização
 │   ├── app.js              Menu de tema, menu do celular, página atual, ano do rodapé
-│   └── analytics.js        Google Analytics (só na página inicial)
+│   └── analytics.js        Google Analytics (página inicial e planta do mapa)
 ├── img/                    Logotipos, favicon e capas (compartilhados)
 │   └── icons/sprite.svg    Ícones
 ├── fonts/                  Roboto variável (licença OFL em fonts/License.txt)
+├── mapa/                   Mapa Digital (/mapa/): planta, dados e redirecionamentos (ver docs/MAPA.md)
 ├── docs/
-│   └── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
-├── robots.txt              Regras para buscadores (vale para todo o domínio, inclusive /mapa/)
-├── sitemap.xml             Páginas do portal para buscadores
+│   ├── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
+│   ├── MAPA.md             Como o Mapa Digital funciona
+│   ├── MAPA-ATUALIZAR-DADOS.md  Passo a passo para atualizar os locais do mapa
+│   └── MAPA-CHANGELOG.md   Histórico de mudanças do mapa
+├── robots.txt              Regras para buscadores (todo o domínio)
+├── sitemap.xml             Todas as páginas indexáveis (portal e mapa)
 ├── _config.yml             Configuração do Jekyll (GitHub Pages)
 ├── CHANGELOG.md            Histórico de mudanças
 └── PENDENCIAS.md           O que falta fazer
 ```
 
-## O que o site principal fornece aos módulos
+## O que a raiz fornece aos módulos
 
 | Arquivo | Como carregar |
 |---|---|
@@ -67,10 +71,10 @@ Cada módulo pode ter um `css/style.css` próprio, carregado depois do global, s
 
 ## Criar um novo módulo
 
-1. Crie um repositório na organização `dqufpr` com o nome que vai aparecer na URL (por exemplo `servicos`).
-2. Ative o GitHub Pages na branch `main`.
-3. Monte as páginas a partir do modelo da seção 18 do [guia de estilos](docs/GUIA-DE-ESTILOS.md#18-modelo-de-página), copiando cabeçalho e rodapé de `index.html`.
-4. Coloque só o que for específico do módulo no `css/style.css` local.
+1. Crie uma pasta na raiz com o nome que vai aparecer na URL (por exemplo `servicos/`), com um `index.html`.
+2. Monte as páginas a partir do modelo da seção 18 do [guia de estilos](docs/GUIA-DE-ESTILOS.md#18-modelo-de-página), copiando cabeçalho e rodapé de `index.html`.
+3. Coloque só o que for específico do módulo em `<pasta>/css/style.css`.
+4. Adicione as páginas em `sitemap.xml` e, se houver arquivos que não devem ser publicados (fontes, scripts), em `exclude` no `_config.yml`.
 5. Adicione um cartão para o módulo em `index.html` (seção "Serviços") e, se for o caso, um item no menu de todas as páginas.
 
 ## Rodar localmente
@@ -81,15 +85,13 @@ O site é HTML estático. Na pasta do repositório:
 python -m http.server 8000
 ```
 
-Abra <http://localhost:8000>. Os caminhos começam com `/`, então sirva a partir da raiz do repositório (abrir o arquivo direto no navegador não carrega os ícones).
-
-Para testar um módulo com a base nova antes de publicar, coloque a pasta do módulo dentro desta (ex.: `./mapa/`) e acesse <http://localhost:8000/mapa/>. Não faça commit dessa pasta.
+Abra <http://localhost:8000> (portal) ou <http://localhost:8000/mapa/> (mapa). Os caminhos começam com `/`, então sirva a partir da raiz do repositório (abrir o arquivo direto no navegador não carrega os ícones).
 
 ## Cuidados ao alterar a base visual
 
 - Mudanças em `css/global.css`, `js/app.js` e `img/icons/sprite.svg` valem para todos os módulos assim que são publicadas. Confira o site principal e cada módulo em 360px, 768px e 1280px, nos temas claro e escuro.
-- `robots.txt` só vale na raiz do domínio, então é este repositório que aponta os sitemaps de todos os módulos. Ao criar um módulo com `sitemap.xml`, acrescente a linha `Sitemap:` dele aqui.
-- Ao criar ou remover uma página do portal, atualize `sitemap.xml`.
+- Há um só `sitemap.xml`, com as páginas do portal e dos módulos. Ao criar, remover ou mudar uma página, atualize-o (o `<lastmod>` da página alterada). Páginas de redirecionamento levam `noindex` e ficam fora dele.
+- Cada página tem `<title>`, `description`, `canonical` e `og:*` próprios no `<head>`. O nome do site para o Google ("DQ Digital") vem do JSON-LD `WebSite` em `index.html` e do `og:site_name`.
 
 ## Créditos
 
