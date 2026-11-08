@@ -3,7 +3,7 @@
 # Estas informações descrevem o site; títulos e descrições de cada página ficam no <head> do HTML.
 
 title: DQ Digital
-description: Serviços digitais do Departamento de Química da UFPR, com o Mapa Digital, a planta interativa do prédio.
+description: Serviços digitais do Departamento de Química da UFPR - Planta interativa.
 url: https://dqufpr.github.io
 baseurl: ""
 lang: pt-BR
