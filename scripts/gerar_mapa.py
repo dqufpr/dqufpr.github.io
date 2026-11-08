@@ -160,14 +160,18 @@ def gera_lista(locais):
             desc = f'<p class="local__desc">{html.escape(i["descricao"])}</p>' if i.get("descricao") else ""
             itens.append(f'<li><span class="local__item">{html.escape(i["nome"])}</span>{sig}{desc}</li>')
         cat_txt = " · ".join(nomes_cat[c] for c in l["categorias"])
+        # Card recolhido: número, nome e tipo. O nome é o botão que abre os detalhes (js/mapa.js);
+        # sem JavaScript, os detalhes ficam sempre à mostra.
         out.append(
             f'<li class="local loc--{l["categoria"]}" id="local-{e}" data-local="{e}" data-categorias="{cats}">\n'
             f'  <span class="local__num"><span class="visually-hidden">Sala </span>{e}</span>\n'
             f'  <div class="local__body">\n'
-            f'    <h3 class="local__nome">{html.escape(titulo(l))}</h3>\n'
+            f'    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">{html.escape(titulo(l))}</button></h3>\n'
             f'    <p class="local__meta"><span class="local__cat">{cat_txt}</span></p>\n'
-            f'    <ul class="local__itens">{"".join(itens)}</ul>\n'
-            f'    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>\n'
+            f'    <div class="local__detalhes" id="local-{e}-detalhes">\n'
+            f'      <ul class="local__itens">{"".join(itens)}</ul>\n'
+            f'      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>\n'
+            f"    </div>\n"
             f"  </div>\n"
             f"</li>"
         )

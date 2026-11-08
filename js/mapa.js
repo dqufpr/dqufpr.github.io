@@ -434,6 +434,7 @@
       e.preventDefault();
       var id = t.getAttribute('data-ver-lista');
       abreLista(true);
+      abreCard(document.getElementById('local-' + id), true);
       if (celular.matches) fechaFolha(); // o cartão cobriria a lista
       window.location.hash = 'local-' + id;
     }
@@ -458,11 +459,26 @@
     listaAlternar.textContent = on ? 'Ocultar a lista' : 'Mostrar a lista (' + lista.children.length + ' locais)';
   }
   listaAlternar.addEventListener('click', function () { abreLista(!lista.classList.contains('is-aberta')); });
-  abreLista(/^#local-/.test(window.location.hash));
+  abreLista(false);
+  abreCardDoEndereco();
   listaAlternar.hidden = false;
+
+  // Cards da lista: o nome abre e fecha os detalhes
+  function abreCard(li, on) {
+    if (!li) return;
+    li.classList.toggle('is-aberto', on);
+    li.querySelector('.local__abrir').setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  function abreCardDoEndereco() {
+    var m = /^#local-(.+)$/.exec(window.location.hash);
+    if (m) { abreLista(true); abreCard(document.getElementById('local-' + decodeURIComponent(m[1])), true); }
+  }
+  window.addEventListener('hashchange', abreCardDoEndereco);
 
   // "Ver na planta" na lista completa
   lista.addEventListener('click', function (e) {
+    var abrir = e.target.closest('.local__abrir');
+    if (abrir) { var li = abrir.closest('.local'); abreCard(li, !li.classList.contains('is-aberto')); return; }
     var b = e.target.closest('[data-ver-local]');
     if (!b) return;
     seleciona(b.getAttribute('data-ver-local'), true);

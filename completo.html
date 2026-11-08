@@ -69,11 +69,7 @@
 </header>
 
 <main id="main" tabindex="-1">
-  <section class="page-hero container">
-    <p class="eyebrow">Mapa Digital</p>
-    <h1>Planta do prédio</h1>
-    <p class="lead">Toque numa sala para ver o que funciona nela, busque por nome ou destaque uma categoria inteira.</p>
-  </section>
+  <h1 class="visually-hidden">Planta do prédio</h1>
 
   <section class="explorador" aria-label="Planta interativa" data-explorador>
     <div class="explorador__barra">
@@ -363,910 +359,1112 @@
 <li class="local loc--servico" id="local-1" data-local="1" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>1</span>
   <div class="local__body">
-    <h3 class="local__nome">Auditório Principal</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-1-detalhes">Auditório Principal</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Auditório Principal</span><p class="local__desc">Requer reverva de horários para eventos, defesas e confraternizações</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="1">Ver na planta</button>
+    <div class="local__detalhes" id="local-1-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Auditório Principal</span><p class="local__desc">Requer reverva de horários para eventos, defesas e confraternizações</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="1">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-4" data-local="4" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>4</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Privativo</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-4-detalhes">Banheiro Privativo</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Acesso restrito/servidores</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="4">Ver na planta</button>
+    <div class="local__detalhes" id="local-4-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Acesso restrito/servidores</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="4">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-6" data-local="6" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>6</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório Multiusuário de Ressonância Magnética Nuclear</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-6-detalhes">Laboratório Multiusuário de Ressonância Magnética Nuclear</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário de Ressonância Magnética Nuclear</span> <span class="badge">Lab-RMN</span><p class="local__desc">Em implementação</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="6">Ver na planta</button>
+    <div class="local__detalhes" id="local-6-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário de Ressonância Magnética Nuclear</span> <span class="badge">Lab-RMN</span><p class="local__desc">Em implementação</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="6">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-7" data-local="7" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>7</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-7-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Fabio Souza Nunes</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Jaísa Fernandes Soares</span><p class="local__desc">Professora/Química Inorgânica</p></li><li><span class="local__item">Shirley Nakagaki</span><p class="local__desc">Professora/Química Inorgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="7">Ver na planta</button>
+    <div class="local__detalhes" id="local-7-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Fabio Souza Nunes</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Jaísa Fernandes Soares</span><p class="local__desc">Professora/Química Inorgânica</p></li><li><span class="local__item">Shirley Nakagaki</span><p class="local__desc">Professora/Química Inorgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="7">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-8" data-local="8" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>8</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Bioinorgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-8-detalhes">Laboratório de Bioinorgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Bioinorgânica</span> <span class="badge">LaBioInC</span><p class="local__desc">Fábio Souza Nunes, Jaísa Soares e Shirley Nakagaki</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="8">Ver na planta</button>
+    <div class="local__detalhes" id="local-8-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Bioinorgânica</span> <span class="badge">LaBioInC</span><p class="local__desc">Fábio Souza Nunes, Jaísa Soares e Shirley Nakagaki</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="8">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-9" data-local="9" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>9</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Bioinorgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-9-detalhes">Laboratório de Bioinorgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Bioinorgânica</span> <span class="badge">LaBioInC</span><p class="local__desc">Fábio Souza Nunes, Jaísa Soares e Shirley Nakagaki</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="9">Ver na planta</button>
+    <div class="local__detalhes" id="local-9-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Bioinorgânica</span> <span class="badge">LaBioInC</span><p class="local__desc">Fábio Souza Nunes, Jaísa Soares e Shirley Nakagaki</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="9">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-10" data-local="10" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>10</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Analítica Ambiental</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-10-detalhes">Laboratório de Química Analítica Ambiental</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Analítica Ambiental</span> <span class="badge">LQAA</span><p class="local__desc">Gilberto Abate</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="10">Ver na planta</button>
+    <div class="local__detalhes" id="local-10-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Analítica Ambiental</span> <span class="badge">LQAA</span><p class="local__desc">Gilberto Abate</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="10">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-11" data-local="11" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>11</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório Multiusuário</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-11-detalhes">Laboratório Multiusuário</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="11">Ver na planta</button>
+    <div class="local__detalhes" id="local-11-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="11">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-12" data-local="12" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>12</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Instrumentação</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-12-detalhes">Laboratório de Instrumentação</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Instrumentação</span><p class="local__desc">Jaísa Fernandes Soares</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="12">Ver na planta</button>
+    <div class="local__detalhes" id="local-12-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Instrumentação</span><p class="local__desc">Jaísa Fernandes Soares</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="12">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-13" data-local="13" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>13</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Instrumentação</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-13-detalhes">Laboratório de Instrumentação</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Instrumentação</span><p class="local__desc">Jaísa Fernandes Soares</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="13">Ver na planta</button>
+    <div class="local__detalhes" id="local-13-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Instrumentação</span><p class="local__desc">Jaísa Fernandes Soares</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="13">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-14" data-local="14" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>14</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo de Catálise e Cinética</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-14-detalhes">Grupo de Catálise e Cinética</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo de Catálise e Cinética</span> <span class="badge">GCC</span><p class="local__desc">Elisa Orth</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="14">Ver na planta</button>
+    <div class="local__detalhes" id="local-14-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo de Catálise e Cinética</span> <span class="badge">GCC</span><p class="local__desc">Elisa Orth</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="14">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-15" data-local="15" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>15</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Inorgânica Aplicada</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-15-detalhes">Laboratório de Química Inorgânica Aplicada</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Inorgânica Aplicada</span><p class="local__desc">Herbert Winnischofer, Tatiana R. Simões e Márcio P. Araújo</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="15">Ver na planta</button>
+    <div class="local__detalhes" id="local-15-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Inorgânica Aplicada</span><p class="local__desc">Herbert Winnischofer, Tatiana R. Simões e Márcio P. Araújo</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="15">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-16" data-local="16" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>16</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-16-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Andrea Pinto de Oliveira</span><p class="local__desc">Professora/Química Analítica</p></li><li><span class="local__item">Antonio Salvio Mangrich</span><p class="local__desc">Professor/Química Inorgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="16">Ver na planta</button>
+    <div class="local__detalhes" id="local-16-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Andrea Pinto de Oliveira</span><p class="local__desc">Professora/Química Analítica</p></li><li><span class="local__item">Antonio Salvio Mangrich</span><p class="local__desc">Professor/Química Inorgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="16">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-17" data-local="17" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>17</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo de Ações e Estudos Ambientais</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-17-detalhes">Grupo de Ações e Estudos Ambientais</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo de Ações e Estudos Ambientais</span> <span class="badge">GAEA</span><p class="local__desc">Glaucia Pantano</p></li><li><span class="local__item">Laboratório de Processos e Projetos Ambientais</span> <span class="badge">LABPAM</span><p class="local__desc">Andrea Pinto de Oliveira</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="17">Ver na planta</button>
+    <div class="local__detalhes" id="local-17-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo de Ações e Estudos Ambientais</span> <span class="badge">GAEA</span><p class="local__desc">Glaucia Pantano</p></li><li><span class="local__item">Laboratório de Processos e Projetos Ambientais</span> <span class="badge">LABPAM</span><p class="local__desc">Andrea Pinto de Oliveira</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="17">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-19" data-local="19" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>19</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-19-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Elisa Souza Orth</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Izabel Cristina Riegel Vidotti Miyata</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Marcio Eduardo Vidotti Miyata</span><p class="local__desc">Professor/Físico-Química</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="19">Ver na planta</button>
+    <div class="local__detalhes" id="local-19-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Elisa Souza Orth</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Izabel Cristina Riegel Vidotti Miyata</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Marcio Eduardo Vidotti Miyata</span><p class="local__desc">Professor/Físico-Química</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="19">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-20" data-local="20" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>20</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo de Pesquisa em Macromoléculas e Interfaces</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-20-detalhes">Grupo de Pesquisa em Macromoléculas e Interfaces</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo de Pesquisa em Macromoléculas e Interfaces</span> <span class="badge">GPMIn</span><p class="local__desc">Marcio E. Vidotti e Izabel C. Riegel-Vidotti</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="20">Ver na planta</button>
+    <div class="local__detalhes" id="local-20-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo de Pesquisa em Macromoléculas e Interfaces</span> <span class="badge">GPMIn</span><p class="local__desc">Marcio E. Vidotti e Izabel C. Riegel-Vidotti</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="20">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-22" data-local="22" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>22</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Físico-Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-22-detalhes">Laboratório de Físico-Química</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Físico-Química</span> <span class="badge">LFQ</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="22">Ver na planta</button>
+    <div class="local__detalhes" id="local-22-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Físico-Química</span> <span class="badge">LFQ</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="22">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-23" data-local="23" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>23</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-23-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anderson Barisson</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Clarice Dias Britto do Amaral</span><p class="local__desc">Professora/Química analítica</p></li><li><span class="local__item">Márcio Peres de Araujo</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Noemi Nagata</span><p class="local__desc">Professora/Química analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="23">Ver na planta</button>
+    <div class="local__detalhes" id="local-23-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anderson Barisson</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Clarice Dias Britto do Amaral</span><p class="local__desc">Professora/Química analítica</p></li><li><span class="local__item">Márcio Peres de Araujo</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Noemi Nagata</span><p class="local__desc">Professora/Química analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="23">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-24" data-local="24" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>24</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de Aula da Pós-Graduação em Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-24-detalhes">Sala de Aula da Pós-Graduação em Química</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de Aula da Pós-Graduação em Química</span> <span class="badge">Sala PPGQ</span><p class="local__desc">Sala de aula do PPGQ</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="24">Ver na planta</button>
+    <div class="local__detalhes" id="local-24-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de Aula da Pós-Graduação em Química</span> <span class="badge">Sala PPGQ</span><p class="local__desc">Sala de aula do PPGQ</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="24">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-26" data-local="26" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>26</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Semioquímicos</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-26-detalhes">Laboratório de Semioquímicos</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Semioquímicos</span><p class="local__desc">Paulo Zarbin</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="26">Ver na planta</button>
+    <div class="local__detalhes" id="local-26-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Semioquímicos</span><p class="local__desc">Paulo Zarbin</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="26">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-27" data-local="27" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>27</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-27-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Giovana G. Nunes</span><p class="local__desc">Professora/Química Inorgânica</p></li><li><span class="local__item">Liliana Micaroni</span><p class="local__desc">Professora/Físico-Química</p></li><li><span class="local__item">Regina M. Q. de Mello</span><p class="local__desc">Professora/Físico-Química</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="27">Ver na planta</button>
+    <div class="local__detalhes" id="local-27-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Giovana G. Nunes</span><p class="local__desc">Professora/Química Inorgânica</p></li><li><span class="local__item">Liliana Micaroni</span><p class="local__desc">Professora/Físico-Química</p></li><li><span class="local__item">Regina M. Q. de Mello</span><p class="local__desc">Professora/Físico-Química</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="27">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-28" data-local="28" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>28</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de aula - PQ 12</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-28-detalhes">Sala de aula - PQ 12</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 12</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="28">Ver na planta</button>
+    <div class="local__detalhes" id="local-28-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 12</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="28">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-29" data-local="29" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>29</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-29-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Eduardo Lemos de Sá</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Joaquim D. da Motta Neto</span><p class="local__desc">Professor/Físico-Química</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="29">Ver na planta</button>
+    <div class="local__detalhes" id="local-29-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Eduardo Lemos de Sá</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Joaquim D. da Motta Neto</span><p class="local__desc">Professor/Físico-Química</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="29">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-30" data-local="30" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>30</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de aula - PQ 13</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-30-detalhes">Sala de aula - PQ 13</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 13</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="30">Ver na planta</button>
+    <div class="local__detalhes" id="local-30-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 13</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="30">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-31" data-local="31" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>31</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Feminino</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-31-detalhes">Banheiro Feminino</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="31">Ver na planta</button>
+    <div class="local__detalhes" id="local-31-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="31">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-32" data-local="32" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>32</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-32-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Diego Guedes Sobrinho</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Fernando Wypych</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Glaucia Pantano</span><p class="local__desc">Professora/Química Analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="32">Ver na planta</button>
+    <div class="local__detalhes" id="local-32-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Diego Guedes Sobrinho</span><p class="local__desc">Professor/Físico-Química</p></li><li><span class="local__item">Fernando Wypych</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Glaucia Pantano</span><p class="local__desc">Professora/Química Analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="32">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-33" data-local="33" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>33</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de Estudos - Pós-Graduação</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-33-detalhes">Sala de Estudos - Pós-Graduação</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de Estudos - Pós-Graduação</span> <span class="badge">S-PPGQ</span><p class="local__desc">Acesso restrito / Alunos de Pós-Graduação</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="33">Ver na planta</button>
+    <div class="local__detalhes" id="local-33-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de Estudos - Pós-Graduação</span> <span class="badge">S-PPGQ</span><p class="local__desc">Acesso restrito / Alunos de Pós-Graduação</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="33">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-34" data-local="34" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>34</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-34-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Dênio Emanuel Pires Souto</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Frederico Luis Felipe Soares</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Patricio Peralta Zamora</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="34">Ver na planta</button>
+    <div class="local__detalhes" id="local-34-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Dênio Emanuel Pires Souto</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Frederico Luis Felipe Soares</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Patricio Peralta Zamora</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="34">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-35" data-local="35" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>35</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de aula - PQ 15</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-35-detalhes">Sala de aula - PQ 15</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 15</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="35">Ver na planta</button>
+    <div class="local__detalhes" id="local-35-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 15</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="35">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-36" data-local="36" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>36</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de aula - PQ 16</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-36-detalhes">Sala de aula - PQ 16</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 16</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="36">Ver na planta</button>
+    <div class="local__detalhes" id="local-36-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 16</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="36">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-37" data-local="37" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>37</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-37-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Bruno José Golçalves da Silva</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Gilberto Abate</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Lauro Camargo Dias Junior</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="37">Ver na planta</button>
+    <div class="local__detalhes" id="local-37-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Bruno José Golçalves da Silva</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Gilberto Abate</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Lauro Camargo Dias Junior</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="37">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-38" data-local="38" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>38</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-38-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Herbert Winnischofer</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">João B. M. Novo</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Tatiana Renata Gomes Simões</span><p class="local__desc">Professora/Química Inorgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="38">Ver na planta</button>
+    <div class="local__detalhes" id="local-38-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Herbert Winnischofer</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">João B. M. Novo</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Tatiana Renata Gomes Simões</span><p class="local__desc">Professora/Química Inorgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="38">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-aula" id="local-39" data-local="39" data-categorias="sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>39</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de aula - PQ 17</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-39-detalhes">Sala de aula - PQ 17</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 17</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="39">Ver na planta</button>
+    <div class="local__detalhes" id="local-39-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de aula - PQ 17</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="39">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-40" data-local="40" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>40</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-40-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Fábio Simonelli</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">George</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Leandro Piovan</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="40">Ver na planta</button>
+    <div class="local__detalhes" id="local-40-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Fábio Simonelli</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">George</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Leandro Piovan</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="40">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-41" data-local="41" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>41</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de equipamento/Microscopia de Força Atômica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-41-detalhes">Sala de equipamento/Microscopia de Força Atômica</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de equipamento/Microscopia de Força Atômica</span> <span class="badge">AFM</span><p class="local__desc">Aldo Zarbin</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="41">Ver na planta</button>
+    <div class="local__detalhes" id="local-41-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de equipamento/Microscopia de Força Atômica</span> <span class="badge">AFM</span><p class="local__desc">Aldo Zarbin</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="41">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-42" data-local="42" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>42</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Masculino</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-42-detalhes">Banheiro Masculino</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Masculino</span> <span class="badge">BW</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="42">Ver na planta</button>
+    <div class="local__detalhes" id="local-42-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Masculino</span> <span class="badge">BW</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="42">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-43" data-local="43" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>43</span>
   <div class="local__body">
-    <h3 class="local__nome">Diretório Acadêmico de Engenharia Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-43-detalhes">Diretório Acadêmico de Engenharia Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Diretório Acadêmico de Engenharia Química</span> <span class="badge">DAEQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="43">Ver na planta</button>
+    <div class="local__detalhes" id="local-43-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Diretório Acadêmico de Engenharia Química</span> <span class="badge">DAEQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="43">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-44" data-local="44" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>44</span>
   <div class="local__body">
-    <h3 class="local__nome">Centro Acadêmico de Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-44-detalhes">Centro Acadêmico de Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Centro Acadêmico de Química</span> <span class="badge">CAQUI</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="44">Ver na planta</button>
+    <div class="local__detalhes" id="local-44-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Centro Acadêmico de Química</span> <span class="badge">CAQUI</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="44">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-45-A" data-local="45-A" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>45-A</span>
   <div class="local__body">
-    <h3 class="local__nome">Coordenação da Gradução em Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-45-A-detalhes">Coordenação da Gradução em Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Coordenação da Gradução em Química</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-A">Ver na planta</button>
+    <div class="local__detalhes" id="local-45-A-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Coordenação da Gradução em Química</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-A">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-45-B" data-local="45-B" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>45-B</span>
   <div class="local__body">
-    <h3 class="local__nome">Secretaria da Pós-graduação em Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-45-B-detalhes">Secretaria da Pós-graduação em Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Secretaria da Pós-graduação em Química</span> <span class="badge">PPGQ</span></li><li><span class="local__item">Fernanda G. D. Pinheiro</span><p class="local__desc">Secretaria da Pós-Graduação</p></li><li><span class="local__item">Marcelino Câmara</span><p class="local__desc">Secretaria da Pós-Graduação</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-B">Ver na planta</button>
+    <div class="local__detalhes" id="local-45-B-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Secretaria da Pós-graduação em Química</span> <span class="badge">PPGQ</span></li><li><span class="local__item">Fernanda G. D. Pinheiro</span><p class="local__desc">Secretaria da Pós-Graduação</p></li><li><span class="local__item">Marcelino Câmara</span><p class="local__desc">Secretaria da Pós-Graduação</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-B">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-45-C" data-local="45-C" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>45-C</span>
   <div class="local__body">
-    <h3 class="local__nome">Secretaria do Departamento de Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-45-C-detalhes">Secretaria do Departamento de Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Secretaria do Departamento de Química</span></li><li><span class="local__item">Lucas F. de Campos</span><p class="local__desc">Secretaria da Graduação</p></li><li><span class="local__item">Marco A. L. de Miranda</span><p class="local__desc">Secretaria da Graduação</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-C">Ver na planta</button>
+    <div class="local__detalhes" id="local-45-C-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Secretaria do Departamento de Química</span></li><li><span class="local__item">Lucas F. de Campos</span><p class="local__desc">Secretaria da Graduação</p></li><li><span class="local__item">Marco A. L. de Miranda</span><p class="local__desc">Secretaria da Graduação</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-C">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-45-D" data-local="45-D" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>45-D</span>
   <div class="local__body">
-    <h3 class="local__nome">Escaninho Professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-45-D-detalhes">Escaninho Professores</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Escaninho Professores</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-D">Ver na planta</button>
+    <div class="local__detalhes" id="local-45-D-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Escaninho Professores</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-D">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-45-E" data-local="45-E" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>45-E</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de Reuniões do Departamento de Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-45-E-detalhes">Sala de Reuniões do Departamento de Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de Reuniões do Departamento de Química</span><p class="local__desc">Acesso mediante reserva prévia</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-E">Ver na planta</button>
+    <div class="local__detalhes" id="local-45-E-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de Reuniões do Departamento de Química</span><p class="local__desc">Acesso mediante reserva prévia</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="45-E">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-46" data-local="46" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>46</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-46-detalhes">Laboratório de Química Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="46">Ver na planta</button>
+    <div class="local__detalhes" id="local-46-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="46">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-47" data-local="47" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>47</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-47-detalhes">Laboratório de Química Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="47">Ver na planta</button>
+    <div class="local__detalhes" id="local-47-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="47">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-48" data-local="48" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>48</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório Multiusuário</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-48-detalhes">Laboratório Multiusuário</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário</span></li><li><span class="local__item">Laboratório Multiusuário</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="48">Ver na planta</button>
+    <div class="local__detalhes" id="local-48-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário</span></li><li><span class="local__item">Laboratório Multiusuário</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="48">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-49" data-local="49" data-categorias="lab-pesquisa sala-aula">
   <span class="local__num"><span class="visually-hidden">Sala </span>49</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-49-detalhes">Laboratório de Química Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa · Sala de aula</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li><li><span class="local__item">Sala de aula - PQ 7</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="49">Ver na planta</button>
+    <div class="local__detalhes" id="local-49-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li><li><span class="local__item">Sala de aula - PQ 7</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="49">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-50" data-local="50" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>50</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-50-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Claudiney S. Cordeiro</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Juliete Silva Neves</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Nadia Krieger</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="50">Ver na planta</button>
+    <div class="local__detalhes" id="local-50-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Claudiney S. Cordeiro</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Juliete Silva Neves</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Nadia Krieger</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="50">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-51" data-local="51" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>51</span>
   <div class="local__body">
-    <h3 class="local__nome">Empresa Júnior de Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-51-detalhes">Empresa Júnior de Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Empresa Júnior de Química</span> <span class="badge">ISOMERIA</span><p class="local__desc">Empresa Júnior</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="51">Ver na planta</button>
+    <div class="local__detalhes" id="local-51-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Empresa Júnior de Química</span> <span class="badge">ISOMERIA</span><p class="local__desc">Empresa Júnior</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="51">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-52" data-local="52" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>52</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Feminino</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-52-detalhes">Banheiro Feminino</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="52">Ver na planta</button>
+    <div class="local__detalhes" id="local-52-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="52">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-53" data-local="53" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>53</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Engenharia Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-53-detalhes">Laboratório de Engenharia Química</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Engenharia Química</span> <span class="badge">LEQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="53">Ver na planta</button>
+    <div class="local__detalhes" id="local-53-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Engenharia Química</span> <span class="badge">LEQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="53">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-54" data-local="54" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>54</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-54-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Caroline R. Montes D&#x27;Oca</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Marcelo G. Montes D&#x27;Oca</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="54">Ver na planta</button>
+    <div class="local__detalhes" id="local-54-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Caroline R. Montes D&#x27;Oca</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Marcelo G. Montes D&#x27;Oca</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="54">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-57" data-local="57" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>57</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-57-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Beatriz Helena Lameiro Noronha Sales Maia</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Sônia Faria Zawadzki</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="57">Ver na planta</button>
+    <div class="local__detalhes" id="local-57-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Beatriz Helena Lameiro Noronha Sales Maia</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Sônia Faria Zawadzki</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="57">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-58" data-local="58" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>58</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório Química Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-58-detalhes">Laboratório Química Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório Química Orgânica</span><p class="local__desc">Brás H. de Oliveira</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="58">Ver na planta</button>
+    <div class="local__detalhes" id="local-58-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório Química Orgânica</span><p class="local__desc">Brás H. de Oliveira</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="58">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-59" data-local="59" data-categorias="banheiro lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>59</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Privativo</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-59-detalhes">Banheiro Privativo</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro · Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Exclusivo Feminino</p></li><li><span class="local__item">Laboratório de Extensão em Química</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="59">Ver na planta</button>
+    <div class="local__detalhes" id="local-59-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Exclusivo Feminino</p></li><li><span class="local__item">Laboratório de Extensão em Química</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="59">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-60" data-local="60" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>60</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Polímeros e Catálise</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-60-detalhes">Laboratório de Polímeros e Catálise</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Polímeros e Catálise</span> <span class="badge">LAPOCA</span><p class="local__desc">Caroline R. M. D&#x27;Oca e Daniel S. Rampon</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="60">Ver na planta</button>
+    <div class="local__detalhes" id="local-60-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Polímeros e Catálise</span> <span class="badge">LAPOCA</span><p class="local__desc">Caroline R. M. D&#x27;Oca e Daniel S. Rampon</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="60">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-62" data-local="62" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>62</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo Kolbe de Síntese Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-62-detalhes">Grupo Kolbe de Síntese Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo Kolbe de Síntese Orgânica</span> <span class="badge">KOLBE</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="62">Ver na planta</button>
+    <div class="local__detalhes" id="local-62-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo Kolbe de Síntese Orgânica</span> <span class="badge">KOLBE</span><p class="local__desc">Marcelo M. D&#x27;Oca, Claudiney S. Cordeiro e Juliete S. Neves</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="62">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-63" data-local="63" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>63</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Produtos Naturais e Ecologia Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-63-detalhes">Laboratório de Produtos Naturais e Ecologia Química</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Produtos Naturais e Ecologia Química</span> <span class="badge">LAPNEQ</span><p class="local__desc">Beatriz Helena Lameiro Noronha Sales Maia</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="63">Ver na planta</button>
+    <div class="local__detalhes" id="local-63-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Produtos Naturais e Ecologia Química</span> <span class="badge">LAPNEQ</span><p class="local__desc">Beatriz Helena Lameiro Noronha Sales Maia</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="63">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-64" data-local="64" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>64</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Tecnologia Enzimática e Biocatálise</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-64-detalhes">Laboratório de Tecnologia Enzimática e Biocatálise</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Tecnologia Enzimática e Biocatálise</span> <span class="badge">LTEB</span><p class="local__desc">Nádia Krieger</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="64">Ver na planta</button>
+    <div class="local__detalhes" id="local-64-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Tecnologia Enzimática e Biocatálise</span> <span class="badge">LTEB</span><p class="local__desc">Nádia Krieger</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="64">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-65" data-local="65" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>65</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Espectrometria, Sensores e Biossensores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-65-detalhes">Laboratório de Espectrometria, Sensores e Biossensores</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Espectrometria, Sensores e Biossensores</span> <span class="badge">LAESB</span><p class="local__desc">Clarice D. B. Amaral e Dênio E. P. Souto</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="65">Ver na planta</button>
+    <div class="local__detalhes" id="local-65-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Espectrometria, Sensores e Biossensores</span> <span class="badge">LAESB</span><p class="local__desc">Clarice D. B. Amaral e Dênio E. P. Souto</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="65">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-66" data-local="66" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>66</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química de Polímeros e Sintese Orgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-66-detalhes">Laboratório de Química de Polímeros e Sintese Orgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química de Polímeros e Sintese Orgânica</span> <span class="badge">LEQUIPE</span><p class="local__desc">Maria Aparecida F. César-Oliveira</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="66">Ver na planta</button>
+    <div class="local__detalhes" id="local-66-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química de Polímeros e Sintese Orgânica</span> <span class="badge">LEQUIPE</span><p class="local__desc">Maria Aparecida F. César-Oliveira</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="66">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-67" data-local="67" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>67</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-67-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Ana Luísa Lacava Lordello</span><p class="local__desc">Professora/Química Orgânica</p></li><li><span class="local__item">Flávio M. Matsumoto</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Maria Aparecida F. César-Oliveira</span><p class="local__desc">Professora/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="67">Ver na planta</button>
+    <div class="local__detalhes" id="local-67-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Ana Luísa Lacava Lordello</span><p class="local__desc">Professora/Química Orgânica</p></li><li><span class="local__item">Flávio M. Matsumoto</span><p class="local__desc">Professor/Química Inorgânica</p></li><li><span class="local__item">Maria Aparecida F. César-Oliveira</span><p class="local__desc">Professora/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="67">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-67-A" data-local="67-A" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>67-A</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-67-A-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Luiz Humberto Marcolino Junior</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Marcio Fernando Bergamini</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="67-A">Ver na planta</button>
+    <div class="local__detalhes" id="local-67-A-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Luiz Humberto Marcolino Junior</span><p class="local__desc">Professor/Química Analítica</p></li><li><span class="local__item">Marcio Fernando Bergamini</span><p class="local__desc">Professor/Química Analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="67-A">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-68" data-local="68" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>68</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Análises Ambientais</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-68-detalhes">Laboratório de Análises Ambientais</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Análises Ambientais</span> <span class="badge">LAA</span><p class="local__desc">Marco Tadeu Grassi e Gilberto Abate</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="68">Ver na planta</button>
+    <div class="local__detalhes" id="local-68-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Análises Ambientais</span> <span class="badge">LAA</span><p class="local__desc">Marco Tadeu Grassi e Gilberto Abate</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="68">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-69" data-local="69" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>69</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Orgânica II</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-69-detalhes">Laboratório de Química Orgânica II</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica II</span> <span class="badge">LQO II</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="69">Ver na planta</button>
+    <div class="local__detalhes" id="local-69-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica II</span> <span class="badge">LQO II</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="69">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-70" data-local="70" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>70</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-70-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Francisco de A. Marques</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Kahlil Schwanka Salome</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="70">Ver na planta</button>
+    <div class="local__detalhes" id="local-70-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Francisco de A. Marques</span><p class="local__desc">Professor/Química Orgânica</p></li><li><span class="local__item">Kahlil Schwanka Salome</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="70">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-71" data-local="71" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>71</span>
   <div class="local__body">
-    <h3 class="local__nome">Oficina Hialotecnia</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-71-detalhes">Oficina Hialotecnia</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Oficina Hialotecnia</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="71">Ver na planta</button>
+    <div class="local__detalhes" id="local-71-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Oficina Hialotecnia</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="71">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-72" data-local="72" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>72</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório Multiusuário de Ressonância Magnética Nuclear</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-72-detalhes">Laboratório Multiusuário de Ressonância Magnética Nuclear</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário de Ressonância Magnética Nuclear</span> <span class="badge">Lab-RMN</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="72">Ver na planta</button>
+    <div class="local__detalhes" id="local-72-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório Multiusuário de Ressonância Magnética Nuclear</span> <span class="badge">Lab-RMN</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="72">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-73" data-local="73" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>73</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Orgânica I</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-73-detalhes">Laboratório de Química Orgânica I</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica I</span> <span class="badge">LQO I</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="73">Ver na planta</button>
+    <div class="local__detalhes" id="local-73-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Orgânica I</span> <span class="badge">LQO I</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="73">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-74" data-local="74" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>74</span>
   <div class="local__body">
-    <h3 class="local__nome">Central elétrica [acesso restrito]</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-74-detalhes">Central elétrica [acesso restrito]</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Central elétrica [acesso restrito]</span> <span class="badge">Área de segurança</span><p class="local__desc">Acesso restrito</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="74">Ver na planta</button>
+    <div class="local__detalhes" id="local-74-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Central elétrica [acesso restrito]</span> <span class="badge">Área de segurança</span><p class="local__desc">Acesso restrito</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="74">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-75" data-local="75" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>75</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-75-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Camila Silveira da Silva</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Roberto Dalmo Varallo Lima de Oliveira</span><p class="local__desc">Professor/Ensino de Química</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="75">Ver na planta</button>
+    <div class="local__detalhes" id="local-75-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Camila Silveira da Silva</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Roberto Dalmo Varallo Lima de Oliveira</span><p class="local__desc">Professor/Ensino de Química</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="75">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-76" data-local="76" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>76</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de Instrumentação Analítica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-76-detalhes">Sala de Instrumentação Analítica</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de Instrumentação Analítica</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="76">Ver na planta</button>
+    <div class="local__detalhes" id="local-76-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de Instrumentação Analítica</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="76">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-77" data-local="77" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>77</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Sintese Química e Enzimática</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-77-detalhes">Laboratório de Sintese Química e Enzimática</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Sintese Química e Enzimática</span> <span class="badge">LASQUE</span><p class="local__desc">Leandro Piovan</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="77">Ver na planta</button>
+    <div class="local__detalhes" id="local-77-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Sintese Química e Enzimática</span> <span class="badge">LASQUE</span><p class="local__desc">Leandro Piovan</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="77">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-78" data-local="78" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>78</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Ecologia Química e Síntese de Produtos Naturais</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-78-detalhes">Laboratório de Ecologia Química e Síntese de Produtos Naturais</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Ecologia Química e Síntese de Produtos Naturais</span><p class="local__desc">Francisco de A. Marques</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="78">Ver na planta</button>
+    <div class="local__detalhes" id="local-78-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Ecologia Química e Síntese de Produtos Naturais</span><p class="local__desc">Francisco de A. Marques</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="78">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-79" data-local="79" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>79</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Difração de Raio-X e Raman</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-79-detalhes">Laboratório de Difração de Raio-X e Raman</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Difração de Raio-X e Raman</span><p class="local__desc">Aldo Zarbin</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="79">Ver na planta</button>
+    <div class="local__detalhes" id="local-79-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Difração de Raio-X e Raman</span><p class="local__desc">Aldo Zarbin</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="79">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-80" data-local="80" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>80</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-80-detalhes">Sala de professores</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Everton Bedin</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Joanez Aparecida Aires</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Leonir Lorenzetti</span><p class="local__desc">Professor/Ensino de Química</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="80">Ver na planta</button>
+    <div class="local__detalhes" id="local-80-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Everton Bedin</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Joanez Aparecida Aires</span><p class="local__desc">Professor/Ensino de Química</p></li><li><span class="local__item">Leonir Lorenzetti</span><p class="local__desc">Professor/Ensino de Química</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="80">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-81" data-local="81" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>81</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de apoio - Laboratório de Química Geral</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-81-detalhes">Sala de apoio - Laboratório de Química Geral</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de apoio - Laboratório de Química Geral</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="81">Ver na planta</button>
+    <div class="local__detalhes" id="local-81-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de apoio - Laboratório de Química Geral</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="81">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-82" data-local="82" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>82</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Geral</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-82-detalhes">Laboratório de Química Geral</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Geral</span> <span class="badge">LQG</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="82">Ver na planta</button>
+    <div class="local__detalhes" id="local-82-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Geral</span> <span class="badge">LQG</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="82">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-83" data-local="83" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>83</span>
   <div class="local__body">
-    <h3 class="local__nome">PET Química</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-83-detalhes">PET Química</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">PET Química</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="83">Ver na planta</button>
+    <div class="local__detalhes" id="local-83-detalhes">
+      <ul class="local__itens"><li><span class="local__item">PET Química</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="83">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-84" data-local="84" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>84</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Masculino</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-84-detalhes">Banheiro Masculino</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Masculino</span> <span class="badge">BW</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="84">Ver na planta</button>
+    <div class="local__detalhes" id="local-84-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Masculino</span> <span class="badge">BW</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="84">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-85" data-local="85" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>85</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Inorgânica</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-85-detalhes">Laboratório de Química Inorgânica</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Inorgânica</span> <span class="badge">LQI</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="85">Ver na planta</button>
+    <div class="local__detalhes" id="local-85-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Inorgânica</span> <span class="badge">LQI</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="85">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-86" data-local="86" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>86</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de refrigeração - Multiusuário</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-86-detalhes">Sala de refrigeração - Multiusuário</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Sala de refrigeração - Multiusuário</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="86">Ver na planta</button>
+    <div class="local__detalhes" id="local-86-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Sala de refrigeração - Multiusuário</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="86">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--servico" id="local-87" data-local="87" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>87</span>
   <div class="local__body">
-    <h3 class="local__nome">Central de Produtos Químicos</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-87-detalhes">Central de Produtos Químicos</button></h3>
     <p class="local__meta"><span class="local__cat">Serviço</span></p>
-    <ul class="local__itens"><li><span class="local__item">Central de Produtos Químicos</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="87">Ver na planta</button>
+    <div class="local__detalhes" id="local-87-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Central de Produtos Químicos</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="87">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-88" data-local="88" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>88</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Espectrometria, Sensores e Biossensores</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-88-detalhes">Laboratório de Espectrometria, Sensores e Biossensores</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Espectrometria, Sensores e Biossensores</span> <span class="badge">LAESB</span><p class="local__desc">Clarice D. B. Amaral e Dênio E. P. Souto</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="88">Ver na planta</button>
+    <div class="local__detalhes" id="local-88-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Espectrometria, Sensores e Biossensores</span> <span class="badge">LAESB</span><p class="local__desc">Clarice D. B. Amaral e Dênio E. P. Souto</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="88">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-89" data-local="89" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>89</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Feminino</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-89-detalhes">Banheiro Feminino</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="89">Ver na planta</button>
+    <div class="local__detalhes" id="local-89-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Feminino</span> <span class="badge">BW</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="89">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-90" data-local="90" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>90</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professor</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-90-detalhes">Sala de professor</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Paulo Zarbin</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="90">Ver na planta</button>
+    <div class="local__detalhes" id="local-90-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Paulo Zarbin</span><p class="local__desc">Professor/Química Orgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="90">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-91" data-local="91" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>91</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Semioquímicos</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-91-detalhes">Laboratório de Semioquímicos</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Semioquímicos</span><p class="local__desc">Paulo Zarbin</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="91">Ver na planta</button>
+    <div class="local__detalhes" id="local-91-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Semioquímicos</span><p class="local__desc">Paulo Zarbin</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="91">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-92" data-local="92" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>92</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo de Cromatografia e Técnicas de Microextração</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-92-detalhes">Grupo de Cromatografia e Técnicas de Microextração</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo de Cromatografia e Técnicas de Microextração</span> <span class="badge">CROME</span><p class="local__desc">Bruno José Golçalves da Silva</p></li><li><span class="local__item">Grupo de Química Ambiental</span> <span class="badge">GQA</span><p class="local__desc">Marco Tadeu Grassi</p></li><li><span class="local__item">Grupo de Técnicas Avançadas para Tratamento de Resíduos</span> <span class="badge">TECNOTRATER</span><p class="local__desc">Patricio Peralta Zamora</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="92">Ver na planta</button>
+    <div class="local__detalhes" id="local-92-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo de Cromatografia e Técnicas de Microextração</span> <span class="badge">CROME</span><p class="local__desc">Bruno José Golçalves da Silva</p></li><li><span class="local__item">Grupo de Química Ambiental</span> <span class="badge">GQA</span><p class="local__desc">Marco Tadeu Grassi</p></li><li><span class="local__item">Grupo de Técnicas Avançadas para Tratamento de Resíduos</span> <span class="badge">TECNOTRATER</span><p class="local__desc">Patricio Peralta Zamora</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="92">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-93" data-local="93" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>93</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professor</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-93-detalhes">Sala de professor</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Marco Tadeu Grassi</span><p class="local__desc">Professor/Quimica Analítica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="93">Ver na planta</button>
+    <div class="local__detalhes" id="local-93-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Marco Tadeu Grassi</span><p class="local__desc">Professor/Quimica Analítica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="93">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-94" data-local="94" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>94</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-94-detalhes">Anexo</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="94">Ver na planta</button>
+    <div class="local__detalhes" id="local-94-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="94">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--sala-prof" id="local-95" data-local="95" data-categorias="sala-prof">
   <span class="local__num"><span class="visually-hidden">Sala </span>95</span>
   <div class="local__body">
-    <h3 class="local__nome">Sala de professor</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-95-detalhes">Sala de professor</button></h3>
     <p class="local__meta"><span class="local__cat">Sala de professores</span></p>
-    <ul class="local__itens"><li><span class="local__item">Aldo Zarbin</span><p class="local__desc">Professor/Química Inorgânica</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="95">Ver na planta</button>
+    <div class="local__detalhes" id="local-95-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Aldo Zarbin</span><p class="local__desc">Professor/Química Inorgânica</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="95">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--banheiro" id="local-96" data-local="96" data-categorias="banheiro">
   <span class="local__num"><span class="visually-hidden">Sala </span>96</span>
   <div class="local__body">
-    <h3 class="local__nome">Banheiro Privativo</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-96-detalhes">Banheiro Privativo</button></h3>
     <p class="local__meta"><span class="local__cat">Banheiro</span></p>
-    <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Acesso restrito/servidores</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="96">Ver na planta</button>
+    <div class="local__detalhes" id="local-96-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Banheiro Privativo</span> <span class="badge">BW</span><p class="local__desc">Acesso restrito/servidores</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="96">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-97" data-local="97" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>97</span>
   <div class="local__body">
-    <h3 class="local__nome">Grupo de Análise Química e Quimiometria</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-97-detalhes">Grupo de Análise Química e Quimiometria</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Grupo de Análise Química e Quimiometria</span> <span class="badge">GAQQ</span><p class="local__desc">Noemi Nagata</p></li><li><span class="local__item">Laboratório de Análise de Dados em Química</span> <span class="badge">DATAlab</span><p class="local__desc">Frederico Luis Felipe Soares</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="97">Ver na planta</button>
+    <div class="local__detalhes" id="local-97-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Grupo de Análise Química e Quimiometria</span> <span class="badge">GAQQ</span><p class="local__desc">Noemi Nagata</p></li><li><span class="local__item">Laboratório de Análise de Dados em Química</span> <span class="badge">DATAlab</span><p class="local__desc">Frederico Luis Felipe Soares</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="97">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-pesquisa" id="local-98" data-local="98" data-categorias="lab-pesquisa">
   <span class="local__num"><span class="visually-hidden">Sala </span>98</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Sensores Eletroquímicos</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-98-detalhes">Laboratório de Sensores Eletroquímicos</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de pesquisa</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Sensores Eletroquímicos</span> <span class="badge">LABSENSE</span><p class="local__desc">Márcio F. Bergamini e Luiz Humberto Marcolino Jr</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="98">Ver na planta</button>
+    <div class="local__detalhes" id="local-98-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Sensores Eletroquímicos</span> <span class="badge">LABSENSE</span><p class="local__desc">Márcio F. Bergamini e Luiz Humberto Marcolino Jr</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="98">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99" data-local="99" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99</span>
   <div class="local__body">
-    <h3 class="local__nome">Laboratório de Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-detalhes">Laboratório de Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Laboratório de Química Analítica Quantitativa</span> <span class="badge">LQAQuanti</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Laboratório de Química Analítica Quantitativa</span> <span class="badge">LQAQuanti</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-A" data-local="99-A" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-A</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Sala de Balanças</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-A-detalhes">Anexo - Sala de Balanças</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Sala de Balanças</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-A">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-A-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Sala de Balanças</span><p class="local__desc">Laboratório de Ensino</p></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-A">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-B" data-local="99-B" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-B</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Laboratório Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-B-detalhes">Anexo - Laboratório Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-B">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-B-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-B">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-C" data-local="99-C" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-C</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Laboratório Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-C-detalhes">Anexo - Laboratório Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-C">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-C-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-C">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-D" data-local="99-D" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-D</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Laboratório Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-D-detalhes">Anexo - Laboratório Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-D">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-D-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-D">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-E" data-local="99-E" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-E</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Laboratório Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-E-detalhes">Anexo - Laboratório Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-E">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-E-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-E">Ver na planta</button>
+    </div>
   </div>
 </li>
 <li class="local loc--lab-ensino" id="local-99-F" data-local="99-F" data-categorias="lab-ensino">
   <span class="local__num"><span class="visually-hidden">Sala </span>99-F</span>
   <div class="local__body">
-    <h3 class="local__nome">Anexo - Laboratório Química Analítica Quantitativa</h3>
+    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-99-F-detalhes">Anexo - Laboratório Química Analítica Quantitativa</button></h3>
     <p class="local__meta"><span class="local__cat">Laboratório de ensino</span></p>
-    <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
-    <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-F">Ver na planta</button>
+    <div class="local__detalhes" id="local-99-F-detalhes">
+      <ul class="local__itens"><li><span class="local__item">Anexo - Laboratório Química Analítica Quantitativa</span> <span class="badge">LQAQ</span></li></ul>
+      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="99-F">Ver na planta</button>
+    </div>
   </div>
 </li>
 <!-- LISTA:FIM -->

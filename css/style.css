@@ -57,7 +57,7 @@ button.loc-tag[aria-pressed="true"] {
 /* 5. Explorador: largura maior que o texto da página, centralizado */
 .explorador {
   display: grid; gap: var(--space-4);
-  max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto var(--space-7); padding-inline: var(--gutter);
+  max-width: calc(var(--container) + 2 * var(--gutter)); margin: var(--space-5) auto var(--space-7); padding-inline: var(--gutter);
 }
 .explorador__barra { display: grid; gap: var(--space-4); }
 .explorador__busca { max-width: 420px; }
@@ -179,10 +179,10 @@ button.loc-tag[aria-pressed="true"] {
 /* 8. Lista de locais (gerada por scripts/gerar_mapa.py) */
 .locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
 .locais__status:empty { display: none; }
-.locais__lista { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin: 0; padding: 0; list-style: none; }
+.locais__lista { display: grid; gap: var(--space-3); grid-template-columns: 1fr; align-items: start; margin: 0; padding: 0; list-style: none; }
 .local {
   --loc-ink: #ffffff; /* cor do número sobre a cor da categoria */
-  display: flex; min-width: 0; scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  position: relative; display: flex; min-width: 0; scroll-margin-top: calc(var(--header-h) + var(--space-4));
   background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
 }
 .local[hidden] { display: none; }
@@ -205,6 +205,35 @@ button.loc-tag[aria-pressed="true"] {
 .local__item { overflow-wrap: anywhere; }
 .local__desc { margin: 0; color: var(--text-muted); }
 .local__ver { justify-self: start; margin-top: var(--space-1); padding-inline: 0; }
+.local__detalhes { display: grid; gap: var(--space-1); }
+
+/* Card recolhido (com JavaScript): número, nome e tipo, todos com a mesma altura.
+   O nome é um botão que cobre o card inteiro; aberto, mostra itens e "Ver na planta". */
+.local__abrir {
+  display: block; width: 100%; padding: 0 var(--space-6) 0 0; border: 0; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.mapa-js .local__abrir {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  min-height: calc(2em * var(--lh-tight)); line-height: var(--lh-tight);
+}
+.local__abrir::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.local__abrir:focus-visible { outline: none; }
+.local:has(.local__abrir:focus-visible) { box-shadow: 0 0 0 3px var(--focus-ring); }
+/* Seta à direita: aponta para baixo fechado, para cima aberto */
+.local__abrir::before {
+  content: ""; position: absolute; top: var(--space-4); right: var(--space-4);
+  width: 0.55em; height: 0.55em; margin-top: 0.3em;
+  border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted);
+  transform: rotate(45deg); transition: transform var(--t-fast);
+}
+.local__abrir[aria-expanded="true"]::before { transform: translateY(0.25em) rotate(-135deg); }
+.local:hover { border-color: var(--border-strong); }
+.mapa-js .local__meta { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.mapa-js .local:not(.is-aberto) .local__detalhes { display: none; }
+.mapa-js .local.is-aberto .local__abrir { display: block; min-height: 0; }
+.mapa-js .local.is-aberto .local__meta { white-space: normal; }
+.local__detalhes { position: relative; z-index: 2; } /* links e botões acima do botão que cobre o card */
 
 /* 9. Linha do tempo (atualizacao.html) */
 .timeline-ano { margin: var(--space-6) 0 var(--space-4); }
@@ -231,12 +260,7 @@ button.loc-tag[aria-pressed="true"] {
 /* Celular (até 499px): a planta ocupa quase a tela toda.
    Tudo sob .mapa-js (posta por js/mapa.js): sem JavaScript, a página fica como nas telas maiores. */
 @media (max-width: 499.98px) {
-  /* Título da página só para leitores de tela */
-  .mapa-js .page-hero {
-    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
-    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-  }
-  .mapa-js .explorador { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin-bottom: var(--space-5); }
+  .mapa-js .explorador { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0 auto var(--space-5); }
 
   /* Barra numa linha só: lupa + destaques que rolam para o lado */
   .mapa-js .explorador__barra { display: flex; align-items: center; gap: var(--space-2); padding-top: var(--space-2); }

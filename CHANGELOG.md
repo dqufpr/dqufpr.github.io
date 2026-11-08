@@ -1,5 +1,11 @@
 # Histórico de mudanças
 
+## 2.4.0 — 2026-11-08
+
+### Mudado
+- A abertura da página ("Planta do prédio") saiu em todos os tamanhos de tela; o título continua para leitores de tela e a planta começa logo abaixo do cabeçalho.
+- Cards de "Todos os locais" com a mesma altura, mostrando só número, nome e tipo; um clique no card abre os itens, as descrições e "Ver na planta". "Ver na lista" e endereços `#local-…` já abrem o card. Sem JavaScript, os detalhes ficam sempre à mostra.
+
 ## 2.3.0 — 2026-11-08
 
 ### Mudado
