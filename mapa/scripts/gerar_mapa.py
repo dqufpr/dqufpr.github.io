@@ -156,6 +156,7 @@ def gera_planta(locais, areas, base):
     return (
         f'<svg class="planta__svg" viewBox="{VIEWBOX}" preserveAspectRatio="xMidYMid meet" role="img" '
         f'aria-label="Planta do prédio do Departamento de Química com {len(locais)} locais numerados" data-planta-svg>\n'
+        + gera_fundo_andar(areas) +
         f"{corpo}\n"
         f'<g class="areas">\n' + "\n".join(poly) + "\n</g>\n"
         f'<g class="rotulos" aria-hidden="true">\n' + "\n".join(rot) + "\n</g>\n"
@@ -165,24 +166,38 @@ def gera_planta(locais, areas, base):
     )
 
 
-def gera_andares(areas):
-    """Nome de cada andar acima do seu bloco e uma linha tracejada entre eles."""
+def caixas_andares(areas):
+    """Retângulo (x0, y0, x1, y1) que contém as áreas de cada andar."""
     caixas = {}
     for a in areas:
         xs = [x for x, _ in a["pontos"]]
         ys = [y for _, y in a["pontos"]]
         c = caixas.setdefault(andar(a["local"]), [min(xs), min(ys), max(xs), max(ys)])
         c[:] = [min(c[0], min(xs)), min(c[1], min(ys)), max(c[2], max(xs)), max(c[3], max(ys))]
+    return caixas
+
+
+def gera_fundo_andar(areas):
+    """Fundo suave atrás do 1º andar (nome incluído), na largura da planta toda; vai por baixo do desenho."""
+    caixas = caixas_andares(areas)
+    if 1 not in caixas:
+        return ""
+    x0 = min(c[0] for c in caixas.values()) - 40
+    x1 = max(c[2] for c in caixas.values()) + 40
+    y0 = caixas[1][1] - 120
+    y1 = caixas[1][3] + 40
+    return (f'<g class="andares-fundo" aria-hidden="true"><rect class="andar__fundo" x="{x0:g}" y="{y0:g}" '
+            f'width="{x1 - x0:g}" height="{y1 - y0:g}" rx="40"/></g>\n')
+
+
+def gera_andares(areas):
+    """Nome de cada andar acima do seu bloco."""
+    caixas = caixas_andares(areas)
     partes = []
     for a in ANDARES:
         if a["id"] in caixas:
             x0, y0 = caixas[a["id"]][:2]
             partes.append(f'<text class="andar__nome" x="{x0:g}" y="{y0 - 22:g}">{html.escape(a["nome"].upper())}</text>')
-    if 0 in caixas and 1 in caixas:
-        y = round((caixas[0][3] + caixas[1][1]) / 2 - 40)
-        x0 = min(caixas[0][0], caixas[1][0])
-        x1 = max(caixas[0][2], caixas[1][2])
-        partes.append(f'<line class="andar__divisa" x1="{x0:g}" y1="{y}" x2="{x1:g}" y2="{y}"/>')
     return f'<g class="andares" aria-hidden="true">\n' + "\n".join(partes) + "\n</g>\n"
 
 

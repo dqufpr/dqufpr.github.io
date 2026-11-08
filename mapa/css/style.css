@@ -22,12 +22,14 @@
   --planta-corredor: #dee4ea;
   --planta-parede: #1d3c69;
   --planta-selecao: #0b1f3b;
+  --planta-andar: #eef3f8;
 }
 [data-theme="dark"] {
   --planta-fundo: #101823;
   --planta-corredor: #283445;
   --planta-parede: #7f9bc4;
   --planta-selecao: #ffffff;
+  --planta-andar: #18222f;
 }
 
 /* 2. Abertura de página */
@@ -106,12 +108,12 @@ button.loc-tag[aria-pressed="true"] {
   text-anchor: middle; dominant-baseline: central; pointer-events: none;
 }
 .rotulo--escuro { fill: var(--brand-navy-deep); }
-/* Andares: nome acima de cada bloco e linha tracejada entre eles (scripts/gerar_mapa.py) */
+/* Andares: nome acima de cada bloco e fundo suave atrás do 1º andar (scripts/gerar_mapa.py) */
 .andar__nome {
   fill: var(--planta-parede); font-family: var(--font-sans); font-size: 52px; font-weight: var(--fw-black);
   letter-spacing: 0.05em; pointer-events: none;
 }
-.andar__divisa { stroke: var(--planta-parede); stroke-width: 6; stroke-dasharray: 34 26; opacity: 0.45; pointer-events: none; }
+.andar__fundo { fill: var(--planta-andar); pointer-events: none; }
 /* Andar do local: etiqueta no painel e destaque na lista */
 .painel__andar {
   justify-self: start; display: inline-flex; align-items: center; gap: var(--space-1);
