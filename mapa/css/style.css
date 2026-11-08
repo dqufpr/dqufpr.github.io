@@ -178,10 +178,12 @@ button.loc-tag[aria-pressed="true"] {
 .painel__share { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .painel__share .btn { gap: var(--space-1); }
 .painel__share-ico { width: 1.15em; height: 1.15em; flex: none; }
-.painel__share-ico--whatsapp { color: #1a9e4b; }
-.painel__share-ico--instagram { color: #d6246e; }
-[data-theme="dark"] .painel__share-ico--whatsapp { color: #4cd47f; }
-[data-theme="dark"] .painel__share-ico--instagram { color: #f472a8; }
+.painel__share-ico--whatsapp, .painel__share-ico--instagram { width: 1.35em; height: 1.35em; }
+/* Cores das marcas, escurecidas para contraste 3:1 sobre o fundo claro */
+.painel__share-ico--whatsapp { color: #128c4a; }
+.painel__share-ico--instagram { color: #d62976; }
+[data-theme="dark"] .painel__share-ico--whatsapp { color: #25d366; }
+[data-theme="dark"] .painel__share-ico--instagram { color: #f56ba4; }
 .painel__share-status { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); overflow-wrap: anywhere; }
 .painel__share-status:empty { display: none; }
 /* Ampliado: a lista fica fora da tela cheia, então "Ver na lista" some */

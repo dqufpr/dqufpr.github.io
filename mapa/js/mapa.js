@@ -428,34 +428,36 @@
   }
 
   /* ---------- Compartilhar o local exibido ---------- */
+  // Página de compartilhamento do local (mapa/l/<id>.html, gerada por
+  // scripts/gerar_compartilhamento.js): tem a imagem de prévia da sala e leva a ?local=<id>
   function urlLocal(l) {
-    return window.location.origin + window.location.pathname + '?local=' + encodeURIComponent(l.id);
+    return window.location.origin + '/mapa/l/' + encodeURIComponent(l.id);
   }
   function textoLocal(l) { return 'Sala ' + l.id + ' · ' + titulo(l) + ' | Mapa Digital, Química UFPR'; }
-  // Ícones de traço (currentColor), no mesmo estilo do sprite do site
-  var ICONES = {
-    whatsapp: ['M3.5 20.5l1.2-4.1A8.6 8.6 0 1 1 8 19.5z',
-      'M9.2 8.3c.3-.4.8-.4 1 0l.7 1.5c.1.3 0 .6-.2.8l-.5.5a5.6 5.6 0 0 0 2.7 2.7l.5-.5c.2-.2.5-.3.8-.2l1.5.7c.4.2.4.7 0 1-.6.6-1.4.9-2.2.7a7.6 7.6 0 0 1-5-5c-.2-.8.1-1.6.7-2.2z'],
-    instagram: ['M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z',
-      'M12 8.2a3.8 3.8 0 1 0 0 7.6a3.8 3.8 0 1 0 0-7.6z', 'M17.3 6.7h.01'],
-    enviar: ['M12 3v12', 'M7.5 7.5L12 3l4.5 4.5', 'M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7']
-  };
+  // WhatsApp e Instagram vêm do sprite do site; "Enviar" é um ícone de traço
+  var ENVIAR = ['M12 3v12', 'M7.5 7.5L12 3l4.5 4.5', 'M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7'];
   function icone(nome) {
     var ns = 'http://www.w3.org/2000/svg', s = document.createElementNS(ns, 'svg');
     s.setAttribute('class', 'icon painel__share-ico painel__share-ico--' + nome);
-    s.setAttribute('viewBox', '0 0 24 24');
-    s.setAttribute('fill', 'none');
-    s.setAttribute('stroke', 'currentColor');
-    s.setAttribute('stroke-width', '2');
-    s.setAttribute('stroke-linecap', 'round');
-    s.setAttribute('stroke-linejoin', 'round');
     s.setAttribute('aria-hidden', 'true');
     s.setAttribute('focusable', 'false');
-    ICONES[nome].forEach(function (d) {
-      var p = document.createElementNS(ns, 'path');
-      p.setAttribute('d', d);
-      s.appendChild(p);
-    });
+    if (nome === 'enviar') {
+      s.setAttribute('viewBox', '0 0 24 24');
+      s.setAttribute('fill', 'none');
+      s.setAttribute('stroke', 'currentColor');
+      s.setAttribute('stroke-width', '2');
+      s.setAttribute('stroke-linecap', 'round');
+      s.setAttribute('stroke-linejoin', 'round');
+      ENVIAR.forEach(function (d) {
+        var p = document.createElementNS(ns, 'path');
+        p.setAttribute('d', d);
+        s.appendChild(p);
+      });
+    } else {
+      var u = document.createElementNS(ns, 'use');
+      u.setAttribute('href', '/img/icons/sprite.svg#' + nome);
+      s.appendChild(u);
+    }
     return s;
   }
   function blocoCompartilhar(l) {

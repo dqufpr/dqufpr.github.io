@@ -15,6 +15,11 @@ Saídas
     dados/locais.json         Locais agrupados por número físico (lido por js/mapa.js)
     index.html                Recebe o desenho da planta e a lista de locais entre os marcadores
                               <!-- DESTAQUES:… -->, <!-- PLANTA:… --> e <!-- LISTA:… -->
+
+Depois
+    As prévias de link (imagem e página de cada local, usadas pelo botão Compartilhar)
+    saem de scripts/gerar_compartilhamento.js. No main, o GitHub Actions as refaz sozinho
+    (.github/workflows/compartilhamento.yml); para gerar à mão, veja o cabeçalho do script.
 """
 import collections
 import html
