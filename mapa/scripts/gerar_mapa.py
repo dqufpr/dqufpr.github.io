@@ -49,7 +49,7 @@ OUTROS = ("outros", "Outros", "Outros")
 # Categorias com cor clara recebem número escuro (contraste AA)
 CLARAS = {"lab-ensino", "banheiro", "outros"}
 
-VIEWBOX = "480 600 6460 2760"
+VIEWBOX = "300 560 6810 2960"  # com folga para o fundo do 1º andar
 
 # Andares. Os locais de número 23 a 45 (com 45-A a 45-E) ficam no 1º andar; os demais, no
 # térreo. Na planta, o 1º andar é a faixa de baixo, desenhada à parte.
@@ -182,12 +182,13 @@ def gera_fundo_andar(areas):
     caixas = caixas_andares(areas)
     if 1 not in caixas:
         return ""
-    x0 = min(c[0] for c in caixas.values()) - 40
-    x1 = max(c[2] for c in caixas.values()) + 40
-    y0 = caixas[1][1] - 120
-    y1 = caixas[1][3] + 40
+    folga = 200  # unidades do desenho: ~40px na tela do computador com a planta inteira
+    x0 = min(c[0] for c in caixas.values()) - folga
+    x1 = max(c[2] for c in caixas.values()) + folga
+    y0 = caixas[1][1] - 62 - folga  # 62: altura do nome do andar, que fica dentro do fundo
+    y1 = caixas[1][3] + folga
     return (f'<g class="andares-fundo" aria-hidden="true"><rect class="andar__fundo" x="{x0:g}" y="{y0:g}" '
-            f'width="{x1 - x0:g}" height="{y1 - y0:g}" rx="40"/></g>\n')
+            f'width="{x1 - x0:g}" height="{y1 - y0:g}" rx="60"/></g>\n')
 
 
 def gera_andares(areas):

@@ -496,7 +496,7 @@ button.loc-tag[aria-pressed="true"] {
   /* Planta inteira, com as cores das salas */
   .explorador__corpo, .mapa-js .explorador__corpo { display: block; position: static; height: auto; min-height: 0; }
   .planta, .mapa-js .planta {
-    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6460 / 2760;
+    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6810 / 2960; /* VIEWBOX de scripts/gerar_mapa.py */
     border: 0.75pt solid #c7d0db; border-radius: 0; box-shadow: none; break-inside: avoid;
   }
   .planta, .local__num, .painel__num, .loc-tag::before {

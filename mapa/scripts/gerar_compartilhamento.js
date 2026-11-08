@@ -187,7 +187,7 @@ const CAPA = `<!DOCTYPE html>
     <p class="sub"><b>${dados.locais.length} locais</b> no térreo e no 1º andar: salas de aula, professores, laboratórios e serviços.</p>
     <span class="url">dqufpr.github.io/mapa</span>
   </div>
-  <div class="planta-box">${planta.replace(/viewBox="[^"]*"/, 'viewBox="470 560 6480 2840"')}</div>
+  <div class="planta-box">${planta}</div>
   <div class="faixa">${CORES.map((c) => '<span class="loc--' + c + '"></span>').join('')}</div>
 </div></body></html>`;
 
