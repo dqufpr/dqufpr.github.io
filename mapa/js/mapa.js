@@ -8,6 +8,7 @@
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
    - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
+   - compartilhar o local exibido (WhatsApp, Instagram e folha de compartilhar do sistema);
    - lista de locais recolhida (acordeão) e "Mostrar todos os locais" no painel;
    - tablet e desktop (500px+): painel flutuando à direita da planta; enquadramentos
      descontam a faixa que ele cobre;
@@ -423,6 +424,103 @@
     link.setAttribute('data-ver-lista', l.id);
     acoes.appendChild(link);
     painel.appendChild(acoes);
+    painel.appendChild(blocoCompartilhar(l));
+  }
+
+  /* ---------- Compartilhar o local exibido ---------- */
+  function urlLocal(l) {
+    return window.location.origin + window.location.pathname + '?local=' + encodeURIComponent(l.id);
+  }
+  function textoLocal(l) { return 'Sala ' + l.id + ' · ' + titulo(l) + ' | Mapa Digital, Química UFPR'; }
+  // Ícones de traço (currentColor), no mesmo estilo do sprite do site
+  var ICONES = {
+    whatsapp: ['M3.5 20.5l1.2-4.1A8.6 8.6 0 1 1 8 19.5z',
+      'M9.2 8.3c.3-.4.8-.4 1 0l.7 1.5c.1.3 0 .6-.2.8l-.5.5a5.6 5.6 0 0 0 2.7 2.7l.5-.5c.2-.2.5-.3.8-.2l1.5.7c.4.2.4.7 0 1-.6.6-1.4.9-2.2.7a7.6 7.6 0 0 1-5-5c-.2-.8.1-1.6.7-2.2z'],
+    instagram: ['M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z',
+      'M12 8.2a3.8 3.8 0 1 0 0 7.6a3.8 3.8 0 1 0 0-7.6z', 'M17.3 6.7h.01'],
+    enviar: ['M12 3v12', 'M7.5 7.5L12 3l4.5 4.5', 'M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7']
+  };
+  function icone(nome) {
+    var ns = 'http://www.w3.org/2000/svg', s = document.createElementNS(ns, 'svg');
+    s.setAttribute('class', 'icon painel__share-ico painel__share-ico--' + nome);
+    s.setAttribute('viewBox', '0 0 24 24');
+    s.setAttribute('fill', 'none');
+    s.setAttribute('stroke', 'currentColor');
+    s.setAttribute('stroke-width', '2');
+    s.setAttribute('stroke-linecap', 'round');
+    s.setAttribute('stroke-linejoin', 'round');
+    s.setAttribute('aria-hidden', 'true');
+    s.setAttribute('focusable', 'false');
+    ICONES[nome].forEach(function (d) {
+      var p = document.createElementNS(ns, 'path');
+      p.setAttribute('d', d);
+      s.appendChild(p);
+    });
+    return s;
+  }
+  function blocoCompartilhar(l) {
+    var box = el('div', 'painel__compartilhar');
+    box.appendChild(el('p', 'painel__eyebrow', 'Compartilhar este local'));
+    var row = el('div', 'painel__share');
+    var wa = el('a', 'btn btn--secondary btn--sm');
+    wa.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(textoLocal(l) + '\n' + urlLocal(l));
+    wa.target = '_blank';
+    wa.rel = 'noopener';
+    wa.appendChild(icone('whatsapp'));
+    wa.appendChild(document.createTextNode('WhatsApp'));
+    row.appendChild(wa);
+    [['instagram', 'Instagram'], ['enviar', 'Enviar']].forEach(function (o) {
+      var b = el('button', 'btn btn--secondary btn--sm');
+      b.type = 'button';
+      b.setAttribute('data-compartilhar', o[0]);
+      b.appendChild(icone(o[0]));
+      b.appendChild(document.createTextNode(o[1]));
+      row.appendChild(b);
+    });
+    box.appendChild(row);
+    var st = el('p', 'painel__share-status');
+    st.setAttribute('role', 'status');
+    st.setAttribute('data-share-status', '');
+    box.appendChild(st);
+    return box;
+  }
+  function avisaShare(msg) {
+    var st = painel.querySelector('[data-share-status]');
+    if (st) st.textContent = msg;
+  }
+  function copia(texto) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(texto);
+    return new Promise(function (ok, falha) {
+      var t = document.createElement('textarea');
+      t.value = texto;
+      t.setAttribute('readonly', '');
+      t.style.position = 'fixed';
+      t.style.opacity = '0';
+      root.appendChild(t);
+      t.select();
+      try { if (document.execCommand('copy')) ok(); else falha(); } catch (e) { falha(e); }
+      root.removeChild(t);
+    });
+  }
+  // Instagram não aceita link de compartilhamento: no celular abre a folha de
+  // compartilhar do sistema (onde ele aparece) e, em todo caso, copia o link.
+  // "Enviar" abre a mesma folha; sem ela (computador), copia o link.
+  function compartilha(tipo) {
+    var l = porId[estado.local];
+    if (!l) return;
+    var url = urlLocal(l), dadosShare = { title: 'Mapa Digital · Sala ' + l.id, text: textoLocal(l), url: url };
+    var podeShare = !!navigator.share && (!navigator.canShare || navigator.canShare(dadosShare));
+    if (tipo === 'instagram') {
+      copia(url).then(function () {
+        avisaShare(podeShare ? 'Link copiado. Escolha o Instagram na lista.' : 'Link copiado. Cole no Instagram (Direct ou Stories).');
+      }, function () { avisaShare(url); });
+      if (podeShare) navigator.share(dadosShare).catch(function () {});
+      else window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener');
+    } else if (podeShare) {
+      navigator.share(dadosShare).catch(function () {});
+    } else {
+      copia(url).then(function () { avisaShare('Link copiado.'); }, function () { avisaShare(url); });
+    }
   }
 
   function render() {
@@ -449,9 +547,11 @@
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos]');
+    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar]');
     if (!t) return;
-    if (t.hasAttribute('data-todos')) {
+    if (t.hasAttribute('data-compartilhar')) {
+      compartilha(t.getAttribute('data-compartilhar'));
+    } else if (t.hasAttribute('data-todos')) {
       estado.todos = !estado.todos;
       render();
       var b = painel.querySelector('[data-todos]');

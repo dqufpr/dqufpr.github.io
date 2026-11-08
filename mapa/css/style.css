@@ -72,6 +72,8 @@ button.loc-tag[aria-pressed="true"] {
   grid-template-rows: auto minmax(0, 1fr);
 }
 .explorador.is-expanded { position: fixed; inset: 0; z-index: var(--z-skip); }
+/* Vence as margens dos layouts de celular, tablet e desktop: o quadro cobre a tela toda */
+.mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { margin: 0; }
 .explorador:fullscreen .aviso-atualizacao, .explorador.is-expanded .aviso-atualizacao { display: none; }
 .explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { min-height: 0; }
 .explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 70svh; }
@@ -171,6 +173,19 @@ button.loc-tag[aria-pressed="true"] {
 .painel__itens li { padding-block: var(--space-2); border-bottom: 1px solid var(--border); }
 .painel__itens li:last-child { border-bottom: 0; }
 .painel__acoes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* Compartilhar o local exibido */
+.painel__compartilhar { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--border); }
+.painel__share { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.painel__share .btn { gap: var(--space-1); }
+.painel__share-ico { width: 1.15em; height: 1.15em; flex: none; }
+.painel__share-ico--whatsapp { color: #1a9e4b; }
+.painel__share-ico--instagram { color: #d6246e; }
+[data-theme="dark"] .painel__share-ico--whatsapp { color: #4cd47f; }
+[data-theme="dark"] .painel__share-ico--instagram { color: #f472a8; }
+.painel__share-status { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.painel__share-status:empty { display: none; }
+/* Ampliado: a lista fica fora da tela cheia, então "Ver na lista" some */
+.explorador:fullscreen [data-ver-lista], .explorador.is-expanded [data-ver-lista] { display: none; }
 
 /* 8. Lista de locais (gerada por scripts/gerar_mapa.py) */
 .locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
@@ -343,6 +358,8 @@ button.loc-tag[aria-pressed="true"] {
    Barra numa linha (busca à esquerda, destaques à direita), planta com a largura e a
    altura da tela e o painel flutuando sobre o canto direito da planta. */
 @media (min-width: 500px) {
+  /* Cabeçalho com a mesma largura do explorador (de borda a borda, com o mesmo recuo) */
+  .mapa-js .site-header .container { max-width: none; }
   .mapa-js .explorador { --painel-w: clamp(260px, 30vw, 360px); grid-template-columns: minmax(0, 1fr); max-width: none; gap: var(--space-3); margin: var(--space-3) 0 var(--space-6); }
 
   .mapa-js .explorador__barra { display: flex; align-items: center; gap: var(--space-4); }
