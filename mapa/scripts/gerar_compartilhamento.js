@@ -15,6 +15,9 @@
                                       o resto da planta desfocado; cartão com número e nome
      mapa/l/<id>.html                 página que o botão Compartilhar envia. Tem as meta tags
                                       Open Graph com a imagem acima e leva a /mapa/?local=<id>
+     mapa/img/capa.jpg                capa geral do Mapa Digital (1200×630): chamada à esquerda,
+                                      planta inteira à direita; a og:image de mapa/index.html,
+                                      sobre.html, legal.html e atualizacao.html passa a apontar para ela
    Arquivos de locais que saíram da planilha são apagados.
    Também roda sozinho pelo GitHub Actions (.github/workflows/compartilhamento.yml). */
 'use strict';
@@ -156,6 +159,58 @@ const CARTAO = `<!DOCTYPE html>
   };
 </script></body></html>`;
 
+// Capa geral: a mesma planta e as mesmas cores do site, com a chamada e o total de locais
+const CORES = ['sala-aula', 'sala-prof', 'lab-ensino', 'lab-pesquisa', 'servico', 'banheiro'];
+const CAPA = `<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light"><head><meta charset="utf-8">
+<link rel="stylesheet" href="/css/global.css"><link rel="stylesheet" href="/mapa/css/style.css">
+<style>
+  html, body { margin: 0; width: ${W}px; height: ${H}px; overflow: hidden; }
+  .q { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; background: linear-gradient(135deg, #f4f7fa 0%, #e6edf5 100%); }
+  .planta-box { position: absolute; left: 440px; top: 52px; width: 740px; height: 500px; overflow: hidden;
+    background: #fff; border-radius: 22px; box-shadow: 0 18px 50px rgba(11, 31, 59, 0.18); }
+  .planta-box svg { width: 100%; height: 100%; }
+  .c { position: absolute; left: 52px; top: 52px; width: 360px; height: 500px; display: flex; flex-direction: column; }
+  .marca { display: flex; align-items: center; gap: 14px; color: var(--brand-navy); font-weight: 800; font-size: 26px; line-height: 1.1; }
+  .marca img { width: 58px; height: 58px; }
+  .marca small { display: block; margin-top: 4px; color: var(--text-muted); font-size: 15px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  h1 { margin: auto 0 0; color: var(--brand-navy); font-size: 50px; line-height: 1.04; font-weight: 900; letter-spacing: -.01em; }
+  .sub { margin: 18px 0 0; color: var(--text-muted); font-size: 21px; line-height: 1.35; }
+  .sub b { color: var(--text); }
+  .url { margin-top: auto; align-self: flex-start; padding: 10px 18px; border-radius: 999px; background: var(--brand-navy); color: #fff; font-size: 19px; font-weight: 700; }
+  .faixa { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; display: flex; }
+  .faixa span { flex: 1; background: var(--loc); -webkit-print-color-adjust: exact; }
+</style></head><body><div class="q">
+  <div class="c">
+    <div class="marca"><img src="/mapa/img/logo.svg" alt=""><span>Mapa Digital<small>Química UFPR</small></span></div>
+    <h1>Encontre qualquer sala do DQ</h1>
+    <p class="sub"><b>${dados.locais.length} locais</b> no térreo e no 1º andar: salas de aula, professores, laboratórios e serviços.</p>
+    <span class="url">dqufpr.github.io/mapa</span>
+  </div>
+  <div class="planta-box">${planta.replace(/viewBox="[^"]*"/, 'viewBox="470 560 6480 2840"')}</div>
+  <div class="faixa">${CORES.map((c) => '<span class="loc--' + c + '"></span>').join('')}</div>
+</div></body></html>`;
+
+// Troca o bloco og:image (e width/height/type/alt) das páginas do Mapa pela capa
+const PAGINAS_CAPA = ['index.html', 'sobre.html', 'legal.html', 'atualizacao.html'];
+function aplicaCapa(url) {
+  const bloco = [
+    `<meta property="og:image" content="${url}">`,
+    '<meta property="og:image:type" content="image/jpeg">',
+    `<meta property="og:image:width" content="${W}">`,
+    `<meta property="og:image:height" content="${H}">`,
+    '<meta property="og:image:alt" content="Mapa Digital: planta do Departamento de Química da UFPR, com as salas coloridas por tipo">'
+  ];
+  PAGINAS_CAPA.forEach((f) => {
+    const arq = path.join(MAPA, f);
+    if (!fs.existsSync(arq)) return;
+    const t = fs.readFileSync(arq, 'utf8');
+    const novo = t.replace(/( *)<meta property="og:image" content="[^"]*">\n(?: *<meta property="og:image:[a-z]+" content="[^"]*">\n)*/,
+      (m, ind) => bloco.map((l) => ind + l).join('\n') + '\n');
+    if (novo !== t) fs.writeFileSync(arq, novo);
+  });
+}
+
 function pagina(l, img) {
   const t = 'Sala ' + l.id + ' (' + andarDe(l) + ') · ' + titulo(l);
   const d = descricao(l);
@@ -221,14 +276,23 @@ function pagina(l, img) {
     feitos.add(l.id);
     n++;
   }
+  // Capa geral
+  fs.writeFileSync(path.join(MAPA, 'scripts', '.capa.html'), CAPA);
+  await page.goto(`http://127.0.0.1:${porta}/mapa/scripts/.capa.html`);
+  await page.evaluate(() => document.fonts.ready);
+  const capa = await page.screenshot({ type: 'jpeg', quality: 88 });
+  fs.writeFileSync(path.join(MAPA, 'img', 'capa.jpg'), capa);
+  aplicaCapa(SITE + '/mapa/img/capa.jpg?v=' + crypto.createHash('sha1').update(capa).digest('hex').slice(0, 8));
+
   await browser.close();
   srv.close();
   fs.unlinkSync(path.join(MAPA, 'scripts', '.cartao.html'));
+  fs.unlinkSync(path.join(MAPA, 'scripts', '.capa.html'));
 
   // Remove o que sobrou de locais que não existem mais
   for (const [dir, ext] of [[DIR_IMG, '.jpg'], [DIR_PAG, '.html']]) {
     fs.readdirSync(dir).filter((f) => f.endsWith(ext) && !feitos.has(f.slice(0, -ext.length)))
       .forEach((f) => { fs.unlinkSync(path.join(dir, f)); console.log('Removido: ' + path.join(dir, f)); });
   }
-  console.log(n + ' prévias geradas em mapa/img/compartilhar/ e mapa/l/');
+  console.log(n + ' prévias geradas em mapa/img/compartilhar/ e mapa/l/; capa em mapa/img/capa.jpg');
 })().catch((e) => { console.error(e); process.exit(1); });

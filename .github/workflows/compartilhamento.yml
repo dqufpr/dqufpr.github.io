@@ -1,4 +1,4 @@
-# Prévias de link do Mapa Digital: refaz mapa/img/compartilhar/*.jpg e mapa/l/*.html
+# Prévias de link do Mapa Digital: refaz mapa/img/compartilhar/*.jpg, mapa/l/*.html e a capa (mapa/img/capa.jpg)
 # sempre que os locais, a planta ou o visual mudarem no main, e publica o resultado.
 name: Prévias de compartilhamento do Mapa
 
@@ -36,7 +36,7 @@ jobs:
         run: node mapa/scripts/gerar_compartilhamento.js
       - name: Publicar se algo mudou
         run: |
-          git add -A mapa/img/compartilhar mapa/l
+          git add -A mapa/img/compartilhar mapa/l mapa/img/capa.jpg mapa/index.html mapa/sobre.html mapa/legal.html mapa/atualizacao.html
           if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
