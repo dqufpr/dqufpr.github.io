@@ -1,0 +1,27 @@
+# Configuração do GitHub Pages (Jekyll) do Mapa Digital, publicado em https://dqufpr.github.io/mapa/.
+# O site é HTML estático: o Jekyll só copia os arquivos (não há layouts nem plugins).
+# Estas informações descrevem o site; títulos e descrições de cada página ficam no <head> do HTML.
+
+title: Mapa Digital · DQ Digital
+description: Planta interativa do prédio do Departamento de Química da UFPR, com salas de aula, salas de professores, laboratórios e serviços.
+url: https://dqufpr.github.io
+baseurl: /mapa
+lang: pt-BR
+author: Representação Discente 2022-2023 · PPGQ/UFPR
+
+# Indexação: o site pode ser indexado. As páginas estão em sitemap.xml.
+# Um robots.txt só vale na raiz do domínio: o do portal (dqufpr.github.io/robots.txt)
+# já aponta para /mapa/sitemap.xml. As páginas de redirecionamento levam "noindex".
+
+# Não publicados: documentação e arquivos-fonte dos dados
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - PENDENCIAS.md
+  - docs/
+  - .editorconfig
+  - .claude/
+  - scripts/
+  - dados/locais.xlsx
+  - dados/planta-areas.json
+  - dados/planta-base.svg

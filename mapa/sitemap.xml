@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Páginas do Mapa Digital. Listado em https://dqufpr.github.io/robots.txt.
+     Os endereços antigos (redirecionamentos) ficam de fora. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dqufpr.github.io/mapa/completo</loc><lastmod>2026-10-31</lastmod><priority>1.0</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/sobre</loc><lastmod>2026-10-31</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/atualizacao</loc><lastmod>2026-10-31</lastmod><priority>0.4</priority></url>
+  <url><loc>https://dqufpr.github.io/mapa/legal</loc><lastmod>2026-10-31</lastmod><priority>0.3</priority></url>
+</urlset>

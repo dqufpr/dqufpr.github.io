@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Sobre o Mapa Digital · DQ Digital</title>
+  <meta name="description" content="Saiba o que é o Mapa Digital do Departamento de Química da UFPR, como usar a planta interativa do prédio e quem desenvolveu o projeto.">
+  <link rel="canonical" href="https://dqufpr.github.io/mapa/sobre">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DQ Digital">
+  <meta property="og:title" content="Sobre o Mapa Digital · DQ Digital">
+  <meta property="og:description" content="Saiba o que é o Mapa Digital do Departamento de Química da UFPR, como usar a planta interativa do prédio e quem desenvolveu o projeto.">
+  <meta property="og:url" content="https://dqufpr.github.io/mapa/sobre">
+  <meta property="og:image" content="https://dqufpr.github.io/mapa/img/social-media.png">
+  <meta property="og:image:width" content="760">
+  <meta property="og:image:height" content="466">
+  <meta property="og:locale" content="pt_BR">
+  <meta name="theme-color" content="#1d3c69" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f2340" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/mapa/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/roboto-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/mapa/css/style.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+<!-- CABEÇALHO: igual em todas as páginas do DQ Digital (modelo em dqufpr.github.io/docs/GUIA-DE-ESTILOS.md) -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/mapa/completo" aria-label="Mapa Digital, planta do prédio">
+      <img class="brand__logo" src="/mapa/img/logo.svg" alt="" width="40" height="40">
+      <span class="brand__texto" aria-hidden="true"><span class="brand__nome">Mapa Digital</span><span class="brand__sub">DQ Digital · Química UFPR</span></span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Navegação principal">
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/mapa/">Mapa Digital</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+        <li><a href="/fale-conosco">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <details class="theme-menu">
+        <summary class="icon-btn" aria-label="Tema de cores" title="Tema de cores">
+          <svg class="icon tm-light" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>
+          <svg class="icon tm-dark" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>
+          <svg class="icon tm-system" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>
+        </summary>
+        <ul class="theme-menu__list">
+          <li><button type="button" data-theme-set="light" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#sun"></use></svg>Claro</button></li>
+          <li><button type="button" data-theme-set="dark" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#moon"></use></svg>Escuro</button></li>
+          <li><button type="button" data-theme-set="system" aria-pressed="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#contrast"></use></svg>Seguir o sistema</button></li>
+        </ul>
+      </details>
+      <button type="button" class="icon-btn menu-toggle" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menu">
+        <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#menu"></use></svg>
+        <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="page-hero container container--narrow">
+    <p class="eyebrow">Mapa Digital</p>
+    <h1>Sobre o Mapa Digital</h1>
+    <p class="lead">Uma forma rápida de encontrar locais, serviços e pessoas no prédio do Departamento de Química.</p>
+  </section>
+
+  <div class="container container--narrow">
+    <div class="prose">
+      <p>O Mapa Digital do Departamento de Química é uma plataforma para estudantes, professores e toda a comunidade acadêmica. Ele ajuda a localizar espaços físicos, como salas de aula, laboratórios e auditórios, além de serviços e pessoas no prédio do Departamento de Química da UFPR.</p>
+      <p>A interface foi pensada para ser simples, rápida e funcionar bem no celular, no tablet e no computador.</p>
+
+      <h2>Como usar</h2>
+      <ul class="list-check">
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Abra a <a href="/mapa/completo">planta do prédio</a></strong> e toque numa sala para ver o que funciona nela. O número desenhado é o mesmo da porta.</span></li>
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Destaque uma categoria</strong>, como salas de aula ou laboratórios, para ver todos os locais daquele tipo de uma vez.</span></li>
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Use a busca</strong> para encontrar uma pessoa, um laboratório, uma sigla ou o número da sala.</span></li>
+        <li><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#check"></use></svg><span><strong>Compartilhe</strong> o endereço da página depois de escolher uma sala: ele abre a planta já com a sala marcada.</span></li>
+      </ul>
+
+      <h2>Quem faz</h2>
+      <p>O Mapa Digital faz parte do <a href="/">DQ Digital</a>, uma iniciativa da Representação Discente do <a href="http://www.prppg.ufpr.br/site/ppgquimica/pb/" target="_blank" rel="noopener noreferrer">Programa de Pós-Graduação em Química (PPGQ-UFPR)<span class="visually-hidden"> (abre em nova aba)</span></a>, gestão 2022-2023: Renata Pinheiro Sanches, Jaqueline Volpe e Isabela Jasper.</p>
+      <p>Lançamento oficial da versão 1 (beta) em <strong>25 de maio de 2023</strong>. Veja o <a href="/mapa/atualizacao">histórico de atualizações</a>.</p>
+    </div>
+
+    <div class="alert">
+      <svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg>
+      <p><strong>Encontrou um erro?</strong> Salas mudam de uso com frequência. Se uma informação estiver desatualizada, <a href="/fale-conosco">avise a gente</a>.</p>
+    </div>
+  </div>
+</main>
+
+<!-- RODAPÉ: igual em todas as páginas do Mapa Digital -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <p class="brand brand--rodape">
+        <img class="brand__logo" src="/mapa/img/logo.svg" alt="" width="40" height="40">
+        <span class="brand__texto"><span class="brand__nome">Mapa Digital</span><span class="brand__sub">DQ Digital · Química UFPR</span></span>
+      </p>
+      <p>Departamento de Química<br>Universidade Federal do Paraná</p>
+      <p><a href="https://goo.gl/maps/Rmnz7SemZtP3ws6t9" target="_blank" rel="noopener noreferrer">Centro Politécnico, Jardim das Américas, 100<br>CEP 81531-980 · Curitiba, PR<span class="visually-hidden"> (abre o Google Maps em nova aba)</span></a></p>
+    </div>
+    <div>
+      <h2>Mapa Digital</h2>
+      <ul>
+        <li><a href="/mapa/completo">Mapa completo</a></li>
+        <li><a href="/mapa/sobre">Sobre o mapa</a></li>
+        <li><a href="/mapa/atualizacao">Atualizações</a></li>
+        <li><a href="/mapa/legal">Aviso legal</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>DQ Digital</h2>
+      <ul>
+        <li><a href="/">Página inicial</a></li>
+        <li><a href="/fale-conosco">Fale conosco</a></li>
+        <li><a href="http://www.quimica.ufpr.br/paginas/departamento/" target="_blank" rel="noopener noreferrer">Site do DQ<span class="visually-hidden"> (abre em nova aba)</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p class="mb-0">© <span data-year>2026</span> · Todos os direitos reservados.</p>
+    <p class="mb-0">Representação Discente · PPGQ · UFPR</p>
+  </div>
+  <div class="container footer-aviso">
+    <p class="mb-0">Este site é mantido por estudantes e não possui vínculo institucional com a Universidade Federal do Paraná (UFPR). Não é um canal oficial da universidade nem do Departamento de Química, e seu conteúdo não expressa posição oficial da instituição.</p>
+  </div>
+</footer>
+</body>
+</html>
