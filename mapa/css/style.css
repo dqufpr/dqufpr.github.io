@@ -426,10 +426,106 @@ button.loc-tag[aria-pressed="true"] {
   .locais__lista { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* 10. Impressão: planta e lista, sem controles */
+/* 10. Impressão
+   Duas formas, escolhidas por js/mapa.js antes de imprimir (beforeprint):
+   - página inteira: planta inteira numa folha deitada + todos os locais abertos, em duas colunas;
+   - um local escolhido (html.imprime-local): uma folha deitada com a planta (a sala em foco,
+     o resto esmaecido) e os dados da sala embaixo, com o link para abri-la no celular.
+   O tema escuro é desligado durante a impressão; as cores das salas são impressas. */
+.impressao-cabeca, .painel__url { display: none; }
+
 @media print {
-  .explorador__barra, .planta__controles, .planta__ampliar, .planta__dica, .painel, .local__ver { display: none !important; }
-  .explorador__corpo, .mapa-js .explorador__corpo { height: auto; display: block; }
-  .planta, .mapa-js .planta { height: auto; margin: 0; aspect-ratio: 6460 / 2760; border: 0; box-shadow: none; }
-  .local { break-inside: avoid; }
+  @page { size: A4; margin: 12mm; }
+  @page paisagem { size: A4 landscape; margin: 10mm 12mm; }
+
+  html, body { background: #fff !important; }
+  body { font-size: 10pt; }
+  main { padding: 0; }
+
+  /* Fora da folha: controles, busca, avisos e o que só serve na tela */
+  .planta__controles, .planta__ampliar, .planta__dica, .explorador__lupa, .explorador__busca,
+  .explorador__destaques .label, [data-limpar], .aviso-atualizacao, .local__ver, .lista__alternar,
+  .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes,
+  .painel__compartilhar { display: none !important; }
+
+  /* Explorador: bloco simples, numa folha deitada (Chrome, Edge e Firefox; nos outros, em pé) */
+  .explorador, .mapa-js .explorador {
+    page: paisagem; display: block; position: static; max-width: none; margin: 0; padding: 0;
+    background: none; overflow: visible;
+  }
+  .impressao-cabeca {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 4mm; padding-bottom: 3mm;
+    border-bottom: 1.5pt solid var(--brand-navy);
+  }
+  .impressao-cabeca img { width: 10mm; height: 10mm; }
+  .impressao-cabeca p { margin: 0; }
+  .impressao-cabeca__titulo { color: var(--brand-navy); font-size: 13pt; font-weight: var(--fw-bold); }
+  .impressao-cabeca__sub { color: var(--text-muted); font-size: 8.5pt; }
+
+  /* Os botões de destaque viram a legenda de cores */
+  .explorador__barra, .mapa-js .explorador__barra { display: block; padding: 0; margin: 0 0 3mm; }
+  .explorador__destaques, .mapa-js .explorador__destaques { display: block; margin: 0; }
+  .explorador__destaques .quick-links, .mapa-js .explorador__destaques .quick-links {
+    flex-wrap: wrap; gap: 2mm 5mm; overflow: visible; padding: 0; -webkit-mask-image: none; mask-image: none;
+  }
+  .explorador__destaques .loc-tag, .mapa-js .explorador__destaques button {
+    min-height: 0; padding: 0; border: 0; background: none !important; box-shadow: none !important;
+    font-size: 8.5pt; font-weight: var(--fw-medium);
+  }
+  .loc-tag::before { width: 9pt; height: 9pt; border-radius: 2pt; }
+
+  /* Planta inteira, com as cores das salas */
+  .explorador__corpo, .mapa-js .explorador__corpo { display: block; position: static; height: auto; min-height: 0; }
+  .planta, .mapa-js .planta {
+    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6460 / 2760;
+    border: 0.75pt solid #c7d0db; border-radius: 0; box-shadow: none; break-inside: avoid;
+  }
+  .planta, .local__num, .painel__num, .loc-tag::before {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .planta__svg .area { transition: none; }
+  /* Local em foco: o resto da planta esmaecido */
+  .planta__svg.imprime-foco .area:not(.is-foco) { opacity: 0.3; }
+  .planta__svg.imprime-foco .rotulo:not(.is-foco) { opacity: 0.4; }
+
+  /* Painel: só na impressão de um local, embaixo da planta */
+  .painel, .mapa-js .painel { display: none !important; }
+  .imprime-local .painel, .imprime-local .mapa-js .painel, .imprime-local.mapa-js .painel {
+    display: block !important; position: static; width: auto; max-height: none; overflow: visible;
+    margin-top: 4mm; border: 0; border-radius: 0; box-shadow: none; animation: none; padding: 0;
+  }
+  .imprime-local .painel__corpo {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 2mm 8mm; padding: 0; align-items: start;
+  }
+  .imprime-local .painel__cabeca { margin: 0; grid-column: 1; }
+  .imprime-local .painel__titulo { font-size: 15pt; }
+  .imprime-local .painel__itens, .imprime-local .painel__texto { grid-column: 2; grid-row: 1 / span 2; }
+  .imprime-local .painel__itens li { padding-block: 1.5mm; break-inside: avoid; }
+  .imprime-local .painel__url { display: block; grid-column: 1; margin: 0; color: var(--text-muted); font-size: 9pt; }
+  .imprime-local .painel__url strong { color: var(--text); }
+  /* Com um local, a folha deitada já tem tudo: a planta encolhe para caber com os dados */
+  .imprime-local .planta, .imprime-local.mapa-js .planta { width: auto; height: 112mm; margin-inline: auto; }
+  .imprime-local main > :not(.explorador) { display: none !important; }
+
+  /* Página inteira: lista de todos os locais, aberta, em duas colunas (folhas em pé) */
+  /* Largura da folha em pé (A4 menos as margens): o Chrome monta tudo na largura da primeira folha, deitada */
+  .section--alt { width: 186mm; max-width: 100%; background: none; padding: 0; break-before: page; }
+  .section--alt .container { max-width: none; padding: 0; }
+  .section-head { margin: 0 0 4mm; }
+  .section-head h2 { font-size: 15pt; color: var(--brand-navy); }
+  .locais__lista, .mapa-js .locais__lista, .mapa-js .locais__lista:not(.is-aberta) {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; gap: 2.5mm; margin: 0;
+  }
+  .mapa-js .locais__lista:not(.is-aberta) ~ * { display: revert; }
+  .local, .mapa-js .local { height: auto !important; box-shadow: none !important; break-inside: avoid; border-color: #c7d0db; }
+  .local[hidden] { display: none !important; }
+  .local__num { width: 13mm; padding: 2.5mm 1mm 0; font-size: 11pt; }
+  .local__body { padding: 2.5mm 3mm; gap: 0.5mm; }
+  .local__nome { font-size: 10pt; }
+  .mapa-js .local__abrir { display: block; min-height: 0; padding: 0; -webkit-line-clamp: none; overflow: visible; }
+  .local__abrir::before { display: none; }
+  .mapa-js .local__meta { white-space: normal; overflow: visible; }
+  .mapa-js .local:not(.is-aberto) .local__detalhes, .local__detalhes { display: grid; animation: none; }
+  .local__itens, .local__meta { font-size: 8.5pt; }
+  a[href^="http"]::after { content: none; }
 }

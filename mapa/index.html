@@ -90,6 +90,14 @@
   <h1 class="visually-hidden">Planta do prédio</h1>
 
   <section class="explorador" aria-label="Planta interativa" data-explorador>
+    <!-- Só na impressão (data e link preenchidos por js/mapa.js) -->
+    <div class="impressao-cabeca" aria-hidden="true">
+      <img src="/mapa/img/logo.svg" alt="" width="40" height="40">
+      <div>
+        <p class="impressao-cabeca__titulo">Mapa Digital · Planta do Departamento de Química da UFPR</p>
+        <p class="impressao-cabeca__sub" data-impressao-sub>dqufpr.github.io/mapa</p>
+      </div>
+    </div>
     <div class="explorador__barra">
       <!-- Só no celular: a busca fica recolhida neste botão -->
       <button type="button" class="planta__btn explorador__lupa" aria-expanded="false" aria-controls="busca-campo" aria-label="Buscar" title="Buscar" data-busca-abrir hidden>

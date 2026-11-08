@@ -415,6 +415,9 @@
     }
 
     var acoes = el('div', 'painel__acoes');
+    var imprime = el('button', 'btn btn--ghost btn--sm', 'Imprimir');
+    imprime.type = 'button';
+    imprime.setAttribute('data-imprimir', '');
     var centra = el('button', 'btn btn--secondary btn--sm', 'Centralizar na planta');
     centra.type = 'button';
     centra.setAttribute('data-centralizar', '');
@@ -423,8 +426,14 @@
     link.href = '#local-' + l.id;
     link.setAttribute('data-ver-lista', l.id);
     acoes.appendChild(link);
+    acoes.appendChild(imprime);
     painel.appendChild(acoes);
     painel.appendChild(blocoCompartilhar(l));
+    // Só na impressão: o endereço para abrir a sala no celular
+    var url = el('p', 'painel__url');
+    url.appendChild(el('strong', '', 'Ver na planta: '));
+    url.appendChild(document.createTextNode(urlLocal(l).replace(/^https?:\/\//, '')));
+    painel.appendChild(url);
   }
 
   /* ---------- Compartilhar o local exibido ---------- */
@@ -549,9 +558,11 @@
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar]');
+    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir]');
     if (!t) return;
-    if (t.hasAttribute('data-compartilhar')) {
+    if (t.hasAttribute('data-imprimir')) {
+      window.print();
+    } else if (t.hasAttribute('data-compartilhar')) {
       compartilha(t.getAttribute('data-compartilhar'));
     } else if (t.hasAttribute('data-todos')) {
       estado.todos = !estado.todos;
@@ -752,6 +763,47 @@
   if (window.ResizeObserver) new ResizeObserver(vistaInicial).observe(svg);
   svg.addEventListener('pointerdown', function () { mexeu = true; });
   root.querySelector('[data-planta-controles]').addEventListener('click', function () { mexeu = true; });
+
+  /* ---------- Impressão ---------- */
+  // Antes de imprimir: tema claro, planta inteira e, com um local escolhido, a sala em foco
+  // (classe imprime-local em <html>; o layout está em css/style.css, seção 10). Depois, volta tudo.
+  var antesDeImprimir = null;
+  function preparaImpressao() {
+    if (antesDeImprimir) return;
+    var html = document.documentElement;
+    antesDeImprimir = { vb: vb, tema: html.getAttribute('data-theme') };
+    paraAnimacao();
+    html.removeAttribute('data-theme');
+    aplica(INTEIRA);
+    var l = estado.local && porId[estado.local];
+    html.classList.toggle('imprime-local', !!l);
+    svg.classList.toggle('imprime-foco', !!l);
+    if (l) {
+      Array.prototype.forEach.call(svg.querySelectorAll('[data-local="' + esc(l.id) + '"]'), function (a) {
+        a.classList.add('is-foco');
+      });
+    }
+    var sub = document.querySelector('[data-impressao-sub]');
+    if (sub) {
+      sub.textContent = (l ? 'Sala ' + l.id + ' · ' : '') + 'dqufpr.github.io/mapa · impresso em ' +
+        new Date().toLocaleDateString('pt-BR');
+    }
+  }
+  function desfazImpressao() {
+    if (!antesDeImprimir) return;
+    var html = document.documentElement;
+    if (antesDeImprimir.tema) html.setAttribute('data-theme', antesDeImprimir.tema);
+    aplica(antesDeImprimir.vb);
+    html.classList.remove('imprime-local');
+    svg.classList.remove('imprime-foco');
+    Array.prototype.forEach.call(svg.querySelectorAll('.is-foco'), function (a) { a.classList.remove('is-foco'); });
+    antesDeImprimir = null;
+  }
+  window.addEventListener('beforeprint', preparaImpressao);
+  window.addEventListener('afterprint', desfazImpressao);
+  // Safari antigo não tem beforeprint/afterprint
+  var mqPrint = window.matchMedia && window.matchMedia('print');
+  if (mqPrint && mqPrint.addListener) mqPrint.addListener(function (m) { if (m.matches) preparaImpressao(); else desfazImpressao(); });
 
   /* ---------- Início ---------- */
   root.querySelector('[data-planta-controles]').hidden = false;
