@@ -1,5 +1,14 @@
 # Histórico de mudanças
 
+## 2.3.0 — 2026-11-08
+
+### Mudado
+- Planta no celular (até 499px) ocupa quase a tela toda: abertura da página só para leitores de tela, planta de borda a borda e com a altura da tela, um dedo move a planta em qualquer direção.
+- Busca recolhida num botão de lupa; destaques numa linha só, rolando para o lado.
+- Detalhes da sala e resultados da busca num cartão fixo no pé da tela, com botão de fechar; a planta desliza para a sala não ficar atrás do cartão.
+- "Todos os locais" começa recolhida no celular (botão "Mostrar a lista"); "Ver na lista" abre a lista.
+- Telas maiores e navegação sem JavaScript continuam como antes.
+
 ## 2.2.0 — 2026-10-31
 
 ### Mudado

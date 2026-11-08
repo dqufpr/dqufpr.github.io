@@ -7,7 +7,9 @@
    - clique numa sala → contorno na planta + detalhes no painel;
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
-   - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página). */
+   - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
+   - no celular (até 499px): busca recolhida num botão, detalhes num cartão fixo no pé
+     da tela e lista de locais recolhida (classes mapa-js, is-buscando e tem-folha). */
 (function () {
   'use strict';
 
@@ -27,6 +29,12 @@
   var lista = document.querySelector('[data-lista]');
   var listaStatus = document.querySelector('[data-lista-status]');
   var botoesDestaque = Array.prototype.slice.call(root.querySelectorAll('[data-destaque]'));
+  var painelEl = root.querySelector('[data-painel]');
+  var lupa = root.querySelector('[data-busca-abrir]');
+  var listaAlternar = document.querySelector('[data-lista-alternar]');
+  // Mesmo limite do @media de css/style.css
+  var celular = window.matchMedia('(max-width: 499.98px)');
+  document.documentElement.classList.add('mapa-js');
 
   var dados = null;               // conteúdo de locais.json
   var porId = {};                 // id do local → objeto do local
@@ -103,7 +111,36 @@
     var r = svg.getBoundingClientRect(), prop = r.height / r.width || INTEIRA.h / INTEIRA.w;
     var w = Math.max((x1 - x0) * 4, 1600), h = w * prop;
     if (h < (y1 - y0) * 2) { h = (y1 - y0) * 2; w = h / prop; }
-    animaPara({ x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h / 2, w: w, h: h });
+    var f = fracaoVisivel();
+    animaPara({ x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - h * f / 2, w: w, h: h });
+  }
+  // Onde termina, na tela, a parte da planta que o cartão fixo não cobre
+  function limiteVisivel() {
+    var r = svg.getBoundingClientRect();
+    if (!celular.matches || !root.classList.contains('tem-folha')) return r.bottom;
+    return Math.max(r.top + 80, Math.min(r.bottom, window.innerHeight - painelEl.offsetHeight));
+  }
+  function fracaoVisivel() {
+    var r = svg.getBoundingClientRect();
+    return r.height ? (limiteVisivel() - r.top) / r.height : 1;
+  }
+  // Toque numa sala no celular: se ela ficou embaixo do cartão, desliza a planta sem mudar o zoom
+  function garanteVisivel(id) {
+    if (!celular.matches) return;
+    var areas = svg.querySelectorAll('.area[data-local="' + esc(id) + '"]');
+    if (!areas.length) return;
+    var r = svg.getBoundingClientRect(), base = areas[0].getBoundingClientRect();
+    var x0 = base.left, y0 = base.top, x1 = base.right, y1 = base.bottom;
+    Array.prototype.forEach.call(areas, function (a) {
+      var b = a.getBoundingClientRect();
+      x0 = Math.min(x0, b.left); y0 = Math.min(y0, b.top); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom);
+    });
+    var lim = limiteVisivel(), folga = 16, dx = 0, dy = 0;
+    if (y1 > lim - folga || y0 < r.top + folga) dy = (y0 + y1) / 2 - (r.top + lim) / 2;
+    if (x1 > r.right - folga || x0 < r.left + folga) dx = (x0 + x1) / 2 - (r.left + r.right) / 2;
+    if (!dx && !dy) return;
+    var s = escala();
+    animaPara({ x: vb.x + dx / s, y: vb.y + dy / s, w: vb.w, h: vb.h });
   }
 
   function ampliado() {
@@ -224,9 +261,9 @@
     if (!porId[id]) return;
     estado.local = id;
     desenhaSelecao(id);
-    if (enquadrar) enquadra(id);
     atualizaEndereco();
-    render();
+    render(); // antes de enquadrar: no celular, o cartão já ocupa o pé da tela
+    if (enquadrar) enquadra(id); else garanteVisivel(id);
   }
   function desseleciona() {
     estado.local = null;
@@ -286,8 +323,26 @@
     painel.appendChild(ul);
   }
 
+  function botaoFechar(rotulo) {
+    var b = el('button', 'planta__btn painel__fechar');
+    b.type = 'button';
+    b.setAttribute('data-fechar', '');
+    b.setAttribute('aria-label', rotulo);
+    b.title = rotulo;
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('class', 'icon');
+    s.setAttribute('aria-hidden', 'true');
+    s.setAttribute('focusable', 'false');
+    var u = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    u.setAttribute('href', '/img/icons/sprite.svg#close');
+    s.appendChild(u);
+    b.appendChild(s);
+    return b;
+  }
+
   function renderResultados() {
     var r = resultados();
+    painel.appendChild(botaoFechar('Fechar resultados'));
     painel.appendChild(el('p', 'painel__eyebrow', estado.busca.trim() ? 'Resultado da busca' : 'Destaques'));
     painel.appendChild(el('h2', 'painel__titulo', r.length + (r.length === 1 ? ' local encontrado' : ' locais encontrados')));
     if (!r.length) {
@@ -301,6 +356,7 @@
 
   function renderLocal() {
     var l = porId[estado.local];
+    painel.appendChild(botaoFechar('Fechar detalhes da sala ' + l.id));
     var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
     voltar.type = 'button';
     voltar.setAttribute('data-voltar', '');
@@ -339,6 +395,7 @@
     acoes.appendChild(centra);
     var link = el('a', 'btn btn--ghost btn--sm', 'Ver na lista');
     link.href = '#local-' + l.id;
+    link.setAttribute('data-ver-lista', l.id);
     acoes.appendChild(link);
     painel.appendChild(acoes);
   }
@@ -349,15 +406,60 @@
     if (estado.local) renderLocal();
     else if (filtroAtivo()) renderResultados();
     else renderVisaoGeral();
+    // Celular: o cartão fixo aparece com uma sala escolhida ou uma busca digitada.
+    // Só com destaques, a planta fica livre (as cores dos botões servem de legenda).
+    var folha = !!(estado.local || estado.busca.trim());
+    if (folha && !root.classList.contains('tem-folha')) painelEl.scrollTop = 0;
+    root.classList.toggle('tem-folha', folha);
+  }
+
+  // Fechar o cartão: tira a seleção e a busca
+  function fechaFolha() {
+    estado.local = null;
+    desenhaSelecao(null);
+    if (estado.busca) { estado.busca = ''; busca.value = ''; }
+    abreBusca(false);
+    atualizaEndereco();
+    render();
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar]');
+    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista]');
     if (!t) return;
     if (t.hasAttribute('data-ir')) seleciona(t.getAttribute('data-ir'), true);
     else if (t.hasAttribute('data-voltar')) desseleciona();
     else if (t.hasAttribute('data-centralizar')) enquadra(estado.local);
+    else if (t.hasAttribute('data-fechar')) fechaFolha();
+    else if (t.hasAttribute('data-ver-lista')) {
+      e.preventDefault();
+      var id = t.getAttribute('data-ver-lista');
+      abreLista(true);
+      if (celular.matches) fechaFolha(); // o cartão cobriria a lista
+      window.location.hash = 'local-' + id;
+    }
   });
+
+  /* ---------- Celular: busca recolhida e lista em acordeão ---------- */
+  function abreBusca(on) {
+    root.classList.toggle('is-buscando', on);
+    lupa.setAttribute('aria-expanded', on ? 'true' : 'false');
+    lupa.setAttribute('aria-label', on ? 'Fechar a busca' : 'Buscar');
+    lupa.title = on ? 'Fechar a busca' : 'Buscar';
+  }
+  lupa.addEventListener('click', function () {
+    if (root.classList.contains('is-buscando')) { fechaFolha(); lupa.focus(); }
+    else { abreBusca(true); busca.focus(); }
+  });
+  lupa.hidden = false;
+
+  function abreLista(on) {
+    lista.classList.toggle('is-aberta', on);
+    listaAlternar.setAttribute('aria-expanded', on ? 'true' : 'false');
+    listaAlternar.textContent = on ? 'Ocultar a lista' : 'Mostrar a lista (' + lista.children.length + ' locais)';
+  }
+  listaAlternar.addEventListener('click', function () { abreLista(!lista.classList.contains('is-aberta')); });
+  abreLista(/^#local-/.test(window.location.hash));
+  listaAlternar.hidden = false;
 
   // "Ver na planta" na lista completa
   lista.addEventListener('click', function (e) {
@@ -378,7 +480,9 @@
   busca.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       var r = resultados();
-      if (r.length) seleciona(r[0].id, true);
+      if (r.length) { seleciona(r[0].id, true); if (celular.matches) busca.blur(); }
+    } else if (e.key === 'Escape' && celular.matches) {
+      fechaFolha(); lupa.focus();
     }
   });
   botoesDestaque.forEach(function (b) {
@@ -414,7 +518,6 @@
     if (local && porId[local]) {
       estado.local = local;
       desenhaSelecao(local);
-      enquadra(local);
     }
   }
 
@@ -487,6 +590,7 @@
       vistaInicial(); // depois do carregamento: a página já tem o tamanho final
       leEndereco();
       render();
+      if (estado.local) enquadra(estado.local); // depois do render: no celular, o cartão já tem altura
     })
     .catch(function (err) {
       console.error('Mapa Digital: erro ao carregar ' + DADOS_URL, err);

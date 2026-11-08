@@ -77,7 +77,12 @@
 
   <section class="explorador" aria-label="Planta interativa" data-explorador>
     <div class="explorador__barra">
-      <div class="field explorador__busca">
+      <!-- Só no celular: a busca fica recolhida neste botão -->
+      <button type="button" class="planta__btn explorador__lupa" aria-expanded="false" aria-controls="busca-campo" aria-label="Buscar" title="Buscar" data-busca-abrir hidden>
+        <svg class="icon icon-lupa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+        <svg class="icon icon-fechar" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#close"></use></svg>
+      </button>
+      <div class="field explorador__busca" id="busca-campo">
         <label class="label" for="busca">Buscar</label>
         <input class="input" type="search" id="busca" autocomplete="off" enterkeyhint="search" aria-describedby="busca-dica" data-busca>
         <p class="hint" id="busca-dica">Número da sala, nome, sigla ou professor.</p>
@@ -348,10 +353,12 @@
       <div class="section-head">
         <h2 id="lista-title">Todos os locais</h2>
         <p>Em ordem de número da sala. A busca e os destaques da planta também filtram esta lista.</p>
+        <!-- Só no celular: a lista começa recolhida -->
+        <button type="button" class="btn btn--secondary lista__alternar" aria-expanded="false" aria-controls="lista-locais" data-lista-alternar hidden>Mostrar a lista</button>
       </div>
       <p class="locais__status" role="status" data-lista-status></p>
       <!-- Lista gerada por scripts/gerar_mapa.py a partir de dados/locais.xlsx -->
-      <ul class="locais__lista" data-lista>
+      <ul class="locais__lista" id="lista-locais" data-lista>
 <!-- LISTA:INICIO -->
 <li class="local loc--servico" id="local-1" data-local="1" data-categorias="servico">
   <span class="local__num"><span class="visually-hidden">Sala </span>1</span>
