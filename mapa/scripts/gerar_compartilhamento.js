@@ -239,7 +239,10 @@ function pagina(l, img) {
   <meta name="twitter:title" content="${esc(t)}">
   <meta name="twitter:description" content="${esc(d)}">
   <meta name="twitter:image" content="${SITE}${img}">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/mapa/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/img/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <!-- Pessoas vão direto para a sala na planta; os robôs das redes sociais ficam com as meta tags acima -->
   <script>window.location.replace(${JSON.stringify(destino)} + window.location.hash);</script>
   <noscript><meta http-equiv="refresh" content="0; url=${esc(destino)}"></noscript>

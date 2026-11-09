@@ -1,5 +1,11 @@
 # Histórico de mudanças
 
+## 3.0.1 — 2026-11-09
+
+### Corrigido
+- Ícone do site no Google: `favicon.ico` (16, 32 e 48px) na raiz, `img/favicon-192.png` e `apple-touch-icon.png`, listados no `<head>` de todas as páginas junto com o SVG. O Google não usa só o SVG para o ícone dos resultados.
+- `/servicos/` (antigo repositório `servicos`, ainda nos resultados do Google) redireciona para a página inicial, com `noindex`.
+
 ## 3.0.0 — 2026-11-08
 
 ### Mudado
