@@ -21,7 +21,6 @@ exclude:
   - .editorconfig
   - .claude/
   - CLAUDE.md
-  # Rascunhos de páginas novas: guardados no repositório, mas não publicados
   - testes/
   # Mapa Digital: arquivos-fonte dos dados e o script que os gera (o site só lê mapa/dados/locais.json)
   - mapa/scripts/
