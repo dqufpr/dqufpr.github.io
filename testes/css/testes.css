@@ -1,0 +1,41 @@
+/* testes.css — estilos só das páginas de teste (pasta local, não publicada).
+   Usa apenas os tokens do global.css. */
+
+/* Faixa que avisa que a página é um rascunho */
+.test-banner { background: var(--warning-soft); color: var(--text); border-bottom: 1px solid var(--border); font-size: var(--fs-sm); }
+.test-banner p { margin: 0; padding-block: var(--space-2); }
+.test-banner strong { color: var(--warning); }
+
+/* Ficha de um serviço: rótulo e valor */
+.ficha { display: grid; gap: var(--space-3); margin: 0 0 var(--space-6); padding: var(--space-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.ficha > div { display: grid; gap: var(--space-1); }
+.ficha dt { font-size: var(--fs-sm); color: var(--text-muted); display: flex; gap: var(--space-2); align-items: center; }
+.ficha dd { margin: 0; color: var(--heading); font-weight: var(--fw-medium); }
+@media (min-width: 640px) { .ficha { grid-template-columns: repeat(2, 1fr); } }
+
+/* Perguntas frequentes com <details> */
+.faq { display: grid; gap: var(--space-3); margin-bottom: var(--space-6); }
+.faq details { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.faq summary { cursor: pointer; padding: var(--space-4); min-height: var(--tap); font-weight: var(--fw-bold); color: var(--heading); list-style: none; display: flex; justify-content: space-between; gap: var(--space-3); align-items: center; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: var(--fs-lg); color: var(--text-muted); }
+.faq details[open] summary::after { content: "−"; }
+.faq summary:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-md); }
+.faq details > div { padding: 0 var(--space-4) var(--space-4); }
+.faq details > div p:last-child { margin-bottom: 0; }
+
+/* Mural de avisos */
+.aviso { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--info); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); }
+.aviso--alerta { border-left-color: var(--warning); }
+.aviso--ok { border-left-color: var(--success); }
+.aviso__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: var(--space-2); }
+.aviso h2, .aviso h3 { font-size: var(--fs-md); margin: 0 0 var(--space-2); }
+.aviso p:last-child { margin-bottom: 0; }
+
+/* Passos numerados */
+.passos { counter-reset: passo; list-style: none; padding: 0; display: grid; gap: var(--space-4); margin-bottom: var(--space-6); }
+.passos > li { counter-increment: passo; display: grid; grid-template-columns: 2.25rem 1fr; gap: var(--space-3); }
+.passos > li::before { content: counter(passo); width: 2.25rem; height: 2.25rem; border-radius: var(--radius-pill); background: var(--brand-navy); color: #fff; display: grid; place-items: center; font-weight: var(--fw-bold); }
+.passos h3 { font-size: var(--fs-md); margin: 0.35rem 0 var(--space-1); }
+.passos p { margin: 0; }
+.stack + .alert, .info-strip { margin-top: var(--space-6); }

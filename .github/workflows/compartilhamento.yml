@@ -1,0 +1,44 @@
+# Prévias de link do Mapa Digital: refaz mapa/img/compartilhar/*.jpg, mapa/l/*.html e a capa (mapa/img/capa.jpg)
+# sempre que os locais, a planta ou o visual mudarem no main, e publica o resultado.
+name: Prévias de compartilhamento do Mapa
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - mapa/dados/locais.json
+      - mapa/index.html
+      - mapa/css/style.css
+      - css/global.css
+      - mapa/scripts/gerar_compartilhamento.js
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: compartilhamento
+  cancel-in-progress: true
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instalar o Playwright (Chromium)
+        run: |
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Gerar as prévias
+        run: node mapa/scripts/gerar_compartilhamento.js
+      - name: Publicar se algo mudou
+        run: |
+          git add -A mapa/img/compartilhar mapa/l mapa/img/capa.jpg mapa/index.html mapa/sobre.html mapa/legal.html mapa/atualizacao.html
+          if git diff --cached --quiet; then echo "Nada mudou."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898341+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Mapa: atualiza as prévias de compartilhamento"
+          git push

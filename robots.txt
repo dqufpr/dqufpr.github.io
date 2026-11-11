@@ -1,0 +1,5 @@
+# DQ Digital: todo o site pode ser indexado, inclusive o Mapa Digital (/mapa/).
+User-agent: *
+Allow: /
+
+Sitemap: https://dqufpr.github.io/sitemap.xml

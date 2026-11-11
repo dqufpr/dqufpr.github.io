@@ -1,0 +1,35 @@
+# Configuração do GitHub Pages (Jekyll) do portal DQ Digital.
+# O site é HTML estático: o Jekyll só copia os arquivos (não há layouts nem plugins).
+# Estas informações descrevem o site; títulos e descrições de cada página ficam no <head> do HTML.
+
+title: DQ Digital
+description: Serviços digitais do Departamento de Química da UFPR - Planta interativa.
+url: https://dqufpr.github.io
+baseurl: ""
+lang: pt-BR
+author: Representação Discente 2022-2023 · PPGQ/UFPR
+
+# Indexação: o site pode ser indexado. Regras em robots.txt e todas as páginas
+# (portal e Mapa Digital em /mapa/) em um único sitemap.xml.
+
+# Não publicados
+exclude:
+  - README.md
+  - CHANGELOG.md
+  - PENDENCIAS.md
+  - docs/
+  - .editorconfig
+  - .claude/
+  - CLAUDE.md
+  - testes/
+  # Mapa Digital: arquivos-fonte dos dados e o script que os gera (o site só lê mapa/dados/locais.json)
+  - mapa/scripts/
+  - mapa/dados/locais.xlsx
+  - mapa/dados/planta-areas.json
+  - mapa/dados/planta-base.svg
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      permissions-policy: "interest-cohort=()"
