@@ -192,7 +192,7 @@
    ],
    "itens": [
     {
-     "nome": "Laboratório de Instrumentação",
+     "nome": "Laboratório de Instrumentação Analítica",
      "descricao": "Jaísa Fernandes Soares",
      "categoria": "lab-pesquisa"
     }
@@ -207,7 +207,7 @@
    ],
    "itens": [
     {
-     "nome": "Laboratório de Instrumentação",
+     "nome": "Laboratório de Instrumentação Analítica",
      "descricao": "Jaísa Fernandes Soares",
      "categoria": "lab-pesquisa"
     }
@@ -458,7 +458,7 @@
      "categoria": "sala-prof"
     },
     {
-     "nome": "Joaquim D. da Motta Neto",
+     "nome": "Joaquim Motta Neto",
      "descricao": "Professor/Físico-Química",
      "categoria": "sala-prof"
     }
@@ -1296,7 +1296,7 @@
    ],
    "itens": [
     {
-     "nome": "Central elétrica [acesso restrito]",
+     "nome": "Central elétrica (serviço)",
      "sigla": "Área de segurança",
      "descricao": "Acesso restrito",
      "categoria": "servico"
