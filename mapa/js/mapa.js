@@ -44,9 +44,10 @@
   var botoesDestaque = Array.prototype.slice.call(document.querySelectorAll('[data-destaque]'));
   var painelEl = root.querySelector('[data-painel]');
   var lupa = root.querySelector('[data-busca-abrir]');
-  var listaAlternar = document.querySelector('[data-lista-alternar]');
   // Mesmo limite do @media de css/style.css
   var celular = window.matchMedia('(max-width: 499.98px)');
+  // Celular e tablet: o painel vira um cartão fixo no pé da tela (mesmo limite de css/style.css)
+  var folhaMq = window.matchMedia('(max-width: 1023.98px)');
   document.documentElement.classList.add('mapa-js');
 
   var dados = null;               // conteúdo de locais.json
@@ -146,7 +147,7 @@
   // Tablet e desktop: onde começa, na tela, o painel que flutua sobre a direita da planta
   function limiteDireito() {
     var r = svg.getBoundingClientRect();
-    if (celular.matches || !painelEl.offsetParent) return r.right;
+    if (folhaMq.matches || !painelEl.offsetParent) return r.right;
     return Math.max(r.left + 120, Math.min(r.right, painelEl.getBoundingClientRect().left - 12));
   }
   function fracaoVisivelX() {
@@ -165,7 +166,7 @@
   // Onde termina, na tela, a parte da planta que o cartão fixo não cobre
   function limiteVisivel() {
     var r = svg.getBoundingClientRect();
-    if (!celular.matches || !root.classList.contains('tem-folha')) return r.bottom;
+    if (!folhaMq.matches || !root.classList.contains('tem-folha')) return r.bottom;
     return Math.max(r.top + 80, Math.min(r.bottom, window.innerHeight - painelEl.offsetHeight));
   }
   function fracaoVisivel() {
@@ -565,19 +566,21 @@
     var box = el('div', 'painel__compartilhar');
     box.appendChild(el('p', 'painel__eyebrow', 'Compartilhar este local'));
     var row = el('div', 'painel__share');
-    var wa = el('a', 'btn btn--secondary btn--sm');
+    var wa = el('a', 'painel__share-btn painel__share-btn--whatsapp');
+    wa.setAttribute('aria-label', 'Compartilhar pelo WhatsApp');
+    wa.title = 'WhatsApp';
     wa.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(textoLocal(l) + '\n' + urlLocal(l));
     wa.target = '_blank';
     wa.rel = 'noopener';
     wa.appendChild(icone('whatsapp'));
-    wa.appendChild(document.createTextNode('WhatsApp'));
     row.appendChild(wa);
-    [['instagram', 'Instagram'], ['enviar', 'Enviar']].forEach(function (o) {
-      var b = el('button', 'btn btn--secondary btn--sm');
+    [['instagram', 'Instagram', 'Compartilhar pelo Instagram'], ['enviar', 'Enviar', 'Enviar por outro aplicativo ou copiar o link']].forEach(function (o) {
+      var b = el('button', 'painel__share-btn painel__share-btn--' + o[0]);
       b.type = 'button';
       b.setAttribute('data-compartilhar', o[0]);
+      b.setAttribute('aria-label', o[2]);
+      b.title = o[1];
       b.appendChild(icone(o[0]));
-      b.appendChild(document.createTextNode(o[1]));
       row.appendChild(b);
     });
     box.appendChild(row);
@@ -715,7 +718,7 @@
       e.stopPropagation(); // senão o clique "fora" fecharia o card que vai abrir
       var id = t.getAttribute('data-ver-lista');
       mostraNaLista(id);
-      if (celular.matches) fechaFolha(); // o cartão cobriria a lista
+      if (folhaMq.matches) fechaFolha(); // o cartão cobriria a lista
       window.location.hash = 'local-' + id;
     }
   });
@@ -733,14 +736,7 @@
   });
   lupa.hidden = false;
 
-  function abreLista(on) {
-    lista.classList.toggle('is-aberta', on);
-    listaAlternar.setAttribute('aria-expanded', on ? 'true' : 'false');
-    listaAlternar.textContent = on ? 'Ocultar a lista' : 'Mostrar a lista (' + lista.children.length + ' locais)';
-  }
-  listaAlternar.addEventListener('click', function () { abreLista(!lista.classList.contains('is-aberta')); });
-  abreLista(false);
-  listaAlternar.hidden = false;
+  function abreLista() {} // a lista fica sempre à mostra
 
   // Cards da lista: "Detalhes" abre e fecha os itens do local, dentro do próprio card
   function abreCard(li, on) {

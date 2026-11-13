@@ -268,9 +268,18 @@ button.loc-tag[aria-pressed="true"] {
 /* Compartilhar o local exibido */
 .painel__compartilhar { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--border); }
 .painel__share { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-.painel__share .btn { gap: var(--space-1); }
-.painel__share-ico { width: 1.15em; height: 1.15em; flex: none; }
-.painel__share-ico--whatsapp, .painel__share-ico--instagram { width: 1.35em; height: 1.35em; }
+.painel__share-btn {
+  display: inline-grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0;
+  border: 0; border-radius: 50%; background: var(--surface-2); color: var(--text);
+  cursor: pointer; transition: transform var(--t-fast), background var(--t-fast);
+}
+.painel__share-btn:hover { transform: translateY(-2px); }
+.painel__share-btn--whatsapp { background: #e3f6ea; }
+.painel__share-btn--instagram { background: #fbe6ef; }
+[data-theme="dark"] .painel__share-btn--whatsapp { background: #16351f; }
+[data-theme="dark"] .painel__share-btn--instagram { background: #3a1a28; }
+.painel__share-ico { width: 22px; height: 22px; flex: none; }
+.painel__share-ico--whatsapp, .painel__share-ico--instagram { width: 26px; height: 26px; }
 /* Cores das marcas, escurecidas para contraste 3:1 sobre o fundo claro */
 .painel__share-ico--whatsapp { color: #128c4a; }
 .painel__share-ico--instagram { color: #d62976; }
@@ -347,7 +356,23 @@ button.loc-tag[aria-pressed="true"] {
 .mapa-js .local.is-aberto .local__detalhes { animation: detalhes-entra 0.25s ease both; }
 @keyframes detalhes-entra { from { opacity: 0; transform: translateY(-4px); } }
 
-/* Barra acima da lista: botão de mostrar/ocultar e filtros por tipo */
+/* Duas ou mais colunas: todos os cards com a mesma altura; os detalhes abrem como uma aba
+   que desce por cima dos cards de baixo (no celular, em uma coluna, abrem dentro do card) */
+@media (min-width: 640px) {
+  .locais__lista { grid-auto-rows: 1fr; align-items: stretch; }
+  .mapa-js .local { overflow: visible; }
+  .mapa-js .local::before { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .mapa-js .local.is-aberto { z-index: 4; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .mapa-js .local.is-aberto .local__detalhes {
+    position: absolute; left: -1px; right: -1px; top: calc(100% - 1px); z-index: 4;
+    max-height: 320px; overflow: auto; padding: var(--space-3) var(--space-4) var(--space-4);
+    background: var(--surface); border: 1px solid color-mix(in srgb, var(--loc) 60%, var(--border)); border-top: 1px dashed var(--border);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg); box-shadow: var(--shadow-lg);
+  }
+  .mapa-js .local.is-aberto .local__resumo { -webkit-line-clamp: 2; }
+}
+
+/* Barra acima da lista: filtros por tipo */
 .section-head:has(.lista__barra) { max-width: none; }
 .section-head:has(.lista__barra) > p { max-width: 62ch; }
 .lista__barra { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-4); }
@@ -417,10 +442,8 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 /* "Voltar" só faz sentido para voltar aos resultados da busca; sem ela, o X fecha */
 .mapa-js .explorador:not(.is-buscando) .painel__voltar { display: none; }
 .mapa-js .painel__voltar { min-height: var(--tap); }
-.mapa-js .lista__alternar { display: inline-flex; }
 .mapa-js .section-head { margin-bottom: 0; }
-.mapa-js .locais__lista:not(.is-aberta), .mapa-js .locais__lista:not(.is-aberta) ~ * { display: none; }
-.mapa-js .locais__lista.is-aberta { margin-top: var(--space-5); }
+.mapa-js .locais__lista { margin-top: var(--space-5); }
 .painel__todos { justify-self: start; }
 
 /* Celular (até 499px): a planta ocupa quase a tela toda.
@@ -534,6 +557,36 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .explorador:fullscreen .planta, .mapa-js .explorador.is-expanded .planta { height: 100%; }
 }
 
+/* Tablet (500 a 1023px, com JavaScript): como no celular, o painel vira um cartão no pé da
+   tela, só com sala, entrada ou busca; os elementos ficam em duas colunas. */
+@media (min-width: 500px) and (max-width: 1023.98px) {
+  .mapa-js .explorador { --painel-w: 0px; }
+  .mapa-js .painel { display: none; }
+  .mapa-js .explorador.tem-folha .painel {
+    display: block; position: fixed; left: 0; right: 0; top: auto; bottom: 0; width: auto; z-index: calc(var(--z-header) - 1);
+    max-height: 46svh; overflow: auto; overscroll-behavior: contain;
+    border-width: 1px 0 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-lg);
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: folha-sobe var(--t-fast, 0.15s) ease-out;
+  }
+  .mapa-js .painel__corpo {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); column-gap: var(--space-6); row-gap: var(--space-3);
+    padding: var(--space-4) var(--gutter) var(--space-5);
+  }
+  .mapa-js .painel__corpo > * { grid-column: 1; }
+  /* Local: dados à esquerda; itens (ou o aviso de sem informações) à direita */
+  .mapa-js .painel__corpo > .painel__itens, .mapa-js .painel__corpo > .painel__cabeca ~ .painel__texto {
+    grid-column: 2; grid-row: 1 / span 6; align-self: start;
+  }
+  .mapa-js .painel__corpo > .painel__itens { margin-right: calc(var(--tap) + var(--space-2)); }
+  /* Resultados da busca: lista em duas colunas na largura toda */
+  .mapa-js .painel__corpo > .painel__lista, .mapa-js .painel__corpo > .painel__entradas { grid-column: 1 / -1; }
+  .mapa-js .painel__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-4); }
+}
+@media (max-width: 1023.98px) {
+  .mapa-js [data-imprimir] { display: none; }
+}
+
 @media (min-width: 640px) {
   .locais__lista { grid-template-columns: repeat(2, 1fr); }
 }
@@ -636,14 +689,13 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .imprime-local .planta, .imprime-local.mapa-js .planta { width: auto; height: 112mm; margin-inline: auto; }
   .imprime-local main > :not(.explorador) { display: none !important; }
 
-  /* Página inteira: lista de todos os locais, aberta, em duas colunas (folhas em pé) */
-  /* Largura da folha em pé (A4 menos as margens): o Chrome monta tudo na largura da primeira folha, deitada */
-  .section--alt { width: 186mm; max-width: 100%; background: none; padding: 0; break-before: page; }
+  /* Página inteira: lista de todos os locais, aberta, em três colunas, também em folhas deitadas */
+  .section--alt { page: paisagem; background: none; padding: 0; break-before: page; }
   .section--alt .container { max-width: none; padding: 0; }
   .section-head { margin: 0 0 4mm; }
   .section-head h2 { font-size: 15pt; color: var(--brand-navy); }
   .locais__lista, .mapa-js .locais__lista, .mapa-js .locais__lista:not(.is-aberta) {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5mm; margin: 0; animation: none;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; align-items: stretch; gap: 2.5mm; margin: 0; animation: none;
   }
   .lista__barra, .lista__paginas, .local__acoes { display: none !important; }
   .local, .mapa-js .local { padding: 3mm 3mm 2.5mm; gap: 1mm; box-shadow: none !important; transform: none !important; break-inside: avoid; border-color: #c7d0db; }
@@ -654,7 +706,11 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .local__cat, .local__andar { font-size: 7.5pt; }
   .local__nome { font-size: 10pt; }
   .local__resumo { -webkit-line-clamp: unset; }
-  .mapa-js .local:not(.is-aberto) .local__detalhes, .local__detalhes { display: grid; animation: none; }
+  .mapa-js .local:not(.is-aberto) .local__detalhes, .local__detalhes,
+  .mapa-js .local.is-aberto .local__detalhes {
+    display: grid; position: static; max-height: none; overflow: visible; padding: 1.5mm 0 0;
+    border: 0; border-top: 0.5pt dashed #c7d0db; border-radius: 0; box-shadow: none; animation: none;
+  }
   .local__itens { font-size: 8.5pt; }
   a[href^="http"]::after { content: none; }
 }
