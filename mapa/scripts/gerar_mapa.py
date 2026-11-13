@@ -71,35 +71,43 @@ ENTRADAS = [
 ]
 
 
-# Rampas e escadas: retângulo (x0, y0, x1, y1) no desenho, sobre o corredor
+# Rampas e escadas: só a área (tom próprio) com o símbolo no meio. ret = (x0, y0, x1, y1) no desenho.
+# liga: a escada do outro andar na mesma área (para a rota "Como chegar").
 ACESSOS = [
     {"id": "rampa-1", "tipo": "rampa", "nome": "Rampa 1", "andar": 0, "ret": (2268, 1336, 2380, 1776),
      "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C."},
     {"id": "rampa-2", "tipo": "rampa", "nome": "Rampa 2", "andar": 0, "ret": (4770, 1336, 4880, 1776),
      "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal."},
-    {"id": "escada-terreo", "tipo": "escada", "nome": "Escada do térreo", "andar": 0, "ret": (4636, 2092, 4688, 2334),
-     "descricao": "Sobe para o 1º andar. Fica ao lado da sala 4, perto da entrada principal."},
-    {"id": "escada-1a", "tipo": "escada", "nome": "Escada 1 do 1º andar", "andar": 1, "ret": (2268, 3078, 2380, 3266),
-     "descricao": "No 1º andar, entre as salas 30 e 31."},
-    {"id": "escada-1b", "tipo": "escada", "nome": "Escada 2 do 1º andar", "andar": 1, "ret": (4632, 3078, 4752, 3266),
-     "descricao": "No 1º andar, entre as salas 42 e 43."},
+    {"id": "escada-c", "tipo": "escada", "nome": "Escada da Entrada C", "andar": 0, "ret": (2268, 2006, 2320, 2334),
+     "liga": "escada-1a", "descricao": "Perto da Entrada C, entre as salas 15 e 14. Sobe para o 1º andar (entre as salas 30 e 31)."},
+    {"id": "escada-terreo", "tipo": "escada", "nome": "Escada da entrada principal", "andar": 0, "ret": (4636, 2092, 4688, 2334),
+     "liga": "escada-1b", "descricao": "Ao lado da sala 4, perto da entrada principal. Sobe para o 1º andar (entre as salas 42 e 43)."},
+    {"id": "escada-1a", "tipo": "escada", "nome": "Escada (lado da Entrada C)", "andar": 1, "ret": (2268, 3078, 2380, 3266),
+     "liga": "escada-c", "descricao": "No 1º andar, entre as salas 30 e 31. Desce para o térreo perto da Entrada C."},
+    {"id": "escada-1b", "tipo": "escada", "nome": "Escada (lado da entrada principal)", "andar": 1, "ret": (4632, 3078, 4752, 3266),
+     "liga": "escada-terreo", "descricao": "No 1º andar, entre as salas 42 e 43. Desce para o térreo perto da entrada principal."},
 ]
+# Símbolos numa caixa de 100×100 centrada em 0: degraus e rampa (cunha)
+SIMBOLOS = {
+    "escada": "M-40 36H-16V12H8V-12H32V-36",
+    "rampa": "M-42 30H42V-26Z",
+}
 
 
 def gera_acessos():
-    """Escadas (degraus em listras) e rampas (setas de subida e descida), clicáveis como as entradas."""
-    out = ['<defs><pattern id="degraus" width="24" height="24" patternUnits="userSpaceOnUse">'
-           '<rect width="24" height="24" class="escada__fundo"/><path d="M0 2H24" class="escada__degrau"/></pattern></defs>']
+    """Área de cada rampa e escada, num tom próprio, com o símbolo no meio."""
+    out = []
     for a in ACESSOS:
         x0, y0, x1, y1 = a["ret"]
         w, h = x1 - x0, y1 - y0
         t = html.escape(a["nome"]) + " · " + html.escape(a["descricao"])
-        corpo = f'<rect class="acesso__ret" x="{x0}" y="{y0}" width="{w}" height="{h}" rx="10"/>'
-        if a["tipo"] == "rampa":
-            cx, cy = x0 + w / 2, y0 + h / 2
-            corpo += (f'<path class="acesso__seta" d="M{cx - 26:g} {cy - 150:g}v300M{cx - 44:g} {cy - 128:g}l18 -22 18 22'
-                      f'M{cx + 26:g} {cy + 150:g}v-300M{cx + 8:g} {cy + 128:g}l18 22 18 -22"/>')
-        out.append(f'<g class="acesso acesso--{a["tipo"]}" data-entrada="{a["id"]}"><title>{t}</title>{corpo}</g>')
+        esc = min(min(w, h) * 0.85, 80) / 100
+        out.append(
+            f'<g class="acesso acesso--{a["tipo"]}" data-entrada="{a["id"]}"><title>{t}</title>'
+            f'<rect class="acesso__ret" x="{x0}" y="{y0}" width="{w}" height="{h}" rx="12"/>'
+            f'<path class="acesso__simbolo" transform="translate({x0 + w / 2:g} {y0 + h / 2:g}) scale({esc:g})" '
+            f'd="{SIMBOLOS[a["tipo"]]}"/></g>'
+        )
     return '<g class="acessos">\n' + "\n".join(out) + "\n</g>\n"
 
 
@@ -336,7 +344,7 @@ def main():
     ]
     andares = [{"id": a["id"], "nome": a["nome"]} for a in ANDARES]
     entradas = [{"id": e["id"], "tipo": "entrada", "nome": e["nome"], "andar": 0, "descricao": e["descricao"]} for e in ENTRADAS]
-    acessos = [{k: a[k] for k in ("id", "tipo", "nome", "andar", "descricao")} for a in ACESSOS]
+    acessos = [{k: a[k] for k in ("id", "tipo", "nome", "andar", "descricao", "liga") if k in a} for a in ACESSOS]
     saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "andares": andares,
              "entradas": entradas, "acessos": acessos, "locais": locais}
     (DADOS / "locais.json").write_text(

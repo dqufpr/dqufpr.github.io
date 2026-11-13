@@ -25,6 +25,8 @@
   --planta-andar: #eef3f8;
   --planta-entrada: #15803d;
   --planta-entrada-texto: #166534;
+  --planta-acesso: #cde6f2;
+  --planta-acesso-tinta: #1d5f80;
 }
 [data-theme="dark"] {
   --planta-fundo: #101823;
@@ -34,6 +36,8 @@
   --planta-andar: #18222f;
   --planta-entrada: #16a34a;
   --planta-entrada-texto: #4ade80;
+  --planta-acesso: #1f4458;
+  --planta-acesso-tinta: #9fd6ee;
 }
 
 /* 2. Abertura de página */
@@ -141,15 +145,12 @@ button.loc-tag[aria-pressed="true"] {
 .entrada--principal .entrada__nome { font-size: 74px; }
 .entrada:hover .entrada__circulo { filter: brightness(1.12); }
 .entrada.is-sel .entrada__circulo { stroke: var(--planta-selecao); stroke-width: 16; }
-/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS) */
+/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS): área num tom próprio com o símbolo */
 .acesso { cursor: pointer; }
-.acesso--rampa .acesso__ret { fill: var(--planta-andar); stroke: var(--planta-parede); stroke-width: 5; stroke-dasharray: 18 12; }
-.acesso__seta { fill: none; stroke: var(--planta-parede); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
-.acesso--escada .acesso__ret { fill: url(#degraus); stroke: var(--planta-parede); stroke-width: 5; }
-.escada__fundo { fill: var(--planta-fundo); }
-.escada__degrau { stroke: var(--planta-parede); stroke-width: 5; }
-.acesso:hover .acesso__ret { filter: brightness(0.95); }
-.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 18; stroke-dasharray: none; }
+.acesso__ret { fill: var(--planta-acesso); }
+.acesso__simbolo { fill: none; stroke: var(--planta-acesso-tinta); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.acesso:hover .acesso__ret { filter: brightness(0.96); }
+.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 16; }
 .painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .painel__entrada-ico { color: var(--planta-entrada); }
 

@@ -94,25 +94,36 @@
    "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal."
   },
   {
+   "id": "escada-c",
+   "tipo": "escada",
+   "nome": "Escada da Entrada C",
+   "andar": 0,
+   "descricao": "Perto da Entrada C, entre as salas 15 e 14. Sobe para o 1º andar (entre as salas 30 e 31).",
+   "liga": "escada-1a"
+  },
+  {
    "id": "escada-terreo",
    "tipo": "escada",
-   "nome": "Escada do térreo",
+   "nome": "Escada da entrada principal",
    "andar": 0,
-   "descricao": "Sobe para o 1º andar. Fica ao lado da sala 4, perto da entrada principal."
+   "descricao": "Ao lado da sala 4, perto da entrada principal. Sobe para o 1º andar (entre as salas 42 e 43).",
+   "liga": "escada-1b"
   },
   {
    "id": "escada-1a",
    "tipo": "escada",
-   "nome": "Escada 1 do 1º andar",
+   "nome": "Escada (lado da Entrada C)",
    "andar": 1,
-   "descricao": "No 1º andar, entre as salas 30 e 31."
+   "descricao": "No 1º andar, entre as salas 30 e 31. Desce para o térreo perto da Entrada C.",
+   "liga": "escada-c"
   },
   {
    "id": "escada-1b",
    "tipo": "escada",
-   "nome": "Escada 2 do 1º andar",
+   "nome": "Escada (lado da entrada principal)",
    "andar": 1,
-   "descricao": "No 1º andar, entre as salas 42 e 43."
+   "descricao": "No 1º andar, entre as salas 42 e 43. Desce para o térreo perto da entrada principal.",
+   "liga": "escada-terreo"
   }
  ],
  "locais": [
