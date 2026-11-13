@@ -60,13 +60,13 @@ PRIMEIRO_ANDAR = range(23, 46)
 # Entradas do prédio (todas no térreo). x, y: meio do vão da porta no desenho;
 # fora: para que lado fica a rua (o marcador fica do lado de fora, com a seta apontando para dentro).
 ENTRADAS = [
-    {"id": "principal", "nome": "Entrada principal", "x": 4743, "y": 2340, "fora": (0, 1),
-     "descricao": "Entre a sala 4 e o Auditório Principal (sala 1)."},
+    {"id": "principal", "nome": "Entrada principal", "x": 5010, "y": 2340, "fora": (0, 1),
+     "descricao": "Entre a sala 4 e o Auditório Principal (sala 1), mais perto do auditório."},
     {"id": "A", "nome": "Entrada A", "x": 4824, "y": 683, "fora": (0, -1),
      "descricao": "Nos fundos, entre as salas 67 e 66."},
     {"id": "B", "nome": "Entrada B", "x": 2326, "y": 683, "fora": (0, -1),
      "descricao": "Nos fundos, entre as salas 87 e 86."},
-    {"id": "D", "nome": "Entrada D", "x": 2263, "y": 1830, "fora": (-1, 0),
+    {"id": "C", "nome": "Entrada C", "x": 2263, "y": 1830, "fora": (-1, 0),
      "descricao": "No corredor de ligação, ao lado da sala 15, um pouco acima dela."},
 ]
 

@@ -53,7 +53,7 @@
    "id": "principal",
    "nome": "Entrada principal",
    "andar": 0,
-   "descricao": "Entre a sala 4 e o Auditório Principal (sala 1)."
+   "descricao": "Entre a sala 4 e o Auditório Principal (sala 1), mais perto do auditório."
   },
   {
    "id": "A",
@@ -68,8 +68,8 @@
    "descricao": "Nos fundos, entre as salas 87 e 86."
   },
   {
-   "id": "D",
-   "nome": "Entrada D",
+   "id": "C",
+   "nome": "Entrada C",
    "andar": 0,
    "descricao": "No corredor de ligação, ao lado da sala 15, um pouco acima dela."
   }
