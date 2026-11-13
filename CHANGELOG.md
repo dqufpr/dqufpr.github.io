@@ -1,5 +1,17 @@
 # Histórico de mudanças
 
+## 3.1.0 — 2026-11-13
+
+### Novo
+- Mapa Digital: seletor de andar, entradas, rampas e escadas na planta, compartilhamento com prévia por sala, versão para impressão, nova capa de compartilhamento e lista em cards com paginação. Detalhes em `docs/MAPA-CHANGELOG.md`.
+- `<meta name="application-name" content="DQ Digital">` nas páginas com `og:site_name`.
+- GitHub Actions (`.github/workflows/compartilhamento.yml`): refaz as prévias de compartilhamento do mapa quando os dados mudam.
+
+### Mudado
+- Rodapé de todas as páginas: "Este site não tem vínculo institucional com a Universidade Federal do Paraná (UFPR) e não é um canal oficial da universidade nem do Departamento de Química. Seu conteúdo não representa a posição oficial da UFPR nem do Departamento."
+- Ícones de WhatsApp e Instagram no sprite (`img/icons/sprite.svg`), a partir de `img/icons/whatsapp.svg` e `instagram.svg`.
+- `sitemap.xml` com as datas de 13/11.
+
 ## 3.0.1 — 2026-11-09
 
 ### Corrigido

@@ -1,5 +1,25 @@
 # Histórico de mudanças do Mapa Digital
 
+## 3.1.0 — 2026-11-13
+
+### Novo
+- **Andares:** seletor Térreo | 1º andar. A planta abre no térreo; o 1º andar aparece na posição real, sobre o térreo desfocado. Troca de andar sozinha ao escolher um local do outro andar; o seletor mostra quantos resultados há em cada andar; endereço `?andar=1`. Cada local tem o andar (salas 23 a 45-E no 1º andar) no painel, na lista e na busca.
+- **Entradas:** principal, A, B e C marcadas na planta, clicáveis, com botões no painel, busca e endereço `?entrada=principal`.
+- **Rampas e escadas:** áreas nos dois andares, com pictogramas em círculo (escada; Símbolo Internacional de Acesso sobre a rampa) e a ligação entre os andares registrada.
+- **Compartilhar:** WhatsApp, Instagram e Enviar (folha de compartilhar do sistema ou cópia do link). Cada local tem uma página `mapa/l/<id>.html` com prévia própria (`mapa/img/compartilhar/<id>.jpg`: a sala em foco, o resto da planta desfocado). Gerado por `scripts/gerar_compartilhamento.js`, também pelo GitHub Actions.
+- **Capa de compartilhamento** (`mapa/img/capa.jpg`, 1200×630) para `/mapa/`, Sobre, Legal e Atualizações.
+- **Impressão:** a página inteira (planta com os dois andares e todos os locais) ou só o local escolhido, em folhas deitadas, com tema claro e cores das salas.
+- **Lista "Todos os locais":** cards com faixa da cor da categoria, número, tipo, andar, resumo e Detalhes; mesma altura; 9 por página em carrossel; filtros por tipo (os mesmos destaques da planta).
+
+### Mudado
+- Tablet e computador: barra numa linha só, planta com a largura e a altura da tela; no computador, painel flutuando à direita; no celular e no tablet, painel no pé da tela.
+- Botões de compartilhar só com ícones; "Imprimir" só no computador.
+- Modo ampliado cobre a tela toda em todos os tamanhos.
+- Sala 14 com contorno retangular (a faixa ao lado é a escada).
+
+### Removido
+- Botão Mostrar/Ocultar a lista; bloco "Viu algo desatualizado?" antes do rodapé; seção "Nomes de pessoas" do aviso legal.
+
 ## 3.0.0 — 2026-11-08
 
 ### Mudado
