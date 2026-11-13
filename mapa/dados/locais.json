@@ -84,14 +84,32 @@
    "tipo": "rampa",
    "nome": "Rampa 1",
    "andar": 0,
-   "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C."
+   "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C, e sobe para o 1º andar (perto das salas 30 e 31).",
+   "liga": "rampa-1-1"
   },
   {
    "id": "rampa-2",
    "tipo": "rampa",
    "nome": "Rampa 2",
    "andar": 0,
-   "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal."
+   "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal, e sobe para o 1º andar (perto da sala 43).",
+   "liga": "rampa-2-1"
+  },
+  {
+   "id": "rampa-1-1",
+   "tipo": "rampa",
+   "nome": "Rampa 1 (1º andar)",
+   "andar": 1,
+   "descricao": "Chegada da Rampa 1 no 1º andar, perto das salas 30 e 31. Desce para o térreo.",
+   "liga": "rampa-1"
+  },
+  {
+   "id": "rampa-2-1",
+   "tipo": "rampa",
+   "nome": "Rampa 2 (1º andar)",
+   "andar": 1,
+   "descricao": "Chegada da Rampa 2 no 1º andar, perto da sala 43. Desce para o térreo.",
+   "liga": "rampa-2"
   },
   {
    "id": "escada-c",

@@ -36,7 +36,7 @@
   --planta-andar: #18222f;
   --planta-entrada: #16a34a;
   --planta-entrada-texto: #4ade80;
-  --planta-acesso: #1f4458;
+  --planta-acesso: #173a4d;
   --planta-acesso-tinta: #9fd6ee;
 }
 
@@ -147,10 +147,12 @@ button.loc-tag[aria-pressed="true"] {
 .entrada.is-sel .entrada__circulo { stroke: var(--planta-selecao); stroke-width: 16; }
 /* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS): área num tom próprio com o símbolo */
 .acesso { cursor: pointer; }
-.acesso__ret { fill: var(--planta-acesso); }
+/* Multiplicado (no escuro, "tela"): escurece o corredor sem cobrir as paredes */
+.acesso__ret { fill: var(--planta-acesso); mix-blend-mode: multiply; }
+[data-theme="dark"] .acesso__ret { mix-blend-mode: screen; }
 .acesso__simbolo { fill: none; stroke: var(--planta-acesso-tinta); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .acesso:hover .acesso__ret { filter: brightness(0.96); }
-.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 16; }
+.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 16; mix-blend-mode: normal; fill-opacity: 0.6; }
 .painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .painel__entrada-ico { color: var(--planta-entrada); }
 
