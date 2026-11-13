@@ -601,7 +601,7 @@
       var b = el('button', 'btn btn--secondary btn--sm');
       b.type = 'button';
       b.setAttribute('data-ir-entrada', e.id);
-      var ico = el('span', 'painel__entrada-ico', e.tipo === 'escada' ? '☰' : e.tipo === 'rampa' ? '⇅' : '●');
+      var ico = el('span', 'painel__entrada-ico painel__entrada-ico--' + (e.tipo || 'entrada'), '●');
       ico.setAttribute('aria-hidden', 'true');
       b.appendChild(ico);
       b.appendChild(document.createTextNode(' ' + e.nome));

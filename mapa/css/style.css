@@ -25,8 +25,10 @@
   --planta-andar: #eef3f8;
   --planta-entrada: #15803d;
   --planta-entrada-texto: #166534;
-  --planta-acesso: #cde6f2;
-  --planta-acesso-tinta: #1d5f80;
+  --planta-escada: #a16207;
+  --planta-escada-area: #f6e6ae;
+  --planta-rampa: #1d4ed8;
+  --planta-rampa-area: #d3defa;
 }
 [data-theme="dark"] {
   --planta-fundo: #101823;
@@ -36,8 +38,10 @@
   --planta-andar: #18222f;
   --planta-entrada: #16a34a;
   --planta-entrada-texto: #4ade80;
-  --planta-acesso: #173a4d;
-  --planta-acesso-tinta: #9fd6ee;
+  --planta-escada: #ca8a04;
+  --planta-escada-area: #3a3216;
+  --planta-rampa: #3b6ef0;
+  --planta-rampa-area: #1b2a52;
 }
 
 /* 2. Abertura de página */
@@ -145,16 +149,25 @@ button.loc-tag[aria-pressed="true"] {
 .entrada--principal .entrada__nome { font-size: 74px; }
 .entrada:hover .entrada__circulo { filter: brightness(1.12); }
 .entrada.is-sel .entrada__circulo { stroke: var(--planta-selecao); stroke-width: 16; }
-/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS): área num tom próprio com o símbolo */
+/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS): área num tom próprio e pictograma num círculo */
 .acesso { cursor: pointer; }
 /* Multiplicado (no escuro, "tela"): escurece o corredor sem cobrir as paredes */
-.acesso__ret { fill: var(--planta-acesso); mix-blend-mode: multiply; }
+.acesso__ret { mix-blend-mode: multiply; }
 [data-theme="dark"] .acesso__ret { mix-blend-mode: screen; }
-.acesso__simbolo { fill: none; stroke: var(--planta-acesso-tinta); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
-.acesso:hover .acesso__ret { filter: brightness(0.96); }
-.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 16; mix-blend-mode: normal; fill-opacity: 0.6; }
+.acesso--escada .acesso__ret { fill: var(--planta-escada-area); }
+.acesso--rampa .acesso__ret { fill: var(--planta-rampa-area); }
+.acesso__circulo { stroke: var(--planta-fundo); stroke-width: 8; }
+.acesso--escada .acesso__circulo { fill: var(--planta-escada); }
+.acesso--rampa .acesso__circulo { fill: var(--planta-rampa); }
+.pict__cheio { fill: #fff; }
+.pict__traco { fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.acesso:hover .acesso__circulo { filter: brightness(1.12); }
+.acesso.is-sel .acesso__circulo { stroke: var(--planta-selecao); stroke-width: 14; }
+.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 10; mix-blend-mode: normal; fill-opacity: 0.6; }
 .painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .painel__entrada-ico { color: var(--planta-entrada); }
+.painel__entrada-ico--escada { color: var(--planta-escada); }
+.painel__entrada-ico--rampa { color: var(--planta-rampa); }
 
 /* Busca ou destaque ativos: o que não combina fica apagado */
 .planta__svg.is-filtrando .area:not(.is-match) { opacity: 0.15; }

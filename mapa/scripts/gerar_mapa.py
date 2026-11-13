@@ -81,42 +81,55 @@ ACESSOS = [
      "liga": "rampa-1-1", "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C, e sobe para o 1º andar (perto das salas 30 e 31)."},
     {"id": "rampa-2", "tipo": "rampa", "nome": "Rampa 2", "andar": 0, "ret": (4762.5, 1326.3, 4884.4, 1776),
      "liga": "rampa-2-1", "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal, e sobe para o 1º andar (perto da sala 43)."},
-    {"id": "rampa-1-1", "tipo": "rampa", "nome": "Rampa 1 (1º andar)", "andar": 1, "ret": (2324.8, 2787.7, 2385.6, 2931.4),
+    {"id": "rampa-1-1", "tipo": "rampa", "nome": "Rampa 1 (1º andar)", "andar": 1, "ret": (2324.8, 2787.7, 2385.6, 2838.4),
      "liga": "rampa-1", "descricao": "Chegada da Rampa 1 no 1º andar, perto das salas 30 e 31. Desce para o térreo."},
-    {"id": "rampa-2-1", "tipo": "rampa", "nome": "Rampa 2 (1º andar)", "andar": 1, "ret": (4823.5, 2787.7, 4884.4, 2931.4),
+    {"id": "rampa-2-1", "tipo": "rampa", "nome": "Rampa 2 (1º andar)", "andar": 1, "ret": (4823.5, 2787.7, 4884.4, 2838.4),
      "liga": "rampa-2", "descricao": "Chegada da Rampa 2 no 1º andar, perto da sala 43. Desce para o térreo."},
-    # Escadas: o vão inteiro da escada, do tamanho da que fica ao lado da sala 42
-    {"id": "escada-c", "tipo": "escada", "nome": "Escada da Entrada C", "andar": 0, "ret": (2263.5, 2147.7, 2324.4, 2340.1),
+    # Escadas: a mesma escada aparece nos dois andares (o prédio só tem térreo e 1º andar), com a mesma largura
+    {"id": "escada-c", "tipo": "escada", "nome": "Escada da Entrada C", "andar": 0, "ret": (2263.5, 2087, 2385.6, 2340.1),
      "liga": "escada-1a", "descricao": "Perto da Entrada C, entre as salas 15 e 14. Sobe para o 1º andar (entre as salas 30 e 31)."},
-    {"id": "escada-terreo", "tipo": "escada", "nome": "Escada da entrada principal", "andar": 0, "ret": (4631.2, 2147.7, 4762.5, 2340.1),
+    {"id": "escada-terreo", "tipo": "escada", "nome": "Escada da entrada principal", "andar": 0, "ret": (4631.2, 2087, 4762.5, 2340.1),
      "liga": "escada-1b", "descricao": "Ao lado da sala 4, perto da entrada principal. Sobe para o 1º andar (entre as salas 42 e 43)."},
     {"id": "escada-1a", "tipo": "escada", "nome": "Escada (lado da Entrada C)", "andar": 1, "ret": (2263.5, 3080.8, 2385.6, 3273.2),
      "liga": "escada-c", "descricao": "No 1º andar, entre as salas 30 e 31. Desce para o térreo perto da Entrada C."},
     {"id": "escada-1b", "tipo": "escada", "nome": "Escada (lado da entrada principal)", "andar": 1, "ret": (4631.2, 3080.8, 4762.5, 3273.2),
      "liga": "escada-terreo", "descricao": "No 1º andar, entre as salas 42 e 43. Desce para o térreo perto da entrada principal."},
 ]
-# Símbolos numa caixa de 100×100 centrada em 0: degraus e rampa (cunha)
+# Pictogramas (caixa de 100×100 centrada em 0), brancos dentro de um círculo colorido:
+# escada: pessoa subindo degraus; rampa: Símbolo Internacional de Acesso sobre o plano inclinado.
 SIMBOLOS = {
-    "escada": "M-40 36H-16V12H8V-12H32V-36",
-    "rampa": "M-42 30H42V-26Z",
+    "escada": (
+        '<path class="pict__cheio" d="M-34 36H38V-30H22V-14H6V2H-10V18H-34Z"/>'
+        '<circle class="pict__cheio" cx="-14" cy="-30" r="8"/>'
+        '<path class="pict__traco" d="M-14 -19L-10 2M-10 2L-20 16M-10 2L2 -6M-13 -14L-26 -6M-13 -14L-1 -18"/>'
+    ),
+    "rampa": (
+        '<path class="pict__cheio" d="M-40 38H40V14Z"/>'
+        '<circle class="pict__cheio" cx="-4" cy="-34" r="7"/>'
+        '<path class="pict__traco" d="M-6 -24V-4H12L18 12M-6 -14H8"/>'
+        '<path class="pict__traco" d="M-15 -14A16 16 0 1 0 5 8"/>'
+    ),
 }
+R_PICT = 52  # raio do círculo, em unidades do desenho
 
 
 def gera_acessos():
-    """Área de cada rampa e escada, num tom próprio, com o símbolo no meio."""
-    out = []
+    """Área de cada rampa e escada (tom próprio, multiplicado sobre a planta) e o pictograma num círculo."""
+    areas, marcas = [], []
     for a in ACESSOS:
         x0, y0, x1, y1 = a["ret"]
         w, h = x1 - x0, y1 - y0
+        cx, cy = x0 + w / 2, y0 + h / 2
         t = html.escape(a["nome"]) + " · " + html.escape(a["descricao"])
-        esc = min(min(w, h) * 0.8, 80) / 100
-        out.append(
+        areas.append(
             f'<g class="acesso acesso--{a["tipo"]}" data-entrada="{a["id"]}"><title>{t}</title>'
-            f'<rect class="acesso__ret" x="{x0:g}" y="{y0:g}" width="{w:g}" height="{h:g}"/>'
-            f'<path class="acesso__simbolo" transform="translate({x0 + w / 2:g} {y0 + h / 2:g}) scale({esc:g})" '
-            f'd="{SIMBOLOS[a["tipo"]]}"/></g>'
-        )
-    return '<g class="acessos">\n' + "\n".join(out) + "\n</g>\n"
+            f'<rect class="acesso__ret" x="{x0:g}" y="{y0:g}" width="{w:g}" height="{h:g}"/></g>')
+        marcas.append(
+            f'<g class="acesso acesso--{a["tipo"]} acesso__marca" data-entrada="{a["id"]}"><title>{t}</title>'
+            f'<circle class="acesso__circulo" cx="{cx:g}" cy="{cy:g}" r="{R_PICT}"/>'
+            f'<g transform="translate({cx:g} {cy:g}) scale({R_PICT * 0.62 / 50:g})">{SIMBOLOS[a["tipo"]]}</g></g>')
+    # Áreas primeiro; os círculos por cima de tudo
+    return '<g class="acessos">\n' + "\n".join(areas) + "\n" + "\n".join(marcas) + "\n</g>\n"
 
 
 def gera_entradas():
