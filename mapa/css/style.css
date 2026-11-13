@@ -169,6 +169,15 @@ button.loc-tag[aria-pressed="true"] {
 .painel__entrada-ico--escada { color: var(--planta-escada); }
 .painel__entrada-ico--rampa { color: var(--planta-rampa); }
 
+/* Vista por andar (js/mapa.js põe vista-0 ou vista-1 no SVG; sem elas, os dois andares
+   aparecem como no desenho original, na impressão e nas imagens de compartilhamento).
+   O 1º andar sobe até a posição real, em cima do bloco das salas 1 a 22 (DESLOCAMENTO_1 de
+   scripts/gerar_mapa.py); o térreo fica desfocado ao fundo. */
+.planta__svg.vista-0 .piso--1 { display: none; }
+.planta__svg.vista-1 .piso--1 { transform: translateY(-933.11px); }
+.planta__svg.vista-1 .piso--0 { filter: blur(5px) saturate(0.6); opacity: 0.4; pointer-events: none; }
+.planta__svg.vista-1 .andar__fundo { opacity: 1; }
+
 /* Busca ou destaque ativos: o que não combina fica apagado */
 .planta__svg.is-filtrando .area:not(.is-match) { opacity: 0.15; }
 .planta__svg.is-filtrando .rotulo:not(.is-match) { opacity: 0.25; }
@@ -176,6 +185,26 @@ button.loc-tag[aria-pressed="true"] {
 /* Local selecionado: contorno grosso por cima de tudo */
 .selecao polygon { fill: none; stroke: var(--planta-selecao); stroke-width: 22; stroke-linejoin: round; pointer-events: none; }
 
+/* Seletor de andar: no alto, no meio da área livre da planta */
+.planta__pisos {
+  position: absolute; top: var(--space-2); left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+  background: var(--surface); box-shadow: var(--shadow-md);
+}
+.planta__pisos[hidden] { display: none; }
+.planta__piso {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 38px; padding: 0 var(--space-4);
+  border: 0; border-radius: var(--radius-pill); background: none; color: var(--text);
+  font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-bold); white-space: nowrap; cursor: pointer;
+}
+.planta__piso:hover { background: var(--hover-soft); }
+.planta__piso[aria-pressed="true"] { background: var(--brand-navy); color: #fff; }
+[data-theme="dark"] .planta__piso[aria-pressed="true"] { background: var(--accent); color: var(--brand-navy-deep); }
+.planta__piso-n:not(:empty) {
+  min-width: 1.6em; padding: 0 6px; border-radius: var(--radius-pill); background: var(--accent); color: #fff;
+  font-size: var(--fs-xs); text-align: center;
+}
+.planta__piso[aria-pressed="true"] .planta__piso-n:not(:empty) { background: #fff; color: var(--brand-navy); }
 .planta__controles { position: absolute; right: var(--space-2); bottom: var(--space-2); display: grid; gap: var(--space-1); }
 .planta__controles[hidden] { display: none; }
 .planta__btn {
@@ -461,6 +490,7 @@ button.loc-tag[aria-pressed="true"] {
   }
   /* Controles à esquerda, para o painel não cobri-los */
   .mapa-js .planta__ampliar { left: var(--space-2); right: auto; }
+  .mapa-js .planta__pisos { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
   .mapa-js .planta__controles { left: var(--space-2); right: auto; top: calc(3 * var(--space-2) + 36px); bottom: auto; }
   .mapa-js .planta__dica { max-width: calc(100% - var(--painel-w) - 3 * var(--space-3)); }
 
@@ -506,7 +536,7 @@ button.loc-tag[aria-pressed="true"] {
   main { padding: 0; }
 
   /* Fora da folha: controles, busca, avisos e o que só serve na tela */
-  .planta__controles, .planta__ampliar, .planta__dica, .explorador__lupa, .explorador__busca,
+  .planta__controles, .planta__ampliar, .planta__dica, .planta__pisos, .explorador__lupa, .explorador__busca,
   .explorador__destaques .label, [data-limpar], .aviso-atualizacao, .local__ver, .lista__alternar,
   .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes,
   .painel__compartilhar { display: none !important; }

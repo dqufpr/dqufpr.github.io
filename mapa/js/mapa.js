@@ -8,6 +8,8 @@
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
    - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
+   - andar exibido (Térreo | 1º andar): o 1º andar aparece na posição real, sobre o térreo
+     desfocado; troca sozinho ao escolher um local do outro andar; ?andar=1;
    - entradas, rampas e escadas: clique na planta, botões no painel, busca e ?entrada=principal
      (ou ?entrada=rampa-1, escada-terreo…);
    - compartilhar o local exibido (WhatsApp, Instagram e folha de compartilhar do sistema);
@@ -28,7 +30,7 @@
   if (!root) return;
   var svg = root.querySelector('[data-planta-svg]');
   var planta = root.querySelector('[data-planta]');
-  var selecao = root.querySelector('[data-planta-selecao]');
+  var pisosEl = root.querySelector('[data-pisos]');
   var painel = root.querySelector('[data-painel-corpo]');
   var busca = root.querySelector('[data-busca]');
   var limpar = root.querySelector('[data-limpar]');
@@ -46,7 +48,7 @@
   var porId = {};                 // id do local → objeto do local
   var nomesCat = {};              // id da categoria → nome
   var nomesAndar = ['Térreo', '1º andar']; // substituídos pelos de locais.json
-  var estado = { local: null, entrada: null, busca: '', destaques: [], todos: false };
+  var estado = { local: null, entrada: null, busca: '', destaques: [], todos: false, piso: 0 };
   var porEntrada = {};            // id da entrada (principal, A, B, D) → objeto de locais.json
 
   /* ---------- Utilidades ---------- */
@@ -64,7 +66,13 @@
 
   /* ---------- Zoom e arraste (pelo viewBox do SVG) ---------- */
   var vb0 = svg.viewBox.baseVal;
-  var INTEIRA = { x: vb0.x, y: vb0.y, w: vb0.width, h: vb0.height };
+  // TODA: o desenho com os dois andares (impressão). INTEIRA: a vista de um andar, que é a área do
+  // térreo; o 1º andar aparece por cima dele, na posição real (css/style.css, .vista-1).
+  var CORTE_ANDARES = 2560; // CORTE_Y de scripts/gerar_mapa.py
+  var TODA = { x: vb0.x, y: vb0.y, w: vb0.width, h: vb0.height };
+  var INTEIRA = { x: TODA.x, y: TODA.y, w: TODA.w, h: CORTE_ANDARES - TODA.y };
+  svg.classList.add('vista-0');
+  svg.setAttribute('viewBox', INTEIRA.x + ' ' + INTEIRA.y + ' ' + INTEIRA.w + ' ' + INTEIRA.h);
   var vb = { x: INTEIRA.x, y: INTEIRA.y, w: INTEIRA.w, h: INTEIRA.h };
   var animacao = null;
 
@@ -112,10 +120,17 @@
   function enquadraNos(areas) {
     if (!areas.length) return;
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    // Caixa no sistema da planta (inclui o deslocamento do 1º andar na vista por andar)
+    var inv = svg.getScreenCTM().inverse();
     Array.prototype.forEach.call(areas, function (a) {
-      var b = a.getBBox();
-      x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y);
-      x1 = Math.max(x1, b.x + b.width); y1 = Math.max(y1, b.y + b.height);
+      var b = a.getBBox(), m = inv.multiply(a.getScreenCTM());
+      [[b.x, b.y], [b.x + b.width, b.y + b.height]].forEach(function (c) {
+        var p = svg.createSVGPoint();
+        p.x = c[0]; p.y = c[1];
+        p = p.matrixTransform(m);
+        x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y);
+        x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y);
+      });
     });
     var r = svg.getBoundingClientRect(), prop = r.height / r.width || INTEIRA.h / INTEIRA.w;
     var w = Math.max((x1 - x0) * 4, 1600), h = w * prop;
@@ -256,8 +271,15 @@
 
   function aplicaFiltro() {
     var ativo = filtroAtivo();
-    var ok = {};
-    if (ativo) resultados().forEach(function (l) { ok[l.id] = true; });
+    var ok = {}, porPiso = [0, 0];
+    if (ativo) resultados().forEach(function (l) { ok[l.id] = true; porPiso[l.andar ? 1 : 0]++; });
+    // Quantos resultados há em cada andar, no seletor
+    Array.prototype.forEach.call(pisosEl.querySelectorAll('[data-piso]'), function (b) {
+      b.querySelector('[data-piso-n]').textContent = ativo ? String(porPiso[+b.getAttribute('data-piso')]) : '';
+    });
+    // Busca digitada sem nada no andar exibido: mostra o outro
+    if (ativo && estado.busca.trim() && !estado.local && !estado.entrada &&
+        !porPiso[estado.piso] && porPiso[1 - estado.piso]) mudaPiso(1 - estado.piso);
     svg.classList.toggle('is-filtrando', ativo);
     Array.prototype.forEach.call(svg.querySelectorAll('.area, .rotulo'), function (a) {
       a.classList.toggle('is-match', !!ok[a.getAttribute('data-local')]);
@@ -281,19 +303,39 @@
   /* ---------- Seleção ---------- */
   // Qualquer seleção (ou a falta dela) tira a marca da entrada; selecionaEntrada a põe de volta
   function desenhaSelecao(id) {
-    selecao.textContent = '';
+    Array.prototype.forEach.call(svg.querySelectorAll('[data-planta-selecao]'), function (g) { g.textContent = ''; });
     estado.entrada = null;
     marcaEntrada(null);
     if (!id) return;
     Array.prototype.forEach.call(svg.querySelectorAll('.area[data-local="' + esc(id) + '"]'), function (a) {
       var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
       p.setAttribute('points', a.getAttribute('points'));
-      selecao.appendChild(p);
+      a.closest('.piso').querySelector('[data-planta-selecao]').appendChild(p); // no mesmo andar da área
     });
   }
 
+  /* ---------- Andar exibido ---------- */
+  function mudaPiso(n) {
+    n = n ? 1 : 0;
+    estado.piso = n;
+    svg.classList.toggle('vista-0', n === 0);
+    svg.classList.toggle('vista-1', n === 1);
+    Array.prototype.forEach.call(pisosEl.querySelectorAll('[data-piso]'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-piso') === String(n) ? 'true' : 'false');
+    });
+  }
+  pisosEl.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-piso]');
+    if (!b) return;
+    mudaPiso(+b.getAttribute('data-piso'));
+    atualizaEndereco();
+    if (dados && !estado.local && !estado.entrada && !filtroAtivo()) render(); // lista do andar no painel
+  });
+  pisosEl.hidden = false;
+
   function seleciona(id, enquadrar) {
     if (!porId[id]) return;
+    mudaPiso(porId[id].andar);
     estado.local = id;
     desenhaSelecao(id);
     atualizaEndereco();
@@ -307,6 +349,7 @@
   }
   function selecionaEntrada(id, enquadrar) {
     if (!porEntrada[id]) return;
+    mudaPiso(porEntrada[id].andar);
     estado.local = null;
     desenhaSelecao(null);
     estado.entrada = id;
@@ -374,9 +417,11 @@
       painel.appendChild(el('p', 'painel__eyebrow', 'Entradas do prédio'));
       painel.appendChild(listaEntradas(dados.entradas));
     }
-    if (dados.acessos && dados.acessos.length) {
-      painel.appendChild(el('p', 'painel__eyebrow', 'Rampas e escadas'));
-      painel.appendChild(listaEntradas(dados.acessos));
+    // Rampas e escadas do andar exibido (as mesmas existem no outro andar)
+    var acs = (dados.acessos || []).filter(function (a) { return (a.andar || 0) === estado.piso; });
+    if (acs.length) {
+      painel.appendChild(el('p', 'painel__eyebrow', 'Rampas e escadas · ' + nomesAndar[estado.piso]));
+      painel.appendChild(listaEntradas(acs));
     }
     painel.appendChild(t);
     if (estado.todos) {
@@ -604,7 +649,7 @@
       var ico = el('span', 'painel__entrada-ico painel__entrada-ico--' + (e.tipo || 'entrada'), '●');
       ico.setAttribute('aria-hidden', 'true');
       b.appendChild(ico);
-      b.appendChild(document.createTextNode(' ' + e.nome));
+      b.appendChild(document.createTextNode(' ' + e.nome + (e.tipo !== 'entrada' && e.andar ? ' · 1º andar' : '')));
       li.appendChild(b);
       ul.appendChild(li);
     });
@@ -786,6 +831,7 @@
     var p = new URLSearchParams();
     if (estado.local) p.set('local', estado.local);
     if (estado.entrada) p.set('entrada', estado.entrada);
+    if (estado.piso && !estado.local && !estado.entrada) p.set('andar', '1');
     if (estado.destaques.length) p.set('destaque', estado.destaques.join(','));
     var q = p.toString();
     window.history.replaceState(null, '', window.location.pathname + (q ? '?' + q : '') + window.location.hash);
@@ -795,10 +841,13 @@
     var validas = botoesDestaque.map(function (b) { return b.getAttribute('data-destaque'); });
     estado.destaques = (p.get('destaque') || '').split(',').filter(function (c) { return validas.indexOf(c) !== -1; });
     var local = p.get('local'), entrada = p.get('entrada');
+    if (p.get('andar') === '1') mudaPiso(1);
     if (local && porId[local]) {
       estado.local = local;
+      mudaPiso(porId[local].andar);
       desenhaSelecao(local);
     } else if (entrada && porEntrada[entrada]) {
+      mudaPiso(porEntrada[entrada].andar);
       estado.entrada = entrada;
       marcaEntrada(entrada);
     }
@@ -844,10 +893,10 @@
   // Refeita quando o quadro muda de tamanho (girar o celular), até a pessoa mexer na planta.
   var mexeu = false;
   function vistaInicial() {
-    if (mexeu || estado.local) return;
+    if (mexeu || estado.local || antesDeImprimir) return; // na impressão, fica a planta toda
     var r = svg.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    if (r.width / r.height > (INTEIRA.w / INTEIRA.h) * 0.6) aplica(vistaCheia());
+    if (r.width / r.height > 1.3) aplica(vistaCheia()); // telas largas: o andar inteiro
     else aplica({ x: INTEIRA.x, y: INTEIRA.y, w: INTEIRA.h * r.width / r.height, h: INTEIRA.h });
   }
   if (window.ResizeObserver) new ResizeObserver(vistaInicial).observe(svg);
@@ -861,10 +910,12 @@
   function preparaImpressao() {
     if (antesDeImprimir) return;
     var html = document.documentElement;
-    antesDeImprimir = { vb: vb, tema: html.getAttribute('data-theme') };
+    antesDeImprimir = { vb: vb, tema: html.getAttribute('data-theme'), piso: estado.piso };
     paraAnimacao();
     html.removeAttribute('data-theme');
-    aplica(INTEIRA);
+    // No papel, os dois andares como no desenho original
+    svg.classList.remove('vista-0', 'vista-1');
+    aplica(TODA);
     var l = estado.local && porId[estado.local];
     html.classList.toggle('imprime-local', !!l);
     svg.classList.toggle('imprime-foco', !!l);
@@ -883,6 +934,7 @@
     if (!antesDeImprimir) return;
     var html = document.documentElement;
     if (antesDeImprimir.tema) html.setAttribute('data-theme', antesDeImprimir.tema);
+    mudaPiso(antesDeImprimir.piso);
     aplica(antesDeImprimir.vb);
     html.classList.remove('imprime-local');
     svg.classList.remove('imprime-foco');

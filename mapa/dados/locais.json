@@ -84,7 +84,7 @@
    "tipo": "rampa",
    "nome": "Rampa 1",
    "andar": 0,
-   "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C, e sobe para o 1º andar (perto das salas 30 e 31).",
+   "descricao": "Liga o térreo ao 1º andar.",
    "liga": "rampa-1-1"
   },
   {
@@ -92,56 +92,56 @@
    "tipo": "rampa",
    "nome": "Rampa 2",
    "andar": 0,
-   "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal, e sobe para o 1º andar (perto da sala 43).",
+   "descricao": "Liga o térreo ao 1º andar.",
    "liga": "rampa-2-1"
   },
   {
    "id": "rampa-1-1",
    "tipo": "rampa",
-   "nome": "Rampa 1 (1º andar)",
+   "nome": "Rampa 1",
    "andar": 1,
-   "descricao": "Chegada da Rampa 1 no 1º andar, perto das salas 30 e 31. Desce para o térreo.",
+   "descricao": "Liga o térreo ao 1º andar.",
    "liga": "rampa-1"
   },
   {
    "id": "rampa-2-1",
    "tipo": "rampa",
-   "nome": "Rampa 2 (1º andar)",
+   "nome": "Rampa 2",
    "andar": 1,
-   "descricao": "Chegada da Rampa 2 no 1º andar, perto da sala 43. Desce para o térreo.",
+   "descricao": "Liga o térreo ao 1º andar.",
    "liga": "rampa-2"
   },
   {
-   "id": "escada-c",
+   "id": "escada-1",
    "tipo": "escada",
-   "nome": "Escada da Entrada C",
+   "nome": "Escada 1",
    "andar": 0,
-   "descricao": "Perto da Entrada C, entre as salas 15 e 14. Sobe para o 1º andar (entre as salas 30 e 31).",
-   "liga": "escada-1a"
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-1-1"
   },
   {
-   "id": "escada-terreo",
+   "id": "escada-2",
    "tipo": "escada",
-   "nome": "Escada da entrada principal",
+   "nome": "Escada 2",
    "andar": 0,
-   "descricao": "Ao lado da sala 4, perto da entrada principal. Sobe para o 1º andar (entre as salas 42 e 43).",
-   "liga": "escada-1b"
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-2-1"
   },
   {
-   "id": "escada-1a",
+   "id": "escada-1-1",
    "tipo": "escada",
-   "nome": "Escada (lado da Entrada C)",
+   "nome": "Escada 1",
    "andar": 1,
-   "descricao": "No 1º andar, entre as salas 30 e 31. Desce para o térreo perto da Entrada C.",
-   "liga": "escada-c"
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-1"
   },
   {
-   "id": "escada-1b",
+   "id": "escada-2-1",
    "tipo": "escada",
-   "nome": "Escada (lado da entrada principal)",
+   "nome": "Escada 2",
    "andar": 1,
-   "descricao": "No 1º andar, entre as salas 42 e 43. Desce para o térreo perto da entrada principal.",
-   "liga": "escada-terreo"
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-2"
   }
  ],
  "locais": [

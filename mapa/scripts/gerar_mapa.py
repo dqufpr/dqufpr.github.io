@@ -75,26 +75,22 @@ ENTRADAS = [
 # nas linhas de centro das paredes; o tom é multiplicado sobre a planta (css), então as paredes continuam à vista.
 # liga: a escada do outro andar na mesma área (para a rota "Como chegar").
 ACESSOS = [
-    # Rampas: corredores de ligação do térreo; uma das faixas sobe e chega ao 1º andar no "dente"
-    # do alto da planta do 1º andar, na mesma posição.
-    {"id": "rampa-1", "tipo": "rampa", "nome": "Rampa 1", "andar": 0, "ret": (2263.5, 1326.3, 2385.6, 1776),
-     "liga": "rampa-1-1", "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C, e sobe para o 1º andar (perto das salas 30 e 31)."},
-    {"id": "rampa-2", "tipo": "rampa", "nome": "Rampa 2", "andar": 0, "ret": (4762.5, 1326.3, 4884.4, 1776),
-     "liga": "rampa-2-1", "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal, e sobe para o 1º andar (perto da sala 43)."},
-    {"id": "rampa-1-1", "tipo": "rampa", "nome": "Rampa 1 (1º andar)", "andar": 1, "ret": (2324.8, 2787.7, 2385.6, 2838.4),
-     "liga": "rampa-1", "descricao": "Chegada da Rampa 1 no 1º andar, perto das salas 30 e 31. Desce para o térreo."},
-    {"id": "rampa-2-1", "tipo": "rampa", "nome": "Rampa 2 (1º andar)", "andar": 1, "ret": (4823.5, 2787.7, 4884.4, 2838.4),
-     "liga": "rampa-2", "descricao": "Chegada da Rampa 2 no 1º andar, perto da sala 43. Desce para o térreo."},
-    # Escadas: a mesma escada aparece nos dois andares (o prédio só tem térreo e 1º andar), com a mesma largura
-    {"id": "escada-c", "tipo": "escada", "nome": "Escada da Entrada C", "andar": 0, "ret": (2263.5, 2087, 2385.6, 2340.1),
-     "liga": "escada-1a", "descricao": "Perto da Entrada C, entre as salas 15 e 14. Sobe para o 1º andar (entre as salas 30 e 31)."},
-    {"id": "escada-terreo", "tipo": "escada", "nome": "Escada da entrada principal", "andar": 0, "ret": (4631.2, 2087, 4762.5, 2340.1),
-     "liga": "escada-1b", "descricao": "Ao lado da sala 4, perto da entrada principal. Sobe para o 1º andar (entre as salas 42 e 43)."},
-    {"id": "escada-1a", "tipo": "escada", "nome": "Escada (lado da Entrada C)", "andar": 1, "ret": (2263.5, 3080.8, 2385.6, 3273.2),
-     "liga": "escada-c", "descricao": "No 1º andar, entre as salas 30 e 31. Desce para o térreo perto da Entrada C."},
-    {"id": "escada-1b", "tipo": "escada", "nome": "Escada (lado da entrada principal)", "andar": 1, "ret": (4631.2, 3080.8, 4762.5, 3273.2),
-     "liga": "escada-terreo", "descricao": "No 1º andar, entre as salas 42 e 43. Desce para o térreo perto da entrada principal."},
+    # Rampas: corredores de ligação do térreo; uma das faixas sobe e chega ao 1º andar no recorte
+    # do alto da planta do 1º andar, na mesma posição. A Rampa 1 é a da direita (lado da entrada principal).
+    {"id": "rampa-1", "tipo": "rampa", "nome": "Rampa 1", "andar": 0, "ret": (4762.5, 1326.3, 4884.4, 1776), "liga": "rampa-1-1"},
+    {"id": "rampa-2", "tipo": "rampa", "nome": "Rampa 2", "andar": 0, "ret": (2263.5, 1326.3, 2385.6, 1776), "liga": "rampa-2-1"},
+    {"id": "rampa-1-1", "tipo": "rampa", "nome": "Rampa 1", "andar": 1, "ret": (4823.5, 2787.7, 4884.4, 2838.4), "liga": "rampa-1"},
+    {"id": "rampa-2-1", "tipo": "rampa", "nome": "Rampa 2", "andar": 1, "ret": (2324.8, 2787.7, 2385.6, 2838.4), "liga": "rampa-2"},
+    # Escadas: a mesma escada nos dois andares (o prédio só tem térreo e 1º andar), com a mesma largura.
+    # A Escada 1 é a da entrada principal.
+    {"id": "escada-1", "tipo": "escada", "nome": "Escada 1", "andar": 0, "ret": (4631.2, 2087, 4762.5, 2340.1), "liga": "escada-1-1"},
+    {"id": "escada-2", "tipo": "escada", "nome": "Escada 2", "andar": 0, "ret": (2263.5, 2087, 2385.6, 2340.1), "liga": "escada-2-1"},
+    {"id": "escada-1-1", "tipo": "escada", "nome": "Escada 1", "andar": 1, "ret": (4631.2, 3080.8, 4762.5, 3273.2), "liga": "escada-1"},
+    {"id": "escada-2-1", "tipo": "escada", "nome": "Escada 2", "andar": 1, "ret": (2263.5, 3080.8, 2385.6, 3273.2), "liga": "escada-2"},
 ]
+for _a in ACESSOS:
+    _a["descricao"] = "Liga o térreo ao 1º andar."
+
 # Pictogramas (caixa de 100×100 centrada em 0), brancos dentro de um círculo colorido:
 # escada: pessoa subindo degraus; rampa: Símbolo Internacional de Acesso sobre o plano inclinado.
 SIMBOLOS = {
@@ -113,14 +109,14 @@ SIMBOLOS = {
 R_PICT = 52  # raio do círculo, em unidades do desenho
 
 
-def gera_acessos():
-    """Área de cada rampa e escada (tom próprio, multiplicado sobre a planta) e o pictograma num círculo."""
+def gera_acessos(andar_):
+    """Área de cada rampa e escada do andar (tom próprio, multiplicado sobre a planta) e o pictograma num círculo."""
     areas, marcas = [], []
-    for a in ACESSOS:
+    for a in (x for x in ACESSOS if x["andar"] == andar_):
         x0, y0, x1, y1 = a["ret"]
         w, h = x1 - x0, y1 - y0
         cx, cy = x0 + w / 2, y0 + h / 2
-        t = html.escape(a["nome"]) + " · " + html.escape(a["descricao"])
+        t = html.escape(a["nome"]) + " · " + ANDARES[a["andar"]]["nome"]
         areas.append(
             f'<g class="acesso acesso--{a["tipo"]}" data-entrada="{a["id"]}"><title>{t}</title>'
             f'<rect class="acesso__ret" x="{x0:g}" y="{y0:g}" width="{w:g}" height="{h:g}"/></g>')
@@ -242,29 +238,47 @@ def titulo(local):
     return next(i["nome"] for i in its if i["categoria"] != "sala-prof")
 
 
+# Corte entre os andares no desenho-base (o 1º andar está desenhado abaixo do térreo)
+CORTE_Y = 2560
+# Deslocamento do 1º andar até a posição real (em cima do bloco das salas 1 a 22); usado por css/style.css
+DESLOCAMENTO_1 = -933.11
+
+
 def gera_planta(locais, areas, base):
+    """Planta com um grupo por andar (.piso--0, .piso--1). Sem classe de vista, os dois andares aparecem
+    como no desenho original (impressão e imagens de compartilhamento); js/mapa.js mostra um por vez."""
     cat = {l["id"]: l["categoria"] for l in locais}
     nomes = {l["id"]: titulo(l) for l in locais}
-    poly, rot = [], []
+    poly, rot = {0: [], 1: []}, {0: [], 1: []}
     for a in areas:
         c = cat.get(a["local"], "outros")
+        n = andar(a["local"])
         pts = " ".join(f"{x:g},{y:g}" for x, y in a["pontos"])
         e = html.escape(a["local"])
-        poly.append(f'<polygon class="area loc--{c}" data-local="{e}" points="{pts}"><title>{e} · {html.escape(nomes.get(a["local"], ""))}</title></polygon>')
+        poly[n].append(f'<polygon class="area loc--{c}" data-local="{e}" points="{pts}"><title>{e} · {html.escape(nomes.get(a["local"], ""))}</title></polygon>')
         tom = " rotulo--escuro" if c in CLARAS else ""
-        rot.append(f'<text class="rotulo{tom}" data-local="{e}" x="{a["rotulo"][0]}" y="{a["rotulo"][1]}">{e}</text>')
+        rot[n].append(f'<text class="rotulo{tom}" data-local="{e}" x="{a["rotulo"][0]}" y="{a["rotulo"][1]}">{e}</text>')
     corpo = re.search(r"<g class=\"base\">.*</g>", base, re.S).group(0)
+    # Segunda cópia do desenho-base (1º andar): ids com sufixo, para não repetir
+    corpo1 = re.sub(r'id="([^"]+)"', r'id="\1-1"', corpo)
+    corpo1 = re.sub(r'href="#([^"]+)"', r'href="#\1-1"', corpo1)
+
+    def piso(n, desenho, extra_antes=""):
+        return (
+            f'<g class="piso piso--{n}" data-andar="{n}">\n' + extra_antes
+            + f'<g clip-path="url(#corte-{n})">{desenho}</g>\n'
+            + '<g class="areas">\n' + "\n".join(poly[n]) + "\n</g>\n"
+            + '<g class="rotulos" aria-hidden="true">\n' + "\n".join(rot[n]) + "\n</g>\n"
+            + gera_andares(areas, n) + gera_acessos(n) + (gera_entradas() if n == 0 else "")
+            + '<g class="selecao" aria-hidden="true" data-planta-selecao></g>\n</g>\n'
+        )
+
     return (
         f'<svg class="planta__svg" viewBox="{VIEWBOX}" preserveAspectRatio="xMidYMid meet" role="img" '
         f'aria-label="Planta do prédio do Departamento de Química com {len(locais)} locais numerados" data-planta-svg>\n'
-        + gera_fundo_andar(areas) +
-        f"{corpo}\n"
-        f'<g class="areas">\n' + "\n".join(poly) + "\n</g>\n"
-        f'<g class="rotulos" aria-hidden="true">\n' + "\n".join(rot) + "\n</g>\n"
-        + gera_andares(areas)
-        + gera_acessos()
-        + gera_entradas() +
-        f'<g class="selecao" aria-hidden="true" data-planta-selecao></g>\n'
+        f'<defs><clipPath id="corte-0"><rect x="0" y="0" width="8000" height="{CORTE_Y}"/></clipPath>'
+        f'<clipPath id="corte-1"><rect x="0" y="{CORTE_Y}" width="8000" height="2000"/></clipPath></defs>\n'
+        + piso(0, corpo) + piso(1, corpo1, gera_fundo_andar(areas)) +
         "</svg>"
     )
 
@@ -294,12 +308,12 @@ def gera_fundo_andar(areas):
             f'width="{x1 - x0:g}" height="{y1 - y0:g}" rx="60"/></g>\n')
 
 
-def gera_andares(areas):
-    """Nome de cada andar acima do seu bloco."""
+def gera_andares(areas, andar_):
+    """Nome do andar acima do seu bloco."""
     caixas = caixas_andares(areas)
     partes = []
     for a in ANDARES:
-        if a["id"] in caixas:
+        if a["id"] == andar_ and a["id"] in caixas:
             x0, y0 = caixas[a["id"]][:2]
             partes.append(f'<text class="andar__nome" x="{x0:g}" y="{y0 - 22:g}">{html.escape(a["nome"].upper())}</text>')
     return f'<g class="andares" aria-hidden="true">\n' + "\n".join(partes) + "\n</g>\n"
