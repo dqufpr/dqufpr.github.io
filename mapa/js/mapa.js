@@ -36,7 +36,12 @@
   var limpar = root.querySelector('[data-limpar]');
   var lista = document.querySelector('[data-lista]');
   var listaStatus = document.querySelector('[data-lista-status]');
-  var botoesDestaque = Array.prototype.slice.call(root.querySelectorAll('[data-destaque]'));
+  // Filtros da lista: cópias dos botões de destaque da planta (mesmo estado, filtram os dois)
+  var listaFiltros = document.querySelector('[data-lista-filtros]');
+  if (listaFiltros) {
+    Array.prototype.forEach.call(root.querySelectorAll('[data-destaque]'), function (b) { listaFiltros.appendChild(b.cloneNode(true)); });
+  }
+  var botoesDestaque = Array.prototype.slice.call(document.querySelectorAll('[data-destaque]'));
   var painelEl = root.querySelector('[data-painel]');
   var lupa = root.querySelector('[data-busca-abrir]');
   var listaAlternar = document.querySelector('[data-lista-alternar]');
@@ -291,6 +296,7 @@
       li.hidden = !mostra;
       if (mostra) visiveis++;
     });
+    atualizaPaginas();
     listaStatus.textContent = ativo
       ? (visiveis ? visiveis + (visiveis === 1 ? ' local' : ' locais') + ' de ' + dados.locais.length + '.' : 'Nenhum local encontrado.')
       : '';
@@ -708,8 +714,7 @@
       e.preventDefault();
       e.stopPropagation(); // senão o clique "fora" fecharia o card que vai abrir
       var id = t.getAttribute('data-ver-lista');
-      abreLista(true);
-      abreCard(document.getElementById('local-' + id), true);
+      mostraNaLista(id);
       if (celular.matches) fechaFolha(); // o cartão cobriria a lista
       window.location.hash = 'local-' + id;
     }
@@ -735,58 +740,125 @@
   }
   listaAlternar.addEventListener('click', function () { abreLista(!lista.classList.contains('is-aberta')); });
   abreLista(false);
-  abreCardDoEndereco();
   listaAlternar.hidden = false;
 
-  // Cards da lista: o nome abre e fecha os detalhes. O card aberto cresce por cima dos
-  // de baixo (as linhas da grade têm altura fixa, ver css/style.css); um aberto por vez.
-  var cardAberto = null;
-  function alturaCheia(li) { return li.scrollHeight + li.offsetHeight - li.clientHeight; } // conteúdo + bordas
+  // Cards da lista: "Detalhes" abre e fecha os itens do local, dentro do próprio card
   function abreCard(li, on) {
-    if (!li || li.classList.contains('is-aberto') === on) return;
-    li.querySelector('.local__abrir').setAttribute('aria-expanded', on ? 'true' : 'false');
-    window.clearTimeout(li._fim);
-    if (on) {
-      if (cardAberto) abreCard(cardAberto, false);
-      li.classList.remove('is-fechando');
-      li.classList.add('is-aberto');
-      li.style.height = alturaCheia(li) + 'px'; // anima da altura fixa até a do conteúdo
-      cardAberto = li;
-    } else {
-      li.classList.remove('is-aberto');
-      li.classList.add('is-fechando'); // continua por cima enquanto encolhe
-      li.style.height = '';
-      li._fim = window.setTimeout(function () { li.classList.remove('is-fechando'); }, 320);
-      if (cardAberto === li) cardAberto = null;
+    if (!li) return;
+    var b = li.querySelector('.local__abrir');
+    if (!b) return;
+    li.classList.toggle('is-aberto', on);
+    b.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+
+  /* Carrossel: 9 cards por página, só entre os que o filtro deixa à mostra */
+  var POR_PAGINA = 9, pagina = 0, filtroDaLista = '|'; // '|' = sem busca e sem destaques
+  var paginasEl = document.querySelector('[data-lista-paginas]');
+  var secaoLista = lista.closest('section');
+  function visiveisNaLista() {
+    return Array.prototype.filter.call(lista.children, function (li) { return !li.hidden; });
+  }
+  function paginar(dir) {
+    var vis = visiveisNaLista(), total = Math.max(1, Math.ceil(vis.length / POR_PAGINA));
+    pagina = Math.max(0, Math.min(pagina, total - 1));
+    Array.prototype.forEach.call(lista.children, function (li) { li.classList.add('fora-da-pagina'); });
+    vis.slice(pagina * POR_PAGINA, (pagina + 1) * POR_PAGINA).forEach(function (li) { li.classList.remove('fora-da-pagina'); });
+    desenhaPaginas(total, vis.length);
+    lista.classList.remove('entra-dir', 'entra-esq');
+    if (dir && !reduzMovimento) {
+      void lista.offsetWidth; // reinicia a animação
+      lista.classList.add(dir > 0 ? 'entra-dir' : 'entra-esq');
     }
   }
-  // Clique fora ou Esc fecham o card aberto
-  document.addEventListener('click', function (e) {
-    if (cardAberto && !cardAberto.contains(e.target)) abreCard(cardAberto, false);
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && cardAberto) {
-      var b = cardAberto.querySelector('.local__abrir');
-      abreCard(cardAberto, false);
-      b.focus();
+  function irParaPagina(n) {
+    var antes = pagina;
+    pagina = n;
+    paginar(n - antes);
+    // Se o topo da lista saiu da tela, volta até ele
+    var topo = secaoLista.querySelector('.lista__barra') || lista;
+    if (topo.getBoundingClientRect().top < 0) topo.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'start' });
+  }
+  function botaoPagina(texto, alvo, rotulo, extra) {
+    var b = el('button', 'lista__pag' + (extra || ''), texto);
+    b.type = 'button';
+    b.setAttribute('data-pagina', String(alvo));
+    if (rotulo) b.setAttribute('aria-label', rotulo);
+    return b;
+  }
+  function desenhaPaginas(total, n) {
+    paginasEl.textContent = '';
+    paginasEl.hidden = total <= 1;
+    if (total <= 1) return;
+    var ant = botaoPagina('‹ Anterior', pagina - 1, 'Página anterior', ' lista__pag--seta');
+    ant.disabled = pagina === 0;
+    paginasEl.appendChild(ant);
+    // Números: primeira, última e as vizinhas da atual
+    var ultimo = -1;
+    for (var i = 0; i < total; i++) {
+      if (i !== 0 && i !== total - 1 && Math.abs(i - pagina) > 1) continue;
+      if (ultimo !== -1 && i - ultimo > 1) paginasEl.appendChild(el('span', 'lista__pag-gap', '…'));
+      var b = botaoPagina(String(i + 1), i, 'Página ' + (i + 1));
+      if (i === pagina) b.setAttribute('aria-current', 'page');
+      paginasEl.appendChild(b);
+      ultimo = i;
     }
+    var prox = botaoPagina('Próxima ›', pagina + 1, 'Próxima página', ' lista__pag--seta');
+    prox.disabled = pagina === total - 1;
+    paginasEl.appendChild(prox);
+    var de = pagina * POR_PAGINA + 1, ate = Math.min(n, de + POR_PAGINA - 1);
+    paginasEl.appendChild(el('p', 'lista__pag-info', 'Mostrando ' + de + '–' + ate + ' de ' + n + (n === 1 ? ' local' : ' locais')));
+  }
+  paginasEl.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-pagina]');
+    if (b && !b.disabled) irParaPagina(+b.getAttribute('data-pagina'));
   });
-  // A largura mudou (girar o tablet): reajusta a altura do card aberto
-  window.addEventListener('resize', function () {
-    if (!cardAberto) return;
-    cardAberto.style.height = 'auto';
-    cardAberto.style.height = alturaCheia(cardAberto) + 'px';
+  // Deslizar o dedo para o lado troca de página
+  var toqueX = null;
+  lista.addEventListener('pointerdown', function (e) { toqueX = e.pointerType === 'touch' ? e.clientX : null; });
+  lista.addEventListener('pointerup', function (e) {
+    if (toqueX === null) return;
+    var dx = e.clientX - toqueX, total = Math.ceil(visiveisNaLista().length / POR_PAGINA);
+    toqueX = null;
+    if (Math.abs(dx) < 60) return;
+    if (dx < 0 && pagina < total - 1) irParaPagina(pagina + 1);
+    else if (dx > 0 && pagina > 0) irParaPagina(pagina - 1);
   });
+  // Chamada depois de filtrar (aplicaFiltro): com outro filtro, volta à primeira página
+  function atualizaPaginas() {
+    var chave = estado.busca.trim() + '|' + estado.destaques.join(',');
+    if (chave !== filtroDaLista) { filtroDaLista = chave; pagina = 0; }
+    paginar(0);
+  }
+  // Leva a lista até o card de um local: abre a lista, vai à página dele e abre os detalhes
+  function mostraNaLista(id) {
+    var li = document.getElementById('local-' + id);
+    if (!li) return;
+    abreLista(true);
+    var idx = visiveisNaLista().indexOf(li);
+    if (idx !== -1) { pagina = Math.floor(idx / POR_PAGINA); paginar(0); }
+    abreCard(li, true);
+    li.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'center' });
+    li.classList.add('is-realce');
+    window.setTimeout(function () { li.classList.remove('is-realce'); }, 2000);
+  }
   function abreCardDoEndereco() {
     var m = /^#local-(.+)$/.exec(window.location.hash);
-    if (m) { abreLista(true); abreCard(document.getElementById('local-' + decodeURIComponent(m[1])), true); }
+    if (m) mostraNaLista(decodeURIComponent(m[1]));
   }
   window.addEventListener('hashchange', abreCardDoEndereco);
+  paginar(0);
+  abreCardDoEndereco();
 
   // "Ver na planta" na lista completa
   lista.addEventListener('click', function (e) {
     var abrir = e.target.closest('.local__abrir');
     if (abrir) { var li = abrir.closest('.local'); abreCard(li, !li.classList.contains('is-aberto')); return; }
+    // Clique no card (fora dos botões) também abre e fecha os detalhes
+    var card = e.target.closest('.local');
+    if (card && !e.target.closest('button, a') && card.querySelector('.local__abrir')) {
+      abreCard(card, !card.classList.contains('is-aberto'));
+      return;
+    }
     var b = e.target.closest('[data-ver-local]');
     if (!b) return;
     seleciona(b.getAttribute('data-ver-local'), true);

@@ -320,31 +320,43 @@ def gera_andares(areas, andar_):
 
 
 def gera_lista(locais):
+    """Cards da lista "Todos os locais": número, tipo e andar, nome, resumo e ações.
+    js/mapa.js pagina a lista (9 por página) e abre e fecha os detalhes; sem JavaScript,
+    todos os cards e detalhes ficam à mostra."""
     nomes_cat = {c[0]: c[1] for c in list(CATEGORIAS.values()) + [OUTROS]}
     out = []
     for l in locais:
         e = html.escape(l["id"])
         cats = " ".join(l["categorias"])
+        its = l["itens"]
         itens = []
-        for i in l["itens"]:
+        for i in its:
             sig = f' <span class="badge">{html.escape(i["sigla"])}</span>' if i.get("sigla") and i["sigla"] not in i["nome"] else ""
             desc = f'<p class="local__desc">{html.escape(i["descricao"])}</p>' if i.get("descricao") else ""
             itens.append(f'<li><span class="local__item">{html.escape(i["nome"])}</span>{sig}{desc}</li>')
         cat_txt = " · ".join(nomes_cat[c] for c in l["categorias"])
         piso = ANDARES[l["andar"]]["nome"]
-        # Card recolhido: número, nome e tipo. O nome é o botão que abre os detalhes (js/mapa.js);
-        # sem JavaScript, os detalhes ficam sempre à mostra.
+        profs = bool(its) and all(i["categoria"] == "sala-prof" for i in its)
+        # Resumo: quem está na sala, quantos itens há ou a descrição do único item
+        if profs:
+            resumo = ", ".join(i["nome"] for i in its)
+        elif len(its) > 1:
+            resumo = f"{len(its)} itens neste local"
+        else:
+            resumo = its[0].get("descricao", "") if its else "Ainda não há informações sobre este local."
+        resumo_html = f'  <p class="local__resumo">{html.escape(resumo)}</p>\n' if resumo else ""
+        tem_detalhes = bool(its) and (len(its) > 1 or any(i.get("descricao") or i.get("sigla") for i in its))
+        detalhes = (f'  <div class="local__detalhes" id="local-{e}-detalhes"><ul class="local__itens">{"".join(itens)}</ul></div>\n'
+                    if tem_detalhes else "")
+        abrir = (f'<button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">Detalhes</button>'
+                 if tem_detalhes else "")
         out.append(
-            f'<li class="local loc--{l["categoria"]}" id="local-{e}" data-local="{e}" data-categorias="{cats}">\n'
-            f'  <span class="local__num"><span class="visually-hidden">Sala </span>{e}</span>\n'
-            f'  <div class="local__body">\n'
-            f'    <h3 class="local__nome"><button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">{html.escape(titulo(l))}</button></h3>\n'
-            f'    <p class="local__meta"><span class="local__cat">{cat_txt}</span> · <span class="local__andar">{piso}</span></p>\n'
-            f'    <div class="local__detalhes" id="local-{e}-detalhes">\n'
-            f'      <ul class="local__itens">{"".join(itens)}</ul>\n'
-            f'      <button type="button" class="btn btn--ghost btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>\n'
-            f"    </div>\n"
-            f"  </div>\n"
+            f'<li class="local loc--{l["categoria"]}" id="local-{e}" data-local="{e}" data-categorias="{cats}" data-andar="{l["andar"]}">\n'
+            f'  <div class="local__topo"><span class="local__num"><span class="visually-hidden">Sala </span>{e}</span>'
+            f'<span class="local__tags"><span class="local__cat">{cat_txt}</span><span class="local__andar">{piso}</span></span></div>\n'
+            f'  <h3 class="local__nome">{html.escape(titulo(l))}</h3>\n'
+            + resumo_html + detalhes +
+            f'  <div class="local__acoes"><button type="button" class="btn btn--secondary btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>{abrir}</div>\n'
             f"</li>"
         )
     return "\n".join(out)
