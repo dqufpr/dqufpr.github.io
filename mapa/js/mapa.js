@@ -8,7 +8,8 @@
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
    - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
-   - entradas do prédio: clique no marcador verde, botões no painel, busca e ?entrada=principal;
+   - entradas, rampas e escadas: clique na planta, botões no painel, busca e ?entrada=principal
+     (ou ?entrada=rampa-1, escada-terreo…);
    - compartilhar o local exibido (WhatsApp, Instagram e folha de compartilhar do sistema);
    - lista de locais recolhida (acordeão) e "Mostrar todos os locais" no painel;
    - tablet e desktop (500px+): painel flutuando à direita da planta; enquadramentos
@@ -107,7 +108,7 @@
   }
   // Enquadra as áreas de um local, com folga em volta
   function enquadra(id) { enquadraNos(svg.querySelectorAll('.area[data-local="' + esc(id) + '"]')); }
-  function enquadraEntrada(id) { enquadraNos(svg.querySelectorAll('.entrada[data-entrada="' + esc(id) + '"]')); }
+  function enquadraEntrada(id) { enquadraNos(svg.querySelectorAll('[data-entrada="' + esc(id) + '"]')); }
   function enquadraNos(areas) {
     if (!areas.length) return;
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -217,7 +218,7 @@
     if (ponteiros.size === 0) {
       svg.classList.remove('is-arrastando');
       if (e.type === 'pointerup' && movido < MOVE_CLIQUE && alvoInicial) {
-        var ent = alvoInicial.closest && alvoInicial.closest('.entrada');
+        var ent = alvoInicial.closest && alvoInicial.closest('[data-entrada]');
         var area = alvoInicial.closest && alvoInicial.closest('.area');
         if (ent) selecionaEntrada(ent.getAttribute('data-entrada'), false);
         else if (area) seleciona(area.getAttribute('data-local'), false);
@@ -300,7 +301,7 @@
     if (enquadrar) enquadra(id); else garanteVisivel(id);
   }
   function marcaEntrada(id) {
-    Array.prototype.forEach.call(svg.querySelectorAll('.entrada'), function (g) {
+    Array.prototype.forEach.call(svg.querySelectorAll('[data-entrada]'), function (g) {
       g.classList.toggle('is-sel', g.getAttribute('data-entrada') === id);
     });
   }
@@ -372,6 +373,10 @@
     if (dados.entradas && dados.entradas.length) {
       painel.appendChild(el('p', 'painel__eyebrow', 'Entradas do prédio'));
       painel.appendChild(listaEntradas(dados.entradas));
+    }
+    if (dados.acessos && dados.acessos.length) {
+      painel.appendChild(el('p', 'painel__eyebrow', 'Rampas e escadas'));
+      painel.appendChild(listaEntradas(dados.acessos));
     }
     painel.appendChild(t);
     if (estado.todos) {
@@ -577,7 +582,8 @@
     voltar.type = 'button';
     voltar.setAttribute('data-voltar', '');
     painel.appendChild(voltar);
-    painel.appendChild(el('p', 'painel__eyebrow', 'Entrada do prédio · ' + andarDe(e)));
+    var tipo = { entrada: 'Entrada do prédio', rampa: 'Rampa', escada: 'Escada' }[e.tipo] || 'Entrada do prédio';
+    painel.appendChild(el('p', 'painel__eyebrow', tipo + ' · ' + andarDe(e)));
     painel.appendChild(el('h2', 'painel__titulo', e.nome));
     painel.appendChild(el('p', 'painel__texto', e.descricao));
     var acoes = el('div', 'painel__acoes');
@@ -595,7 +601,7 @@
       var b = el('button', 'btn btn--secondary btn--sm');
       b.type = 'button';
       b.setAttribute('data-ir-entrada', e.id);
-      var ico = el('span', 'painel__entrada-ico', '●');
+      var ico = el('span', 'painel__entrada-ico', e.tipo === 'escada' ? '☰' : e.tipo === 'rampa' ? '⇅' : '●');
       ico.setAttribute('aria-hidden', 'true');
       b.appendChild(ico);
       b.appendChild(document.createTextNode(' ' + e.nome));
@@ -606,8 +612,10 @@
   }
   function entradasDaBusca() {
     var q = normalize(estado.busca.trim());
-    if (!q || estado.destaques.length || !dados.entradas) return [];
-    return dados.entradas.filter(function (e) { return e._busca.indexOf(q) !== -1; });
+    if (!q || estado.destaques.length) return [];
+    return pontos().filter(function (e) { return e._busca.indexOf(q) !== -1; });
+  }
+  function pontos() { return (dados.entradas || []).concat(dados.acessos || []);
   }
 
   function render() {
@@ -904,8 +912,14 @@
       nomesCat.outros = nomesCat.outros || 'Outros';
       (dados.andares || []).forEach(function (a) { nomesAndar[a.id] = a.nome; });
       dados.locais.forEach(function (l) { l._busca = textoBusca(l); porId[l.id] = l; });
-      (dados.entradas || []).forEach(function (e) {
-        e._busca = normalize(e.nome + ' entrada porta acesso ' + (e.id === 'principal' ? 'frente' : 'fundos') + ' ' + e.descricao);
+      var termos = {
+        entrada: 'entrada porta acesso',
+        rampa: 'rampa acessibilidade acessivel cadeira de rodas',
+        escada: 'escada escadas subir descer degraus primeiro andar terreo'
+      };
+      pontos().forEach(function (e) {
+        var extra = e.tipo === 'entrada' ? (e.id === 'principal' ? ' frente' : ' fundos') : '';
+        e._busca = normalize(e.nome + ' ' + (termos[e.tipo] || '') + extra + ' ' + e.descricao);
         porEntrada[e.id] = e;
       });
       vistaInicial(); // depois do carregamento: a página já tem o tamanho final

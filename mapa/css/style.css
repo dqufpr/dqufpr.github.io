@@ -141,6 +141,15 @@ button.loc-tag[aria-pressed="true"] {
 .entrada--principal .entrada__nome { font-size: 74px; }
 .entrada:hover .entrada__circulo { filter: brightness(1.12); }
 .entrada.is-sel .entrada__circulo { stroke: var(--planta-selecao); stroke-width: 16; }
+/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS) */
+.acesso { cursor: pointer; }
+.acesso--rampa .acesso__ret { fill: var(--planta-andar); stroke: var(--planta-parede); stroke-width: 5; stroke-dasharray: 18 12; }
+.acesso__seta { fill: none; stroke: var(--planta-parede); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.acesso--escada .acesso__ret { fill: url(#degraus); stroke: var(--planta-parede); stroke-width: 5; }
+.escada__fundo { fill: var(--planta-fundo); }
+.escada__degrau { stroke: var(--planta-parede); stroke-width: 5; }
+.acesso:hover .acesso__ret { filter: brightness(0.95); }
+.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 18; stroke-dasharray: none; }
 .painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
 .painel__entrada-ico { color: var(--planta-entrada); }
 

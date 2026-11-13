@@ -51,27 +51,68 @@
  "entradas": [
   {
    "id": "principal",
+   "tipo": "entrada",
    "nome": "Entrada principal",
    "andar": 0,
    "descricao": "Entre a sala 4 e o Auditório Principal (sala 1), mais perto do auditório."
   },
   {
    "id": "A",
+   "tipo": "entrada",
    "nome": "Entrada A",
    "andar": 0,
    "descricao": "Nos fundos, entre as salas 67 e 66."
   },
   {
    "id": "B",
+   "tipo": "entrada",
    "nome": "Entrada B",
    "andar": 0,
    "descricao": "Nos fundos, entre as salas 87 e 86."
   },
   {
    "id": "C",
+   "tipo": "entrada",
    "nome": "Entrada C",
    "andar": 0,
    "descricao": "No corredor de ligação, ao lado da sala 15, um pouco acima dela."
+  }
+ ],
+ "acessos": [
+  {
+   "id": "rampa-1",
+   "tipo": "rampa",
+   "nome": "Rampa 1",
+   "andar": 0,
+   "descricao": "Liga o corredor das salas 85 a 88 ao corredor da sala 15 e da Entrada C."
+  },
+  {
+   "id": "rampa-2",
+   "tipo": "rampa",
+   "nome": "Rampa 2",
+   "andar": 0,
+   "descricao": "Liga o corredor das salas 65 a 68 ao hall da entrada principal."
+  },
+  {
+   "id": "escada-terreo",
+   "tipo": "escada",
+   "nome": "Escada do térreo",
+   "andar": 0,
+   "descricao": "Sobe para o 1º andar. Fica ao lado da sala 4, perto da entrada principal."
+  },
+  {
+   "id": "escada-1a",
+   "tipo": "escada",
+   "nome": "Escada 1 do 1º andar",
+   "andar": 1,
+   "descricao": "No 1º andar, entre as salas 30 e 31."
+  },
+  {
+   "id": "escada-1b",
+   "tipo": "escada",
+   "nome": "Escada 2 do 1º andar",
+   "andar": 1,
+   "descricao": "No 1º andar, entre as salas 42 e 43."
   }
  ],
  "locais": [
