@@ -699,6 +699,9 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   }
   .lista__barra, .lista__paginas, .local__acoes { display: none !important; }
   .local, .mapa-js .local { padding: 3mm 3mm 2.5mm; gap: 1mm; box-shadow: none !important; transform: none !important; break-inside: avoid; border-color: #c7d0db; }
+  /* A faixa colorida fica dentro da borda: o card corta o que passar dos cantos arredondados */
+  .local, .mapa-js .local { overflow: hidden; }
+  .local::before, .mapa-js .local::before { border-radius: 0; }
   .mapa-js .local.fora-da-pagina:not([hidden]) { display: flex; }
   .local[hidden] { display: none !important; }
   .local::before, .local__num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
