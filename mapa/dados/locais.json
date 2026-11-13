@@ -48,6 +48,32 @@
    "nome": "1º andar"
   }
  ],
+ "entradas": [
+  {
+   "id": "principal",
+   "nome": "Entrada principal",
+   "andar": 0,
+   "descricao": "Entre a sala 4 e o Auditório Principal (sala 1)."
+  },
+  {
+   "id": "A",
+   "nome": "Entrada A",
+   "andar": 0,
+   "descricao": "Nos fundos, entre as salas 67 e 66."
+  },
+  {
+   "id": "B",
+   "nome": "Entrada B",
+   "andar": 0,
+   "descricao": "Nos fundos, entre as salas 87 e 86."
+  },
+  {
+   "id": "D",
+   "nome": "Entrada D",
+   "andar": 0,
+   "descricao": "No corredor de ligação, ao lado da sala 15, um pouco acima dela."
+  }
+ ],
  "locais": [
   {
    "id": "1",

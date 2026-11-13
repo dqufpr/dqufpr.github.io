@@ -8,6 +8,7 @@
    - busca e destaque por categoria (filtram a planta e a lista);
    - endereço compartilhável: ?local=45-B e ?destaque=sala-aula,servico;
    - botão Ampliar (tela cheia do navegador ou, sem ela, quadro fixo sobre a página);
+   - entradas do prédio: clique no marcador verde, botões no painel, busca e ?entrada=principal;
    - compartilhar o local exibido (WhatsApp, Instagram e folha de compartilhar do sistema);
    - lista de locais recolhida (acordeão) e "Mostrar todos os locais" no painel;
    - tablet e desktop (500px+): painel flutuando à direita da planta; enquadramentos
@@ -44,7 +45,8 @@
   var porId = {};                 // id do local → objeto do local
   var nomesCat = {};              // id da categoria → nome
   var nomesAndar = ['Térreo', '1º andar']; // substituídos pelos de locais.json
-  var estado = { local: null, busca: '', destaques: [], todos: false };
+  var estado = { local: null, entrada: null, busca: '', destaques: [], todos: false };
+  var porEntrada = {};            // id da entrada (principal, A, B, D) → objeto de locais.json
 
   /* ---------- Utilidades ---------- */
   function normalize(s) {
@@ -104,8 +106,9 @@
     fimAnimacao = window.setTimeout(function () { paraAnimacao(); aplica(alvo); }, D + 100);
   }
   // Enquadra as áreas de um local, com folga em volta
-  function enquadra(id) {
-    var areas = svg.querySelectorAll('.area[data-local="' + esc(id) + '"]');
+  function enquadra(id) { enquadraNos(svg.querySelectorAll('.area[data-local="' + esc(id) + '"]')); }
+  function enquadraEntrada(id) { enquadraNos(svg.querySelectorAll('.entrada[data-entrada="' + esc(id) + '"]')); }
+  function enquadraNos(areas) {
     if (!areas.length) return;
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
     Array.prototype.forEach.call(areas, function (a) {
@@ -214,8 +217,10 @@
     if (ponteiros.size === 0) {
       svg.classList.remove('is-arrastando');
       if (e.type === 'pointerup' && movido < MOVE_CLIQUE && alvoInicial) {
+        var ent = alvoInicial.closest && alvoInicial.closest('.entrada');
         var area = alvoInicial.closest && alvoInicial.closest('.area');
-        if (area) seleciona(area.getAttribute('data-local'), false);
+        if (ent) selecionaEntrada(ent.getAttribute('data-entrada'), false);
+        else if (area) seleciona(area.getAttribute('data-local'), false);
       }
       alvoInicial = null;
     }
@@ -273,8 +278,11 @@
   }
 
   /* ---------- Seleção ---------- */
+  // Qualquer seleção (ou a falta dela) tira a marca da entrada; selecionaEntrada a põe de volta
   function desenhaSelecao(id) {
     selecao.textContent = '';
+    estado.entrada = null;
+    marcaEntrada(null);
     if (!id) return;
     Array.prototype.forEach.call(svg.querySelectorAll('.area[data-local="' + esc(id) + '"]'), function (a) {
       var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
@@ -290,6 +298,21 @@
     atualizaEndereco();
     render(); // antes de enquadrar: no celular, o cartão já ocupa o pé da tela
     if (enquadrar) enquadra(id); else garanteVisivel(id);
+  }
+  function marcaEntrada(id) {
+    Array.prototype.forEach.call(svg.querySelectorAll('.entrada'), function (g) {
+      g.classList.toggle('is-sel', g.getAttribute('data-entrada') === id);
+    });
+  }
+  function selecionaEntrada(id, enquadrar) {
+    if (!porEntrada[id]) return;
+    estado.local = null;
+    desenhaSelecao(null);
+    estado.entrada = id;
+    marcaEntrada(id);
+    atualizaEndereco();
+    render();
+    if (enquadrar) enquadraEntrada(id);
   }
   function desseleciona() {
     estado.local = null;
@@ -346,6 +369,10 @@
     t.type = 'button';
     t.setAttribute('data-todos', '');
     t.setAttribute('aria-expanded', estado.todos ? 'true' : 'false');
+    if (dados.entradas && dados.entradas.length) {
+      painel.appendChild(el('p', 'painel__eyebrow', 'Entradas do prédio'));
+      painel.appendChild(listaEntradas(dados.entradas));
+    }
     painel.appendChild(t);
     if (estado.todos) {
       var ul = el('ul', 'painel__lista');
@@ -372,11 +399,14 @@
   }
 
   function renderResultados() {
-    var r = resultados();
+    var r = resultados(), ents = entradasDaBusca();
     painel.appendChild(botaoFechar('Fechar resultados'));
     painel.appendChild(el('p', 'painel__eyebrow', estado.busca.trim() ? 'Resultado da busca' : 'Destaques'));
-    painel.appendChild(el('h2', 'painel__titulo', r.length + (r.length === 1 ? ' local encontrado' : ' locais encontrados')));
+    var n = r.length + ents.length;
+    painel.appendChild(el('h2', 'painel__titulo', n + (n === 1 ? ' local encontrado' : ' locais encontrados')));
+    if (ents.length) painel.appendChild(listaEntradas(ents));
     if (!r.length) {
+      if (ents.length) return;
       painel.appendChild(el('p', 'painel__texto', 'Nada encontrado. Tente o número da sala, parte do nome ou a sigla.'));
       return;
     }
@@ -540,15 +570,56 @@
     }
   }
 
+  function renderEntrada() {
+    var e = porEntrada[estado.entrada];
+    painel.appendChild(botaoFechar('Fechar ' + e.nome));
+    var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
+    voltar.type = 'button';
+    voltar.setAttribute('data-voltar', '');
+    painel.appendChild(voltar);
+    painel.appendChild(el('p', 'painel__eyebrow', 'Entrada do prédio · ' + andarDe(e)));
+    painel.appendChild(el('h2', 'painel__titulo', e.nome));
+    painel.appendChild(el('p', 'painel__texto', e.descricao));
+    var acoes = el('div', 'painel__acoes');
+    var centra = el('button', 'btn btn--secondary btn--sm', 'Centralizar na planta');
+    centra.type = 'button';
+    centra.setAttribute('data-centralizar', '');
+    acoes.appendChild(centra);
+    painel.appendChild(acoes);
+  }
+  // Botões das entradas (visão geral e resultados da busca)
+  function listaEntradas(es) {
+    var ul = el('ul', 'painel__entradas');
+    es.forEach(function (e) {
+      var li = el('li');
+      var b = el('button', 'btn btn--secondary btn--sm');
+      b.type = 'button';
+      b.setAttribute('data-ir-entrada', e.id);
+      var ico = el('span', 'painel__entrada-ico', '●');
+      ico.setAttribute('aria-hidden', 'true');
+      b.appendChild(ico);
+      b.appendChild(document.createTextNode(' ' + e.nome));
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+  function entradasDaBusca() {
+    var q = normalize(estado.busca.trim());
+    if (!q || estado.destaques.length || !dados.entradas) return [];
+    return dados.entradas.filter(function (e) { return e._busca.indexOf(q) !== -1; });
+  }
+
   function render() {
     aplicaFiltro();
     painel.textContent = '';
     if (estado.local) renderLocal();
+    else if (estado.entrada && porEntrada[estado.entrada]) renderEntrada();
     else if (filtroAtivo()) renderResultados();
     else renderVisaoGeral();
     // Celular: o cartão fixo aparece com uma sala escolhida ou uma busca digitada.
     // Só com destaques, a planta fica livre (as cores dos botões servem de legenda).
-    var folha = !!(estado.local || estado.busca.trim());
+    var folha = !!(estado.local || estado.entrada || estado.busca.trim());
     if (folha && !root.classList.contains('tem-folha')) painelEl.scrollTop = 0;
     root.classList.toggle('tem-folha', folha);
   }
@@ -564,7 +635,7 @@
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir]');
+    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir], [data-ir-entrada]');
     if (!t) return;
     if (t.hasAttribute('data-imprimir')) {
       window.print();
@@ -576,8 +647,9 @@
       var b = painel.querySelector('[data-todos]');
       if (b) b.focus();
     } else if (t.hasAttribute('data-ir')) seleciona(t.getAttribute('data-ir'), true);
+    else if (t.hasAttribute('data-ir-entrada')) selecionaEntrada(t.getAttribute('data-ir-entrada'), true);
     else if (t.hasAttribute('data-voltar')) desseleciona();
-    else if (t.hasAttribute('data-centralizar')) enquadra(estado.local);
+    else if (t.hasAttribute('data-centralizar')) { if (estado.entrada) enquadraEntrada(estado.entrada); else enquadra(estado.local); }
     else if (t.hasAttribute('data-fechar')) fechaFolha();
     else if (t.hasAttribute('data-ver-lista')) {
       e.preventDefault();
@@ -705,6 +777,7 @@
     if (!window.history.replaceState) return;
     var p = new URLSearchParams();
     if (estado.local) p.set('local', estado.local);
+    if (estado.entrada) p.set('entrada', estado.entrada);
     if (estado.destaques.length) p.set('destaque', estado.destaques.join(','));
     var q = p.toString();
     window.history.replaceState(null, '', window.location.pathname + (q ? '?' + q : '') + window.location.hash);
@@ -713,10 +786,13 @@
     var p = new URLSearchParams(window.location.search);
     var validas = botoesDestaque.map(function (b) { return b.getAttribute('data-destaque'); });
     estado.destaques = (p.get('destaque') || '').split(',').filter(function (c) { return validas.indexOf(c) !== -1; });
-    var local = p.get('local');
+    var local = p.get('local'), entrada = p.get('entrada');
     if (local && porId[local]) {
       estado.local = local;
       desenhaSelecao(local);
+    } else if (entrada && porEntrada[entrada]) {
+      estado.entrada = entrada;
+      marcaEntrada(entrada);
     }
   }
 
@@ -828,9 +904,14 @@
       nomesCat.outros = nomesCat.outros || 'Outros';
       (dados.andares || []).forEach(function (a) { nomesAndar[a.id] = a.nome; });
       dados.locais.forEach(function (l) { l._busca = textoBusca(l); porId[l.id] = l; });
+      (dados.entradas || []).forEach(function (e) {
+        e._busca = normalize(e.nome + ' entrada porta acesso ' + (e.id === 'principal' ? 'frente' : 'fundos') + ' ' + e.descricao);
+        porEntrada[e.id] = e;
+      });
       vistaInicial(); // depois do carregamento: a página já tem o tamanho final
       leEndereco();
       render();
+      if (estado.entrada) enquadraEntrada(estado.entrada);
       if (estado.local) enquadra(estado.local); // depois do render: no celular, o cartão já tem altura
     })
     .catch(function (err) {

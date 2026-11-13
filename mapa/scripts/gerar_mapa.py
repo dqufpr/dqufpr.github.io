@@ -49,12 +49,52 @@ OUTROS = ("outros", "Outros", "Outros")
 # Categorias com cor clara recebem número escuro (contraste AA)
 CLARAS = {"lab-ensino", "banheiro", "outros"}
 
-VIEWBOX = "300 560 6810 2960"  # com folga para o fundo do 1º andar
+VIEWBOX = "300 470 6810 3050"  # com folga para o fundo do 1º andar e as entradas do alto
 
 # Andares. Os locais de número 23 a 45 (com 45-A a 45-E) ficam no 1º andar; os demais, no
 # térreo. Na planta, o 1º andar é a faixa de baixo, desenhada à parte.
 ANDARES = [{"id": 0, "nome": "Térreo", "curto": "Térreo"}, {"id": 1, "nome": "1º andar", "curto": "1º andar"}]
 PRIMEIRO_ANDAR = range(23, 46)
+
+
+# Entradas do prédio (todas no térreo). x, y: meio do vão da porta no desenho;
+# fora: para que lado fica a rua (o marcador fica do lado de fora, com a seta apontando para dentro).
+ENTRADAS = [
+    {"id": "principal", "nome": "Entrada principal", "x": 4743, "y": 2340, "fora": (0, 1),
+     "descricao": "Entre a sala 4 e o Auditório Principal (sala 1)."},
+    {"id": "A", "nome": "Entrada A", "x": 4824, "y": 683, "fora": (0, -1),
+     "descricao": "Nos fundos, entre as salas 67 e 66."},
+    {"id": "B", "nome": "Entrada B", "x": 2326, "y": 683, "fora": (0, -1),
+     "descricao": "Nos fundos, entre as salas 87 e 86."},
+    {"id": "D", "nome": "Entrada D", "x": 2263, "y": 1830, "fora": (-1, 0),
+     "descricao": "No corredor de ligação, ao lado da sala 15, um pouco acima dela."},
+]
+
+
+def gera_entradas():
+    """Marcador de cada entrada: círculo do lado de fora, seta para dentro e o nome ao lado."""
+    out = []
+    giro = {(0, -1): 0, (0, 1): 180, (-1, 0): 270, (1, 0): 90}  # a seta é desenhada apontando para baixo
+    for e in ENTRADAS:
+        dx, dy = e["fora"]
+        principal = e["id"] == "principal"
+        r = 84 if principal else 68
+        cx, cy = e["x"] + dx * (r + 26), e["y"] + dy * (r + 26)
+        nome = html.escape(e["nome"])
+        if dx < 0:  # porta na lateral esquerda: nome à esquerda do marcador
+            tx, ty, anc = cx - r - 24, cy, "end"
+        else:
+            tx, ty, anc = cx + r + 24, cy, "start"
+        halo = f'<circle class="entrada__halo" cx="{cx}" cy="{cy}" r="{r + 26}"/>' if principal else ""
+        out.append(
+            f'<g class="entrada{" entrada--principal" if principal else ""}" data-entrada="{e["id"]}">'
+            f'<title>{nome} · {html.escape(e["descricao"])}</title>{halo}'
+            f'<circle class="entrada__circulo" cx="{cx}" cy="{cy}" r="{r}"/>'
+            f'<path class="entrada__seta" transform="translate({cx} {cy}) rotate({giro[(dx, dy)]}) scale({r / 50:g})" '
+            f'd="M0 -24V24M-17 7L0 24L17 7"/>'
+            f'<text class="entrada__nome" x="{tx}" y="{ty}" text-anchor="{anc}">{nome.upper()}</text></g>'
+        )
+    return '<g class="entradas">\n' + "\n".join(out) + "\n</g>\n"
 
 
 def andar(local):
@@ -160,7 +200,8 @@ def gera_planta(locais, areas, base):
         f"{corpo}\n"
         f'<g class="areas">\n' + "\n".join(poly) + "\n</g>\n"
         f'<g class="rotulos" aria-hidden="true">\n' + "\n".join(rot) + "\n</g>\n"
-        + gera_andares(areas) +
+        + gera_andares(areas)
+        + gera_entradas() +
         f'<g class="selecao" aria-hidden="true" data-planta-selecao></g>\n'
         "</svg>"
     )
@@ -261,7 +302,9 @@ def main():
         for c in list(CATEGORIAS.values()) + [OUTROS] if contagem.get(c[0])
     ]
     andares = [{"id": a["id"], "nome": a["nome"]} for a in ANDARES]
-    saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "andares": andares, "locais": locais}
+    entradas = [{"id": e["id"], "nome": e["nome"], "andar": 0, "descricao": e["descricao"]} for e in ENTRADAS]
+    saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "andares": andares,
+             "entradas": entradas, "locais": locais}
     (DADOS / "locais.json").write_text(
         json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 

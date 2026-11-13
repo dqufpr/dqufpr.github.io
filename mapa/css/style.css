@@ -23,6 +23,8 @@
   --planta-parede: #1d3c69;
   --planta-selecao: #0b1f3b;
   --planta-andar: #eef3f8;
+  --planta-entrada: #15803d;
+  --planta-entrada-texto: #166534;
 }
 [data-theme="dark"] {
   --planta-fundo: #101823;
@@ -30,6 +32,8 @@
   --planta-parede: #7f9bc4;
   --planta-selecao: #ffffff;
   --planta-andar: #18222f;
+  --planta-entrada: #16a34a;
+  --planta-entrada-texto: #4ade80;
 }
 
 /* 2. Abertura de página */
@@ -124,6 +128,21 @@ button.loc-tag[aria-pressed="true"] {
 .painel__andar--0 { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--border-strong); }
 [data-theme="dark"] .painel__andar--1 { background: var(--accent); color: var(--brand-navy-deep); }
 .local__andar { font-weight: var(--fw-medium); color: var(--text); }
+
+/* Entradas do prédio (scripts/gerar_mapa.py): círculo verde com seta para dentro */
+.entrada { cursor: pointer; }
+.entrada__circulo { fill: var(--planta-entrada); stroke: var(--planta-fundo); stroke-width: 8; }
+.entrada__halo { fill: var(--planta-entrada); opacity: 0.22; }
+.entrada__seta { fill: none; stroke: #fff; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.entrada__nome {
+  fill: var(--planta-entrada-texto); font-family: var(--font-sans); font-size: 62px; font-weight: var(--fw-black);
+  letter-spacing: 0.03em; dominant-baseline: central; pointer-events: none;
+}
+.entrada--principal .entrada__nome { font-size: 74px; }
+.entrada:hover .entrada__circulo { filter: brightness(1.12); }
+.entrada.is-sel .entrada__circulo { stroke: var(--planta-selecao); stroke-width: 16; }
+.painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.painel__entrada-ico { color: var(--planta-entrada); }
 
 /* Busca ou destaque ativos: o que não combina fica apagado */
 .planta__svg.is-filtrando .area:not(.is-match) { opacity: 0.15; }
@@ -496,7 +515,7 @@ button.loc-tag[aria-pressed="true"] {
   /* Planta inteira, com as cores das salas */
   .explorador__corpo, .mapa-js .explorador__corpo { display: block; position: static; height: auto; min-height: 0; }
   .planta, .mapa-js .planta {
-    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6810 / 2960; /* VIEWBOX de scripts/gerar_mapa.py */
+    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6810 / 3050; /* VIEWBOX de scripts/gerar_mapa.py */
     border: 0.75pt solid #c7d0db; border-radius: 0; box-shadow: none; break-inside: avoid;
   }
   .planta, .local__num, .painel__num, .loc-tag::before {
