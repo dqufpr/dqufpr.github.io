@@ -561,7 +561,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
    quase a tela toda. As mesmas condições estão em js/mapa.js (celular).
    Tudo sob .mapa-js (posta por js/mapa.js): sem JavaScript, a página fica como nas telas maiores. */
 @media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
-  .mapa-js .explorador { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0 auto var(--space-5); }
+  .mapa-js .explorador { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0 auto; } /* sem faixa entre a planta e a lista */
   /* Tablet deitado (960px+): sem as duas colunas da versão sem JavaScript; largura toda */
   .mapa-js .explorador { max-width: none; }
   .mapa-js .explorador__barra { grid-template-columns: none; }
@@ -658,7 +658,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .explorador {
     --painel-w: clamp(260px, 30vw, 360px);
     --topo-livre: calc(var(--barra-h, 40px) + 2 * var(--space-3)); /* abaixo da barra */
-    position: relative; grid-template-columns: minmax(0, 1fr); max-width: none; gap: 0; margin: 0 0 var(--space-6); padding: 0;
+    position: relative; grid-template-columns: minmax(0, 1fr); max-width: none; gap: 0; margin: 0; padding: 0; /* sem faixa entre a planta e a lista */
   }
 
   .mapa-js .explorador__barra {
