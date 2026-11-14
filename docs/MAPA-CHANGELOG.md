@@ -32,6 +32,12 @@
 - **Impressão:** "Todos os locais" sai sem bordas.
 
 ### Corrigido
+- **Celular, avaliação de usabilidade (14/11):**
+  - O cartão da sala ocupa no máximo 45% da tela (antes, 52%): cerca de 45px a mais de planta à vista.
+  - Com o cartão aberto, os botões "planta inteira" e "girar", que ficavam cortados embaixo dele, se escondem.
+  - A busca redesenha a planta numa pausa da digitação. Num celular simples, a pior resposta ao digitar caiu de 240 para 64 ms.
+  - No celular deitado, a planta cabe na altura da tela e a barra das entradas fica à vista.
+  - No Android, o teclado não cobre mais os resultados da busca (`interactive-widget=resizes-content`).
 - **"Ver na planta" no celular e no tablet:** a sala escolhida na lista aparece no meio da área visível do mapa. Antes, a posição era calculada antes de a página rolar até a planta, e a sala ficava embaixo do cartão do pé da tela.
 - **Carga em rede lenta:** a página "pulava" ao terminar de carregar, porque a classe `mapa-js` só era aplicada no fim. Agora o `theme-init.js` a aplica no `<head>`, via `data-js-class`.
 - **Nomes dos andares com a planta girada:** ficam alinhados à borda do prédio.

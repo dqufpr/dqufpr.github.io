@@ -22,6 +22,14 @@
 - [ ] **Endereço com sala inexistente** (`?local=999`): hoje é ignorado sem aviso. Mostrar "Sala não encontrada" e limpar o endereço.
 - [ ] Testar o mapa no Safari de um iPhone real. A auditoria usou só o Chromium.
 
+### Usabilidade no celular (avaliação de 14/11)
+- [ ] **Botão "voltar" do celular fecha o cartão.** Hoje, com uma sala aberta, o "voltar" sai do mapa e leva à página anterior. Registrar a sala aberta no histórico do navegador (`history.pushState`) e fechar o cartão no `popstate`.
+- [ ] **Resultados da busca acima do teclado no iPhone.** O teclado cobre o cartão de resultados enquanto se digita. No Android isso foi resolvido com `interactive-widget=resizes-content`; no iPhone, usar `visualViewport` para subir o cartão, ou mostrar os resultados logo abaixo do campo de busca.
+- [ ] **Celular deitado.** Com uma sala aberta, sobram cerca de 60px de planta. Nessa posição, o cartão deveria ficar ao lado da planta, como no computador.
+- [ ] **Cartão que se puxa.** Cartão começando baixo (só o nome da sala) e que se arrasta para cima para ver os detalhes, deixando mais planta à vista.
+- [ ] **QR codes nas entradas** apontando para `/mapa/?entrada=principal`, `A`, `B` e `C`: quem chega abre o mapa já virado para a própria entrada.
+- [ ] **"Como chegar ao prédio"** (Google Maps) no painel inicial do mapa, para quem ainda está fora do campus.
+
 ### Cores das categorias (a decidir)
 A paleta atual tem três problemas, medidos em 14/11:
 - **Contraste:** o mostarda dos laboratórios de ensino (`#a87516`) tem 4,0:1 com o número branco, abaixo do mínimo de 4,5:1.

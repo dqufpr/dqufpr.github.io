@@ -568,12 +568,18 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .painel { display: none; }
   .mapa-js .explorador.tem-folha .painel {
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: calc(var(--z-header) - 1);
-    max-height: 52svh; overflow: auto; overscroll-behavior: contain;
+    max-height: 45svh; overflow: auto; overscroll-behavior: contain; /* deixa mais planta à vista acima */
     border-width: 1px 0 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-lg);
     padding-bottom: env(safe-area-inset-bottom);
     animation: folha-sobe var(--t-fast, 0.15s) ease-out;
   }
   .mapa-js .painel__corpo { padding: var(--space-3) var(--gutter) var(--space-4); }
+  /* Com o cartão aberto, "planta inteira" e "girar" ficariam cortados embaixo dele */
+  .mapa-js .explorador.tem-folha [data-zoom-inteira], .mapa-js .explorador.tem-folha [data-girar] { display: none; }
+  /* Celular deitado: a planta cabe na altura da tela, com a barra das entradas à vista */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .mapa-js .planta { height: calc(100svh - var(--header-h) - 64px); min-height: 200px; }
+  }
 
   /* Ampliado no celular: só barra e planta */
   .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { padding-top: 0; }

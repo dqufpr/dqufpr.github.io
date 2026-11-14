@@ -1154,12 +1154,18 @@
   }
 
   /* ---------- Busca e destaques ---------- */
+  // Enquanto a pessoa digita, a planta e a lista são redesenhadas só numa pausa da digitação
+  // (num celular simples, redesenhar a cada letra deixava a digitação lenta)
+  var tempoBusca;
   busca.addEventListener('input', function () {
     estado.busca = busca.value;
     estado.local = null;
     desenhaSelecao(null);
-    atualizaEndereco();
-    render();
+    clearTimeout(tempoBusca);
+    tempoBusca = setTimeout(function () {
+      atualizaEndereco();
+      render();
+    }, busca.value.trim() ? 150 : 0);
   });
   busca.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
