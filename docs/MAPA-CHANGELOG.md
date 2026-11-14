@@ -19,6 +19,7 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Computador: planta de borda a borda.** A planta ocupa a largura toda e a altura da tela abaixo do cabeçalho, sem moldura. A busca, os destaques, os botões de zoom, o seletor de andar, o painel e a barra das entradas ficam por cima dela, nos mesmos lugares. Os enquadramentos descontam a faixa da busca. No modo Ampliar, a planta cobre a tela inteira. No celular e no tablet, nada mudou.
 - **Impressão de uma sala:** folha deitada com a planta só do andar da sala, na largura da folha e com a sala em destaque, e os dados embaixo em texto corrido: unidades com descrição, coordenação e site; pessoas com cargo, e-mail e Lattes. Antes, a planta dos dois andares saía pequena e o cartão cobria a faixa do 1º andar, porque o Chrome aplicava ao papel as regras do celular. O botão Imprimir continua só no computador.
 
 ## 3.2.0 — 2026-11-14

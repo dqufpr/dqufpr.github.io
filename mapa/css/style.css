@@ -599,9 +599,21 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 @media (min-width: 1400px), (min-width: 1024px) and (hover: hover), (min-width: 1024px) and (pointer: fine) {
   /* Cabeçalho com a mesma largura do explorador (de borda a borda, com o mesmo recuo) */
   .mapa-js .site-header .container { max-width: none; }
-  .mapa-js .explorador { --painel-w: clamp(260px, 30vw, 360px); grid-template-columns: minmax(0, 1fr); max-width: none; gap: var(--space-3); margin: var(--space-3) 0 var(--space-6); }
+  /* A planta ocupa a largura toda e a altura da tela abaixo do cabeçalho; a barra de busca e
+     destaques, os botões e o painel ficam por cima dela, nos mesmos lugares de antes.
+     --barra-h: altura da barra, medida por js/mapa.js */
+  .mapa-js .explorador {
+    --painel-w: clamp(260px, 30vw, 360px);
+    --topo-livre: calc(var(--barra-h, 40px) + 2 * var(--space-3)); /* abaixo da barra */
+    position: relative; grid-template-columns: minmax(0, 1fr); max-width: none; gap: 0; margin: 0 0 var(--space-6); padding: 0;
+  }
 
-  .mapa-js .explorador__barra { display: flex; align-items: center; gap: var(--space-4); }
+  .mapa-js .explorador__barra {
+    position: absolute; top: var(--space-3); left: var(--gutter); right: var(--gutter); z-index: 3;
+    display: flex; align-items: center; gap: var(--space-4); pointer-events: none;
+  }
+  .mapa-js .explorador__barra > * { pointer-events: auto; }
+  .mapa-js .explorador__busca .input, .mapa-js .explorador__destaques button { box-shadow: var(--shadow-md); }
   .mapa-js .explorador__busca { flex: 0 1 clamp(200px, 20vw, 300px); min-width: 180px; max-width: none; margin: 0; }
   .mapa-js .explorador__busca .input { min-height: 40px; padding-block: var(--space-2); }
   .mapa-js .explorador__busca .label, .mapa-js .explorador__busca .hint,
@@ -622,25 +634,27 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .explorador__destaques button { flex: none; min-height: 40px; padding: 0 var(--space-3); font-size: var(--fs-sm); white-space: nowrap; }
   .mapa-js [data-limpar] { order: -1; }
 
-  /* Planta: o resto da tela abaixo da barra */
+  /* Planta: a tela inteira abaixo do cabeçalho, de borda a borda */
   .mapa-js .explorador__corpo {
     position: relative; display: block;
-    height: max(360px, calc(100svh - var(--header-h) - 40px - 3 * var(--space-3)));
+    height: max(420px, calc(100svh - var(--header-h)));
   }
-  .mapa-js .planta { height: 100%; min-height: 0; }
+  .mapa-js .planta { height: 100%; min-height: 0; border: 0; border-radius: 0; box-shadow: none; }
   .mapa-js .painel {
-    position: absolute; top: var(--space-3); right: var(--space-3); z-index: 2;
-    width: var(--painel-w); max-height: calc(100% - 2 * var(--space-3));
+    position: absolute; top: var(--topo-livre); right: var(--gutter); z-index: 2;
+    width: var(--painel-w); max-height: calc(100% - var(--topo-livre) - var(--space-3));
     overflow: auto; overscroll-behavior: contain; box-shadow: var(--shadow-lg);
   }
-  /* Controles à esquerda, para o painel não cobri-los */
-  .mapa-js .planta__ampliar { left: var(--space-2); right: auto; }
-  .mapa-js .planta__controles { left: var(--space-2); right: auto; top: calc(3 * var(--space-2) + 36px); bottom: auto; }
+  /* Controles à esquerda, alinhados à busca, para o painel não cobri-los */
+  .mapa-js .planta__ampliar { top: var(--topo-livre); left: var(--gutter); right: auto; }
+  .mapa-js .planta__controles { left: var(--gutter); right: auto; top: calc(var(--topo-livre) + 36px + var(--space-2)); bottom: auto; }
+  .mapa-js .planta__pisos { top: var(--topo-livre); }
   /* Dica no canto de baixo à direita, para não disputar lugar com a barra das entradas */
-  .mapa-js .planta__dica { left: auto; right: var(--space-2); max-width: min(var(--painel-w), calc(100% - 2 * var(--space-2))); text-align: right; }
+  .mapa-js .planta__dica { left: auto; right: var(--gutter); max-width: min(var(--painel-w), calc(100% - 2 * var(--gutter))); text-align: right; }
 
-  /* Ampliado: barra e planta ocupam a tela inteira */
-  .mapa-js .explorador:fullscreen .explorador__corpo, .mapa-js .explorador.is-expanded .explorador__corpo { height: auto; min-height: 0; }
+  /* Ampliado: a planta cobre a tela inteira, com a barra por cima */
+  .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { padding: 0; grid-template-rows: minmax(0, 1fr); }
+  .mapa-js .explorador:fullscreen .explorador__corpo, .mapa-js .explorador.is-expanded .explorador__corpo { height: 100%; min-height: 0; }
   .mapa-js .explorador:fullscreen .planta, .mapa-js .explorador.is-expanded .planta { height: 100%; }
 }
 
@@ -649,10 +663,9 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 @media (min-width: 1400px), (min-width: 1024px) and (hover: hover), (min-width: 1024px) and (pointer: fine) {
   body:has(.explorador) .site-header { transition: transform 0.3s ease; }
   .barra-fixa .site-header { transform: translateY(-100%); }
-  .barra-fixa .mapa-js .explorador, .barra-fixa.mapa-js .explorador { padding-top: calc(var(--barra-h, 40px) + var(--space-3)); }
   .barra-fixa.mapa-js .explorador__barra {
     position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-header);
-    padding: var(--space-2) var(--gutter); background: color-mix(in srgb, var(--bg) 94%, transparent);
+    padding: var(--space-2) var(--gutter); background: color-mix(in srgb, var(--bg) 94%, transparent); pointer-events: auto;
     border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md);
     -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
     animation: barra-desce 0.3s ease-out;
@@ -726,7 +739,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .impressao-cabeca__sub { color: var(--text-muted); font-size: 8.5pt; }
 
   /* Os botões de destaque viram a legenda de cores */
-  .explorador__barra, .mapa-js .explorador__barra { display: block; padding: 0; margin: 0 0 3mm; }
+  .explorador__barra, .mapa-js .explorador__barra { display: block; position: static; padding: 0; margin: 0 0 3mm; }
   .explorador__destaques, .mapa-js .explorador__destaques { display: block; margin: 0; }
   .explorador__destaques .quick-links, .mapa-js .explorador__destaques .quick-links {
     flex-wrap: wrap; gap: 2mm 5mm; overflow: visible; padding: 0; -webkit-mask-image: none; mask-image: none;

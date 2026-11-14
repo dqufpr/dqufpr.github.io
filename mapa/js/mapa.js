@@ -142,6 +142,13 @@
     var alvo = alvoEnquadre(areas);
     if (alvo) animaPara(alvo);
   }
+  // Computador: a barra de busca fica por cima da planta; fração da altura que ela cobre
+  function fracaoTopo() {
+    var r = svg.getBoundingClientRect();
+    if (folhaMq.matches || !r.height) return 0;
+    var b = root.querySelector('.explorador__barra').getBoundingClientRect();
+    return Math.max(0, Math.min(0.4, (b.bottom + 8 - r.top) / r.height));
+  }
   // Caixa que contém os elementos, no sistema da planta
   function caixaDe(nos) {
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -176,8 +183,8 @@
     var r = svg.getBoundingClientRect(), prop = r.height / r.width || INTEIRA.h / INTEIRA.w;
     var w = Math.max((x1 - x0) * 4, 1600), h = w * prop;
     if (h < (y1 - y0) * 2) { h = (y1 - y0) * 2; w = h / prop; }
-    var f = fracaoVisivel(), fx = fracaoVisivelX();
-    return { x: (x0 + x1) / 2 - w * fx / 2, y: (y0 + y1) / 2 - h * f / 2, w: w, h: h };
+    var f = fracaoVisivel(), fx = fracaoVisivelX(), t = fracaoTopo();
+    return { x: (x0 + x1) / 2 - w * fx / 2, y: (y0 + y1) / 2 - h * (t + f) / 2, w: w, h: h };
   }
 
   /* ---------- Girar a planta ---------- */
@@ -294,7 +301,8 @@
   function vistaEm(cx, cy, fy) {
     var r = svg.getBoundingClientRect(), t = tamanhoPadrao(r);
     var meio = (t.livre / 2) * t.w / r.width; // da borda esquerda ao meio da parte livre
-    return { x: cx - meio, y: cy - t.h * fy, w: t.w, h: t.h };
+    var topo = fracaoTopo(); // no computador, abaixo da barra de busca
+    return { x: cx - meio, y: cy - t.h * (topo + fy * (1 - topo)), w: t.w, h: t.h };
   }
   // Abertura: o trecho da entrada principal, da Entrada C até a principal
   function vistaPadrao() { return vistaEm(5000, 1640, 0.5); }
@@ -331,7 +339,8 @@
     if (!r.width || !r.height) return INTEIRA;
     // Folga igual dos dois lados (botões de zoom à esquerda) e, no alto, o seletor de andar
     var esq = celular.matches ? 0 : 60, vw = r.width - 2 * esq;
-    var topo = 56, vh = r.height - topo;
+    // Livre no alto: abaixo do seletor de andar (e, no computador, da barra de busca)
+    var topo = Math.max(56, pisosEl.getBoundingClientRect().bottom - r.top + 8), vh = r.height - topo;
     var s = Math.min(vw / INTEIRA.w, vh / INTEIRA.h);
     var w = r.width / s, h = r.height / s;
     return { x: INTEIRA.x - esq / s - (vw / s - INTEIRA.w) / 2, y: INTEIRA.y - topo / s - (vh / s - INTEIRA.h) / 2, w: w, h: h };
@@ -1565,6 +1574,7 @@
       document.documentElement.classList.toggle('barra-fixa', fixa);
     }
   }
+  medeBarra(); // já na abertura: no computador, os botões e o painel ficam abaixo da barra
   window.addEventListener('scroll', verificaBarra, { passive: true });
   window.addEventListener('resize', function () { topoBarra = null; document.documentElement.classList.remove('barra-fixa'); verificaBarra(); });
 
