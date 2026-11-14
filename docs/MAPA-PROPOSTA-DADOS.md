@@ -1,6 +1,6 @@
 # Proposta: nova organização dos dados do Mapa Digital
 
-Situação: proposta para discutir (14/11/2026). Nada disto foi implementado ainda.
+Situação (14/11/2026): decisões tomadas (seção 6). A etapa 1 está feita: a planilha nova `mapa/dados/dados-mapa.xlsx` foi gerada a partir da antiga, com a aba Revisão. O site ainda usa a planilha antiga.
 
 ## 1. Como os dados estão hoje
 
@@ -110,10 +110,33 @@ O desenho da planta, as cores, as entradas e o resto da interface continuam como
 
 As etapas 1 e 3 não mudam nada no site e podem ser feitas e conferidas antes da etapa 4.
 
-## 6. Decisões em aberto
+## 6. Decisões tomadas
 
-- **Quem entra em `Pessoas`:** só professores e servidores com sala, ou também técnicos de laboratório? Alunos ficam de fora, por privacidade.
-- **Página pessoal:** currículo Lattes, página do departamento ou nenhuma?
-- **E-mail:** publicar só com o consentimento da pessoa e de preferência o institucional. A coluna fica, mas vazia até haver consentimento.
-- **Laboratórios de ensino:** mantêm "Laboratório de Ensino" como descrição ou ganham uma descrição própria (disciplinas atendidas, por exemplo)?
-- **Planilha ou Google Sheets:** a planilha Excel no repositório continua funcionando. Uma planilha no Google permitiria que mais pessoas editassem, mas o site passaria a depender de um serviço externo. Recomendo manter o Excel.
+- **Pessoas:** só quem tem cargo público com sala no departamento, ou seja, professores e técnicos. Alunos não entram.
+- **E-mail:** só o institucional (`@ufpr.br`). O gerador recusa outros domínios.
+- **Currículo Lattes:** coluna `Lattes` na aba Pessoas (endereço `lattes.cnpq.br/...`).
+- **Campos vazios não aparecem no mapa:** e-mail, Lattes, site, descrição.
+- **Laboratórios de pesquisa:** descrição, site e coordenação. Na planilha, a coluna `Coordenação` recebe um ou mais nomes, separados por ponto e vírgula, iguais aos da aba Pessoas. O gerador avisa quando um nome não bate.
+- **Laboratórios de ensino:** só uma breve descrição. A ordem das linhas na aba é a ordem em que aparecem no mapa.
+- **Formato:** planilha Excel no repositório.
+
+## 7. Etapa 1: conversão (feita)
+
+O script `mapa/scripts/converter_planilha.py` leu a planilha antiga e gerou `mapa/dados/dados-mapa.xlsx`. Ela tem cinco abas: Leia-me, Salas, Pessoas, Unidades e Revisão.
+
+- **Salas:** 101. **Pessoas:** 58 (54 professores e 4 técnicos das secretarias).
+- **Unidades:** 57 (31 laboratórios de pesquisa, 8 laboratórios de ensino e 18 serviços).
+- **Juntados:** os 8 laboratórios que ocupavam mais de uma sala viraram uma linha cada.
+- **Coordenação:** os nomes que estavam escritos na descrição dos laboratórios foram ligados às pessoas cadastradas. 13 deles estavam abreviados ou escritos de outro jeito ("Elisa Orth" → "Elisa Souza Orth") e ficaram na Revisão para confirmar. Três não foram encontrados: Luiz Humberto Marcolino Jr, Brás H. de Oliveira e Daniel S. Rampon.
+- **Áreas com grafias diferentes** foram padronizadas ("Quimica Analítica" → "Química Analítica").
+- **Erros de digitação conhecidos** foram corrigidos ("reverva", "Gradução", "Sintese"…), cada um marcado na Revisão.
+- **Sigla "BW" dos banheiros** saiu. O nome do banheiro e a regra de acesso ficaram na aba Salas.
+
+A aba **Revisão** tem 75 itens. A maioria é dado que falta: descrição, site e coordenação dos laboratórios; descrição dos laboratórios de ensino; cargo dos 4 técnicos.
+
+## 8. Próximas etapas
+
+2. **Revisão dos dados** (manual): resolver os itens da aba Revisão, preencher e-mails institucionais e Lattes.
+3. **Gerador** lendo `dados-mapa.xlsx`, com os avisos novos. O site continua igual.
+4. **Interface:** cartões de pessoa e de laboratório, busca agrupada e links novos.
+5. **Documentação** refeita; a planilha antiga sai do repositório.

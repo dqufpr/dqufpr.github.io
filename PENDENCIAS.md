@@ -23,7 +23,10 @@
 - [ ] Testar o mapa no Safari de um iPhone real. A auditoria usou só o Chromium.
 
 ### Nova organização dos dados (proposta)
-- [ ] Decidir sobre a proposta em `docs/MAPA-PROPOSTA-DADOS.md`: planilha em três abas (Salas, Pessoas, Unidades), com cartões de pessoa e de laboratório no mapa.
+- [x] Decidir sobre a proposta em `docs/MAPA-PROPOSTA-DADOS.md` (decisões na seção 6).
+- [x] Etapa 1: planilha nova `mapa/dados/dados-mapa.xlsx` gerada a partir da antiga.
+- [ ] Etapa 2: resolver a aba Revisão da planilha nova (75 itens) e preencher e-mails institucionais e Lattes.
+- [ ] Etapas 3 a 5: gerador lendo a planilha nova, cartões de pessoa e de laboratório, documentação.
 
 ### Usabilidade no celular (avaliação de 14/11)
 - [ ] **Botão "voltar" do celular fecha o cartão.** Hoje, com uma sala aberta, o "voltar" sai do mapa e leva à página anterior. Registrar a sala aberta no histórico do navegador (`history.pushState`) e fechar o cartão no `popstate`.
