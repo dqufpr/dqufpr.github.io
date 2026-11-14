@@ -188,20 +188,19 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 .painel__ponto:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
 .painel__ponto-ico { width: 9px; height: 9px; border-radius: 50%; background: var(--ponto); flex: none; }
 .planta__entradas { display: none; }
-@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
-  .mapa-js .planta__entradas:not([hidden]) {
-    position: absolute; left: var(--space-2); bottom: var(--space-2); z-index: 2; max-width: calc(100% - 2 * var(--space-2));
-    display: flex; align-items: center; gap: var(--space-1); padding: 4px 4px 4px var(--space-3); overflow-x: auto; scrollbar-width: none;
-    border: 1px solid var(--border); border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--shadow-md);
-  }
-  .planta__entradas-rot { margin-right: var(--space-1); color: var(--text-muted); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
-  .planta__entradas .painel__ponto { flex: none; min-height: 34px; padding: 0 var(--space-3); }
-  .planta__entradas .painel__ponto[aria-pressed="true"] { background: var(--planta-entrada); color: #fff; }
-  .mapa-js .planta__dica { display: none; } /* o lugar é da barra das entradas */
+/* Barra das entradas sobre a planta, em todos os tamanhos: toque leva o mapa até a entrada.
+   Centralizada embaixo, na parte da planta que o painel não cobre. */
+.mapa-js .planta__entradas:not([hidden]) {
+  position: absolute; left: 50%; bottom: var(--space-2); z-index: 2; transform: translateX(-50%); max-width: calc(100% - 2 * var(--space-2));
+  display: flex; align-items: center; gap: var(--space-1); padding: 4px 4px 4px var(--space-3); overflow-x: auto; scrollbar-width: none;
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--shadow-md);
 }
+.planta__entradas-rot { margin-right: var(--space-1); color: var(--text-muted); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+.planta__entradas .painel__ponto { flex: none; min-height: 34px; padding: 0 var(--space-3); }
+.planta__entradas .painel__ponto[aria-pressed="true"] { background: var(--planta-entrada); color: #fff; }
 @media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
-  .mapa-js .planta__entradas:not([hidden]) { left: 50%; transform: translateX(-50%); }
+  .mapa-js .planta__dica { display: none; } /* o lugar é da barra das entradas */
 }
 .painel__ponto--escada { --ponto: var(--planta-escada); --ponto-texto: var(--planta-escada-texto); }
 .painel__ponto--rampa { --ponto: var(--planta-rampa); --ponto-texto: var(--planta-rampa-texto); }
@@ -628,7 +627,9 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .planta__ampliar { left: var(--space-2); right: auto; }
   .mapa-js .planta__pisos { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
   .mapa-js .planta__controles { left: var(--space-2); right: auto; top: calc(3 * var(--space-2) + 36px); bottom: auto; }
-  .mapa-js .planta__dica { max-width: calc(100% - var(--painel-w) - 3 * var(--space-3)); }
+  .mapa-js .planta__entradas:not([hidden]) { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
+  /* Dica no canto de baixo à direita, para não disputar lugar com a barra das entradas */
+  .mapa-js .planta__dica { left: auto; right: var(--space-2); max-width: min(var(--painel-w), calc(100% - 2 * var(--space-2))); text-align: right; }
 
   /* Ampliado: barra e planta ocupam a tela inteira */
   .mapa-js .explorador:fullscreen .explorador__corpo, .mapa-js .explorador.is-expanded .explorador__corpo { height: auto; min-height: 0; }

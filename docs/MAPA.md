@@ -123,6 +123,7 @@ Categorias para `destaque`: `sala-aula`, `sala-prof`, `lab-ensino`, `lab-pesquis
 
 - **Celular e tablet** (até 1023px, ou tablet de toque deitado até 1399px): busca na lupa, planta da altura da tela, barra de entradas e cartão no pé da tela.
 - **Computador** (1024px ou mais, com mouse): barra numa linha e painel à direita da planta.
+- **Em todos:** a barra das entradas fica embaixo da planta. A abertura mostra o trecho da entrada principal na mesma escala (`vistaPadrao` e `tamanhoPadrao` em `js/mapa.js`).
 
 As condições estão no `@media` de `css/style.css` e em `TOQUE` (`js/mapa.js`). Ao mudar uma, mude a outra.
 

@@ -260,24 +260,33 @@
     mexeu = true;
     giraPara(anguloAlvo + 90, function () { return estado.local ? alvoEnquadre(svg.querySelectorAll('.area[data-local="' + esc(estado.local) + '"]')) : vistaCheia(); });
   });
-  // Celular: tamanho da vista (o mesmo zoom da abertura e das entradas)
-  // No tablet, a mesma escala do celular (1550 unidades em 390px) mostra mais da planta,
-  // até a altura do prédio
-  function tamanhoCelular(r) {
-    var w = 1550 * Math.max(1, r.width / 390), h = w * r.height / r.width;
-    if (h < 2450) { h = 2450; w = h * r.width / r.height; }
-    if (h > 3050) { h = 3050; w = h * r.width / r.height; }
-    return { w: w, h: h };
+  // Zoom padrão (abertura e entradas), igual em todos os tamanhos: a escala do celular
+  // (1550 unidades em 390px de largura livre). Telas maiores mostram mais da planta em
+  // volta, até a altura do prédio. No computador, a largura livre desconta o painel.
+  function tamanhoPadrao(r) {
+    var livre = limiteDireito() - r.left;
+    var s = livre / (1550 * Math.max(1, livre / 390)); // pixels por unidade da planta
+    var h = r.height / s;
+    if (h < 2450) h = 2450;
+    if (h > 3050) h = 3050;
+    return { w: h * r.width / r.height, h: h, livre: livre };
   }
-  // Celular: vista de uma entrada no mesmo zoom da abertura; a entrada fica no meio, embaixo,
-  // logo acima do cartão do pé da tela (calculada já no ângulo final do giro)
-  function vistaEntradaCelular(id) {
+  // Vista com o ponto (cx, cy) no meio da parte livre da planta e a uma fração fy da altura
+  function vistaEm(cx, cy, fy) {
+    var r = svg.getBoundingClientRect(), t = tamanhoPadrao(r);
+    var meio = (t.livre / 2) * t.w / r.width; // da borda esquerda ao meio da parte livre
+    return { x: cx - meio, y: cy - t.h * fy, w: t.w, h: t.h };
+  }
+  // Abertura: o trecho da entrada principal, da Entrada C até a principal
+  function vistaPadrao() { return vistaEm(5000, 1640, 0.5); }
+  // Entrada no mesmo zoom da abertura; ela fica no meio, embaixo, logo acima da barra das
+  // entradas e do cartão do pé da tela (calculada já no ângulo final do giro)
+  function vistaEntrada(id) {
     var g = svg.querySelector('.entrada[data-entrada="' + esc(id) + '"] .entrada__circulo');
     if (!g) return null;
-    var r = svg.getBoundingClientRect(), b = g.getBoundingClientRect();
+    var b = g.getBoundingClientRect();
     var c = paraDesenho(b.left + b.width / 2, b.top + b.height / 2);
-    var t = tamanhoCelular(r), f = fracaoVisivel();
-    return { x: c.x - t.w / 2, y: c.y - t.h * Math.max(0.35, f - 0.18), w: t.w, h: t.h }; // acima da barra das entradas
+    return vistaEm(c.x, c.y, Math.max(0.35, fracaoVisivel() - 0.18));
   }
   // Entrada: o mapa gira para a entrada ficar embaixo, com a rua atrás de quem chega
   function anguloDaEntrada(e) {
@@ -545,7 +554,7 @@
     if (e.tipo === 'entrada') {
       mexeu = true;
       giraPara(anguloDaEntrada(e), function () {
-        return (celular.matches && vistaEntradaCelular(id)) || alvoEnquadre(svg.querySelectorAll('[data-entrada="' + esc(id) + '"]'));
+        return vistaEntrada(id) || alvoEnquadre(svg.querySelectorAll('[data-entrada="' + esc(id) + '"]'));
       });
     } else if (enquadrar) enquadraEntrada(id);
   }
@@ -969,7 +978,7 @@
     else if (t.hasAttribute('data-ir-entrada')) selecionaEntrada(t.getAttribute('data-ir-entrada'), true);
     else if (t.hasAttribute('data-voltar')) desseleciona();
     else if (t.hasAttribute('data-centralizar')) {
-      var ve = estado.entrada && celular.matches && porEntrada[estado.entrada].tipo === 'entrada' && vistaEntradaCelular(estado.entrada);
+      var ve = estado.entrada && porEntrada[estado.entrada].tipo === 'entrada' && vistaEntrada(estado.entrada);
       if (ve) animaPara(ve);
       else if (estado.entrada) enquadraEntrada(estado.entrada);
       else enquadra(estado.local);
@@ -1226,15 +1235,9 @@
     if (mexeu || estado.local || antesDeImprimir) return; // na impressão, fica a planta toda
     var r = svg.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    if (r.width / r.height > 1.3) { aplica(vistaCheia()); return; } // telas largas: o andar inteiro
-    if (celular.matches && !angulo) {
-      // Celular: começa no trecho da entrada principal, da Entrada C até a principal
-      // (com folga embaixo para a barra das entradas)
-      var t = tamanhoCelular(r);
-      aplica({ x: 5000 - t.w / 2, y: 1640 - t.h / 2, w: t.w, h: t.h });
-      return;
-    }
-    aplica({ x: INTEIRA.x, y: INTEIRA.y, w: INTEIRA.h * r.width / r.height, h: INTEIRA.h });
+    // Todos os tamanhos começam no trecho da entrada principal, no mesmo zoom
+    if (!angulo) { aplica(vistaPadrao()); return; }
+    aplica(vistaCheia());
   }
   if (window.ResizeObserver) new ResizeObserver(vistaInicial).observe(svg);
   svg.addEventListener('pointerdown', function () { mexeu = true; });
