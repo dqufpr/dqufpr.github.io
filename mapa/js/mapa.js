@@ -580,6 +580,19 @@
   });
   pisosEl.hidden = false;
 
+  /* ---------- Estatísticas (Google Analytics 4) ----------
+     Eventos recomendados pelo GA4: select_content (cartão aberto), share (botão de
+     compartilhar) e search (termo buscado). Sem o Analytics carregado, nada acontece. */
+  var TIPO_GA = { 'lab-pesquisa': 'laboratorio_pesquisa', 'lab-ensino': 'laboratorio_ensino', servico: 'servico' };
+  function registra(evento, dados) {
+    if (typeof window.gtag === 'function') window.gtag('event', evento, dados);
+  }
+  var ultimoVisto = '';
+  function registraCartao(tipo, id, nome) {
+    if (ultimoVisto === tipo + id) return; // o mesmo cartão redesenhado não conta de novo
+    ultimoVisto = tipo + id;
+    registra('select_content', { content_type: tipo, content_id: id, nome: nome });
+  }
   // Pessoa: a sala dela fica marcada na planta
   function selecionaPessoa(id) {
     var p = porPessoa[id];
@@ -589,6 +602,7 @@
     estado.pessoa = id;
     atualizaEndereco();
     render();
+    registraCartao('pessoa', id, p.nome);
     if (p.sala) enquadra(p.sala);
   }
   // Unidade (laboratório, serviço): todas as salas dela ficam marcadas
@@ -604,6 +618,7 @@
     estado.unidade = id;
     atualizaEndereco();
     render();
+    registraCartao(TIPO_GA[u.tipo] || u.tipo, id, u.sigla ? u.sigla + ' · ' + u.nome : u.nome);
     if (u.salas && u.salas.length) enquadraNos(areasDe(salasNoAndar(u)));
   }
   // Abrir outro cartão a partir de um cartão: guarda o atual para o "Voltar"
@@ -627,6 +642,7 @@
     desenhaSelecao(id);
     atualizaEndereco();
     render(); // antes de enquadrar: no celular, o cartão já ocupa o pé da tela
+    registraCartao('sala', id, porId[id].titulo);
     if (enquadrar) enquadra(id); else garanteVisivel(id);
   }
   // Ao abrir o mapa: ondas saindo da seta da entrada principal, por alguns segundos, para
@@ -697,6 +713,7 @@
     } else if (enquadrar) enquadraEntrada(id);
   }
   function desseleciona() {
+    ultimoVisto = '';
     estado.local = null;
     pilha = [];
     desenhaSelecao(null);
@@ -1331,6 +1348,7 @@
 
   // Fechar o cartão: tira a seleção e a busca
   function fechaFolha() {
+    ultimoVisto = '';
     estado.local = null;
     pilha = [];
     desenhaSelecao(null);
@@ -1340,6 +1358,14 @@
     render();
   }
 
+  // Compartilhar: WhatsApp, Instagram, copiar ou enviar
+  painel.addEventListener('click', function (e) {
+    var b = e.target.closest('.painel__share-btn');
+    if (!b) return;
+    var m = /painel__share-btn--(\w+)/.exec(b.className);
+    var tipo = estado.local ? 'sala' : estado.pessoa ? 'pessoa' : 'unidade';
+    registra('share', { method: m ? m[1] : 'outro', content_type: tipo, item_id: estado.local || estado.pessoa || estado.unidade });
+  });
   painel.addEventListener('click', function (e) {
     var t = e.target.closest('[data-ir], [data-ir-pessoa], [data-ir-unidade], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir], [data-ir-entrada]');
     if (!t) return;
@@ -1537,9 +1563,12 @@
   /* ---------- Busca e destaques ---------- */
   // Enquanto a pessoa digita, a planta e a lista são redesenhadas só numa pausa da digitação
   // (num celular simples, redesenhar a cada letra deixava a digitação lenta)
-  var tempoBusca;
+  var tempoBusca, tempoRegistro;
   busca.addEventListener('input', function () {
     estado.busca = busca.value;
+    clearTimeout(tempoRegistro); // conta o termo só quando a digitação para
+    var termo = busca.value.trim();
+    if (termo.length >= 2) tempoRegistro = setTimeout(function () { registra('search', { search_term: termo.toLowerCase() }); }, 1500);
     estado.local = null;
     desenhaSelecao(null);
     clearTimeout(tempoBusca);
@@ -1604,14 +1633,17 @@
       estado.local = local;
       mudaPiso(porId[local].andar);
       desenhaSelecao(local);
+      registraCartao('sala', local, porId[local].titulo);
     } else if (pessoa && porPessoa[pessoa]) {
       var pp = porPessoa[pessoa];
       if (pp.sala) { mudaPiso(porId[pp.sala].andar); desenhaSelecao(pp.sala); }
       estado.pessoa = pessoa;
+      registraCartao('pessoa', pessoa, pp.nome);
     } else if (unidade && porUnidade[unidade]) {
       var uu = porUnidade[unidade];
       if (uu.salas && uu.salas.length) { mudaPiso(porId[uu.salas[0]].andar); desenhaSelecao(uu.salas); }
       estado.unidade = unidade;
+      registraCartao(TIPO_GA[uu.tipo] || uu.tipo, unidade, uu.sigla ? uu.sigla + ' · ' + uu.nome : uu.nome);
     } else if (entrada && porEntrada[entrada]) {
       mudaPiso(porEntrada[entrada].andar);
       estado.entrada = entrada;

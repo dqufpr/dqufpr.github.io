@@ -61,7 +61,7 @@ Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados
 ├── js/
 │   ├── theme-init.js       Aplica o tema (e a classe de data-js-class) no <head>, antes da renderização
 │   ├── app.js              Menu de tema, menu do celular, página atual, ano do rodapé
-│   └── analytics.js        Google Analytics (página inicial e planta do mapa)
+│   └── analytics.js        Google Analytics 4 (todas as páginas de conteúdo; eventos do mapa em docs/ANALYTICS.md)
 ├── img/                    Logotipos, favicon e capas (compartilhados)
 │   └── icons/sprite.svg    Ícones
 ├── fonts/                  Roboto variável (licença OFL em fonts/License.txt)
@@ -69,6 +69,7 @@ Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados
 ├── servicos/               Só redireciona: endereço antigo /servicos/ leva à página inicial
 ├── testes/                 Rascunhos de páginas futuras (noindex; não publicados)
 ├── docs/
+│   ├── ANALYTICS.md        Google Analytics: o que é medido e como ver os mais acessados
 │   ├── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
 │   ├── MAPA.md             Como o Mapa Digital funciona
 │   ├── MAPA-ATUALIZAR-DADOS.md  Passo a passo para atualizar os locais do mapa

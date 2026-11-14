@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Atualizações · Mapa Digital · DQ Digital</title>
   <meta name="description" content="Histórico de mudanças do Mapa Digital do Departamento de Química da UFPR, do lançamento em 2023 à planta interativa de 2026.">
@@ -31,6 +31,8 @@
   <script src="/js/theme-init.js"></script>
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/mapa/css/style.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HMX2K2MHE"></script>
+  <script src="/js/analytics.js"></script>
   <script src="/js/app.js" defer></script>
 </head>
 <body>

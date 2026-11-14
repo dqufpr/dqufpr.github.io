@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://docs.google.com">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Aviso legal · Mapa Digital · DQ Digital</title>
   <meta name="description" content="Aviso legal do Mapa Digital do Departamento de Química da UFPR: caráter não oficial, precisão das informações, responsabilidade e privacidade.">
@@ -31,6 +31,8 @@
   <script src="/js/theme-init.js"></script>
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/mapa/css/style.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0HMX2K2MHE"></script>
+  <script src="/js/analytics.js"></script>
   <script src="/js/app.js" defer></script>
 </head>
 <body>
@@ -106,7 +108,7 @@
       <ul>
         <li><strong>Tema de cores:</strong> o navegador guarda só a sua escolha de tema (claro, escuro ou sistema).</li>
         <li><strong>Lista de locais:</strong> vem de um arquivo do próprio site; consultar a planta não envia dados a terceiros.</li>
-        <li><strong>Estatísticas:</strong> a planta do mapa e a página inicial do DQ Digital usam o Google Analytics para contar visitas.</li>
+        <li><strong>Estatísticas:</strong> as páginas do DQ Digital usam o Google Analytics para contar visitas e saber quais salas, laboratórios e serviços são mais consultados no mapa, de forma agregada, sem identificar quem acessa.</li>
         <li><strong>Contato:</strong> mensagens enviadas pelo formulário ficam registradas em um formulário do Google, lido pela equipe do projeto.</li>
       </ul>
 

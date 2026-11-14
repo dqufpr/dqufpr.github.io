@@ -7,6 +7,7 @@
 - **Grade de 12 colunas** para todos os grupos de cartões (`.grid`, `.grid--2`, `.grid--3`, `.grid--4` em `css/global.css`). Cada cartão ocupa uma fração das 12 colunas, e as listas paginadas usam múltiplos de 12.
 
 ### Mudado
+- **Google Analytics em todas as páginas de conteúdo:** Sobre, Fale conosco, Guia visual, 404 e as páginas Sobre, Atualização e Legal do mapa passaram a contar visitas (antes, só a página inicial e a planta). Os avisos de privacidade foram atualizados. Guia em `docs/ANALYTICS.md`.
 - Guia visual (`/design`) e `docs/GUIA-DE-ESTILOS.md` atualizados:
   - a grade de 12 colunas;
   - a sombra dos elementos sobre a planta;
