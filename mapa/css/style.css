@@ -95,7 +95,6 @@ button.loc-tag[aria-pressed="true"]:hover { background: color-mix(in srgb, var(-
 .explorador.is-expanded { position: fixed; inset: 0; z-index: var(--z-skip); }
 /* Vence as margens dos layouts de celular, tablet e desktop: o quadro cobre a tela toda */
 .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { margin: 0; }
-.explorador:fullscreen .aviso-atualizacao, .explorador.is-expanded .aviso-atualizacao { display: none; }
 .explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { min-height: 0; }
 .explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 70svh; }
 .mapa-ampliado { overflow: hidden; }
@@ -625,9 +624,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   }
   /* Controles à esquerda, para o painel não cobri-los */
   .mapa-js .planta__ampliar { left: var(--space-2); right: auto; }
-  .mapa-js .planta__pisos { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
   .mapa-js .planta__controles { left: var(--space-2); right: auto; top: calc(3 * var(--space-2) + 36px); bottom: auto; }
-  .mapa-js .planta__entradas:not([hidden]) { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
   /* Dica no canto de baixo à direita, para não disputar lugar com a barra das entradas */
   .mapa-js .planta__dica { left: auto; right: var(--space-2); max-width: min(var(--painel-w), calc(100% - 2 * var(--space-2))); text-align: right; }
 
@@ -698,7 +695,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 
   /* Fora da folha: controles, busca, avisos e o que só serve na tela */
   .planta__controles, .planta__ampliar, .planta__dica, .planta__pisos, .planta__entradas, .explorador__lupa, .explorador__busca,
-  .explorador__destaques .label, [data-limpar], .aviso-atualizacao, .local__ver, .lista__alternar,
+  .explorador__destaques .label, [data-limpar], .local__ver, .lista__alternar,
   .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes,
   .painel__compartilhar { display: none !important; }
 

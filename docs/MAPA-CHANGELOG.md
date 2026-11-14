@@ -13,7 +13,8 @@
 - **Barra de busca fixa no computador:** ao rolar a página, a busca e os destaques ficam no alto e o cabeçalho do site se recolhe.
 
 ### Mudado
-- **Barra de entradas em todos os tamanhos:** "Entrada · Principal A B C" aparece embaixo da planta também no computador, centralizada na parte que o painel não cobre. A dica de uso foi para o canto de baixo à direita.
+- **Barra de entradas em todos os tamanhos:** "Entrada · Principal A B C" aparece embaixo da planta também no computador. A dica de uso foi para o canto de baixo à direita.
+- **Planta e elementos centralizados na área inteira do mapa:** a abertura, as entradas, a vista "planta inteira", o seletor de andar e a barra das entradas não descontam mais o painel do computador. O painel só é considerado para empurrar uma sala tocada que tenha ficado embaixo dele.
 - **Mesma abertura em todos os tamanhos:** a planta abre no trecho da entrada principal, na escala do celular (1550 unidades em 390px de largura livre). Telas maiores mostram mais da planta em volta. Ao escolher uma entrada, o zoom é o mesmo em qualquer tamanho. O botão "Ver a planta inteira" continua mostrando o andar todo.
 - **Tablet igual ao celular:** busca recolhida na lupa, destaques numa linha, planta da altura da tela, barra de entradas centralizada e cartão da sala no pé da tela.
   - Vale até 1023px e também para tablets de toque deitados, até 1399px. Computadores com mouse a partir de 1024px mantêm o painel à direita.
@@ -33,6 +34,9 @@
 ### Corrigido
 - **Carga em rede lenta:** a página "pulava" ao terminar de carregar, porque a classe `mapa-js` só era aplicada no fim. Agora o `theme-init.js` a aplica no `<head>`, via `data-js-class`.
 - **Nomes dos andares com a planta girada:** ficam alinhados à borda do prédio.
+
+### Removido
+- Aviso "Locais em atualização" abaixo da planta.
 
 ## 3.1.0 — 2026-11-13
 

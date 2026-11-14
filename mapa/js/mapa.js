@@ -293,8 +293,11 @@
     if (!e.fora) return anguloAlvo;
     return 90 - Math.atan2(e.fora[1], e.fora[0]) * 180 / Math.PI;
   }
-  // Tablet e desktop: onde começa, na tela, o painel que flutua sobre a direita da planta
-  function limiteDireito() {
+  // O mapa e os elementos se alinham pela área inteira da planta, sem descontar o painel
+  function limiteDireito() { return svg.getBoundingClientRect().right; }
+  // Computador: onde começa, na tela, o painel que flutua sobre a direita da planta
+  // (só para empurrar uma sala tocada que ficou embaixo dele)
+  function bordaDoPainel() {
     var r = svg.getBoundingClientRect();
     if (folhaMq.matches || !painelEl.offsetParent) return r.right;
     return Math.max(r.left + 120, Math.min(r.right, painelEl.getBoundingClientRect().left - 12));
@@ -303,12 +306,12 @@
     var r = svg.getBoundingClientRect();
     return r.width ? (limiteDireito() - r.left) / r.width : 1;
   }
-  // A planta inteira entre os botões de zoom e o painel (o viewBox cobre o quadro todo)
+  // A planta inteira, centralizada no quadro (o viewBox cobre o quadro todo)
   function vistaCheia() {
     var r = svg.getBoundingClientRect();
     if (!r.width || !r.height) return INTEIRA;
-    // Livres: à esquerda, os botões de zoom; no alto, o seletor de andar
-    var esq = celular.matches ? 0 : 60, vw = limiteDireito() - r.left - esq;
+    // Folga igual dos dois lados (botões de zoom à esquerda) e, no alto, o seletor de andar
+    var esq = celular.matches ? 0 : 60, vw = r.width - 2 * esq;
     var topo = 56, vh = r.height - topo;
     var s = Math.min(vw / INTEIRA.w, vh / INTEIRA.h);
     var w = r.width / s, h = r.height / s;
@@ -335,7 +338,7 @@
       var b = a.getBoundingClientRect();
       x0 = Math.min(x0, b.left); y0 = Math.min(y0, b.top); x1 = Math.max(x1, b.right); y1 = Math.max(y1, b.bottom);
     });
-    var lim = limiteVisivel(), limX = limiteDireito(), folga = 16, dx = 0, dy = 0;
+    var lim = limiteVisivel(), limX = bordaDoPainel(), folga = 16, dx = 0, dy = 0;
     if (y1 > lim - folga || y0 < r.top + folga) dy = (y0 + y1) / 2 - (r.top + lim) / 2;
     if (x1 > limX - folga || x0 < r.left + folga) dx = (x0 + x1) / 2 - (r.left + limX) / 2;
     if (!dx && !dy) return;
