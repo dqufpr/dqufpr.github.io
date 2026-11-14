@@ -32,6 +32,7 @@
 - **Impressão:** "Todos os locais" sai sem bordas.
 
 ### Corrigido
+- **"Ver na planta" no celular e no tablet:** a sala escolhida na lista aparece no meio da área visível do mapa. Antes, a posição era calculada antes de a página rolar até a planta, e a sala ficava embaixo do cartão do pé da tela.
 - **Carga em rede lenta:** a página "pulava" ao terminar de carregar, porque a classe `mapa-js` só era aplicada no fim. Agora o `theme-init.js` a aplica no `<head>`, via `data-js-class`.
 - **Nomes dos andares com a planta girada:** ficam alinhados à borda do prédio.
 

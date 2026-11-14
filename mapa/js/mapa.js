@@ -1131,9 +1131,27 @@
     }
     var b = e.target.closest('[data-ver-local]');
     if (!b) return;
-    seleciona(b.getAttribute('data-ver-local'), true);
+    // Rola até a planta e só então escolhe a sala: o enquadramento depende de onde a planta
+    // e o cartão do pé da tela ficam na tela, e antes da rolagem a sala parava embaixo do cartão
+    var id = b.getAttribute('data-ver-local');
+    var jaNoLugar = Math.abs(root.getBoundingClientRect().top - (parseFloat(getComputedStyle(root).scrollMarginTop) || 0)) < 2;
     root.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'start' });
+    if (jaNoLugar) seleciona(id, true);
+    else depoisDaRolagem(function () { seleciona(id, true); });
   });
+  function depoisDaRolagem(fn) {
+    var feito = false, tempo;
+    function vai() {
+      if (feito) return;
+      feito = true;
+      clearTimeout(tempo);
+      window.removeEventListener('scrollend', vai);
+      fn();
+    }
+    if (reduzMovimento) { vai(); return; }
+    if ('onscrollend' in window) window.addEventListener('scrollend', vai);
+    tempo = setTimeout(vai, 'onscrollend' in window ? 1200 : 700); // sem scrollend ou sem rolagem
+  }
 
   /* ---------- Busca e destaques ---------- */
   busca.addEventListener('input', function () {
