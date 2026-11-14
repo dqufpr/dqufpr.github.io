@@ -691,10 +691,11 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 /* 10. Impressão
    Duas formas, escolhidas por js/mapa.js antes de imprimir (beforeprint):
    - página inteira: planta inteira numa folha deitada + todos os locais abertos, em duas colunas;
-   - um local escolhido (html.imprime-local): uma folha deitada com a planta (a sala em foco,
-     o resto esmaecido) e os dados da sala embaixo, com o link para abri-la no celular.
+   - um local escolhido (html.imprime-local): uma folha deitada com a planta só do andar da sala
+     (na largura da folha, a sala em foco e o resto esmaecido) e, embaixo, os dados da sala em texto
+     corrido (.painel__impressao, montado por js/mapa.js) e o link para abri-la no celular.
    O tema escuro é desligado durante a impressão; as cores das salas são impressas. */
-.impressao-cabeca, .painel__url { display: none; }
+.impressao-cabeca, .painel__url, .painel__impressao { display: none; }
 
 @media print {
   @page { size: A4; margin: 12mm; }
@@ -757,17 +758,39 @@ body:has(.explorador) .site-footer { margin-top: 0; }
     display: block !important; position: static; width: auto; max-height: none; overflow: visible;
     margin-top: 4mm; border: 0; border-radius: 0; box-shadow: none; animation: none; padding: 0;
   }
-  .imprime-local .painel__corpo {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 2mm 8mm; padding: 0; align-items: start;
+  /* Uma sala: planta do andar dela em cima, na largura da folha deitada; dados embaixo */
+  .imprime-local .explorador__corpo, .imprime-local.mapa-js .explorador__corpo { display: block !important; height: auto !important; }
+  .imprime-local .planta, .imprime-local.mapa-js .planta {
+    width: 100%; height: auto; max-height: 105mm; aspect-ratio: var(--imp-aspecto, 2.2); margin: 0 auto 4mm;
   }
-  .imprime-local .painel__cabeca { margin: 0; grid-column: 1; }
-  .imprime-local .painel__titulo { font-size: 15pt; }
-  .imprime-local .painel__itens, .imprime-local .painel__texto { grid-column: 2; grid-row: 1 / span 2; }
-  .imprime-local .painel__itens li { padding-block: 1.5mm; break-inside: avoid; }
-  .imprime-local .painel__url { display: block; grid-column: 1; margin: 0; color: var(--text-muted); font-size: 9pt; }
+  /* O Chrome mede a folha em pé (~720px): as regras do celular (cartão fixo no pé da tela)
+     valeriam também no papel; aqui o painel volta a ser um bloco comum, ao lado da planta */
+  .imprime-local .explorador .painel, .imprime-local .explorador.tem-folha .painel {
+    display: block !important; position: static !important; inset: auto !important; width: auto !important;
+    max-height: none !important; overflow: visible !important; margin: 0 !important; padding: 0 !important;
+    border: 0 !important; border-radius: 0 !important; box-shadow: none !important; animation: none !important; transform: none !important;
+  }
+  .imprime-local .painel__corpo {
+    display: grid; grid-template-columns: 72mm minmax(0, 1fr); column-gap: 8mm; row-gap: 2mm; padding: 0; align-items: start;
+  }
+  .imprime-local .painel__corpo > * { grid-column: 1; }
+  .imprime-local .painel__corpo > .painel__impressao { grid-column: 2; grid-row: 1 / span 4; }
+  .imprime-local .painel__cabeca { margin: 0; }
+  .imprime-local .painel__titulo { font-size: 14pt; }
+  .imprime-local .painel__secao { display: none; }
+  .imprime-local .painel__impressao { display: block; columns: 2; column-gap: 8mm; }
+  .imprime-local .painel__impressao > * { margin-bottom: 2mm; }
+  .imp__item { break-inside: avoid; padding-bottom: 1.5mm; border-bottom: 0.5pt solid #d5dce5; }
+  .imp__item:last-child { border-bottom: 0; }
+  .imp__nome { margin: 0; font-size: 10pt; font-weight: var(--fw-bold); color: var(--text); }
+  .imp__sigla { font-weight: var(--fw-medium); color: var(--text-muted); }
+  .imp__sub, .imp__txt { margin: 0; font-size: 8.5pt; color: var(--text-muted); overflow-wrap: anywhere; }
+  .imp__txt { color: var(--text); }
+  .imprime-local .painel__impressao .painel__eyebrow { margin: 0 0 1mm; break-after: avoid; }
+  .imprime-local .painel__url { display: block; margin: 1mm 0 0; color: var(--text-muted); font-size: 9pt; }
   .imprime-local .painel__url strong { color: var(--text); }
-  /* Com um local, a folha deitada já tem tudo: a planta encolhe para caber com os dados */
-  .imprime-local .planta, .imprime-local.mapa-js .planta { width: auto; height: 112mm; margin-inline: auto; }
+  /* Só o andar da sala, sem o outro desfocado ao fundo */
+  .planta__svg.imprime-andar.vista-1 .piso--0 { display: none; }
   .imprime-local main > :not(.explorador) { display: none !important; }
 
   /* Página inteira: lista de todos os locais, aberta, em três colunas, também em folhas deitadas */

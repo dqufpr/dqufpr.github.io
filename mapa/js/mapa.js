@@ -142,6 +142,22 @@
     var alvo = alvoEnquadre(areas);
     if (alvo) animaPara(alvo);
   }
+  // Caixa que contém os elementos, no sistema da planta
+  function caixaDe(nos) {
+    var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    var inv = svg.getScreenCTM().inverse();
+    Array.prototype.forEach.call(nos, function (a) {
+      var b = a.getBBox(), m = inv.multiply(a.getScreenCTM());
+      [[b.x, b.y], [b.x + b.width, b.y + b.height]].forEach(function (c) {
+        var p = svg.createSVGPoint();
+        p.x = c[0]; p.y = c[1];
+        p = p.matrixTransform(m);
+        x0 = Math.min(x0, p.x); y0 = Math.min(y0, p.y);
+        x1 = Math.max(x1, p.x); y1 = Math.max(y1, p.y);
+      });
+    });
+    return { x0: x0, y0: y0, x1: x1, y1: y1 };
+  }
   function alvoEnquadre(areas) {
     if (!areas.length) return null;
     var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -876,6 +892,37 @@
     if (r.length) painel.appendChild(secao(ps.length || us.length ? 'Salas' : (r.length === 1 ? 'Sala' : 'Salas'), r.map(botaoLocal)));
   }
 
+  // Só no papel: o que funciona na sala e quem trabalha nela, em texto corrido, com os
+  // contatos escritos por extenso (no papel, link não se clica)
+  function blocoImpressao(l, us) {
+    var box = el('div', 'painel__impressao');
+    var semProto = function (u) { return u.replace(/^https?:\/\/(www\.)?|\/$/g, ''); };
+    us.forEach(function (u) {
+      var d = el('div', 'imp__item');
+      var n = el('p', 'imp__nome', u.nome);
+      if (u.sigla && u.nome.indexOf(u.sigla) === -1) n.appendChild(el('span', 'imp__sigla', ' (' + u.sigla + ')'));
+      d.appendChild(n);
+      d.appendChild(el('p', 'imp__sub', nomesCat[u.tipo] + (u.salas.length > 1 ? ' · ' + salasTexto(u.salas) : '')));
+      if (u.descricao) d.appendChild(el('p', 'imp__txt', u.descricao));
+      if ((u.coordenacao || []).length) d.appendChild(el('p', 'imp__txt', 'Coordenação: ' + u.coordenacao.map(function (c) { return c.nome; }).join(', ')));
+      if (u.site) d.appendChild(el('p', 'imp__txt', 'Site: ' + semProto(u.site)));
+      box.appendChild(d);
+    });
+    if (l.pessoas.length) {
+      box.appendChild(el('p', 'painel__eyebrow', l.categoria === 'sala-prof' ? 'Professores' : 'Pessoas'));
+      l.pessoas.forEach(function (id) {
+        var p = porPessoa[id], d = el('div', 'imp__item');
+        d.appendChild(el('p', 'imp__nome', p.nome));
+        var sub = cargoArea(p);
+        if (sub) d.appendChild(el('p', 'imp__sub', sub));
+        var ct = [p.email, p.lattes && 'Lattes: ' + semProto(p.lattes)].filter(Boolean).join(' · ');
+        if (ct) d.appendChild(el('p', 'imp__txt', ct));
+        box.appendChild(d);
+      });
+    }
+    return box;
+  }
+
   function renderLocal() {
     var l = porId[estado.local];
     topoCartao('Fechar detalhes da sala ' + l.id);
@@ -898,6 +945,7 @@
       painel.appendChild(el('p', 'painel__texto', 'Ainda não há informações sobre este local.'));
     }
     painel.appendChild(acoesCartao(true, l.id));
+    painel.appendChild(blocoImpressao(l, us));
     painel.appendChild(blocoCompartilhar());
     // Só na impressão: o endereço para abrir a sala no celular
     var url = el('p', 'painel__url');
@@ -1536,6 +1584,17 @@
     svg.classList.remove('vista-0', 'vista-1');
     aplica(TODA);
     var l = estado.local && porId[estado.local];
+    if (l) {
+      // Uma sala: só o andar dela, enquadrado inteiro (o preserveAspectRatio centraliza na folha)
+      var n = l.andar ? 1 : 0;
+      svg.classList.add('vista-' + n, 'imprime-andar');
+      var c = caixaDe(svg.querySelectorAll('.piso--' + n + ' .area, .piso--' + n + ' .andar__nome, .piso--' + n + ' .entrada'));
+      var folga = 90;
+      var caixa = { x: c.x0 - folga, y: c.y0 - folga, w: c.x1 - c.x0 + 2 * folga, h: c.y1 - c.y0 + 2 * folga };
+      aplica(caixa);
+      // A folha usa a largura toda; a altura segue o formato do andar (css/style.css, seção 10)
+      root.style.setProperty('--imp-aspecto', String(caixa.w / caixa.h));
+    }
     html.classList.toggle('imprime-local', !!l);
     svg.classList.toggle('imprime-foco', !!l);
     if (l) {
@@ -1558,7 +1617,8 @@
     INTEIRA = caixaNoAngulo(antesDeImprimir.giro);
     aplica(antesDeImprimir.vb);
     html.classList.remove('imprime-local');
-    svg.classList.remove('imprime-foco');
+    svg.classList.remove('imprime-foco', 'imprime-andar');
+    root.style.removeProperty('--imp-aspecto');
     Array.prototype.forEach.call(svg.querySelectorAll('.is-foco'), function (a) { a.classList.remove('is-foco'); });
     antesDeImprimir = null;
   }
