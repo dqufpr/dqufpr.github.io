@@ -406,10 +406,10 @@
           <button type="button" class="planta__btn" data-zoom-menos aria-label="Afastar" title="Afastar"><span aria-hidden="true">−</span></button>
           <button type="button" class="planta__btn" data-zoom-inteira aria-label="Ver a planta inteira" title="Ver a planta inteira"><span aria-hidden="true">⤢</span></button>
           <button type="button" class="planta__btn" data-girar aria-label="Girar a planta" title="Girar a planta"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#rotate"></use></svg></button>
+          <button type="button" class="planta__btn planta__ampliar" title="Ampliar" aria-pressed="false" data-ampliar hidden>
+            <svg class="icon icon-expand" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#expand"></use></svg><svg class="icon icon-shrink" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#shrink"></use></svg><span class="visually-hidden" data-ampliar-texto>Ampliar</span>
+          </button>
         </div>
-        <button type="button" class="btn btn--sm planta__ampliar" aria-pressed="false" data-ampliar hidden>
-          <svg class="icon icon-expand" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#expand"></use></svg><svg class="icon icon-shrink" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#shrink"></use></svg><span data-ampliar-texto>Ampliar</span>
-        </button>
         <!-- Celular e tablet: escolher a entrada por onde se chega (preenchido por js/mapa.js) -->
         <div class="planta__entradas" role="group" aria-label="Entradas do prédio" data-entradas-rapidas hidden></div>
         <p class="planta__dica" data-planta-dica hidden>Arraste para mover. Para aproximar: botões, pinça ou Ctrl + roda do mouse.</p>

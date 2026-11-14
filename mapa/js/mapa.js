@@ -338,7 +338,7 @@
     var r = svg.getBoundingClientRect();
     if (!r.width || !r.height) return INTEIRA;
     // Folga igual dos dois lados (botões de zoom à esquerda) e, no alto, o seletor de andar
-    var esq = celular.matches ? 0 : 60, vw = r.width - 2 * esq;
+    var esq = celular.matches ? 52 : 60, vw = r.width - 2 * esq; // a barra de ferramentas fica à esquerda
     // Livre no alto: abaixo do seletor de andar (e, no computador, da barra de busca)
     var topo = Math.max(56, pisosEl.getBoundingClientRect().bottom - r.top + 8), vh = r.height - topo;
     var s = Math.min(vw / INTEIRA.w, vh / INTEIRA.h);
@@ -1514,6 +1514,7 @@
     function marca(on) {
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       texto.textContent = on ? 'Reduzir' : 'Ampliar';
+      btn.title = on ? 'Reduzir' : 'Ampliar';
     }
     function fixa(on) {
       root.classList.toggle('is-expanded', on);

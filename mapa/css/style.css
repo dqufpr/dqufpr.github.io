@@ -220,9 +220,15 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 /* Local selecionado: contorno grosso por cima de tudo */
 .selecao polygon { fill: none; stroke: var(--planta-selecao); stroke-width: 22; stroke-linejoin: round; pointer-events: none; }
 
-/* Seletor de andar: no alto, no meio da área livre da planta */
+/* Sobre a planta, a mesma organização em todos os tamanhos:
+   - canto de cima à esquerda: o seletor de andar e, logo abaixo, a barra de ferramentas
+     (aproximar, afastar, planta inteira, girar, ampliar), um bloco só;
+   - embaixo, no meio: a barra das entradas;
+   - o painel à direita (computador) ou no pé da tela (celular e tablet).
+   --mapa-x / --mapa-y: recuo a partir do canto da planta (no computador, abaixo da busca) */
+.planta { --mapa-x: var(--space-2); --mapa-y: var(--space-2); --pisos-h: 46px; }
 .planta__pisos {
-  position: absolute; top: var(--space-2); left: 50%; transform: translateX(-50%); z-index: 2;
+  position: absolute; top: var(--mapa-y); left: var(--mapa-x); z-index: 2;
   display: flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: var(--radius-pill);
   background: var(--surface); box-shadow: var(--shadow-md);
 }
@@ -240,15 +246,22 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
   font-size: var(--fs-xs); text-align: center;
 }
 .planta__piso[aria-pressed="true"] .planta__piso-n:not(:empty) { background: #fff; color: var(--brand-navy); }
-.planta__controles { position: absolute; right: var(--space-2); bottom: var(--space-2); display: grid; gap: var(--space-1); }
+.planta__controles {
+  position: absolute; top: calc(var(--mapa-y) + var(--pisos-h) + var(--space-2)); left: var(--mapa-x); z-index: 2;
+  display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-md);
+}
 .planta__controles[hidden] { display: none; }
 .planta__btn {
   display: grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0;
-  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);
-  font: inherit; font-size: var(--fs-lg); font-weight: var(--fw-bold); line-height: 1; cursor: pointer; box-shadow: var(--shadow-sm);
+  border: 0; border-radius: 0; background: var(--surface); color: var(--text);
+  font: inherit; font-size: var(--fs-lg); font-weight: var(--fw-bold); line-height: 1; cursor: pointer;
 }
+.planta__btn + .planta__btn { border-top: 1px solid var(--border); }
 .planta__btn:hover { background: var(--surface-2); }
-.planta__ampliar { position: absolute; top: var(--space-2); right: var(--space-2); box-shadow: var(--shadow-md); }
+.planta__btn:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+/* Aproximar e afastar | planta inteira e girar | ampliar: grupos separados por uma linha mais forte */
+.planta__controles [data-zoom-inteira], .planta__controles .planta__ampliar { border-top-width: 3px; }
 .planta__ampliar[hidden] { display: none; }
 .planta__ampliar .icon-shrink { display: none; }
 .planta__ampliar[aria-pressed="true"] .icon-expand { display: none; }
@@ -563,11 +576,6 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   }
   .mapa-js .planta__svg { touch-action: none; } /* um dedo move a planta em qualquer direção */
   .mapa-js .planta__dica { display: none; }
-  .mapa-js .planta__ampliar { width: var(--tap); height: var(--tap); padding: 0; justify-content: center; }
-  .mapa-js .planta__ampliar [data-ampliar-texto] {
-    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-  }
-  .mapa-js .planta__controles { top: calc(2 * var(--space-2) + var(--tap)); bottom: auto; }
 
   /* Painel vira cartão fixo no pé da tela (só com sala escolhida ou busca) */
   .mapa-js .painel { display: none; }
@@ -579,11 +587,18 @@ body:has(.explorador) .site-footer { margin-top: 0; }
     animation: folha-sobe var(--t-fast, 0.15s) ease-out;
   }
   .mapa-js .painel__corpo { padding: var(--space-3) var(--gutter) var(--space-4); }
+  /* Com o cartão aberto, a barra das entradas ficaria embaixo dele */
+  .mapa-js .explorador.tem-folha .planta__entradas { display: none !important; }
   /* Com o cartão aberto, "planta inteira" e "girar" ficariam cortados embaixo dele */
   .mapa-js .explorador.tem-folha [data-zoom-inteira], .mapa-js .explorador.tem-folha [data-girar] { display: none; }
   /* Celular deitado: a planta cabe na altura da tela, com a barra das entradas à vista */
   @media (orientation: landscape) and (max-height: 500px) {
-    .mapa-js .planta { height: calc(100svh - var(--header-h) - 64px); min-height: 200px; }
+    .mapa-js .planta { height: calc(100svh - var(--header-h) - 64px); min-height: 200px; --pisos-h: 40px; }
+    /* Pouca altura: botões menores, para a barra de ferramentas caber */
+    .mapa-js .planta__btn { width: 36px; height: 36px; }
+    .mapa-js .planta__piso { min-height: 32px; }
+    /* Sem altura para empilhar: a barra de ferramentas vai para a direita, a partir do topo */
+    .mapa-js .planta__controles { top: var(--mapa-y); left: auto; right: var(--mapa-x); }
   }
 
   /* Ampliado no celular: só barra e planta */
@@ -646,11 +661,9 @@ body:has(.explorador) .site-footer { margin-top: 0; }
     overflow: auto; overscroll-behavior: contain; box-shadow: var(--shadow-lg);
   }
   /* Controles à esquerda, alinhados à busca, para o painel não cobri-los */
-  .mapa-js .planta__ampliar { top: var(--topo-livre); left: var(--gutter); right: auto; }
-  .mapa-js .planta__controles { left: var(--gutter); right: auto; top: calc(var(--topo-livre) + 36px + var(--space-2)); bottom: auto; }
-  .mapa-js .planta__pisos { top: var(--topo-livre); }
+  .mapa-js .planta { --mapa-x: var(--gutter); --mapa-y: var(--topo-livre); }
   /* Dica no canto de baixo à direita, para não disputar lugar com a barra das entradas */
-  .mapa-js .planta__dica { left: auto; right: var(--gutter); max-width: min(var(--painel-w), calc(100% - 2 * var(--gutter))); text-align: right; }
+  .mapa-js .planta__dica { left: var(--gutter); max-width: min(360px, calc(50% - 180px)); }
 
   /* Ampliado: a planta cobre a tela inteira, com a barra por cima */
   .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { padding: 0; grid-template-rows: minmax(0, 1fr); }
