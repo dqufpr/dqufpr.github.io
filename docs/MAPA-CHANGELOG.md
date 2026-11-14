@@ -19,6 +19,7 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Lista "Todos os locais" na grade de 12 colunas:** 12 locais por página (antes, 9), em 1, 2, 3 ou 4 cartões por linha, conforme a tela; as linhas sempre fecham.
 - **Celular e tablet mais compactos:**
   - **A planta vai até o pé da tela,** sem a faixa vazia embaixo. A altura é calculada a partir da barra de busca medida, e a planta passa a ocupar de 82% a 90% da tela (antes, cerca de 75%).
   - **Lupa:** fica redonda, com borda, igual aos botões de destaque. Antes tinha um fundo branco quadrado.

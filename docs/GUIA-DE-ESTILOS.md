@@ -166,7 +166,13 @@ Regras:
 
 **Raios:** `--radius-sm` 6px (código, itens de menu) · `--radius-md` 10px (botões, campos, avisos) · `--radius-lg` 16px (cartões, formulário) · `--radius-pill` (selos, etiquetas).
 
-**Sombras:** `--shadow-sm` (cartão em repouso) · `--shadow-md` (cartão ao passar o mouse) · `--shadow-lg` (menus suspensos). No escuro as sombras ficam mais densas automaticamente.
+**Sombras:**
+- `--shadow-sm`: cartão em repouso.
+- `--shadow-md`: cartão ao passar o mouse.
+- `--shadow-lg`: menus suspensos e o painel do mapa.
+- `--sombra-sobre`: uma só para tudo o que fica por cima da planta do mapa (busca, destaques, seletor de andar, barra de ferramentas, barra das entradas). É curta, para não borrar o desenho; definida em `/mapa/css/style.css`.
+
+No escuro, as sombras ficam mais densas automaticamente. Num contêiner com rolagem lateral (como a fileira de destaques), deixe um recuo em cima e embaixo (`padding-block` com `margin-block` negativo), senão a rolagem corta a sombra.
 
 ## 7. Layout e responsividade
 
@@ -174,9 +180,21 @@ Regras:
 
 | Faixa | Largura | O que muda |
 |---|---|---|
-| Celular | até 639px | 1 coluna, margem lateral 16px, menu em painel (☰), botões de grupo em largura total |
-| Tablet | 640–959px | 2 colunas, margem 24px, logotipo horizontal, menu ainda em painel |
-| Desktop | 960px ou mais | 3 colunas, menu em linha no cabeçalho, cabeçalho de 68px |
+| Celular | até 639px | 1 cartão por linha, margem lateral 16px, menu em painel (☰), botões de grupo em largura total |
+| Tablet | 640–959px | 2 cartões por linha, margem 30px, logotipo horizontal, menu ainda em painel |
+| Desktop | 960px ou mais | 3 cartões por linha (4 na lista de locais a partir de 1280px), menu em linha no cabeçalho, cabeçalho de 68px |
+
+**Grade de 12 colunas.** Todo grupo de cartões tem 12 colunas, e cada cartão ocupa uma fração delas (`grid-column: span N`). 12 se divide por 1, 2, 3, 4 e 6, então as linhas sempre fecham. Listas paginadas usam múltiplos de 12; o Mapa Digital mostra 12 locais por página.
+
+| Classe | Celular | 640px+ | 960px+ | 1280px+ |
+|---|---|---|---|---|
+| `.grid` | 12 (1 por linha) | 12 | 12 | 12 |
+| `.grid--2` | 12 | 6 (2 por linha) | 6 | 6 |
+| `.grid--3` | 12 | 6 | 4 (3 por linha) | 4 |
+| `.grid--4` | 12 | 6 | 3 (4 por linha) | 3 |
+| `.locais__lista` (mapa) | 12 | 6 | 4 | 3 (4 por linha) |
+
+Para um grupo novo de cartões, use `.grid` com o modificador que der o número de cartões por linha. Não use `repeat(N, 1fr)` solto.
 
 Não crie pontos de quebra novos sem necessidade. Se precisar, use os mesmos `640px` e `960px`.
 
@@ -189,8 +207,9 @@ Estrutura:
 | `.section` | Bloco com respiro vertical |
 | `.section--alt` | Faixa com fundo `--surface` e bordas, para alternar blocos |
 | `.section-head` | Título + subtítulo de uma seção |
-| `.grid.grid--3` | Cartões: 1 → 2 → 3 colunas. Em 2 colunas, um último cartão sozinho ocupa a linha |
-| `.grid.grid--2` | 1 → 2 colunas |
+| `.grid.grid--3` | Cartões na grade de 12 colunas: 1 → 2 → 3 por linha. Com 2 por linha, um último cartão sozinho ocupa a linha |
+| `.grid.grid--2` | 1 → 2 por linha |
+| `.grid.grid--4` | 1 → 2 → 4 por linha |
 | `.stack` | Espaço vertical uniforme entre filhos |
 | `.cluster` | Itens em linha que quebram (selos, etiquetas) |
 
@@ -264,6 +283,29 @@ Regras:
 | `.card__footer` | Chamada no pé ("Abrir", "Visitar site"), com `aria-hidden` porque repete o título |
 
 Imagens de capa: 940×280px, PNG/SVG/WebP, informação importante no centro (as bordas podem ser cortadas). Capa decorativa leva `alt=""`.
+
+Os cartões ficam sempre numa grade de 12 colunas (seção 7).
+
+### Cartões do Mapa Digital
+
+**Identificação:** o espaço se identifica só pelo **número e pela categoria**: "Sala 88 · Laboratório de pesquisa". O nome do laboratório ou "Sala de professores" não vira título. O que compõe a sala (nome próprio, laboratórios, serviços, pessoas) vem embaixo, como resumo ou em "Nesta sala".
+
+| Peça | Onde | O que tem |
+|---|---|---|
+| `.local` | Lista "Todos os locais" | Faixa da cor da categoria, número, etiquetas de categoria e andar, "Sala N", resumo, "Ver na planta" (sem borda, com fundo claro) e "Detalhes" |
+| Cartão da sala | Painel | Categoria, "Sala N", andar; embaixo, "Nesta sala" (unidades) e as pessoas |
+| Cartão da pessoa | Painel | Cargo e área, nome, sala, e-mail institucional, Lattes, laboratórios que coordena |
+| Cartão da unidade | Painel | Tipo e salas, nome e sigla, descrição, site, coordenação, salas |
+| `.painel__item` | Painel e resultados | Botão com o número na cor da sala (ou sem número, `--sem-num`), nome, linha de apoio e, nas salas, o resumo |
+
+**Elementos sobre a planta:** a mesma organização no computador, no tablet e no celular.
+- **Canto de cima à esquerda:** o seletor de andar (`.planta__pisos`).
+- **Logo abaixo:** a barra de ferramentas (`.planta__controles`), num bloco só: aproximar, afastar, planta inteira, girar e ampliar.
+- **Embaixo, no meio:** a barra das entradas (`.planta__entradas`).
+- **Painel:** à direita no computador; no pé da tela no celular e no tablet.
+- **Dica de uso** (`.planta__dica`): só no computador, numa linha, com o ícone `info`, a partir de 1320px.
+
+As posições usam `--mapa-x` e `--mapa-y` (o recuo a partir do canto da planta; no computador, abaixo da busca) e `--pisos-h` (a altura do seletor).
 
 ## 11. Selos e etiquetas de local
 

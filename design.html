@@ -198,7 +198,19 @@
 
     <section class="guide-section" id="cartoes" aria-labelledby="t-cartoes">
       <h2 id="t-cartoes">Cartões</h2>
-      <p>Grade de 1 coluna no celular, 2 no tablet e 3 no desktop (<code>.grid.grid--3</code>). Em <code>.card--link</code> o cartão inteiro é clicável.</p>
+      <p>Todo grupo de cartões usa a <strong>grade de 12 colunas</strong> (<code>.grid</code>): cada cartão ocupa uma fração das 12, conforme a tela. Como 12 se divide por 1, 2, 3, 4 e 6, as linhas sempre fecham, e listas paginadas usam múltiplos de 12 (o Mapa Digital mostra 12 locais por página). Em <code>.card--link</code> o cartão inteiro é clicável.</p>
+      <div class="table-scroll">
+        <table class="guia-tabela">
+          <thead><tr><th>Classe</th><th>Celular</th><th>640px+</th><th>960px+</th><th>1280px+</th></tr></thead>
+          <tbody>
+            <tr><td><code>.grid</code></td><td>12 (1 por linha)</td><td>12</td><td>12</td><td>12</td></tr>
+            <tr><td><code>.grid--2</code></td><td>12</td><td>6 (2 por linha)</td><td>6</td><td>6</td></tr>
+            <tr><td><code>.grid--3</code></td><td>12</td><td>6</td><td>4 (3 por linha)</td><td>4</td></tr>
+            <tr><td><code>.grid--4</code></td><td>12</td><td>6</td><td>3 (4 por linha)</td><td>3</td></tr>
+            <tr><td>Lista de locais do mapa</td><td>12</td><td>6</td><td>4</td><td>3 (4 por linha)</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div class="grid grid--3">
         <article class="card card--link">
           <div class="card__media"><img src="/img/capa-home1.png" alt="" width="940" height="280" loading="lazy"></div>
@@ -324,21 +336,30 @@
       </div>
 
       <h3>Card do local</h3>
-      <p>Faixa da cor da categoria, número, tipo e andar, nome, resumo e ações. Na página, “Detalhes” abre os itens do local; aqui eles aparecem abertos.</p>
+      <p>O espaço se identifica só pelo número e pela categoria: “Sala 7” e a etiqueta “Sala de professores”. O resumo diz o que compõe a sala (laboratórios, serviços, pessoas); “Detalhes” abre os itens. “Ver na planta” não tem borda: um fundo claro indica o botão. Aqui os detalhes aparecem abertos.</p>
       <ul class="locais__lista guia-cards">
         <li class="local loc--sala-prof">
           <div class="local__topo"><span class="local__num">7</span><span class="local__tags"><span class="local__cat">Sala de professores</span><span class="local__andar">Térreo</span></span></div>
-          <h3 class="local__nome">Sala de professores</h3>
+          <h3 class="local__nome">Sala 7</h3>
           <p class="local__resumo">Nome da professora, Nome do professor</p>
-          <div class="local__detalhes"><ul class="local__itens"><li><span class="local__item">Nome da professora</span><p class="local__desc">Professora/Química Inorgânica</p></li><li><span class="local__item">Nome do professor</span><p class="local__desc">Professor/Química Orgânica</p></li></ul></div>
+          <div class="local__detalhes"><ul class="local__itens"><li><span class="local__item">Nome da professora</span><p class="local__desc">Professora · Química Inorgânica</p></li><li><span class="local__item">Nome do professor</span><p class="local__desc">Professor · Química Orgânica</p></li></ul></div>
           <div class="local__acoes"><button type="button" class="btn btn--secondary btn--sm local__ver">Ver na planta</button></div>
         </li>
-        <li class="local loc--sala-aula">
-          <div class="local__topo"><span class="local__num">24</span><span class="local__tags"><span class="local__cat">Sala de aula</span><span class="local__andar">1º andar</span></span></div>
-          <h3 class="local__nome">Sala de Aula da Pós-Graduação em Química</h3>
-          <p class="local__resumo">Sala de aula do PPGQ</p>
+        <li class="local loc--lab-pesquisa">
+          <div class="local__topo"><span class="local__num">8</span><span class="local__tags"><span class="local__cat">Laboratório de pesquisa</span><span class="local__andar">Térreo</span></span></div>
+          <h3 class="local__nome">Sala 8</h3>
+          <p class="local__resumo">Laboratório de Bioinorgânica</p>
+          <div class="local__detalhes"><ul class="local__itens"><li><span class="local__item">Laboratório de Bioinorgânica</span> <span class="badge">LaBioInC</span><p class="local__desc">Coordenação: Nome da professora</p></li></ul></div>
           <div class="local__acoes"><button type="button" class="btn btn--secondary btn--sm local__ver">Ver na planta</button></div>
         </li>
+      </ul>
+
+      <h3>Painel: sala, pessoa e laboratório</h3>
+      <p>Cartões do painel (à direita no computador; no pé da tela no celular e no tablet). A sala abre com “Sala 7”, a categoria e, embaixo, “Nesta sala” e as pessoas. Cada item é um botão: a pessoa abre o cartão dela (cargo, sala, e-mail, Lattes, laboratórios que coordena), e o laboratório abre o dele (descrição, site, coordenação e salas). A busca agrupa os resultados em Pessoas, Laboratórios e serviços, e Salas.</p>
+      <ul class="painel__lista guia-painel">
+        <li><button type="button" class="painel__item loc--lab-pesquisa"><span class="painel__item-num">8</span><span class="painel__item-txt"><span class="painel__item-nome">Sala 8</span><span class="painel__item-sub">Laboratório de pesquisa · Térreo</span><span class="painel__item-sub painel__item-resumo">Laboratório de Bioinorgânica</span></span></button></li>
+        <li><button type="button" class="painel__item loc--sala-prof"><span class="painel__item-num">7</span><span class="painel__item-txt"><span class="painel__item-nome">Nome da professora</span><span class="painel__item-sub">Professora · Química Inorgânica · Sala 7</span></span></button></li>
+        <li><button type="button" class="painel__item painel__item--sem-num"><span class="painel__item-txt"><span class="painel__item-nome">Laboratório de Bioinorgânica <span class="badge">LaBioInC</span></span><span class="painel__item-sub">Coordenação: Nome da professora</span></span></button></li>
       </ul>
 
       <h3>Seletor de andar</h3>
@@ -352,8 +373,28 @@
         <span class="painel__andar painel__andar--1">1º andar</span>
       </div>
 
+      <h3>Elementos sobre a planta</h3>
+      <p>A mesma organização no computador, no tablet e no celular: no canto de cima à esquerda, o seletor de andar e, logo abaixo, a barra de ferramentas (aproximar, afastar, planta inteira, girar e ampliar), num bloco só; embaixo, no meio, a barra das entradas; no computador, a dica de uso no canto de baixo à esquerda (some abaixo de 1320px). Todos usam a mesma sombra curta, <code>--sombra-sobre</code>. No computador a planta ocupa a tela de borda a borda, com a busca por cima; no celular e no tablet ela vai até o pé da tela e os controles são mais compactos.</p>
+      <div class="demo-row guia-sobre mapa-js">
+        <div class="planta__controles" role="group" aria-label="Ferramentas da planta (exemplo)">
+          <button type="button" class="planta__btn" aria-label="Aproximar"><span aria-hidden="true">+</span></button>
+          <button type="button" class="planta__btn" aria-label="Afastar"><span aria-hidden="true">−</span></button>
+          <button type="button" class="planta__btn" aria-label="Ver a planta inteira"><span aria-hidden="true">⤢</span></button>
+          <button type="button" class="planta__btn" aria-label="Girar a planta"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#rotate"></use></svg></button>
+          <button type="button" class="planta__btn" aria-label="Ampliar"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#expand"></use></svg></button>
+        </div>
+        <div class="planta__entradas guia-entradas" role="group" aria-label="Entradas do prédio (exemplo)">
+          <span class="planta__entradas-rot">Entrada</span>
+          <button type="button" class="painel__ponto painel__ponto--entrada" aria-pressed="false">Principal</button>
+          <button type="button" class="painel__ponto painel__ponto--entrada" aria-pressed="true">A</button>
+          <button type="button" class="painel__ponto painel__ponto--entrada" aria-pressed="false">B</button>
+          <button type="button" class="painel__ponto painel__ponto--entrada" aria-pressed="false">C</button>
+        </div>
+        <p class="planta__dica guia-dica"><svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#info"></use></svg><span>Arraste para mover. Para aproximar: botões, pinça ou Ctrl + roda do mouse.</span></p>
+      </div>
+
       <h3>Entradas, rampas e escadas</h3>
-      <p>Marcadores em círculo na planta: entrada (verde, seta para dentro), escada (dourado, pessoa subindo degraus) e rampa (azul, Símbolo Internacional de Acesso sobre o plano inclinado). As áreas de rampas e escadas levam um tom claro, multiplicado sobre a planta.</p>
+      <p>Marcadores em círculo na planta: entrada (verde, seta para dentro), escada (dourado, pessoa subindo degraus) e rampa (azul, Símbolo Internacional de Acesso sobre o plano inclinado). As áreas de rampas e escadas levam um tom claro, multiplicado sobre a planta. Ao abrir o mapa, ondas saem da seta da entrada principal por alguns segundos (não aparecem para quem pediu menos movimento ao sistema).</p>
       <div class="demo-row">
         <figure class="guia-num"><svg class="guia-marca" viewBox="4850 2345 210 210" aria-hidden="true" focusable="false"><g class="entrada entrada--principal"><circle class="entrada__halo" cx="4955" cy="2450" r="110"/><circle class="entrada__circulo" cx="4955" cy="2450" r="84"/><path class="entrada__seta" transform="translate(4955 2450) rotate(180) scale(1.68)" d="M0 -24V24M-17 7L0 24L17 7"/></g></svg><figcaption>Entrada</figcaption></figure>
         <figure class="guia-num"><svg class="guia-marca" viewBox="4621.85 2138.55 150 150" aria-hidden="true" focusable="false"><g class="acesso acesso--escada acesso__marca"><circle class="acesso__circulo" cx="4696.85" cy="2213.55" r="52"/><g transform="translate(4696.85 2213.55) scale(0.6448)"><path class="pict__cheio" d="M-34 36H38V-30H22V-14H6V2H-10V18H-34Z"/><circle class="pict__cheio" cx="-14" cy="-30" r="8"/><path class="pict__traco" d="M-14 -19L-10 2M-10 2L-20 16M-10 2L2 -6M-13 -14L-26 -6M-13 -14L-1 -18"/></g></g></svg><figcaption>Escada</figcaption></figure>

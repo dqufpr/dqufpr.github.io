@@ -4,6 +4,16 @@
 
 ### Novo
 - Mapa Digital: busca e cartões de **pessoas** e de **laboratórios e serviços**, a partir de uma planilha reorganizada (abas Salas, Pessoas e Unidades). Detalhes em `docs/MAPA-CHANGELOG.md`.
+- **Grade de 12 colunas** para todos os grupos de cartões (`.grid`, `.grid--2`, `.grid--3`, `.grid--4` em `css/global.css`). Cada cartão ocupa uma fração das 12 colunas, e as listas paginadas usam múltiplos de 12.
+
+### Mudado
+- Guia visual (`/design`) e `docs/GUIA-DE-ESTILOS.md` atualizados:
+  - a grade de 12 colunas;
+  - a sombra dos elementos sobre a planta;
+  - o cartão do local no formato "Sala N · categoria";
+  - os cartões do painel (sala, pessoa e laboratório);
+  - a barra de ferramentas, a barra das entradas e a dica de uso;
+  - a organização dos elementos sobre a planta.
 
 ## 3.2.0 — 2026-11-14
 

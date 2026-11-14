@@ -34,7 +34,8 @@
 
 .quick-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
-.info-strip { display: grid; gap: var(--space-4); }
+.info-strip { display: grid; gap: var(--space-4); grid-template-columns: repeat(12, minmax(0, 1fr)); } /* grade de 12 colunas */
+.info-strip > * { grid-column: span 12; min-width: 0; }
 .info-item { display: flex; gap: var(--space-3); align-items: flex-start; }
 .info-item .icon { width: 24px; height: 24px; color: var(--accent); margin-top: 2px; }
 .info-item h3 { font-size: var(--fs-base); margin-bottom: var(--space-1); }
@@ -113,13 +114,13 @@
 .error-page .btn-group { justify-content: center; }
 
 @media (min-width: 640px) {
-  .info-strip { grid-template-columns: repeat(2, 1fr); }
+  .info-strip > * { grid-column: span 6; }
 }
 
 @media (min-width: 960px) {
   .home-hero .container { padding-block: var(--space-8) calc(var(--space-8) + var(--space-5)); }
   .home-hero::after { width: 520px; height: 520px; right: -80px; bottom: -160px; }
-  .info-strip { grid-template-columns: repeat(4, 1fr); }
+  .info-strip > * { grid-column: span 3; }
 }
 
 /* Guia visual: peças do Mapa Digital mostradas fora da planta */
@@ -127,6 +128,14 @@
 .guia-num .local__num { min-width: 56px; }
 .guia-marca { width: 64px; height: 64px; }
 .guide-section .guia-cards { grid-template-columns: repeat(auto-fill, minmax(260px, 340px)); grid-auto-rows: auto; align-items: start; margin-bottom: var(--space-4); }
+.guide-section .guia-cards > .local { grid-column: auto; }
 .guide-section .guia-cards .local__nome { margin-top: var(--space-1); }
 .guide-section .guia-pisos { position: static; transform: none; }
+.guide-section .guia-painel { max-width: 380px; margin-bottom: var(--space-4); }
+.guide-section .guia-sobre { align-items: center; padding: var(--space-4); border-radius: var(--radius-lg); background: var(--planta-fundo, var(--surface-2)); }
+.guide-section .guia-sobre .planta__controles { position: static; }
+.guide-section .mapa-js .guia-entradas:not([hidden]), .guide-section .guia-entradas { position: static; transform: none; display: flex; }
+.guide-section .guia-dica, .guide-section .mapa-js .guia-dica { position: static; display: inline-flex; white-space: normal; border-radius: var(--radius-md); }
+.guia-tabela { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.guia-tabela th, .guia-tabela td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border); text-align: left; }
 

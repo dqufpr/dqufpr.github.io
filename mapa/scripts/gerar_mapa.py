@@ -512,7 +512,7 @@ def contatos(i):
 def gera_lista(locais, pessoas, unidades):
     """Cards da lista "Todos os locais": número, tipo e andar, nome, resumo e ações.
     Os detalhes mostram as unidades (laboratórios, serviços) e as pessoas da sala.
-    js/mapa.js pagina a lista (9 por página) e abre e fecha os detalhes; sem JavaScript,
+    js/mapa.js pagina a lista (12 por página) e abre e fecha os detalhes; sem JavaScript,
     todos os cards e detalhes ficam à mostra."""
     por_p = {p["id"]: p for p in pessoas}
     por_u = {u["id"]: u for u in unidades}

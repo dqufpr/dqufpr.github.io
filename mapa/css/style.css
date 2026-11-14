@@ -403,7 +403,10 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
    e os filtros ao lado de "Mostrar a lista" são os mesmos destaques da planta. */
 .locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
 .locais__status:empty { display: none; }
-.locais__lista { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; margin: 0; padding: 0; list-style: none; }
+/* Lista de locais na grade de 12 colunas (como .grid do global.css): 1, 2, 3 ou 4 cartões
+   por linha; com 12 por página (js/mapa.js), toda página fecha as linhas */
+.locais__lista { display: grid; gap: var(--space-4); grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; margin: 0; padding: 0; list-style: none; }
+.locais__lista > .local { grid-column: span 12; min-width: 0; }
 .local {
   --loc-ink: #ffffff; /* cor do número sobre a cor da categoria */
   position: relative; display: flex; flex-direction: column; gap: var(--space-2); min-width: 0;
@@ -739,7 +742,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
 }
 
 @media (min-width: 640px) {
-  .locais__lista { grid-template-columns: repeat(2, 1fr); }
+  .locais__lista > .local { grid-column: span 6; }
 }
 
 /* Sem JavaScript (960px+): planta e painel lado a lado */
@@ -755,7 +758,10 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   /* Ampliado: planta e painel ocupam o resto da tela */
   .explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { height: auto; grid-template-rows: minmax(0, 1fr); }
   .explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 100%; }
-  .locais__lista { grid-template-columns: repeat(3, 1fr); }
+  .locais__lista > .local { grid-column: span 4; }
+}
+@media (min-width: 1280px) {
+  .locais__lista > .local { grid-column: span 3; }
 }
 
 /* 10. Impressão
@@ -869,7 +875,9 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .section-head { margin: 0 0 4mm; }
   .section-head h2 { font-size: 15pt; color: var(--brand-navy); }
   .locais__lista, .mapa-js .locais__lista, .mapa-js .locais__lista:not(.is-aberta) {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; align-items: stretch; gap: 2.5mm; margin: 0; animation: none;
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: auto; align-items: stretch; gap: 2.5mm; margin: 0; animation: none;
+  }
+  .locais__lista > .local, .mapa-js .locais__lista > .local { grid-column: span 4; /* 3 por linha no papel */
   }
   .lista__barra, .lista__paginas, .local__acoes { display: none !important; }
   .local, .mapa-js .local { padding: 3mm 3mm 2.5mm; gap: 1mm; box-shadow: none !important; transform: none !important; break-inside: avoid; border-color: #c7d0db; }

@@ -1306,7 +1306,8 @@
   }
 
   /* Carrossel: 9 cards por página, só entre os que o filtro deixa à mostra */
-  var POR_PAGINA = 9, pagina = 0, filtroDaLista = '|'; // '|' = sem busca e sem destaques
+  // 12 por página: múltiplo das 1, 2, 3 ou 4 colunas da grade (css/style.css), as linhas sempre fecham
+  var POR_PAGINA = 12, pagina = 0, filtroDaLista = '|'; // '|' = sem busca e sem destaques
   var paginasEl = document.querySelector('[data-lista-paginas]');
   var secaoLista = lista.closest('section');
   function visiveisNaLista() {

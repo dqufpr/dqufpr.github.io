@@ -256,8 +256,15 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--s
 .section-head { margin-bottom: var(--space-5); max-width: 62ch; }
 .section-head p { color: var(--text-muted); margin: 0; }
 
-/* Grade de cartões: 1 coluna no celular, 2 no tablet, 3 no desktop */
-.grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+/* Grade de 12 colunas: todo grupo de cartões tem 12 colunas, e cada cartão ocupa uma fração
+   delas. 12 se divide por 1, 2, 3, 4 e 6: as linhas sempre fecham, e listas paginadas usam
+   múltiplos de 12 (o Mapa Digital mostra 12 locais por página).
+     celular: 12 colunas por cartão (1 por linha)
+     .grid--2: 6 a partir de 640px (2 por linha)
+     .grid--3: 6 a partir de 640px; 4 a partir de 960px (3 por linha)
+     .grid--4: 6 a partir de 640px; 3 a partir de 960px (4 por linha) */
+.grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.grid > * { grid-column: span 12; min-width: 0; }
 .stack > * + * { margin-top: var(--space-4); }
 .cluster { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
 
@@ -496,9 +503,9 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
   :root { --gutter: 30px; }
   .brand__logo { width: 40px; height: 40px; }
   .brand__sub { display: block; }
-  .grid--2, .grid--3 { grid-template-columns: repeat(2, 1fr); }
-  /* Em 2 colunas, um último cartão sozinho ocupa a linha inteira */
-  .grid--3 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .grid--2 > *, .grid--3 > *, .grid--4 > * { grid-column: span 6; }
+  /* Em 2 por linha, um último cartão sozinho ocupa a linha inteira */
+  .grid--3 > :last-child:nth-child(odd) { grid-column: span 12; }
   .grid { gap: var(--space-5); }
   .btn-group > .btn { flex: 0 0 auto; }
   .footer-grid { grid-template-columns: repeat(2, 1fr); }
@@ -512,8 +519,8 @@ a.loc-tag:hover { border-color: var(--loc); background: var(--hover-soft); color
   :root { --header-h: 68px; }
   .section { padding-block: var(--space-8); }
   .page-hero { padding-block: var(--space-8) var(--space-6); }
-  .grid--3 { grid-template-columns: repeat(3, 1fr); }
-  .grid--3 > :last-child:nth-child(odd) { grid-column: auto; }
+  .grid--3 > *, .grid--3 > :last-child:nth-child(odd) { grid-column: span 4; }
+  .grid--4 > * { grid-column: span 3; }
   .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
   .footer-grid > :first-child { grid-column: auto; }
 
