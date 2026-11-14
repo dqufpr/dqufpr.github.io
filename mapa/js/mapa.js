@@ -14,7 +14,7 @@
      desfocado; troca sozinho ao escolher um local do outro andar; ?andar=1;
    - entradas, rampas e escadas: clique na planta, botões no painel, busca e ?entrada=principal
      (ou ?entrada=rampa-1, escada-terreo…);
-   - compartilhar o local exibido (WhatsApp, Instagram e folha de compartilhar do sistema);
+   - compartilhar o local exibido (WhatsApp, Instagram, copiar o link e folha de compartilhar do sistema);
    - lista de locais recolhida (acordeão) e "Mostrar todos os locais" no painel;
    - computador (1024px+ com mouse): painel flutuando à direita da planta; enquadramentos
      descontam a faixa que ele cobre;
@@ -1073,15 +1073,19 @@
     var box = el('div', 'painel__compartilhar');
     box.appendChild(el('p', 'painel__eyebrow', a.rotulo));
     var row = el('div', 'painel__share');
-    var wa = el('a', 'painel__share-btn painel__share-btn--whatsapp');
-    wa.setAttribute('aria-label', 'Compartilhar pelo WhatsApp');
-    wa.title = 'WhatsApp';
-    wa.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(a.texto + '\n' + a.url);
-    wa.target = '_blank';
-    wa.rel = 'noopener';
-    wa.appendChild(icone('whatsapp'));
-    row.appendChild(wa);
-    [['instagram', 'Instagram', 'Compartilhar pelo Instagram'], ['copiar', 'Copiar o link', 'Copiar o link da sala'],
+    // WhatsApp e Instagram são links: no celular abrem o aplicativo; no computador, o site
+    [['whatsapp', 'WhatsApp', 'Compartilhar pelo WhatsApp', 'https://api.whatsapp.com/send?text=' + encodeURIComponent(a.texto + '\n' + a.url)],
+      ['instagram', 'Instagram', 'Abrir o Instagram', 'https://www.instagram.com/direct/inbox/']].forEach(function (o) {
+      var l = el('a', 'painel__share-btn painel__share-btn--' + o[0]);
+      l.setAttribute('aria-label', o[2]);
+      l.title = o[1];
+      l.href = o[3];
+      l.target = '_blank';
+      l.rel = 'noopener';
+      l.appendChild(icone(o[0]));
+      row.appendChild(l);
+    });
+    [['copiar', 'Copiar o link', 'Copiar o link da sala'],
       ['enviar', 'Enviar', 'Enviar por outro aplicativo ou copiar o link']].forEach(function (o) {
       var b = el('button', 'painel__share-btn painel__share-btn--' + o[0]);
       b.type = 'button';
@@ -1089,7 +1093,7 @@
       b.setAttribute('aria-label', o[2]);
       b.title = o[1];
       b.appendChild(icone(o[0]));
-      if (o[0] === 'copiar') b.appendChild(iconeOk());
+      b.appendChild(iconeOk());
       row.appendChild(b);
     });
     box.appendChild(row);
@@ -1120,18 +1124,20 @@
   }
   // Copiar: o próprio botão confirma (fica verde e mostra um visto)
   var tempoCopiado;
-  function marcaCopiado() {
-    var b = painel.querySelector('[data-compartilhar="copiar"]');
+  function marcaCopiado(tipo) {
+    var b = painel.querySelector('[data-compartilhar="' + tipo + '"]');
     if (!b) return;
+    var titulo = b.getAttribute('data-titulo') || b.title;
+    b.setAttribute('data-titulo', titulo);
     clearTimeout(tempoCopiado);
-    b.classList.remove('is-copiado');
+    painel.querySelectorAll('.is-copiado').forEach(function (x) { x.classList.remove('is-copiado'); });
     void b.offsetWidth;
     b.classList.add('is-copiado');
     b.title = 'Link copiado';
     avisaShare('Link copiado.', true);
     tempoCopiado = setTimeout(function () {
       b.classList.remove('is-copiado');
-      b.title = 'Copiar o link';
+      b.title = titulo;
       avisaShare('');
     }, 2000);
   }
@@ -1149,26 +1155,17 @@
       root.removeChild(t);
     });
   }
-  // Instagram não aceita link de compartilhamento: no celular abre a folha de
-  // compartilhar do sistema (onde ele aparece) e, em todo caso, copia o link.
-  // "Enviar" abre a mesma folha; sem ela (computador), copia o link.
+  // "Copiar" copia o link. "Enviar" abre a folha de compartilhar do sistema;
+  // sem ela (computador), copia o link. Os dois confirmam no próprio botão.
   function compartilha(tipo) {
     if (!estado.local && !estado.pessoa && !estado.unidade) return;
     var a = alvoShare(), url = a.url, dadosShare = { title: a.titulo, text: a.texto, url: url };
     var podeShare = !!navigator.share && (!navigator.canShare || navigator.canShare(dadosShare));
-    if (tipo === 'copiar') {
-      copia(url).then(marcaCopiado, function () { avisaShare(url); });
-    } else if (tipo === 'instagram') {
-      copia(url).then(function () {
-        avisaShare(podeShare ? 'Link copiado. Escolha o Instagram na lista.' : 'Link copiado. Cole no Instagram (Direct ou Stories).');
-      }, function () { avisaShare(url); });
-      if (podeShare) navigator.share(dadosShare).catch(function () {});
-      else window.open('https://www.instagram.com/direct/inbox/', '_blank', 'noopener');
-    } else if (podeShare) {
+    if (tipo === 'enviar' && podeShare) {
       navigator.share(dadosShare).catch(function () {});
-    } else {
-      copia(url).then(function () { avisaShare('Link copiado.'); }, function () { avisaShare(url); });
+      return;
     }
+    copia(url).then(function () { marcaCopiado(tipo); }, function () { avisaShare(url); });
   }
 
   function renderEntrada() {

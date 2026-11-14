@@ -10,6 +10,11 @@
 - **Compartilhar** também a pessoa e o laboratório.
 
 ### Mudado
+- **Botões de compartilhar padronizados, sem mensagem escrita:**
+  - **WhatsApp e Instagram** só abrem o aplicativo (celular) ou o site (computador). O Instagram abre as mensagens (Direct) e não copia mais o link nem mostra "Link copiado".
+  - **Copiar o link** confirma no próprio botão, que fica verde com um visto.
+  - **Enviar** abre a folha de compartilhar do sistema. Sem ela (computador), copia o link e confirma do mesmo jeito, no próprio botão.
+  - A confirmação escrita ficou só para leitores de tela.
 - **Planilha:** `dados/dados-mapa.xlsx`, com as abas Salas, Pessoas e Unidades, substitui `dados/locais.xlsx`. Cada sala, pessoa e laboratório aparece uma vez só. O laboratório que ocupa várias salas é uma linha, com as salas separadas por `;`. A coluna `n` é só numeração e é ignorada.
 - **`scripts/gerar_mapa.py`** lê as três abas e confere as ligações:
   - coordenação que não está em Pessoas;
