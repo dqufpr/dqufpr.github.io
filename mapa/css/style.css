@@ -1,0 +1,789 @@
+/* ==================================================================
+   style.css — Mapa Digital (/mapa/)
+   Só o que é exclusivo do módulo. Carregado DEPOIS de /css/global.css,
+   sempre com os tokens de lá (var(--…)). Guia: dqufpr.github.io/design
+
+   Sumário
+   1. Tokens do módulo (planta)
+   2. Abertura de página
+   3. Botões de destaque (categorias)
+   4. Indicador de carregamento
+   5. Explorador: barra, planta e painel
+   6. Planta (SVG)
+   7. Painel de informações
+   8. Lista de locais
+   9. Linha do tempo (atualizações)
+  10. Impressão
+================================================================== */
+
+/* 1. Tokens do módulo: cores do desenho da planta, nos dois temas */
+:root {
+  --planta-fundo: #ffffff;
+  --planta-corredor: #dee4ea;
+  --planta-parede: #1d3c69;
+  --planta-selecao: #0b1f3b;
+  --planta-andar: #eef3f8;
+  --planta-entrada: #15803d;
+  --planta-entrada-texto: #166534;
+  --planta-escada: #a16207;
+  --planta-escada-area: #f6e6ae;
+  --planta-rampa: #1d4ed8;
+  --planta-rampa-area: #d3defa;
+  --planta-escada-texto: #7a4a06;
+  --planta-rampa-texto: #1e3fa8;
+}
+[data-theme="dark"] {
+  --planta-fundo: #101823;
+  --planta-corredor: #283445;
+  --planta-parede: #7f9bc4;
+  --planta-selecao: #ffffff;
+  --planta-andar: #18222f;
+  --planta-entrada: #16a34a;
+  --planta-entrada-texto: #4ade80;
+  --planta-escada: #ca8a04;
+  --planta-escada-area: #3a3216;
+  --planta-rampa: #3b6ef0;
+  --planta-rampa-area: #1b2a52;
+  --planta-escada-texto: #f2c75c;
+  --planta-rampa-texto: #9db8ff;
+}
+
+/* 2. Abertura de página */
+.eyebrow a { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; color: inherit; }
+
+/* 3. Botões de destaque: .loc-tag do global.css usado como <button aria-pressed> */
+.quick-links { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* Mesma borda (1px) e mesmo peso de letra em todos os estados: o botão não muda de tamanho */
+button.loc-tag {
+  font: inherit; font-weight: var(--fw-medium); border-width: 1px; cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+button.loc-tag:hover { border-color: var(--loc); background: color-mix(in srgb, var(--loc) 8%, var(--surface)); }
+button.loc-tag:active { background: color-mix(in srgb, var(--loc) 14%, var(--surface)); }
+button.loc-tag[aria-pressed="true"] { border-color: var(--loc); background: color-mix(in srgb, var(--loc) 18%, var(--surface)); }
+button.loc-tag[aria-pressed="true"]:hover { background: color-mix(in srgb, var(--loc) 24%, var(--surface)); }
+[data-limpar][hidden] { display: none; }
+.loc-tag__n { color: var(--text-muted); font-size: var(--fs-sm); font-variant-numeric: tabular-nums; }
+
+/* 4. Indicador de carregamento: <span class="spinner" aria-hidden="true">.
+   Com movimento reduzido, o global.css para a animação e fica só o texto ao lado. */
+.spinner {
+  display: inline-block; flex: none; width: 1.25em; height: 1.25em;
+  border: 3px solid var(--border-strong); border-top-color: var(--accent); border-radius: 50%;
+  animation: dq-spin 0.8s linear infinite;
+}
+@keyframes dq-spin { to { transform: rotate(360deg); } }
+
+/* 5. Explorador: largura maior que o texto da página, centralizado */
+.explorador {
+  display: grid; gap: var(--space-4);
+  max-width: calc(var(--container) + 2 * var(--gutter)); margin: var(--space-5) auto var(--space-7); padding-inline: var(--gutter);
+}
+.explorador__barra { display: grid; gap: var(--space-4); }
+.explorador__busca { max-width: 420px; }
+.explorador__destaques .label { margin: 0 0 var(--space-2); }
+.explorador__corpo { display: grid; gap: var(--space-3); grid-template-columns: minmax(0, 1fr); }
+
+/* Ampliado: tela cheia do navegador (:fullscreen) ou, sem esse recurso (iPhone),
+   o explorador fixo sobre a página (.is-expanded, aplicado por js/mapa.js) */
+.explorador:fullscreen, .explorador.is-expanded {
+  max-width: none; margin: 0; padding: var(--space-3) var(--gutter);
+  background: var(--bg); overflow: auto;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.explorador.is-expanded { position: fixed; inset: 0; z-index: var(--z-skip); }
+/* Vence as margens dos layouts de celular, tablet e desktop: o quadro cobre a tela toda */
+.mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { margin: 0; }
+.explorador:fullscreen .aviso-atualizacao, .explorador.is-expanded .aviso-atualizacao { display: none; }
+.explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { min-height: 0; }
+.explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 70svh; }
+.mapa-ampliado { overflow: hidden; }
+
+/* 6. Planta */
+.planta {
+  position: relative; overflow: hidden; height: min(60svh, 460px); min-height: 300px;
+  background: var(--planta-fundo); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.planta__svg {
+  display: block; width: 100%; height: 100%; cursor: grab; user-select: none; -webkit-user-select: none;
+  touch-action: pan-y; /* um dedo na vertical rola a página; na horizontal, move a planta */
+}
+.explorador:fullscreen .planta__svg, .explorador.is-expanded .planta__svg { touch-action: none; }
+/* Zoom só na planta: na página, os dedos só rolam (sem pinça nem toque duplo para ampliar).
+   A planta tem a própria pinça (js/mapa.js). Com o viewport user-scalable=no em index.html. */
+html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
+.planta__svg.is-arrastando { cursor: grabbing; }
+
+/* Desenho-base: paredes, corredores e portas */
+.planta__svg .base [stroke] { stroke: var(--planta-parede); }
+.planta__svg .base .W { fill: var(--planta-corredor); }
+.planta__svg .base g[fill] { fill: var(--planta-fundo); }
+.planta__svg .base g[fill="#1d3c69"] { fill: var(--planta-parede); }
+
+/* Áreas clicáveis: a cor vem da categoria (--loc, classe loc--* do global.css) */
+.area { fill: var(--loc, var(--loc-outros)); stroke: var(--planta-parede); stroke-width: 7; cursor: pointer; transition: opacity var(--t-fast), filter var(--t-fast); }
+.area:hover { filter: brightness(1.12) saturate(1.1); }
+.rotulo {
+  fill: #ffffff; font-family: var(--font-sans); font-size: 46px; font-weight: var(--fw-bold);
+  text-anchor: middle; dominant-baseline: central; pointer-events: none;
+}
+.rotulo { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.28); } /* a mesma sombra leve dos números dos cards, na escala da planta */
+.rotulo--escuro { fill: var(--brand-navy-deep); text-shadow: none; }
+/* Andares: nome acima de cada bloco e fundo suave atrás do 1º andar (scripts/gerar_mapa.py) */
+.andar__nome {
+  fill: var(--planta-parede); font-family: var(--font-sans); font-size: 52px; font-weight: var(--fw-black);
+  letter-spacing: 0.05em; pointer-events: none;
+}
+.andar__fundo { fill: var(--planta-andar); pointer-events: none; }
+/* Andar do local: etiqueta no painel e destaque na lista */
+.painel__andar {
+  justify-self: start; display: inline-flex; align-items: center; gap: var(--space-1);
+  padding: 2px var(--space-2); border-radius: var(--radius-pill);
+  background: var(--brand-navy); color: #fff; font-size: var(--fs-xs); font-weight: var(--fw-bold);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.painel__andar--0 { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--border-strong); }
+[data-theme="dark"] .painel__andar--1 { background: var(--accent); color: var(--brand-navy-deep); }
+.local__andar { font-weight: var(--fw-medium); color: var(--text); }
+
+/* Entradas do prédio (scripts/gerar_mapa.py): círculo verde com seta para dentro */
+.entrada { cursor: pointer; }
+.entrada__circulo { fill: var(--planta-entrada); stroke: var(--planta-fundo); stroke-width: 8; }
+.entrada__halo { fill: var(--planta-entrada); opacity: 0.22; }
+.entrada__seta { fill: none; stroke: #fff; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.entrada__nome {
+  fill: var(--planta-entrada-texto); font-family: var(--font-sans); font-size: 62px; font-weight: var(--fw-black);
+  letter-spacing: 0.03em; dominant-baseline: central; pointer-events: none;
+}
+.entrada--principal .entrada__nome { font-size: 74px; }
+.entrada:hover .entrada__circulo { filter: brightness(1.12); }
+.entrada.is-sel .entrada__circulo { stroke: var(--planta-entrada-texto); stroke-width: 16; }
+/* Rampas e escadas (scripts/gerar_mapa.py, ACESSOS): área num tom próprio e pictograma num círculo */
+.acesso { cursor: pointer; }
+/* Multiplicado (no escuro, "tela"): escurece o corredor sem cobrir as paredes */
+.acesso__ret { mix-blend-mode: multiply; }
+[data-theme="dark"] .acesso__ret { mix-blend-mode: screen; }
+.acesso--escada .acesso__ret { fill: var(--planta-escada-area); }
+.acesso--rampa .acesso__ret { fill: var(--planta-rampa-area); }
+.acesso__circulo { stroke: var(--planta-fundo); stroke-width: 8; }
+.acesso--escada .acesso__circulo { fill: var(--planta-escada); }
+.acesso--rampa .acesso__circulo { fill: var(--planta-rampa); }
+.pict__cheio { fill: #fff; }
+.pict__traco { fill: none; stroke: #fff; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.acesso:hover .acesso__circulo { filter: brightness(1.12); }
+.acesso.is-sel .acesso__circulo { stroke: var(--planta-selecao); stroke-width: 14; }
+.acesso.is-sel .acesso__ret { stroke: var(--planta-selecao); stroke-width: 10; mix-blend-mode: normal; fill-opacity: 0.6; }
+.painel__entradas { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+/* Botões de entradas, rampas e escadas: fundo claro na cor do elemento, sem borda */
+.painel__ponto {
+  --ponto: var(--planta-entrada); --ponto-texto: var(--planta-entrada-texto);
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: 36px; padding: 0 var(--space-3);
+  border: 0; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--ponto) 14%, var(--surface));
+  color: var(--ponto-texto); font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-bold); cursor: pointer;
+  transition: background var(--t-fast), transform var(--t-fast);
+}
+.painel__ponto:hover { background: color-mix(in srgb, var(--ponto) 24%, var(--surface)); transform: translateY(-1px); }
+.painel__ponto:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.painel__ponto-ico { width: 9px; height: 9px; border-radius: 50%; background: var(--ponto); flex: none; }
+.planta__entradas { display: none; }
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
+  .mapa-js .planta__entradas:not([hidden]) {
+    position: absolute; left: var(--space-2); bottom: var(--space-2); z-index: 2; max-width: calc(100% - 2 * var(--space-2));
+    display: flex; align-items: center; gap: var(--space-1); padding: 4px 4px 4px var(--space-3); overflow-x: auto; scrollbar-width: none;
+    border: 1px solid var(--border); border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--shadow-md);
+  }
+  .planta__entradas-rot { margin-right: var(--space-1); color: var(--text-muted); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
+  .planta__entradas .painel__ponto { flex: none; min-height: 34px; padding: 0 var(--space-3); }
+  .planta__entradas .painel__ponto[aria-pressed="true"] { background: var(--planta-entrada); color: #fff; }
+  .mapa-js .planta__dica { display: none; } /* o lugar é da barra das entradas */
+}
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
+  .mapa-js .planta__entradas:not([hidden]) { left: 50%; transform: translateX(-50%); }
+}
+.painel__ponto--escada { --ponto: var(--planta-escada); --ponto-texto: var(--planta-escada-texto); }
+.painel__ponto--rampa { --ponto: var(--planta-rampa); --ponto-texto: var(--planta-rampa-texto); }
+
+/* Vista por andar (js/mapa.js põe vista-0 ou vista-1 no SVG; sem elas, os dois andares
+   aparecem como no desenho original, na impressão e nas imagens de compartilhamento).
+   O 1º andar sobe até a posição real, em cima do bloco das salas 1 a 22 (DESLOCAMENTO_1 de
+   scripts/gerar_mapa.py); o térreo fica desfocado ao fundo. */
+.planta__svg.vista-0 .piso--1 { display: none; }
+.planta__svg.vista-1 .piso--1 { transform: translateY(-933.11px); }
+.planta__svg.vista-1 .piso--0 { filter: blur(5px) saturate(0.6); opacity: 0.4; pointer-events: none; }
+.andar__fundo { display: none; } /* fundo do 1º andar: só no papel (seção 10) */
+
+/* Busca ou destaque ativos: o que não combina fica apagado */
+.planta__svg.is-filtrando .area:not(.is-match) { opacity: 0.15; }
+.planta__svg.is-filtrando .rotulo:not(.is-match) { opacity: 0.25; }
+.planta__svg.is-filtrando .area.is-match { stroke-width: 12; }
+/* Local selecionado: contorno grosso por cima de tudo */
+.selecao polygon { fill: none; stroke: var(--planta-selecao); stroke-width: 22; stroke-linejoin: round; pointer-events: none; }
+
+/* Seletor de andar: no alto, no meio da área livre da planta */
+.planta__pisos {
+  position: absolute; top: var(--space-2); left: 50%; transform: translateX(-50%); z-index: 2;
+  display: flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: var(--radius-pill);
+  background: var(--surface); box-shadow: var(--shadow-md);
+}
+.planta__pisos[hidden] { display: none; }
+.planta__piso {
+  display: inline-flex; align-items: center; gap: var(--space-1); min-height: 38px; padding: 0 var(--space-4);
+  border: 0; border-radius: var(--radius-pill); background: none; color: var(--text);
+  font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-bold); white-space: nowrap; cursor: pointer;
+}
+.planta__piso:hover { background: var(--hover-soft); }
+.planta__piso[aria-pressed="true"] { background: var(--brand-navy); color: #fff; }
+[data-theme="dark"] .planta__piso[aria-pressed="true"] { background: var(--accent); color: var(--brand-navy-deep); }
+.planta__piso-n:not(:empty) {
+  min-width: 1.6em; padding: 0 6px; border-radius: var(--radius-pill); background: var(--accent); color: #fff;
+  font-size: var(--fs-xs); text-align: center;
+}
+.planta__piso[aria-pressed="true"] .planta__piso-n:not(:empty) { background: #fff; color: var(--brand-navy); }
+.planta__controles { position: absolute; right: var(--space-2); bottom: var(--space-2); display: grid; gap: var(--space-1); }
+.planta__controles[hidden] { display: none; }
+.planta__btn {
+  display: grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0;
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text);
+  font: inherit; font-size: var(--fs-lg); font-weight: var(--fw-bold); line-height: 1; cursor: pointer; box-shadow: var(--shadow-sm);
+}
+.planta__btn:hover { background: var(--surface-2); }
+.planta__ampliar { position: absolute; top: var(--space-2); right: var(--space-2); box-shadow: var(--shadow-md); }
+.planta__ampliar[hidden] { display: none; }
+.planta__ampliar .icon-shrink { display: none; }
+.planta__ampliar[aria-pressed="true"] .icon-expand { display: none; }
+.planta__ampliar[aria-pressed="true"] .icon-shrink { display: block; }
+.planta__dica {
+  position: absolute; left: var(--space-2); bottom: var(--space-2); max-width: calc(100% - 80px); margin: 0;
+  padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--text-muted); font-size: var(--fs-xs);
+}
+.planta__dica[hidden] { display: none; }
+
+/* 7. Painel de informações */
+.painel {
+  min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.painel__corpo { display: grid; gap: var(--space-3); align-content: start; padding: var(--space-4); }
+.painel__status { display: flex; align-items: center; gap: var(--space-2); margin: 0; color: var(--text-muted); }
+.painel__eyebrow { margin: 0; color: var(--accent); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; }
+.painel__titulo { margin: 0; font-size: var(--fs-lg); overflow-wrap: anywhere; }
+.painel__texto { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); }
+.painel__voltar { justify-self: start; }
+.painel__cabeca { display: flex; gap: var(--space-3); align-items: flex-start; }
+.painel__cabeca-txt { display: grid; gap: var(--space-1); min-width: 0; }
+/* Número da sala no painel: centralizado nos dois eixos.
+   Seletor duplo para vencer o espaçamento de .local__num, definido mais abaixo. */
+.local__num.painel__num {
+  display: flex; align-items: center; justify-content: center;
+  width: auto; min-width: 64px; min-height: 56px; padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md); white-space: nowrap;
+}
+
+
+.painel__lista, .painel__itens { display: grid; margin: 0; padding: 0; list-style: none; }
+.painel__lista { gap: var(--space-2); }
+/* Item dos resultados: cartão pequeno com o número na cor da categoria, nome, andar e tipo, e uma seta */
+.painel__item {
+  --loc-ink: #ffffff;
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--space-3); align-items: center;
+  width: 100%; min-height: 56px; padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface);
+  color: var(--text); font: inherit; text-align: left; cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
+}
+.painel__item::after {
+  content: ""; width: 0.5em; height: 0.5em; margin-right: var(--space-1);
+  border-top: 2px solid var(--text-muted); border-right: 2px solid var(--text-muted); transform: rotate(45deg);
+}
+.painel__item:hover {
+  border-color: color-mix(in srgb, var(--loc) 55%, var(--border)); background: color-mix(in srgb, var(--loc) 7%, var(--surface));
+  transform: translateX(2px);
+}
+.painel__item:hover::after { border-color: var(--loc); }
+.painel__item-num {
+  display: grid; place-items: center; min-width: 48px; height: 38px; padding: 0 var(--space-2);
+  border-radius: var(--radius-md); background: var(--loc); color: var(--loc-ink, #ffffff);
+  font-weight: var(--fw-black); font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: var(--sombra-num);
+}
+.painel__item-txt { display: grid; gap: 2px; min-width: 0; }
+.painel__item-nome { margin: 0; font-weight: var(--fw-bold); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.painel__item-sub { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.painel__itens li { padding-block: var(--space-2); border-bottom: 1px solid var(--border); }
+.painel__itens li:last-child { border-bottom: 0; }
+.painel__acoes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+/* Compartilhar o local exibido */
+.painel__compartilhar { display: grid; gap: var(--space-2); padding-top: var(--space-3); border-top: 1px solid var(--border); }
+.painel__share { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.painel__share-btn {
+  display: inline-grid; place-items: center; width: var(--tap); height: var(--tap); padding: 0;
+  border: 0; border-radius: 50%; background: var(--surface-2); color: var(--text);
+  cursor: pointer; transition: transform var(--t-fast), background var(--t-fast);
+}
+.painel__share-btn:hover { transform: translateY(-2px); }
+.painel__share-btn--whatsapp { background: #e3f6ea; }
+.painel__share-btn--instagram { background: #fbe6ef; }
+[data-theme="dark"] .painel__share-btn--whatsapp { background: #16351f; }
+[data-theme="dark"] .painel__share-btn--instagram { background: #3a1a28; }
+.painel__share-ico { width: 22px; height: 22px; flex: none; }
+.painel__share-ico--whatsapp, .painel__share-ico--instagram { width: 26px; height: 26px; }
+/* Cores das marcas, escurecidas para contraste 3:1 sobre o fundo claro */
+.painel__share-ico--whatsapp { color: #128c4a; }
+.painel__share-ico--instagram { color: #d62976; }
+[data-theme="dark"] .painel__share-ico--whatsapp { color: #25d366; }
+[data-theme="dark"] .painel__share-ico--instagram { color: #f56ba4; }
+.painel__share-btn--copiar { position: relative; }
+.painel__share-btn--copiar .painel__share-ico { transition: transform var(--t-fast), opacity var(--t-fast); }
+.painel__share-ok {
+  position: absolute; inset: 0; margin: auto; width: 24px; height: 24px; opacity: 0;
+  fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.painel__share-ok path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.painel__share-btn.is-copiado { background: #dcf3e3; color: #12803f; animation: share-pulo .42s cubic-bezier(.3, 1.6, .5, 1); }
+[data-theme="dark"] .painel__share-btn.is-copiado { background: #16351f; color: #4ade80; }
+.painel__share-btn.is-copiado .painel__share-ico { opacity: 0; transform: scale(.4) rotate(-20deg); }
+.painel__share-btn.is-copiado .painel__share-ok { opacity: 1; }
+.painel__share-btn.is-copiado .painel__share-ok path { animation: share-visto .36s .08s ease-out forwards; }
+@keyframes share-pulo { 0% { transform: scale(.82); } 100% { transform: scale(1); } }
+@keyframes share-visto { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .painel__share-btn.is-copiado { animation: none; }
+  .painel__share-btn.is-copiado .painel__share-ok path { animation: none; stroke-dashoffset: 0; }
+}
+.painel__share-status { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.painel__share-status:empty { display: none; }
+/* Ampliado: a lista fica fora da tela cheia, então "Ver na lista" some */
+.explorador:fullscreen [data-ver-lista], .explorador.is-expanded [data-ver-lista] { display: none; }
+
+/* 8. Lista de locais (gerada por scripts/gerar_mapa.py)
+   Cards com faixa da cor da categoria, número, tipo e andar, nome, resumo e ações.
+   Com JavaScript: 9 cards por página (carrossel, .lista__paginas), detalhes abrem no card,
+   e os filtros ao lado de "Mostrar a lista" são os mesmos destaques da planta. */
+.locais__status { margin: 0 0 var(--space-4); color: var(--text-muted); font-size: var(--fs-sm); }
+.locais__status:empty { display: none; }
+.locais__lista { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; margin: 0; padding: 0; list-style: none; }
+.local {
+  --loc-ink: #ffffff; /* cor do número sobre a cor da categoria */
+  position: relative; display: flex; flex-direction: column; gap: var(--space-2); min-width: 0;
+  padding: calc(var(--space-4) + 4px) var(--space-4) var(--space-3);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  /* Faixa da cor da categoria no topo: é o fundo do card, recortado pelos cantos arredondados */
+  background: linear-gradient(var(--loc, var(--loc-outros)), var(--loc, var(--loc-outros))) top / 100% 5px no-repeat, var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.local:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--loc) 45%, var(--border)); }
+.local[hidden] { display: none; }
+.local:target, .local.is-realce { box-shadow: 0 0 0 3px var(--focus-ring); }
+/* Número branco em todas as categorias, com uma sombra bem leve para destacar;
+   só "outros" (cinza claro) leva texto escuro, sem sombra */
+:root { --sombra-num: 0 1px 2px rgba(0, 0, 0, 0.28); }
+.loc--outros { --loc-ink: var(--text); --sombra-num: none; }
+
+.local__topo { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.local__num {
+  flex: none; display: grid; place-items: center; min-width: 56px; height: 44px; padding: 0 var(--space-2);
+  border-radius: var(--radius-md); background: var(--loc, var(--loc-outros)); color: var(--loc-ink, #ffffff);
+  font-size: var(--fs-md); font-weight: var(--fw-black); line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap;
+  text-shadow: var(--sombra-num);
+}
+.local__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); min-width: 0; }
+.local__cat, .local__andar {
+  padding: 2px var(--space-2); border-radius: var(--radius-pill);
+  font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.03em; line-height: 1.5;
+}
+.local__cat { background: color-mix(in srgb, var(--loc) 16%, var(--surface)); color: var(--text); }
+.local__andar { background: var(--surface-2); color: var(--text-muted); box-shadow: inset 0 0 0 1px var(--border); }
+.local__nome { margin: var(--space-1) 0 0; font-size: var(--fs-base); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.local__resumo {
+  margin: 0; color: var(--text-muted); font-size: var(--fs-sm); overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
+.local__detalhes { display: grid; gap: var(--space-1); padding-top: var(--space-2); border-top: 1px dashed var(--border); }
+.local__itens { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; font-size: var(--fs-sm); }
+.local__item { font-weight: var(--fw-medium); overflow-wrap: anywhere; }
+.local__desc { margin: 0; color: var(--text-muted); }
+/* E-mail e site dos itens (painel e lista): links com ícone, quebrando a linha se preciso */
+.contatos { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); margin: var(--space-1) 0 0; font-size: var(--fs-sm); }
+.contato { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; overflow-wrap: anywhere; text-underline-offset: 2px; }
+.contato .icon { width: 16px; height: 16px; flex: none; }
+.local__acoes { display: flex; align-items: center; gap: var(--space-2); margin-top: auto; padding-top: var(--space-2); }
+.local__abrir {
+  display: none; align-items: center; gap: var(--space-1); margin-left: auto; min-height: 36px; padding: 0 var(--space-2);
+  border: 0; border-radius: var(--radius-sm); background: none; color: var(--accent);
+  font: inherit; font-size: var(--fs-sm); font-weight: var(--fw-bold); cursor: pointer;
+}
+.local__abrir::after {
+  content: ""; width: 0.45em; height: 0.45em; margin: -0.2em 0 0 2px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform var(--t-fast);
+}
+.local__abrir:hover { background: var(--hover-soft); }
+.local__abrir[aria-expanded="true"]::after { transform: translateY(0.25em) rotate(-135deg); }
+.mapa-js .local__abrir { display: inline-flex; }
+.mapa-js .local:has(.local__abrir) { cursor: pointer; }
+.mapa-js .local:not(.is-aberto) .local__detalhes { display: none; }
+.mapa-js .local.is-aberto { border-color: color-mix(in srgb, var(--loc) 60%, var(--border)); box-shadow: var(--shadow-md); }
+.mapa-js .local.is-aberto .local__resumo { -webkit-line-clamp: unset; }
+.mapa-js .local.is-aberto .local__detalhes { animation: detalhes-entra 0.25s ease both; }
+@keyframes detalhes-entra { from { opacity: 0; transform: translateY(-4px); } }
+
+/* Duas ou mais colunas: todos os cards com a mesma altura; os detalhes abrem como uma aba
+   que desce por cima dos cards de baixo (no celular, em uma coluna, abrem dentro do card) */
+@media (min-width: 640px) {
+  .locais__lista { grid-auto-rows: 1fr; align-items: stretch; }
+  .mapa-js .local { overflow: visible; }
+  .mapa-js .local.is-aberto { z-index: 4; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .mapa-js .local.is-aberto .local__detalhes {
+    position: absolute; left: -1px; right: -1px; top: calc(100% - 1px); z-index: 4;
+    max-height: 320px; overflow: auto; padding: var(--space-3) var(--space-4) var(--space-4);
+    background: var(--surface); border: 1px solid color-mix(in srgb, var(--loc) 60%, var(--border)); border-top: 1px dashed var(--border);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg); box-shadow: var(--shadow-lg);
+  }
+  .mapa-js .local.is-aberto .local__resumo { -webkit-line-clamp: 2; }
+}
+
+/* Barra acima da lista: filtros por tipo */
+.section-head:has(.lista__barra) { max-width: none; }
+.section-head:has(.lista__barra) > p { max-width: 62ch; }
+.lista__barra { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-4); }
+.lista__filtros:empty { display: none; }
+.mapa-js .locais__status { margin-top: var(--space-3); }
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
+  /* Celular e tablet: filtros numa linha que rola para o lado */
+  .lista__filtros { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(-1 * var(--gutter)); padding-right: var(--gutter); }
+}
+.lista__filtros button { min-height: 38px; padding: 0 var(--space-3); font-size: var(--fs-sm); white-space: nowrap; }
+
+/* Carrossel: só a página atual aparece; a troca de página desliza para o lado */
+.mapa-js .local.fora-da-pagina { display: none; }
+.locais__lista.entra-dir { animation: pagina-dir 0.32s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.locais__lista.entra-esq { animation: pagina-esq 0.32s cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes pagina-dir { from { opacity: 0; transform: translateX(40px); } }
+@keyframes pagina-esq { from { opacity: 0; transform: translateX(-40px); } }
+@media (prefers-reduced-motion: reduce) {
+  .locais__lista.entra-dir, .locais__lista.entra-esq, .local, .mapa-js .local.is-aberto .local__detalhes { animation: none; transition: none; }
+}
+.lista__paginas { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-5); }
+.lista__paginas[hidden] { display: none; }
+.lista__pag {
+  display: inline-grid; place-items: center; min-width: var(--tap); height: var(--tap); padding: 0 var(--space-2);
+  border: 1px solid var(--border); border-radius: var(--radius-pill); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; cursor: pointer;
+}
+.lista__pag:hover:not(:disabled) { border-color: var(--border-strong); background: var(--hover-soft); }
+.lista__pag[aria-current="page"] { background: var(--brand-navy); border-color: var(--brand-navy); color: #fff; }
+[data-theme="dark"] .lista__pag[aria-current="page"] { background: var(--accent); border-color: var(--accent); color: var(--brand-navy-deep); }
+.lista__pag:disabled { opacity: 0.4; cursor: default; }
+.lista__pag--seta { padding: 0 var(--space-3); }
+.lista__pag-gap { color: var(--text-muted); }
+.lista__pag-info { flex-basis: 100%; margin: 0; color: var(--text-muted); font-size: var(--fs-sm); text-align: center; }
+
+/* 9. Linha do tempo (atualizacao.html) */
+.timeline-ano { margin: var(--space-6) 0 var(--space-4); }
+.timeline-ano:first-child { margin-top: 0; }
+.timeline { margin: 0; padding: 0 0 0 var(--space-5); list-style: none; border-left: 2px solid var(--border); }
+.timeline__item { position: relative; padding-bottom: var(--space-5); }
+.timeline__item:last-child { padding-bottom: 0; }
+/* Marcador sobre a linha vertical */
+.timeline__item::before {
+  content: ""; position: absolute; top: 0.35em; left: calc(-1 * var(--space-5) - 7px);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--border-strong);
+}
+.timeline__item--destaque::before { background: var(--accent); border-color: var(--accent); }
+.timeline__data { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0 0 var(--space-1); color: var(--text-muted); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+.timeline__titulo { margin: 0 0 var(--space-2); font-size: var(--fs-md); }
+.timeline__item p:not(.timeline__data) { margin: 0 0 var(--space-2); }
+.timeline__item ul { margin: 0; padding-left: 1.25em; }
+.timeline__item li + li { margin-top: var(--space-1); }
+
+/* Página da planta: a lista de locais encosta no rodapé (sem a faixa vazia da margem) */
+body:has(.explorador) .site-footer { margin-top: 0; }
+
+/* Lupa só no celular; botão da lista e X do painel só com JavaScript */
+.explorador__lupa, .painel__fechar, .lista__alternar { display: none; }
+
+/* Comum a todas as telas (com JavaScript): X no painel e lista de locais recolhida */
+.mapa-js .painel__corpo { position: relative; }
+.mapa-js .painel__fechar { display: grid; position: absolute; top: var(--space-2); right: var(--space-2); }
+.mapa-js .painel__cabeca, .mapa-js .painel__corpo > .painel__eyebrow, .mapa-js .painel__corpo > .painel__titulo {
+  margin-right: calc(var(--tap) + var(--space-2));
+}
+/* "Voltar" só faz sentido para voltar aos resultados da busca; sem ela, o X fecha */
+.mapa-js .explorador:not(.is-buscando) .painel__voltar { display: none; }
+.mapa-js .painel__voltar { min-height: var(--tap); }
+.mapa-js .section-head { margin-bottom: 0; }
+.mapa-js .locais__lista { margin-top: var(--space-5); }
+.painel__todos { justify-self: start; }
+
+/* Celular e tablet (até 1023px, ou tablet de toque até 1399px, deitado): a planta ocupa
+   quase a tela toda. As mesmas condições estão em js/mapa.js (celular).
+   Tudo sob .mapa-js (posta por js/mapa.js): sem JavaScript, a página fica como nas telas maiores. */
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
+  .mapa-js .explorador { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); margin: 0 auto var(--space-5); }
+  /* Tablet deitado (960px+): sem as duas colunas da versão sem JavaScript; largura toda */
+  .mapa-js .explorador { max-width: none; }
+  .mapa-js .explorador__barra { grid-template-columns: none; }
+  .mapa-js .explorador__corpo { grid-template-columns: minmax(0, 1fr); height: auto; }
+
+  /* Barra numa linha só: lupa + destaques que rolam para o lado */
+  .mapa-js .explorador__barra { display: flex; align-items: center; gap: var(--space-2); padding-top: var(--space-2); }
+  .mapa-js .explorador__lupa { display: grid; flex: none; }
+  .explorador__lupa .icon-fechar, .explorador__lupa[aria-expanded="true"] .icon-lupa { display: none; }
+  .explorador__lupa[aria-expanded="true"] .icon-fechar { display: block; }
+  .mapa-js .explorador__busca { display: none; }
+  .mapa-js .explorador.is-buscando .explorador__busca { display: block; flex: 1; min-width: 0; max-width: none; margin: 0; }
+  .mapa-js .explorador.is-buscando .explorador__destaques { display: none; }
+  .mapa-js .explorador__busca .label, .mapa-js .explorador__busca .hint,
+  .mapa-js .explorador__destaques .label {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .mapa-js .explorador__destaques { flex: 1; min-width: 0; }
+  .mapa-js .explorador__destaques .quick-links {
+    flex-wrap: nowrap; gap: var(--space-1); overflow-x: auto; scrollbar-width: none;
+    margin-right: calc(-1 * var(--gutter)); padding-right: var(--gutter);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+  }
+  .mapa-js .quick-links::-webkit-scrollbar { display: none; }
+  .mapa-js .explorador__destaques button { flex: none; min-height: 40px; padding: 0 var(--space-3); font-size: var(--fs-sm); white-space: nowrap; }
+  .mapa-js [data-limpar] { order: -1; }
+
+  /* Planta de borda a borda, com a altura da tela; sobra uma faixa para rolar a página */
+  .mapa-js .planta {
+    height: calc(100svh - var(--header-h) - 104px); min-height: 320px;
+    margin-inline: calc(-1 * var(--gutter)); border-radius: 0; border-inline: 0; box-shadow: none;
+  }
+  .mapa-js .planta__svg { touch-action: none; } /* um dedo move a planta em qualquer direção */
+  .mapa-js .planta__dica { display: none; }
+  .mapa-js .planta__ampliar { width: var(--tap); height: var(--tap); padding: 0; justify-content: center; }
+  .mapa-js .planta__ampliar [data-ampliar-texto] {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .mapa-js .planta__controles { top: calc(2 * var(--space-2) + var(--tap)); bottom: auto; }
+
+  /* Painel vira cartão fixo no pé da tela (só com sala escolhida ou busca) */
+  .mapa-js .painel { display: none; }
+  .mapa-js .explorador.tem-folha .painel {
+    display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: calc(var(--z-header) - 1);
+    max-height: 52svh; overflow: auto; overscroll-behavior: contain;
+    border-width: 1px 0 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-lg);
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: folha-sobe var(--t-fast, 0.15s) ease-out;
+  }
+  .mapa-js .painel__corpo { padding: var(--space-3) var(--gutter) var(--space-4); }
+
+  /* Ampliado no celular: só barra e planta */
+  .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { padding-top: 0; }
+  .mapa-js .explorador:fullscreen .planta, .mapa-js .explorador.is-expanded .planta { height: calc(100svh - 60px); }
+}
+@keyframes folha-sobe { from { transform: translateY(24px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .explorador.tem-folha .painel { animation: none; } }
+
+/* Computador (1024px+ com mouse, ou 1400px+, com JavaScript): barra numa linha (busca à esquerda, destaques à
+   direita), planta com a largura e a altura da tela e o painel flutuando sobre o canto
+   direito da planta. */
+@media (min-width: 1400px), (min-width: 1024px) and (hover: hover), (min-width: 1024px) and (pointer: fine) {
+  /* Cabeçalho com a mesma largura do explorador (de borda a borda, com o mesmo recuo) */
+  .mapa-js .site-header .container { max-width: none; }
+  .mapa-js .explorador { --painel-w: clamp(260px, 30vw, 360px); grid-template-columns: minmax(0, 1fr); max-width: none; gap: var(--space-3); margin: var(--space-3) 0 var(--space-6); }
+
+  .mapa-js .explorador__barra { display: flex; align-items: center; gap: var(--space-4); }
+  .mapa-js .explorador__busca { flex: 0 1 clamp(200px, 20vw, 300px); min-width: 180px; max-width: none; margin: 0; }
+  .mapa-js .explorador__busca .input { min-height: 40px; padding-block: var(--space-2); }
+  .mapa-js .explorador__busca .label, .mapa-js .explorador__busca .hint,
+  .mapa-js .explorador__destaques .label {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  /* Destaques encostados à direita; se não couberem, rolam para o lado */
+  .mapa-js .explorador__destaques { flex: 0 1 auto; min-width: 0; margin-left: auto; }
+  .mapa-js .explorador__destaques .quick-links { flex-wrap: nowrap; gap: var(--space-1); overflow-x: auto; scrollbar-width: thin; }
+  /* Borda direita esmaecida quando sobra botão para rolar (o recuo evita apagar o último quando cabe) */
+  .mapa-js .explorador__destaques { margin-right: calc(-1 * var(--space-5)); }
+  .mapa-js .explorador__destaques .quick-links {
+    padding-right: var(--space-5);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent);
+  }
+  .mapa-js .explorador__destaques button { flex: none; min-height: 40px; padding: 0 var(--space-3); font-size: var(--fs-sm); white-space: nowrap; }
+  .mapa-js [data-limpar] { order: -1; }
+
+  /* Planta: o resto da tela abaixo da barra */
+  .mapa-js .explorador__corpo {
+    position: relative; display: block;
+    height: max(360px, calc(100svh - var(--header-h) - 40px - 3 * var(--space-3)));
+  }
+  .mapa-js .planta { height: 100%; min-height: 0; }
+  .mapa-js .painel {
+    position: absolute; top: var(--space-3); right: var(--space-3); z-index: 2;
+    width: var(--painel-w); max-height: calc(100% - 2 * var(--space-3));
+    overflow: auto; overscroll-behavior: contain; box-shadow: var(--shadow-lg);
+  }
+  /* Controles à esquerda, para o painel não cobri-los */
+  .mapa-js .planta__ampliar { left: var(--space-2); right: auto; }
+  .mapa-js .planta__pisos { left: calc((100% - var(--painel-w) - var(--space-3)) / 2); }
+  .mapa-js .planta__controles { left: var(--space-2); right: auto; top: calc(3 * var(--space-2) + 36px); bottom: auto; }
+  .mapa-js .planta__dica { max-width: calc(100% - var(--painel-w) - 3 * var(--space-3)); }
+
+  /* Ampliado: barra e planta ocupam a tela inteira */
+  .mapa-js .explorador:fullscreen .explorador__corpo, .mapa-js .explorador.is-expanded .explorador__corpo { height: auto; min-height: 0; }
+  .mapa-js .explorador:fullscreen .planta, .mapa-js .explorador.is-expanded .planta { height: 100%; }
+}
+
+/* Computador (1024px+): ao rolar, a barra de busca e destaques fica presa no topo e o
+   cabeçalho do site sobe (classe barra-fixa, posta por js/mapa.js) */
+@media (min-width: 1400px), (min-width: 1024px) and (hover: hover), (min-width: 1024px) and (pointer: fine) {
+  body:has(.explorador) .site-header { transition: transform 0.3s ease; }
+  .barra-fixa .site-header { transform: translateY(-100%); }
+  .barra-fixa .mapa-js .explorador, .barra-fixa.mapa-js .explorador { padding-top: calc(var(--barra-h, 40px) + var(--space-3)); }
+  .barra-fixa.mapa-js .explorador__barra {
+    position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-header);
+    padding: var(--space-2) var(--gutter); background: color-mix(in srgb, var(--bg) 94%, transparent);
+    border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    animation: barra-desce 0.3s ease-out;
+  }
+}
+@keyframes barra-desce { from { transform: translateY(-100%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  body:has(.explorador) .site-header { transition: none; }
+  .barra-fixa.mapa-js .explorador__barra { animation: none; }
+}
+
+@media (max-width: 1023.98px), (hover: none) and (pointer: coarse) and (max-width: 1399.98px) {
+  .mapa-js [data-imprimir] { display: none; }
+}
+
+@media (min-width: 640px) {
+  .locais__lista { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Sem JavaScript (960px+): planta e painel lado a lado */
+@media (min-width: 960px) {
+  .explorador__barra { grid-template-columns: minmax(260px, 360px) minmax(0, 1fr); align-items: start; }
+  /* Planta e painel lado a lado, com a altura da tela */
+  .explorador__corpo {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    height: clamp(440px, calc(100svh - var(--header-h) - var(--space-6)), 680px);
+  }
+  .planta { height: 100%; }
+  .painel { overflow: auto; }
+  /* Ampliado: planta e painel ocupam o resto da tela */
+  .explorador:fullscreen .explorador__corpo, .explorador.is-expanded .explorador__corpo { height: auto; grid-template-rows: minmax(0, 1fr); }
+  .explorador:fullscreen .planta, .explorador.is-expanded .planta { height: 100%; }
+  .locais__lista { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 10. Impressão
+   Duas formas, escolhidas por js/mapa.js antes de imprimir (beforeprint):
+   - página inteira: planta inteira numa folha deitada + todos os locais abertos, em duas colunas;
+   - um local escolhido (html.imprime-local): uma folha deitada com a planta (a sala em foco,
+     o resto esmaecido) e os dados da sala embaixo, com o link para abri-la no celular.
+   O tema escuro é desligado durante a impressão; as cores das salas são impressas. */
+.impressao-cabeca, .painel__url { display: none; }
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  @page paisagem { size: A4 landscape; margin: 10mm 12mm; }
+
+  html, body { background: #fff !important; }
+  body { font-size: 10pt; }
+  main { padding: 0; }
+
+  /* Fora da folha: controles, busca, avisos e o que só serve na tela */
+  .planta__controles, .planta__ampliar, .planta__dica, .planta__pisos, .planta__entradas, .explorador__lupa, .explorador__busca,
+  .explorador__destaques .label, [data-limpar], .aviso-atualizacao, .local__ver, .lista__alternar,
+  .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes,
+  .painel__compartilhar { display: none !important; }
+
+  /* Explorador: bloco simples, numa folha deitada (Chrome, Edge e Firefox; nos outros, em pé) */
+  .explorador, .mapa-js .explorador {
+    page: paisagem; display: block; position: static; max-width: none; margin: 0; padding: 0;
+    background: none; overflow: visible;
+  }
+  .impressao-cabeca {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 4mm; padding-bottom: 3mm;
+    border-bottom: 1.5pt solid var(--brand-navy);
+  }
+  .impressao-cabeca img { width: 10mm; height: 10mm; }
+  .impressao-cabeca p { margin: 0; }
+  .impressao-cabeca__titulo { color: var(--brand-navy); font-size: 13pt; font-weight: var(--fw-bold); }
+  .impressao-cabeca__sub { color: var(--text-muted); font-size: 8.5pt; }
+
+  /* Os botões de destaque viram a legenda de cores */
+  .explorador__barra, .mapa-js .explorador__barra { display: block; padding: 0; margin: 0 0 3mm; }
+  .explorador__destaques, .mapa-js .explorador__destaques { display: block; margin: 0; }
+  .explorador__destaques .quick-links, .mapa-js .explorador__destaques .quick-links {
+    flex-wrap: wrap; gap: 2mm 5mm; overflow: visible; padding: 0; -webkit-mask-image: none; mask-image: none;
+  }
+  .explorador__destaques .loc-tag, .mapa-js .explorador__destaques button {
+    min-height: 0; padding: 0; border: 0; background: none !important; box-shadow: none !important;
+    font-size: 8.5pt; font-weight: var(--fw-medium);
+  }
+  .loc-tag::before { width: 9pt; height: 9pt; border-radius: 2pt; }
+
+  /* Planta inteira, com as cores das salas */
+  .explorador__corpo, .mapa-js .explorador__corpo { display: block; position: static; height: auto; min-height: 0; }
+  .planta, .mapa-js .planta {
+    width: 100%; height: auto; min-height: 0; margin: 0; aspect-ratio: 6810 / 3050; /* VIEWBOX de scripts/gerar_mapa.py */
+    border: 0; border-radius: 0; box-shadow: none; break-inside: avoid;
+  }
+  .planta, .local__num, .painel__num, .loc-tag::before {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .planta__svg .area { transition: none; }
+  .andar__fundo { display: inline; }
+  /* Local em foco: o resto da planta esmaecido */
+  .planta__svg.imprime-foco .area:not(.is-foco) { opacity: 0.3; }
+  .planta__svg.imprime-foco .rotulo:not(.is-foco) { opacity: 0.4; }
+
+  /* Painel: só na impressão de um local, embaixo da planta */
+  .painel, .mapa-js .painel { display: none !important; }
+  .imprime-local .painel, .imprime-local .mapa-js .painel, .imprime-local.mapa-js .painel {
+    display: block !important; position: static; width: auto; max-height: none; overflow: visible;
+    margin-top: 4mm; border: 0; border-radius: 0; box-shadow: none; animation: none; padding: 0;
+  }
+  .imprime-local .painel__corpo {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 2mm 8mm; padding: 0; align-items: start;
+  }
+  .imprime-local .painel__cabeca { margin: 0; grid-column: 1; }
+  .imprime-local .painel__titulo { font-size: 15pt; }
+  .imprime-local .painel__itens, .imprime-local .painel__texto { grid-column: 2; grid-row: 1 / span 2; }
+  .imprime-local .painel__itens li { padding-block: 1.5mm; break-inside: avoid; }
+  .imprime-local .painel__url { display: block; grid-column: 1; margin: 0; color: var(--text-muted); font-size: 9pt; }
+  .imprime-local .painel__url strong { color: var(--text); }
+  /* Com um local, a folha deitada já tem tudo: a planta encolhe para caber com os dados */
+  .imprime-local .planta, .imprime-local.mapa-js .planta { width: auto; height: 112mm; margin-inline: auto; }
+  .imprime-local main > :not(.explorador) { display: none !important; }
+
+  /* Página inteira: lista de todos os locais, aberta, em três colunas, também em folhas deitadas */
+  .section--alt { page: paisagem; background: none; border: 0; padding: 0; break-before: page; }
+  .section--alt .container { max-width: none; padding: 0; }
+  .section-head { margin: 0 0 4mm; }
+  .section-head h2 { font-size: 15pt; color: var(--brand-navy); }
+  .locais__lista, .mapa-js .locais__lista, .mapa-js .locais__lista:not(.is-aberta) {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; align-items: stretch; gap: 2.5mm; margin: 0; animation: none;
+  }
+  .lista__barra, .lista__paginas, .local__acoes { display: none !important; }
+  .local, .mapa-js .local { padding: 3mm 3mm 2.5mm; gap: 1mm; box-shadow: none !important; transform: none !important; break-inside: avoid; border-color: #c7d0db; }
+  .local, .mapa-js .local { overflow: hidden; }
+  .mapa-js .local.fora-da-pagina:not([hidden]) { display: flex; }
+  .local[hidden] { display: none !important; }
+  .local, .local__num { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .local__num { min-width: 11mm; height: 7mm; font-size: 10pt; }
+  .local__cat, .local__andar { font-size: 7.5pt; }
+  .local__nome { font-size: 10pt; }
+  .local__resumo { -webkit-line-clamp: unset; }
+  .mapa-js .local:not(.is-aberto) .local__detalhes, .local__detalhes,
+  .mapa-js .local.is-aberto .local__detalhes {
+    display: grid; position: static; max-height: none; overflow: visible; padding: 1.5mm 0 0;
+    border: 0; border-top: 0.5pt dashed #c7d0db; border-radius: 0; box-shadow: none; animation: none;
+  }
+  .local__itens { font-size: 8.5pt; }
+  a[href^="http"]::after { content: none; }
+}
