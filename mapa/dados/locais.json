@@ -413,14 +413,14 @@
     "sala-prof"
    ],
    "pessoas": [
-    "anderson-barisson",
+    "andersson-barison",
     "clarice-dias-britto-do-amaral",
     "marcio-peres-de-araujo",
     "noemi-nagata"
    ],
    "unidades": [],
    "titulo": "Sala 23",
-   "resumo": "Anderson Barisson, Clarice Dias Britto do Amaral, Márcio Peres de Araujo, Noemi Nagata"
+   "resumo": "Andersson Barison, Clarice Dias Britto do Amaral, Márcio Peres de Araujo, Noemi Nagata"
   },
   {
    "id": "24",
@@ -600,13 +600,13 @@
     "sala-prof"
    ],
    "pessoas": [
-    "bruno-jose-golcalves-da-silva",
+    "bruno-jose-goncalves-da-silva",
     "gilberto-abate",
     "lauro-camargo-dias-junior"
    ],
    "unidades": [],
    "titulo": "Sala 37",
-   "resumo": "Bruno José Golçalves da Silva, Gilberto Abate, Lauro Camargo Dias Junior"
+   "resumo": "Bruno José Gonçalves da Silva, Gilberto Abate, Lauro Camargo Dias Junior"
   },
   {
    "id": "38",
@@ -1627,6 +1627,7 @@
    "cargo": "Professora",
    "area": "Química Inorgânica",
    "sala": "7",
+   "email": "jaisa.soares@ufpr.br",
    "coordena": [
     "labioinc",
     "laboratorio-de-instrumentacao-analitica"
@@ -1638,6 +1639,7 @@
    "cargo": "Professora",
    "area": "Química Inorgânica",
    "sala": "7",
+   "email": "shirleyn@ufpr.br",
    "coordena": [
     "labioinc"
    ]
@@ -1648,6 +1650,8 @@
    "cargo": "Professora",
    "area": "Química Analítica",
    "sala": "16",
+   "email": "andrea.oliveira@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/4654484364970262",
    "coordena": [
     "labpam"
    ]
@@ -1665,6 +1669,7 @@
    "cargo": "Professor",
    "area": "Físico-Química",
    "sala": "19",
+   "email": "elisaorth@ufpr.br",
    "coordena": [
     "gcc"
    ]
@@ -1675,6 +1680,7 @@
    "cargo": "Professor",
    "area": "Físico-Química",
    "sala": "19",
+   "email": "izabel.riegel@ufpr.br",
    "coordena": [
     "gpmin"
    ]
@@ -1685,16 +1691,19 @@
    "cargo": "Professor",
    "area": "Físico-Química",
    "sala": "19",
+   "email": "mvidotti@ufpr.br",
    "coordena": [
     "gpmin"
    ]
   },
   {
-   "id": "anderson-barisson",
-   "nome": "Anderson Barisson",
+   "id": "andersson-barison",
+   "nome": "Andersson Barison",
    "cargo": "Professor",
    "area": "Química Orgânica",
-   "sala": "23"
+   "sala": "23",
+   "email": "andernmr@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/0924773081596557"
   },
   {
    "id": "clarice-dias-britto-do-amaral",
@@ -1702,6 +1711,8 @@
    "cargo": "Professora",
    "area": "Química Analítica",
    "sala": "23",
+   "email": "clariceamaral@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/5612247812337113",
    "coordena": [
     "laesb"
    ]
@@ -1712,6 +1723,7 @@
    "cargo": "Professor",
    "area": "Química Inorgânica",
    "sala": "23",
+   "email": "mparaujo@ufpr.br",
    "coordena": [
     "laboratorio-de-quimica-inorganica-aplicada"
    ]
@@ -1722,6 +1734,7 @@
    "cargo": "Professora",
    "area": "Química Analítica",
    "sala": "23",
+   "email": "nnagata@ufpr.br",
    "coordena": [
     "gaqq"
    ]
@@ -1731,14 +1744,16 @@
    "nome": "Giovana G. Nunes",
    "cargo": "Professora",
    "area": "Química Inorgânica",
-   "sala": "27"
+   "sala": "27",
+   "email": "nunesgg@ufpr.br"
   },
   {
    "id": "liliana-micaroni",
    "nome": "Liliana Micaroni",
    "cargo": "Professora",
    "area": "Físico-Química",
-   "sala": "27"
+   "sala": "27",
+   "email": "micaroni@ufpr.br"
   },
   {
    "id": "regina-m-q-de-mello",
@@ -1752,21 +1767,24 @@
    "nome": "Eduardo Lemos de Sá",
    "cargo": "Professor",
    "area": "Físico-Química",
-   "sala": "29"
+   "sala": "29",
+   "email": "edulsa@ufpr.br"
   },
   {
    "id": "joaquim-motta-neto",
    "nome": "Joaquim Motta Neto",
    "cargo": "Professor",
    "area": "Físico-Química",
-   "sala": "29"
+   "sala": "29",
+   "email": "quim@ufpr.br"
   },
   {
    "id": "diego-guedes-sobrinho",
    "nome": "Diego Guedes Sobrinho",
    "cargo": "Professor",
    "area": "Físico-Química",
-   "sala": "32"
+   "sala": "32",
+   "email": "guedessobrinho@ufpr.br"
   },
   {
    "id": "fernando-wypych",
@@ -1781,6 +1799,7 @@
    "cargo": "Professora",
    "area": "Química Analítica",
    "sala": "32",
+   "email": "glaucia.pantano@ufpr.br",
    "coordena": [
     "gaea"
    ]
@@ -1791,6 +1810,7 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "34",
+   "email": "denio.souto@ufpr.br",
    "coordena": [
     "laesb"
    ]
@@ -1801,6 +1821,7 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "34",
+   "email": "frederico.soares@ufpr.br",
    "coordena": [
     "datalab"
    ]
@@ -1811,16 +1832,19 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "34",
+   "email": "zamora@ufpr.br",
    "coordena": [
     "tecnotrater"
    ]
   },
   {
-   "id": "bruno-jose-golcalves-da-silva",
-   "nome": "Bruno José Golçalves da Silva",
+   "id": "bruno-jose-goncalves-da-silva",
+   "nome": "Bruno José Gonçalves da Silva",
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "37",
+   "email": "brunojose@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/6550581465780888",
    "coordena": [
     "crome"
    ]
@@ -1831,6 +1855,7 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "37",
+   "email": "gilbertoabate@ufpr.br",
    "coordena": [
     "lqaa",
     "laa"
@@ -1841,7 +1866,8 @@
    "nome": "Lauro Camargo Dias Junior",
    "cargo": "Professor",
    "area": "Química Analítica",
-   "sala": "37"
+   "sala": "37",
+   "email": "laurocd@ufpr.br"
   },
   {
    "id": "herbert-winnischofer",
@@ -1849,6 +1875,7 @@
    "cargo": "Professor",
    "area": "Química Inorgânica",
    "sala": "38",
+   "email": "hwin@ufpr.br",
    "coordena": [
     "laboratorio-de-quimica-inorganica-aplicada"
    ]
@@ -1866,6 +1893,7 @@
    "cargo": "Professora",
    "area": "Química Inorgânica",
    "sala": "38",
+   "email": "tatiana.renata@ufpr.br",
    "coordena": [
     "laboratorio-de-quimica-inorganica-aplicada"
    ]
@@ -1890,6 +1918,7 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "40",
+   "email": "lpiovan@ufpr.br",
    "coordena": [
     "lasque"
    ]
@@ -1928,6 +1957,8 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "50",
+   "email": "claudiney.cordeiro@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/6924278564981100",
    "coordena": [
     "laboratorio-de-quimica-organica",
     "kolbe"
@@ -1939,6 +1970,7 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "50",
+   "email": "julieteneves@ufpr.br",
    "coordena": [
     "laboratorio-de-quimica-organica",
     "kolbe"
@@ -1960,6 +1992,8 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "54",
+   "email": "carolinedoca@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/7233778164985994",
    "coordena": [
     "lapoca"
    ]
@@ -1970,6 +2004,7 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "54",
+   "email": "marcelodoca@ufpr.br",
    "coordena": [
     "laboratorio-de-quimica-organica",
     "kolbe"
@@ -1981,6 +2016,8 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "57",
+   "email": "noronha@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/8041834010315273",
    "coordena": [
     "lapneq"
    ]
@@ -1990,21 +2027,25 @@
    "nome": "Sônia Faria Zawadzki",
    "cargo": "Professor",
    "area": "Química Orgânica",
-   "sala": "57"
+   "sala": "57",
+   "email": "zawadzki@ufpr.br"
   },
   {
    "id": "ana-luisa-lacava-lordello",
    "nome": "Ana Luísa Lacava Lordello",
    "cargo": "Professora",
    "area": "Química Orgânica",
-   "sala": "67"
+   "sala": "67",
+   "email": "lordello@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/0187329084887740"
   },
   {
    "id": "flavio-m-matsumoto",
    "nome": "Flávio M. Matsumoto",
    "cargo": "Professor",
    "area": "Química Inorgânica",
-   "sala": "67"
+   "sala": "67",
+   "email": "fmatsumo@ufpr.br"
   },
   {
    "id": "maria-aparecida-f-cesar-oliveira",
@@ -2012,6 +2053,7 @@
    "cargo": "Professora",
    "area": "Química Orgânica",
    "sala": "67",
+   "email": "mafco@ufpr.br",
    "coordena": [
     "lequipe"
    ]
@@ -2021,7 +2063,11 @@
    "nome": "Luiz Humberto Marcolino Junior",
    "cargo": "Professor",
    "area": "Química Analítica",
-   "sala": "67-A"
+   "sala": "67-A",
+   "email": "luiz1berto@ufpr.br",
+   "coordena": [
+    "labsense"
+   ]
   },
   {
    "id": "marcio-fernando-bergamini",
@@ -2029,6 +2075,7 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "67-A",
+   "email": "bergamini@ufpr.br",
    "coordena": [
     "labsense"
    ]
@@ -2039,6 +2086,7 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "70",
+   "email": "tic@ufpr.br",
    "coordena": [
     "laboratorio-de-ecologia-quimica-e-sintese-de-produtos-naturais"
    ]
@@ -2048,42 +2096,49 @@
    "nome": "Kahlil Schwanka Salome",
    "cargo": "Professor",
    "area": "Química Orgânica",
-   "sala": "70"
+   "sala": "70",
+   "email": "kahlil.salome@ufpr.br"
   },
   {
    "id": "camila-silveira-da-silva",
    "nome": "Camila Silveira da Silva",
    "cargo": "Professor",
    "area": "Ensino de Química",
-   "sala": "75"
+   "sala": "75",
+   "email": "camilasilveira@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/2545977009055473"
   },
   {
    "id": "roberto-dalmo-varallo-lima-de-oliveira",
    "nome": "Roberto Dalmo Varallo Lima de Oliveira",
    "cargo": "Professor",
    "area": "Ensino de Química",
-   "sala": "75"
+   "sala": "75",
+   "email": "robertodalmo@ufpr.br"
   },
   {
    "id": "everton-bedin",
    "nome": "Everton Bedin",
    "cargo": "Professor",
    "area": "Ensino de Química",
-   "sala": "80"
+   "sala": "80",
+   "email": "everton.bedin@ufpr.br"
   },
   {
    "id": "joanez-aparecida-aires",
    "nome": "Joanez Aparecida Aires",
    "cargo": "Professor",
    "area": "Ensino de Química",
-   "sala": "80"
+   "sala": "80",
+   "email": "joanez@ufpr.br"
   },
   {
    "id": "leonir-lorenzetti",
    "nome": "Leonir Lorenzetti",
    "cargo": "Professor",
    "area": "Ensino de Química",
-   "sala": "80"
+   "sala": "80",
+   "email": "leonir@ufpr.br"
   },
   {
    "id": "paulo-zarbin",
@@ -2091,6 +2146,7 @@
    "cargo": "Professor",
    "area": "Química Orgânica",
    "sala": "90",
+   "email": "pzarbin@ufpr.br",
    "coordena": [
     "semioquimicos"
    ]
@@ -2101,6 +2157,7 @@
    "cargo": "Professor",
    "area": "Química Analítica",
    "sala": "93",
+   "email": "mtgrassi@ufpr.br",
    "coordena": [
     "laa",
     "gqa"
@@ -2112,6 +2169,8 @@
    "cargo": "Professor",
    "area": "Química Inorgânica",
    "sala": "95",
+   "email": "aldozarbin@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/4008495434236758",
    "coordena": [
     "laboratorio-de-difracao-de-raio-x-e-raman",
     "afm"
@@ -2531,8 +2590,8 @@
    ],
    "coordenacao": [
     {
-     "nome": "Bruno José Golçalves da Silva",
-     "pessoa": "bruno-jose-golcalves-da-silva"
+     "nome": "Bruno José Gonçalves da Silva",
+     "pessoa": "bruno-jose-goncalves-da-silva"
     }
    ]
   },
@@ -2618,7 +2677,8 @@
      "pessoa": "marcio-fernando-bergamini"
     },
     {
-     "nome": "Luiz Humberto Marcolino Jr"
+     "nome": "Luiz Humberto Marcolino Junior",
+     "pessoa": "luiz-humberto-marcolino-junior"
     }
    ]
   },
