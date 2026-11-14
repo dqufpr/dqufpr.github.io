@@ -316,7 +316,7 @@ Os cartões ficam sempre numa grade de 12 colunas (seção 7).
 - **Canto de cima à esquerda:** o seletor de andar (`.planta__pisos`).
 - **Logo abaixo:** a barra de ferramentas (`.planta__controles`), num bloco só: aproximar, afastar, planta inteira, girar e ampliar.
 - **Embaixo, no meio:** a barra das entradas (`.planta__entradas`).
-- **Painel:** à direita no computador; no pé da tela no celular e no tablet.
+- **Painel:** à direita no computador; no pé da tela no celular e no tablet. No pé da tela, o painel é uma folha com duas alturas: abre na média (até 45% da tela, com alça no topo e o pé esmaecido quando há mais conteúdo) e se expande até abaixo do cabeçalho ao ser arrastado para cima ou ao tocar na alça. Arrastar para baixo reduz o cartão, ou o fecha a partir da altura média.
 - **Dica de uso** (`.planta__dica`): só no computador, numa linha, com o ícone `info`, a partir de 1320px.
 
 As posições usam `--mapa-x` e `--mapa-y` (o recuo a partir do canto da planta; no computador, abaixo da busca) e `--pisos-h` (a altura do seletor).

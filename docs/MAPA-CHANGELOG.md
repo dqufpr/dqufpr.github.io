@@ -19,6 +19,13 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Cartão do pé da tela com duas alturas** (celular e tablet), como as folhas do iOS:
+  - **Abertura:** o cartão abre na altura média (até 45% da tela), com uma alça no topo e o pé esmaecido quando há mais conteúdo.
+  - **Para cima:** arrastar a alça ou o próprio cartão expande o cartão até logo abaixo do cabeçalho.
+  - **Para baixo:** volta à altura média; da altura média, fecha o cartão.
+  - **Expandido:** o conteúdo rola; com ele no topo, puxar para baixo reduz o cartão.
+  - **Toque na alça:** alterna as duas alturas.
+  - **Arraste:** não aciona o botão onde o dedo começou.
 - **Cartões da lista mais limpos:** fechado, o cartão mostra só o número, "Sala N", a categoria e o andar. O que há na sala (laboratórios, serviços, pessoas) aparece em "Detalhes", sob o rótulo "Nesta sala".
 - **Bordas padronizadas:**
   - 1px em tudo, inclusive nos botões (antes, 2px);

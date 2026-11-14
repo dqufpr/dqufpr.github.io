@@ -1230,9 +1230,94 @@
     // No celular, escolher uma entrada só move o mapa: o cartão não abre
     var soMapa = estado.entrada && celular.matches && porEntrada[estado.entrada] && porEntrada[estado.entrada].tipo === 'entrada';
     var folha = !!(estado.local || estado.pessoa || estado.unidade || (estado.entrada && !soMapa) || estado.busca.trim());
-    if (folha && !root.classList.contains('tem-folha')) painelEl.scrollTop = 0;
+    if (folha && !root.classList.contains('tem-folha')) { painelEl.scrollTop = 0; poeFolha(false); }
+    if (!folha) poeFolha(false);
     root.classList.toggle('tem-folha', folha);
+    window.setTimeout(atualizaMais, 0);
   }
+
+  /* ---------- Celular e tablet: cartão do pé da tela com duas alturas ----------
+     Abre na altura média; arrastar a alça ou o cartão para cima o expande até abaixo do
+     cabeçalho, e para baixo o devolve à altura média (ou, da média, fecha). Tocar na alça
+     alterna as duas alturas. Expandido, o conteúdo rola; com ele no topo, puxar para baixo
+     reduz o cartão, como as folhas do iOS. */
+  var alca = el('button', 'painel__alca');
+  alca.type = 'button';
+  painelEl.insertBefore(alca, painelEl.firstChild);
+  var folhaCheia = false;
+  function poeFolha(cheia) {
+    folhaCheia = cheia;
+    root.classList.toggle('folha-cheia', cheia);
+    alca.setAttribute('aria-expanded', cheia ? 'true' : 'false');
+    alca.setAttribute('aria-label', cheia ? 'Reduzir o cartão' : 'Expandir o cartão');
+    painelEl.style.height = '';
+    if (!cheia) painelEl.scrollTop = 0;
+    atualizaMais();
+  }
+  // Na altura média, um esmaecimento no pé avisa que há mais conteúdo
+  function atualizaMais() {
+    root.classList.toggle('folha-tem-mais', !folhaCheia && painelEl.scrollHeight > painelEl.clientHeight + 4);
+  }
+  function alturaCheia() {
+    var cab = document.querySelector('.site-header');
+    var topo = cab ? Math.max(0, cab.getBoundingClientRect().bottom) : 0;
+    return window.innerHeight - topo;
+  }
+  function alturaMedia() {
+    var conteudo = alca.offsetHeight + painel.offsetHeight;
+    return Math.min(conteudo, window.innerHeight * 0.45);
+  }
+  // Leva o cartão até uma das alturas, com animação (sem ela, para quem pediu menos movimento)
+  function encaixa(cheia) {
+    var alvo = cheia ? alturaCheia() : alturaMedia();
+    if (reduzMovimento) { poeFolha(cheia); return; }
+    painelEl.style.height = painelEl.getBoundingClientRect().height + 'px';
+    root.classList.add('folha-anima');
+    void painelEl.offsetHeight;
+    painelEl.style.height = alvo + 'px';
+    window.setTimeout(function () { root.classList.remove('folha-anima'); poeFolha(cheia); }, 260);
+  }
+  alca.addEventListener('click', function () { encaixa(!folhaCheia); });
+  var arrasto = null, ignoraClique = false;
+  painelEl.addEventListener('touchstart', function (e) {
+    if (!folhaMq.matches || !root.classList.contains('tem-folha') || e.touches.length > 1) { arrasto = null; return; }
+    arrasto = { y0: e.touches[0].clientY, y: e.touches[0].clientY, t0: Date.now(), h0: painelEl.getBoundingClientRect().height,
+      ativo: false, naAlca: !!e.target.closest('.painel__alca') };
+  }, { passive: true });
+  painelEl.addEventListener('touchmove', function (e) {
+    if (!arrasto) return;
+    var dy = e.touches[0].clientY - arrasto.y0;
+    arrasto.y = e.touches[0].clientY;
+    if (!arrasto.ativo) {
+      if (Math.abs(dy) < 8) return;
+      // Expandido: o dedo rola o conteúdo, salvo pela alça ou puxando para baixo com o conteúdo no topo
+      if (folhaCheia && !arrasto.naAlca && !(dy > 0 && painelEl.scrollTop <= 0)) { arrasto = null; return; }
+      arrasto.ativo = true;
+      root.classList.add('folha-arrastando');
+    }
+    e.preventDefault();
+    var h = Math.max(80, Math.min(alturaCheia(), arrasto.h0 - dy));
+    painelEl.style.height = h + 'px';
+  }, { passive: false });
+  painelEl.addEventListener('touchend', function () {
+    if (!arrasto) return;
+    var a = arrasto;
+    arrasto = null;
+    if (!a.ativo) return;
+    root.classList.remove('folha-arrastando');
+    ignoraClique = true;
+    window.setTimeout(function () { ignoraClique = false; }, 350);
+    var dy = a.y - a.y0, v = dy / Math.max(1, Date.now() - a.t0); // px por ms
+    if (folhaCheia) encaixa(!(dy > 80 || v > 0.5));
+    else if (dy < -40 || v < -0.4) encaixa(true);
+    else if (dy > 90 || v > 0.6) { painelEl.style.height = ''; fechaFolha(); }
+    else encaixa(false);
+  });
+  // Um arrasto não vale como toque num botão do cartão
+  painelEl.addEventListener('click', function (e) {
+    if (ignoraClique) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+  window.addEventListener('resize', function () { if (!folhaCheia) atualizaMais(); });
 
   // Fechar o cartão: tira a seleção e a busca
   function fechaFolha() {

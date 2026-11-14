@@ -547,7 +547,7 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 body:has(.explorador) .site-footer { margin-top: 0; }
 
 /* Lupa só no celular; botão da lista e X do painel só com JavaScript */
-.explorador__lupa, .painel__fechar, .lista__alternar { display: none; }
+.explorador__lupa, .painel__fechar, .lista__alternar, .painel__alca { display: none; }
 
 /* Comum a todas as telas (com JavaScript): X no painel e lista de locais recolhida */
 .mapa-js .painel__corpo { position: relative; }
@@ -614,12 +614,32 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   .mapa-js .painel { display: none; }
   .mapa-js .explorador.tem-folha .painel {
     display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: calc(var(--z-header) - 1);
-    max-height: 45svh; overflow: auto; overscroll-behavior: contain; /* deixa mais planta à vista acima */
+    /* Altura média: até 45% da tela; o resto aparece ao expandir (js/mapa.js, "duas alturas") */
+    max-height: 45svh; overflow: hidden; overscroll-behavior: contain; touch-action: none;
     border-width: 1px 0 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-lg);
     padding-bottom: env(safe-area-inset-bottom);
     animation: folha-sobe var(--t-fast, 0.15s) ease-out;
   }
-  .mapa-js .painel__corpo { padding: var(--space-3) var(--gutter) var(--space-4); }
+  /* Expandido: até logo abaixo do cabeçalho; o conteúdo rola */
+  .mapa-js .explorador.tem-folha.folha-cheia .painel {
+    height: calc(100svh - var(--header-h)); max-height: none; overflow: auto; touch-action: pan-y;
+  }
+  /* Durante o arraste e o encaixe, a altura vem do dedo (js/mapa.js) */
+  .mapa-js .explorador.tem-folha.folha-arrastando .painel, .mapa-js .explorador.tem-folha.folha-anima .painel { max-height: none; animation: none; }
+  .mapa-js .explorador.tem-folha.folha-anima .painel { transition: height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  /* Alça no topo do cartão: arrastar ou tocar para expandir e reduzir */
+  .mapa-js .explorador.tem-folha .painel__alca {
+    position: sticky; top: 0; z-index: 3; display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 22px; margin: 0; padding: 0; border: 0; background: var(--surface); cursor: grab; touch-action: none;
+  }
+  .painel__alca::before { content: ""; width: 40px; height: 5px; border-radius: var(--radius-pill); background: var(--border-strong); }
+  .painel__alca:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+  /* Altura média com mais conteúdo embaixo: o pé esmaece */
+  .mapa-js .explorador.tem-folha.folha-tem-mais:not(.folha-cheia) .painel::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 56px; pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--surface) 85%);
+  }
+  .mapa-js .painel__corpo { padding: var(--space-1) var(--gutter) var(--space-4); }
   /* Controles compactos, para sobrar planta: seletor de andar, ferramentas e entradas */
   .mapa-js .planta { --pisos-h: 38px; }
   .mapa-js .planta__piso { min-height: 32px; padding: 0 var(--space-3); }
@@ -782,7 +802,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   /* Fora da folha: controles, busca, avisos e o que só serve na tela */
   .planta__controles, .planta__ampliar, .planta__dica, .planta__pisos, .planta__entradas, .explorador__lupa, .explorador__busca,
   .explorador__destaques .label, [data-limpar], .local__ver, .lista__alternar,
-  .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes,
+  .locais__status, .section-head p, .painel__fechar, .painel__voltar, .painel__acoes, .painel__alca,
   .painel__compartilhar { display: none !important; }
 
   /* Explorador: bloco simples, numa folha deitada (Chrome, Edge e Firefox; nos outros, em pé) */
