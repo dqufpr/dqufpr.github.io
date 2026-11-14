@@ -2,7 +2,7 @@
 
 Serviços digitais do Departamento de Química da UFPR, publicados em <https://dqufpr.github.io/>.
 
-Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR, desenvolvida por Floriatan Santos Costa.
+Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR, desenvolvida por [Floriatan Santos Costa](https://floriatan.com.br/).
 
 > **Licença:** todos os direitos reservados. Você pode consultar e estudar este repositório e criar links para o site. Usar o código, os textos, os dados ou as imagens em outros sites, softwares ou aplicativos exige autorização por escrito. Veja [`LICENSE`](LICENSE).
 
@@ -140,7 +140,7 @@ Depois do push, o GitHub Actions refaz sozinho as imagens de prévia dos links c
 
 ## Licença
 
-Copyright © 2022-2026 Representação Discente 2022-2023 do PPGQ/UFPR, responsável pelo DQ Digital. Desenvolvimento: Floriatan Santos Costa. **Todos os direitos reservados.**
+Copyright © 2022-2026 Representação Discente 2022-2023 do PPGQ/UFPR, responsável pelo DQ Digital. Desenvolvimento: [Floriatan Santos Costa](https://floriatan.com.br/). **Todos os direitos reservados.**
 
 | Permitido sem pedir | Exige autorização expressa e por escrito |
 |---|---|
@@ -162,4 +162,4 @@ O texto completo está em [`LICENSE`](LICENSE).
 ## Créditos
 
 - **Responsáveis:** Representação Discente 2022-2023, Programa de Pós-Graduação em Química (PPGQ), Universidade Federal do Paraná.
-- **Desenvolvimento:** Floriatan Santos Costa.
+- **Desenvolvimento:** [Floriatan Santos Costa](https://floriatan.com.br/).
