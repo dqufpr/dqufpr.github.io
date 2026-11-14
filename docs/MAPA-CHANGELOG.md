@@ -13,6 +13,8 @@
 - **Barra de busca fixa no computador:** ao rolar a página, a busca e os destaques ficam no alto e o cabeçalho do site se recolhe.
 
 ### Mudado
+- **Barra de entradas em todos os tamanhos:** "Entrada · Principal A B C" aparece embaixo da planta também no computador, centralizada na parte que o painel não cobre. A dica de uso foi para o canto de baixo à direita.
+- **Mesma abertura em todos os tamanhos:** a planta abre no trecho da entrada principal, na escala do celular (1550 unidades em 390px de largura livre). Telas maiores mostram mais da planta em volta. Ao escolher uma entrada, o zoom é o mesmo em qualquer tamanho. O botão "Ver a planta inteira" continua mostrando o andar todo.
 - **Tablet igual ao celular:** busca recolhida na lupa, destaques numa linha, planta da altura da tela, barra de entradas centralizada e cartão da sala no pé da tela.
   - Vale até 1023px e também para tablets de toque deitados, até 1399px. Computadores com mouse a partir de 1024px mantêm o painel à direita.
   - No tablet, a abertura usa a mesma escala do celular e mostra mais da planta. Deitado, a abertura mostra a planta inteira.
