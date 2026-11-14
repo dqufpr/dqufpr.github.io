@@ -22,6 +22,9 @@
 - [ ] **Endereço com sala inexistente** (`?local=999`): hoje é ignorado sem aviso. Mostrar "Sala não encontrada" e limpar o endereço.
 - [ ] Testar o mapa no Safari de um iPhone real. A auditoria usou só o Chromium.
 
+### Nova organização dos dados (proposta)
+- [ ] Decidir sobre a proposta em `docs/MAPA-PROPOSTA-DADOS.md`: planilha em três abas (Salas, Pessoas, Unidades), com cartões de pessoa e de laboratório no mapa.
+
 ### Usabilidade no celular (avaliação de 14/11)
 - [ ] **Botão "voltar" do celular fecha o cartão.** Hoje, com uma sala aberta, o "voltar" sai do mapa e leva à página anterior. Registrar a sala aberta no histórico do navegador (`history.pushState`) e fechar o cartão no `popstate`.
 - [ ] **Resultados da busca acima do teclado no iPhone.** O teclado cobre o cartão de resultados enquanto se digita. No Android isso foi resolvido com `interactive-widget=resizes-content`; no iPhone, usar `visualViewport` para subir o cartão, ou mostrar os resultados logo abaixo do campo de busca.

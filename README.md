@@ -52,7 +52,8 @@ Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados
 │   ├── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
 │   ├── MAPA.md             Como o Mapa Digital funciona
 │   ├── MAPA-ATUALIZAR-DADOS.md  Passo a passo para atualizar os locais do mapa
-│   └── MAPA-CHANGELOG.md   Histórico de mudanças do mapa
+│   ├── MAPA-CHANGELOG.md   Histórico de mudanças do mapa
+│   └── MAPA-PROPOSTA-DADOS.md  Proposta de nova organização dos dados do mapa
 ├── robots.txt              Regras para buscadores (todo o domínio)
 ├── sitemap.xml             Todas as páginas indexáveis (portal e mapa)
 ├── .github/workflows/      GitHub Actions: compartilhamento.yml refaz as prévias de compartilhamento do mapa
