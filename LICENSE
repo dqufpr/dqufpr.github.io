@@ -1,0 +1,81 @@
+LICENÇA DE USO DO DQ DIGITAL
+Todos os direitos reservados
+
+Copyright (c) 2022-2026 Representação Discente 2022-2023 do Programa de Pós-Graduação
+em Química (PPGQ) da Universidade Federal do Paraná, responsável pelo DQ Digital.
+
+(In English: all rights reserved. You may view and study this repository and link to the
+site. Any reuse of its code, texts, data or images in other software, websites, apps or
+services requires prior written permission from the copyright holder.)
+
+
+1. O QUE ESTA LICENÇA COBRE
+
+Todo o conteúdo deste repositório e do site https://dqufpr.github.io/, inclusive o Mapa
+Digital, salvo o que está listado no item 5:
+
+  a) o código (HTML, CSS, JavaScript, Python e os demais scripts);
+  b) os textos das páginas e da documentação;
+  c) os dados reunidos e organizados para o mapa (planilhas, arquivos JSON e a lista de
+     salas, pessoas, laboratórios e serviços);
+  d) o desenho da planta do prédio e as áreas das salas;
+  e) as imagens, os ícones próprios, os logotipos e o nome "DQ Digital" e "Mapa Digital".
+
+
+2. O QUE É PERMITIDO SEM PEDIR AUTORIZAÇÃO
+
+  a) Acessar e usar o site para se orientar no Departamento de Química.
+  b) Ler e estudar o código e o conteúdo deste repositório.
+  c) Fazer cópias (fork) dentro do próprio GitHub, como permitem os Termos de Serviço do
+     GitHub, sem publicá-las como site e sem usá-las fora do GitHub.
+  d) Criar links para qualquer página do site.
+  e) Citar trechos curtos, com o crédito "DQ Digital" e o link para a página de origem.
+  f) Imprimir páginas do site para uso pessoal ou para orientação dentro do prédio do
+     Departamento de Química.
+
+
+3. O QUE EXIGE AUTORIZAÇÃO EXPRESSA E POR ESCRITO
+
+Sem a autorização expressa e por escrito do titular dos direitos, não é permitido, com ou
+sem fins comerciais:
+
+  a) copiar, reproduzir, adaptar, traduzir ou modificar o conteúdo, no todo ou em parte;
+  b) usar o código, os dados, o desenho da planta ou as imagens em outros sites, softwares,
+     aplicativos, sistemas, bancos de dados ou serviços;
+  c) publicar ou distribuir cópias ou versões modificadas, inclusive como site;
+  d) extrair os dados do mapa (por exemplo, a lista de pessoas e salas) para outros fins;
+  e) usar o nome "DQ Digital", o nome "Mapa Digital" ou os logotipos.
+
+
+4. COMO PEDIR AUTORIZAÇÃO
+
+Pelo formulário de contato: https://dqufpr.github.io/fale-conosco
+
+Descreva o que pretende usar, onde e para quê. A autorização só vale se for dada por
+escrito e vale apenas para o uso descrito nela.
+
+
+5. CONTEÚDO DE TERCEIROS
+
+Os itens abaixo não pertencem ao titular desta licença e seguem as regras dos seus donos:
+
+  a) a fonte Roboto (pasta fonts/), sob a SIL Open Font License 1.1 (fonts/License.txt);
+  b) os ícones e as marcas do WhatsApp e do Instagram, que pertencem aos seus titulares;
+  c) os nomes, os símbolos e as marcas da Universidade Federal do Paraná (UFPR).
+
+Os nomes e os contatos institucionais das pessoas aparecem no mapa só para orientação de
+quem visita o departamento. Eles não podem ser coletados nem usados para outros fins.
+
+
+6. SEM GARANTIA
+
+O conteúdo é oferecido "como está", sem garantia de qualquer tipo, inclusive de que as
+informações estejam atualizadas ou corretas. O titular não responde por danos decorrentes
+do uso do site ou do conteúdo deste repositório. O DQ Digital não é um canal oficial da
+UFPR nem do Departamento de Química.
+
+
+7. LEI APLICÁVEL
+
+Esta licença segue a legislação brasileira, em especial a Lei de Direitos Autorais
+(Lei nº 9.610/1998) e a Lei do Software (Lei nº 9.609/1998).

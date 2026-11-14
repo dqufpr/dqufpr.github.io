@@ -4,6 +4,8 @@ Serviços digitais do Departamento de Química da UFPR, publicados em <https://d
 
 Uma iniciativa da Representação Discente 2022-2023 do PPGQ/UFPR.
 
+> **Licença:** todos os direitos reservados. Você pode consultar e estudar este repositório e criar links para o site. Usar o código, os textos, os dados ou as imagens em outros sites, softwares ou aplicativos exige autorização por escrito. Veja [`LICENSE`](LICENSE).
+
 ## Como o site é organizado
 
 Todo o DQ Digital fica neste único repositório. Cada função ocupa uma pasta, publicada como subpasta do domínio:
@@ -11,12 +13,28 @@ Todo o DQ Digital fica neste único repositório. Cada função ocupa uma pasta,
 | Pasta | Endereço | Papel |
 |---|---|---|
 | raiz | `https://dqufpr.github.io/` | Portal: página inicial, base visual compartilhada (CSS, JS, ícones, fontes), páginas institucionais |
-| `mapa/` | `https://dqufpr.github.io/mapa/` | Mapa Digital: planta interativa do prédio (salas, laboratórios, serviços). Documentação em [`docs/MAPA.md`](docs/MAPA.md) |
+| `mapa/` | `https://dqufpr.github.io/mapa/` | Mapa Digital: planta interativa do prédio (salas, pessoas, laboratórios e serviços). Documentação em [`docs/MAPA.md`](docs/MAPA.md) |
 | novas funções | `https://dqufpr.github.io/<nome>/` | Cada nova função ganha uma pasta própria |
 
 Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados: o histórico do mapa foi trazido para a pasta `mapa/`. Os módulos carregam a base visual por caminho absoluto: `/css/global.css`, `/js/app.js`.
 
 ## Funcionalidades
+
+### Mapa Digital (`/mapa/`)
+
+- **Planta interativa:** térreo e 1º andar, zoom, arrastar e girar a planta. As 101 salas são coloridas por tipo e numeradas como nas portas.
+- **Entradas do prédio** (Principal, A, B e C), rampas e escadas. Escolher a entrada vira o mapa para ficar como quem chega por ela.
+- **Busca** por número de sala, pessoa, laboratório ou sigla, com resultados agrupados em Pessoas, Laboratórios e serviços, e Salas.
+- **Cartões:**
+  - **sala:** o que funciona nela e quem trabalha nela;
+  - **pessoa:** cargo, sala, e-mail institucional, Lattes e laboratórios que coordena;
+  - **laboratório:** descrição, site, coordenação e salas.
+- **Compartilhar** sala, pessoa ou laboratório. Cada sala tem uma página de link com imagem de prévia própria.
+- **Impressão:** a planta inteira com todos os locais, ou uma sala (a planta do andar dela e os dados).
+- **Layout:** o mesmo no celular e no tablet (cartão no pé da tela); no computador, o painel fica ao lado da planta.
+- **Dados:** vêm de uma planilha Excel, com as abas Salas, Pessoas e Unidades. O script `mapa/scripts/gerar_mapa.py` gera a planta, a lista e os dados do site. Passo a passo em [`docs/MAPA-ATUALIZAR-DADOS.md`](docs/MAPA-ATUALIZAR-DADOS.md).
+
+### Portal e base comum
 
 - Portal com acesso ao Mapa Digital, atalhos por categoria de local e cartões dos serviços.
 - Layout pensado primeiro para o celular, ampliado para tablet (640px) e computador (960px).
@@ -47,7 +65,9 @@ Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados
 ├── img/                    Logotipos, favicon e capas (compartilhados)
 │   └── icons/sprite.svg    Ícones
 ├── fonts/                  Roboto variável (licença OFL em fonts/License.txt)
-├── mapa/                   Mapa Digital (/mapa/): planta, dados e redirecionamentos (ver docs/MAPA.md)
+├── mapa/                   Mapa Digital (/mapa/): planta, dados, scripts e redirecionamentos (ver docs/MAPA.md)
+├── servicos/               Só redireciona: endereço antigo /servicos/ leva à página inicial
+├── testes/                 Rascunhos de páginas futuras (noindex; não publicados)
 ├── docs/
 │   ├── GUIA-DE-ESTILOS.md  Cores, tipografia, componentes e convenções
 │   ├── MAPA.md             Como o Mapa Digital funciona
@@ -59,7 +79,8 @@ Os antigos repositórios `dqufpr/mapa` e `dqufpr/servicos` não são mais usados
 ├── .github/workflows/      GitHub Actions: compartilhamento.yml refaz as prévias de compartilhamento do mapa
 ├── _config.yml             Configuração do Jekyll (GitHub Pages)
 ├── CHANGELOG.md            Histórico de mudanças
-└── PENDENCIAS.md           O que falta fazer
+├── PENDENCIAS.md           O que falta fazer
+└── LICENSE                 Licença de uso (todos os direitos reservados)
 ```
 
 ## O que a raiz fornece aos módulos
@@ -107,6 +128,36 @@ Mudanças maiores pedem uma conferência no navegador, com o servidor local liga
 - Mudanças em `css/global.css`, `js/theme-init.js`, `js/app.js` e `img/icons/sprite.svg` valem para todos os módulos assim que são publicadas. Confira o site principal e cada módulo em 360px, 768px e 1280px, nos temas claro e escuro.
 - Há um só `sitemap.xml`, com as páginas do portal e dos módulos. Ao criar, remover ou mudar uma página, atualize-o (o `<lastmod>` da página alterada). Páginas de redirecionamento levam `noindex` e ficam fora dele.
 - Cada página tem `<title>`, `description`, `canonical` e `og:*` próprios no `<head>`. O nome do site para o Google ("DQ Digital") vem do JSON-LD `WebSite` em `index.html` e do `og:site_name`.
+
+## Atualizar os dados do mapa
+
+1. Edite `mapa/dados/dados-mapa.xlsx`.
+2. Rode `python mapa/scripts/gerar_mapa.py`.
+3. Confira no navegador.
+4. Faça o commit de `dados-mapa.xlsx`, `locais.json` e `mapa/index.html`.
+
+Depois do push, o GitHub Actions refaz sozinho as imagens de prévia dos links compartilhados. O guia completo, com os casos comuns e os avisos do script, está em [`docs/MAPA-ATUALIZAR-DADOS.md`](docs/MAPA-ATUALIZAR-DADOS.md).
+
+## Licença
+
+Copyright © 2022-2026 Representação Discente 2022-2023 do PPGQ/UFPR. **Todos os direitos reservados.**
+
+| Permitido sem pedir | Exige autorização expressa e por escrito |
+|---|---|
+| Usar o site para se orientar no departamento | Copiar, adaptar ou modificar o conteúdo, no todo ou em parte |
+| Ler e estudar o código e o conteúdo do repositório | Usar o código, os dados, a planta ou as imagens em outros sites, softwares ou aplicativos |
+| Fazer fork dentro do GitHub (Termos de Serviço do GitHub) | Publicar cópias ou versões modificadas, inclusive como site |
+| Criar links e citar trechos curtos, com crédito e link | Extrair os dados do mapa (pessoas, salas) para outros fins |
+| Imprimir para uso pessoal ou para orientação no prédio | Usar os nomes "DQ Digital" e "Mapa Digital" ou os logotipos |
+
+**Como pedir autorização:** pelo [formulário de contato](https://dqufpr.github.io/fale-conosco), dizendo o que pretende usar, onde e para quê.
+
+**Conteúdo de terceiros, com licença própria:**
+- a fonte Roboto (SIL Open Font License 1.1, em [`fonts/License.txt`](fonts/License.txt));
+- as marcas do WhatsApp e do Instagram;
+- os nomes e símbolos da UFPR.
+
+O texto completo está em [`LICENSE`](LICENSE).
 
 ## Créditos
 
