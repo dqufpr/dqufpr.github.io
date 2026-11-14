@@ -44,19 +44,21 @@ const andarDe = (l) => nomesAndar[l.andar || 0];
 const indexHtml = fs.readFileSync(path.join(MAPA, 'index.html'), 'utf8');
 const planta = /<!-- PLANTA:INICIO -->([\s\S]*?)<!-- PLANTA:FIM -->/.exec(indexHtml)[1];
 
-// Mesmas regras de js/mapa.js (titulo/subtitulo)
-function titulo(l) {
-  if (!l.itens.length) return 'Sem informações';
-  if (l.itens.every((i) => i.categoria === 'sala-prof')) return l.itens.length > 1 ? 'Sala de professores' : 'Sala de professor';
-  return l.itens.filter((i) => i.categoria !== 'sala-prof')[0].nome;
-}
+// Título e resumo de cada sala vêm prontos de scripts/gerar_mapa.py (os mesmos de js/mapa.js)
+const porUnidade = {};
+const porPessoa = {};
+(dados.unidades || []).forEach((u) => { porUnidade[u.id] = u; });
+(dados.pessoas || []).forEach((p) => { porPessoa[p.id] = p; });
+function titulo(l) { return l.titulo || 'Sem informações'; }
 function subtitulo(l) {
-  if (l.itens.length && l.itens.every((i) => i.categoria === 'sala-prof')) return l.itens.map((i) => i.nome).join(', ');
+  if (l.categoria === 'sala-prof' && l.resumo) return l.resumo;
   return l.categorias.map((c) => nomesCat[c]).join(' · ');
 }
 function descricao(l) {
   const partes = [andarDe(l) + ' · ' + subtitulo(l)];
-  const outros = l.itens.map((i) => i.nome).filter((n) => n !== titulo(l) && partes[0].indexOf(n) === -1);
+  const outros = (l.unidades || []).map((id) => porUnidade[id].nome)
+    .concat((l.pessoas || []).map((id) => porPessoa[id].nome))
+    .filter((n) => n !== titulo(l) && partes[0].indexOf(n) === -1);
   if (outros.length) partes.push(outros.join(', '));
   partes.push('Veja onde fica na planta do Departamento de Química da UFPR.');
   return partes.join('. ').replace(/\.\./g, '.');

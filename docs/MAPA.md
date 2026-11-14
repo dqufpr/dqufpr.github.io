@@ -30,10 +30,10 @@ mapa/
 ├── js/mapa.js                Interações da planta (zoom, giro, andares, entradas, busca, lista, impressão)
 ├── js/redirecionar.js        Leva /mapa/completo?… para /mapa/?… mantendo a sala e os destaques
 ├── dados/
-│   ├── locais.xlsx           FONTE: planilha de locais (editar aqui; não é publicada)
+│   ├── dados-mapa.xlsx       FONTE: planilha com as abas Salas, Pessoas e Unidades (editar aqui; não é publicada)
 │   ├── planta-areas.json     Áreas clicáveis do desenho, cada uma com o número físico da sala (não publicada)
 │   ├── planta-base.svg       Paredes, corredores e portas, sem números (não publicada)
-│   └── locais.json           GERADO: locais agrupados por sala (lido pelo navegador)
+│   └── locais.json           GERADO: salas, pessoas e unidades ligadas entre si (lido pelo navegador)
 ├── scripts/
 │   ├── gerar_mapa.py         Gera locais.json e atualiza a planta e a lista em index.html (não publicado)
 │   └── gerar_compartilhamento.js  Gera as prévias por sala, as páginas l/<id>.html e a capa (Node + Playwright)
@@ -54,39 +54,44 @@ Não apague os redirecionamentos: podem existir QR codes e links impressos com o
 
 ## De onde vêm os locais
 
-Tudo sai da planilha `dados/locais.xlsx`. Não há mais leitura do Google Sheets nem Apps Script: o site só lê arquivos dele mesmo.
+Tudo sai da planilha `dados/dados-mapa.xlsx`. O site só lê arquivos dele mesmo: não há Google Sheets nem Apps Script.
 
 ```
-dados/locais.xlsx ─┐
-dados/planta-areas.json ─┼─ scripts/gerar_mapa.py ─┬─ dados/locais.json  (painel de detalhes)
-dados/planta-base.svg ─┘                           └─ index.html          (planta + botões de destaque + lista)
+dados/dados-mapa.xlsx ──┐
+dados/planta-areas.json ─┼─ scripts/gerar_mapa.py ─┬─ dados/locais.json  (cartões e busca)
+dados/planta-base.svg ──┘                          └─ index.html          (planta + botões de destaque + lista)
 ```
 
-### Colunas da planilha
+### A planilha
 
-A primeira linha é o cabeçalho; as colunas são encontradas pelo **nome**, não pela posição.
+São três abas de dados. Cada sala, cada pessoa e cada laboratório ou serviço aparece uma vez só, e as abas se ligam pelo número da sala e pelo nome da pessoa. As colunas são encontradas pelo **nome** do cabeçalho; a coluna `n` (numeração) é ignorada, e a ordem das linhas é a ordem no mapa.
 
-| Coluna | Exemplo | Uso |
+| Aba | Colunas | Uma linha por |
 |---|---|---|
-| `n` | `139` | Ordem dos itens dentro de uma sala (o primeiro dá nome à sala) |
-| `ID_fisico` | `45-B` | **Número da sala, o mesmo da porta.** Liga a linha à área da planta |
-| `Nome do Local` | `Secretaria da Pós-graduação em Química` | Nome do item (laboratório, pessoa, serviço) |
-| `Sigla` | `PPGQ` | Selo ao lado do nome (omitido se já estiver no nome) |
-| `Descrição` | `Acesso mediante reserva prévia` | Texto abaixo do nome |
-| `Tipo de local` | `servico` | Categoria e cor |
-| `E-mail` (opcional) | `fulano@ufpr.br` | Link de e-mail da pessoa, no painel e na lista |
-| `Site` (opcional) | `www.quimica.ufpr.br/lab` | Link do site do laboratório (o `https://` é acrescentado se faltar) |
+| `Salas` | Sala · Tipo · Nome · Acesso ou observação | sala (o `Tipo` define a cor) |
+| `Pessoas` | Nome · Cargo · Área ou setor · Sala · E-mail · Lattes | professor ou técnico |
+| `Unidades` | Nome · Sigla · Tipo · Salas · Coordenação · Descrição · Site | laboratório de pesquisa, laboratório de ensino ou serviço |
 
-- `ID_digital` não é mais usado e pode ser apagado da planilha.
-- Valores de `Tipo de local`: `salaaula`, `salaprof`, `labensino`, `labpesquisa`, `servico`, `banheiro` (qualquer outro vira "Outros", em cinza).
-- Várias linhas com o mesmo `ID_fisico` formam uma sala só (ex.: os professores que dividem uma sala). A cor da sala é a do primeiro item.
+- **Salas** e **Coordenação** aceitam vários valores separados por `;`. Os nomes da Coordenação são os da aba `Pessoas`.
+- **E-mail:** só o institucional (`@ufpr.br`). **Lattes** e **site** podem ser escritos sem `https://`.
+- **Campos vazios** não aparecem no mapa.
+
+O detalhe de cada coluna, os casos comuns e os avisos do script estão em [MAPA-ATUALIZAR-DADOS.md](MAPA-ATUALIZAR-DADOS.md). A proposta que levou a essa organização está em [MAPA-PROPOSTA-DADOS.md](MAPA-PROPOSTA-DADOS.md).
+
+### O que o mapa mostra
+
+- **Cartão da sala:** o que funciona nela (unidades) e quem trabalha nela (pessoas).
+- **Cartão da pessoa:** cargo e área, sala, e-mail, Lattes e os laboratórios que coordena.
+- **Cartão do laboratório ou serviço:** descrição, site, coordenação e todas as salas, marcadas juntas na planta.
+- **Busca:** resultados agrupados em Pessoas, Laboratórios e serviços, e Salas. O Enter abre o primeiro, nesta ordem: número de sala exato, pessoa, unidade, sala.
+- **"Voltar":** volta ao cartão anterior (ex.: do laboratório para a pessoa que o coordena).
 
 ### Atualizar os locais
 
 O passo a passo completo, com os casos comuns, os avisos do script e um checklist, está em **[MAPA-ATUALIZAR-DADOS.md](MAPA-ATUALIZAR-DADOS.md)**. Resumo:
 
 
-1. Edite `dados/locais.xlsx`.
+1. Edite `dados/dados-mapa.xlsx`.
 2. Na pasta `mapa/`:
    ```bash
    pip install openpyxl
@@ -111,6 +116,8 @@ O passo a passo completo, com os casos comuns, os avisos do script e um checklis
 |---|---|
 | `/mapa/` | A planta inteira |
 | `/mapa/?local=45-B` | A planta com a sala 45-B marcada e o painel aberto |
+| `/mapa/?pessoa=shirley-nakagaki` | O cartão da pessoa, com a sala dela marcada (o identificador é o nome, sem acentos) |
+| `/mapa/?unidade=labioinc` | O cartão do laboratório ou serviço, com todas as salas dele marcadas (identificador: a sigla ou, sem sigla, o nome) |
 | `/mapa/?destaque=sala-aula,banheiro` | A planta com essas categorias destacadas |
 | `/mapa/?andar=1` | A planta no 1º andar |
 | `/mapa/?entrada=principal` | A planta virada para quem chega por essa entrada (`principal`, `A`, `B`, `C`; rampas e escadas também) |

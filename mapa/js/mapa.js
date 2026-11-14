@@ -55,9 +55,12 @@
 
   var dados = null;               // conteúdo de locais.json
   var porId = {};                 // id do local → objeto do local
+  var porPessoa = {};             // id da pessoa → objeto da pessoa
+  var porUnidade = {};            // id da unidade (laboratório, serviço) → objeto da unidade
+  var pilha = [];                 // cartões abertos antes do atual, para o "Voltar"
   var nomesCat = {};              // id da categoria → nome
   var nomesAndar = ['Térreo', '1º andar']; // substituídos pelos de locais.json
-  var estado = { local: null, entrada: null, busca: '', destaques: [], todos: false, piso: 0 };
+  var estado = { local: null, pessoa: null, unidade: null, entrada: null, busca: '', destaques: [], todos: false, piso: 0 };
   var porEntrada = {};            // id da entrada (principal, A, B, D) → objeto de locais.json
 
   /* ---------- Utilidades ---------- */
@@ -405,6 +408,7 @@
       if (e.type === 'pointerup' && movido < MOVE_CLIQUE && alvoInicial) {
         var ent = alvoInicial.closest && alvoInicial.closest('[data-entrada]');
         var area = alvoInicial.closest && alvoInicial.closest('.area');
+        if (ent || area) pilha = [];
         if (ent) selecionaEntrada(ent.getAttribute('data-entrada'), false);
         else if (area) seleciona(area.getAttribute('data-local'), false);
       }
@@ -419,19 +423,56 @@
   root.querySelector('[data-zoom-inteira]').addEventListener('click', function () { animaPara(vistaCheia()); });
 
   /* ---------- Filtro: busca + destaques ---------- */
-  function textoBusca(l) {
-    var partes = [l.id, (l.categorias || []).map(function (c) { return nomesCat[c]; }).join(' '),
+  // Texto da própria sala (número, nome, tipo, andar) e, para destacar na planta, também o
+  // das pessoas e unidades que estão nela
+  function textoSala(l) {
+    return normalize([l.id, l.titulo, l.nome, l.acesso, (l.categorias || []).map(function (c) { return nomesCat[c]; }).join(' '),
       // Andar sem algarismos, para "1" continuar achando só as salas com 1 no número
-      l.andar ? 'primeiro andar piso superior' : 'terreo'];
-    l.itens.forEach(function (i) { partes.push(i.nome, i.sigla, i.descricao); });
-    return normalize(partes.join(' '));
+      l.andar ? 'primeiro andar piso superior' : 'terreo'].join(' '));
   }
+  function textoPessoa(p) { return normalize([p.nome, p.cargo, p.area].join(' ')); }
+  function textoUnidade(u) {
+    return normalize([u.nome, u.sigla, nomesCat[u.tipo], u.descricao,
+      (u.coordenacao || []).map(function (c) { return c.nome; }).join(' ')].join(' '));
+  }
+  function textoBusca(l) {
+    var partes = [l._sala];
+    l.pessoas.forEach(function (id) { partes.push(porPessoa[id]._busca); });
+    l.unidades.forEach(function (id) { partes.push(porUnidade[id]._busca); });
+    return partes.join(' ');
+  }
+  function casaNumero(l, q) { return normalize(l.id) === q || normalize(l.id).indexOf(q) === 0; }
   function combina(l) {
     var q = normalize(estado.busca.trim());
     if (estado.destaques.length && !l.categorias.some(function (c) { return estado.destaques.indexOf(c) !== -1; })) return false;
     if (!q) return true;
-    if (normalize(l.id) === q || normalize(l.id).indexOf(q) === 0) return true;
+    if (casaNumero(l, q)) return true;
     return l._busca.indexOf(q) !== -1;
+  }
+  // Resultados agrupados: pessoas, unidades e salas (estas, pelo texto da própria sala)
+  function pessoasDaBusca() {
+    var q = normalize(estado.busca.trim());
+    if (!q) return [];
+    return dados.pessoas.filter(function (p) {
+      var l = porId[p.sala];
+      if (estado.destaques.length && !(l && l.categorias.some(function (c) { return estado.destaques.indexOf(c) !== -1; }))) return false;
+      return p._busca.indexOf(q) !== -1;
+    });
+  }
+  function unidadesDaBusca() {
+    var q = normalize(estado.busca.trim());
+    if (!q) return [];
+    return dados.unidades.filter(function (u) {
+      if (estado.destaques.length && estado.destaques.indexOf(u.tipo) === -1) return false;
+      return u._busca.indexOf(q) !== -1;
+    });
+  }
+  function salasDaBusca() {
+    var q = normalize(estado.busca.trim());
+    return dados.locais.filter(function (l) {
+      if (!combina(l)) return false;
+      return !q || casaNumero(l, q) || l._sala.indexOf(q) !== -1;
+    });
   }
   function filtroAtivo() { return !!(estado.busca.trim() || estado.destaques.length); }
 
@@ -473,12 +514,22 @@
 
   /* ---------- Seleção ---------- */
   // Qualquer seleção (ou a falta dela) tira a marca da entrada; selecionaEntrada a põe de volta
+  // Contorno das salas escolhidas (uma sala, ou todas as de um laboratório)
+  function areasDe(ids) {
+    var out = [];
+    ids.forEach(function (id) {
+      Array.prototype.push.apply(out, svg.querySelectorAll('.area[data-local="' + esc(id) + '"]'));
+    });
+    return out;
+  }
   function desenhaSelecao(id) {
     Array.prototype.forEach.call(svg.querySelectorAll('[data-planta-selecao]'), function (g) { g.textContent = ''; });
     estado.entrada = null;
+    estado.pessoa = null;
+    estado.unidade = null;
     marcaEntrada(null);
     if (!id) return;
-    Array.prototype.forEach.call(svg.querySelectorAll('.area[data-local="' + esc(id) + '"]'), function (a) {
+    areasDe([].concat(id)).forEach(function (a) {
       var p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
       p.setAttribute('points', a.getAttribute('points'));
       a.closest('.piso').querySelector('[data-planta-selecao]').appendChild(p); // no mesmo andar da área
@@ -504,6 +555,46 @@
   });
   pisosEl.hidden = false;
 
+  // Pessoa: a sala dela fica marcada na planta
+  function selecionaPessoa(id) {
+    var p = porPessoa[id];
+    if (!p) return;
+    estado.local = null;
+    if (p.sala) { mudaPiso(porId[p.sala].andar); desenhaSelecao(p.sala); } else desenhaSelecao(null);
+    estado.pessoa = id;
+    atualizaEndereco();
+    render();
+    if (p.sala) enquadra(p.sala);
+  }
+  // Unidade (laboratório, serviço): todas as salas dela ficam marcadas
+  function salasNoAndar(u) {
+    var andar = porId[u.salas[0]].andar;
+    return u.salas.filter(function (s) { return porId[s].andar === andar; });
+  }
+  function selecionaUnidade(id) {
+    var u = porUnidade[id];
+    if (!u) return;
+    estado.local = null;
+    if (u.salas && u.salas.length) { mudaPiso(porId[u.salas[0]].andar); desenhaSelecao(u.salas); } else desenhaSelecao(null);
+    estado.unidade = id;
+    atualizaEndereco();
+    render();
+    if (u.salas && u.salas.length) enquadraNos(areasDe(salasNoAndar(u)));
+  }
+  // Abrir outro cartão a partir de um cartão: guarda o atual para o "Voltar"
+  function empilha() {
+    if (estado.local) pilha.push(['local', estado.local]);
+    else if (estado.pessoa) pilha.push(['pessoa', estado.pessoa]);
+    else if (estado.unidade) pilha.push(['unidade', estado.unidade]);
+    else pilha = [];
+  }
+  function volta() {
+    var a = pilha.pop();
+    if (!a) { desseleciona(); return; }
+    if (a[0] === 'local') seleciona(a[1], true);
+    else if (a[0] === 'pessoa') selecionaPessoa(a[1]);
+    else selecionaUnidade(a[1]);
+  }
   function seleciona(id, enquadrar) {
     if (!porId[id]) return;
     mudaPiso(porId[id].andar);
@@ -563,6 +654,7 @@
   }
   function desseleciona() {
     estado.local = null;
+    pilha = [];
     desenhaSelecao(null);
     atualizaEndereco();
     render();
@@ -589,19 +681,136 @@
     li.appendChild(b);
     return li;
   }
-  function titulo(l) {
-    if (!l.itens.length) return 'Sem informações';
-    var profs = l.itens.every(function (i) { return i.categoria === 'sala-prof'; });
-    if (profs) return l.itens.length > 1 ? 'Sala de professores' : 'Sala de professor';
-    // O primeiro item dá nome ao local (mesma regra de scripts/gerar_mapa.py)
-    return l.itens.filter(function (i) { return i.categoria !== 'sala-prof'; })[0].nome;
-  }
+  // Nome curto da sala (calculado em scripts/gerar_mapa.py)
+  function titulo(l) { return l.titulo || 'Sem informações'; }
   function andarDe(l) { return nomesAndar[l.andar || 0] || nomesAndar[0]; }
   function subtitulo(l) {
-    var profs = l.itens.length && l.itens.every(function (i) { return i.categoria === 'sala-prof'; });
-    var base = profs ? l.itens.map(function (i) { return i.nome; }).join(', ')
+    var base = l.categoria === 'sala-prof' && l.resumo ? l.resumo
       : l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ');
     return andarDe(l) + ' · ' + base;
+  }
+  function cargoArea(p) { return [p.cargo, p.area].filter(Boolean).join(' · '); }
+  function salasTexto(salas) { return (salas.length > 1 ? 'Salas ' : 'Sala ') + salas.join(', '); }
+  // Botão de pessoa ou de unidade nos cartões e nos resultados. Com a sala, mostra o
+  // número na cor dela; dentro do cartão da própria sala, só o nome
+  function botaoItem(attr, id, nome, sub, sala, sigla) {
+    var li = el('li');
+    var l = sala && porId[sala];
+    var b = el('button', 'painel__item' + (l ? ' loc--' + l.categoria : ' painel__item--sem-num'));
+    b.type = 'button';
+    b.setAttribute(attr, id);
+    if (l) b.appendChild(el('span', 'painel__item-num', l.id));
+    var t = el('span', 'painel__item-txt');
+    var n = el('span', 'painel__item-nome', nome);
+    if (sigla && nome.indexOf(sigla) === -1) {
+      n.appendChild(document.createTextNode(' '));
+      n.appendChild(el('span', 'badge', sigla));
+    }
+    t.appendChild(n);
+    if (sub) t.appendChild(el('span', 'painel__item-sub', sub));
+    b.appendChild(t);
+    li.appendChild(b);
+    return li;
+  }
+  function botaoPessoa(p, comSala) {
+    var sub = cargoArea(p);
+    if (comSala && p.sala) sub = [sub, 'Sala ' + p.sala].filter(Boolean).join(' · ');
+    return botaoItem('data-ir-pessoa', p.id, p.nome, sub, comSala && p.sala);
+  }
+  function botaoUnidade(u, comSala) {
+    var sub = nomesCat[u.tipo];
+    if (comSala && u.salas && u.salas.length) sub += ' · ' + salasTexto(u.salas);
+    return botaoItem('data-ir-unidade', u.id, u.nome, sub, comSala && u.salas && u.salas[0], u.sigla);
+  }
+  function secao(titulo_, itens) {
+    var box = el('div', 'painel__secao');
+    box.appendChild(el('p', 'painel__eyebrow', titulo_));
+    var ul = el('ul', 'painel__lista');
+    itens.forEach(function (i) { ul.appendChild(i); });
+    box.appendChild(ul);
+    return box;
+  }
+  function cabecalho(l, eyebrow, nome, sigla) {
+    var cab = el('div', 'painel__cabeca');
+    if (l) cab.appendChild(caixaNumero(l));
+    var tt = el('div', 'painel__cabeca-txt');
+    tt.appendChild(el('p', 'painel__eyebrow', eyebrow));
+    var h = el('h2', 'painel__titulo', nome);
+    if (sigla && nome.indexOf(sigla) === -1) {
+      h.appendChild(document.createTextNode(' '));
+      h.appendChild(el('span', 'badge', sigla));
+    }
+    tt.appendChild(h);
+    if (l) tt.appendChild(el('span', 'painel__andar painel__andar--' + (l.andar || 0), andarDe(l)));
+    cab.appendChild(tt);
+    return cab;
+  }
+  function topoCartao(rotuloFechar) {
+    painel.appendChild(botaoFechar(rotuloFechar));
+    // "Voltar" só quando há para onde: o cartão anterior ou os resultados da busca
+    if (!pilha.length && !estado.busca.trim()) return;
+    var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
+    voltar.type = 'button';
+    voltar.setAttribute('data-voltar', '');
+    painel.appendChild(voltar);
+  }
+  function acoesCartao(comLista, id) {
+    var acoes = el('div', 'painel__acoes');
+    var centra = el('button', 'btn btn--secondary btn--sm', 'Centralizar na planta');
+    centra.type = 'button';
+    centra.setAttribute('data-centralizar', '');
+    acoes.appendChild(centra);
+    if (comLista) {
+      var link = el('a', 'btn btn--ghost btn--sm', 'Ver na lista');
+      link.href = '#local-' + id;
+      link.setAttribute('data-ver-lista', id);
+      acoes.appendChild(link);
+      var imprime = el('button', 'btn btn--ghost btn--sm', 'Imprimir');
+      imprime.type = 'button';
+      imprime.setAttribute('data-imprimir', '');
+      acoes.appendChild(imprime);
+    }
+    return acoes;
+  }
+
+  function renderPessoa() {
+    var p = porPessoa[estado.pessoa], l = p.sala && porId[p.sala];
+    topoCartao('Fechar ' + p.nome);
+    painel.appendChild(cabecalho(l, cargoArea(p) || 'Pessoa', p.nome));
+    var ct = contatos(p);
+    if (ct) painel.appendChild(ct);
+    if (l) painel.appendChild(secao(l.pessoas.length > 1 ? 'Sala, com ' + (l.pessoas.length - 1) + (l.pessoas.length > 2 ? ' colegas' : ' colega') : 'Sala',
+      [botaoItem('data-ir', l.id, titulo(l), andarDe(l), l.id)]));
+    var coord = (p.coordena || []).map(function (id) { return botaoUnidade(porUnidade[id], true); });
+    if (coord.length) painel.appendChild(secao(coord.length > 1 ? 'Coordena os laboratórios' : 'Coordena', coord));
+    if (l) painel.appendChild(acoesCartao(false));
+    painel.appendChild(blocoCompartilhar());
+  }
+
+  function renderUnidade() {
+    var u = porUnidade[estado.unidade], salas = u.salas || [], l = salas.length && porId[salas[0]];
+    topoCartao('Fechar ' + u.nome);
+    var eyebrow = nomesCat[u.tipo] + (salas.length ? ' · ' + salasTexto(salas) : '');
+    painel.appendChild(cabecalho(l, eyebrow, u.nome, u.sigla));
+    if (u.descricao) painel.appendChild(el('p', 'painel__texto', u.descricao));
+    var ct = contatos(u);
+    if (ct) painel.appendChild(ct);
+    if (u.coordenacao && u.coordenacao.length) {
+      painel.appendChild(secao(u.coordenacao.length > 1 ? 'Coordenação' : 'Coordenação', u.coordenacao.map(function (c) {
+        if (c.pessoa && porPessoa[c.pessoa]) return botaoPessoa(porPessoa[c.pessoa], true);
+        var li = el('li', 'painel__nome-solto');
+        li.appendChild(el('span', 'painel__item-nome', c.nome));
+        return li;
+      })));
+    }
+    // Salas da unidade: "Sala 8" quando a sala leva o nome da própria unidade
+    var botaoSala = function (id) {
+      var x = porId[id], nome = titulo(x) === u.nome ? 'Sala ' + id : titulo(x);
+      return botaoItem('data-ir', id, nome, andarDe(x), id);
+    };
+    if (salas.length) painel.appendChild(secao(salas.length > 1 ? 'Salas' : 'Sala', salas.map(botaoSala)));
+    if (l) painel.appendChild(acoesCartao(false));
+    painel.appendChild(blocoCompartilhar());
   }
 
   function renderVisaoGeral() {
@@ -652,74 +861,44 @@
   }
 
   function renderResultados() {
-    var r = resultados(), ents = entradasDaBusca();
+    var ps = pessoasDaBusca(), us = unidadesDaBusca(), r = salasDaBusca(), ents = entradasDaBusca();
     painel.appendChild(botaoFechar('Fechar resultados'));
     painel.appendChild(el('p', 'painel__eyebrow', estado.busca.trim() ? 'Resultado da busca' : 'Destaques'));
-    var n = r.length + ents.length;
-    painel.appendChild(el('h2', 'painel__titulo', n + (n === 1 ? ' local encontrado' : ' locais encontrados')));
-    if (ents.length) painel.appendChild(listaEntradas(ents));
-    if (!r.length) {
-      if (ents.length) return;
-      painel.appendChild(el('p', 'painel__texto', 'Nada encontrado. Tente o número da sala, parte do nome ou a sigla.'));
+    var n = ps.length + us.length + r.length + ents.length;
+    painel.appendChild(el('h2', 'painel__titulo', n + (n === 1 ? ' resultado' : ' resultados')));
+    if (!n) {
+      painel.appendChild(el('p', 'painel__texto', 'Nada encontrado. Tente o número da sala, o nome de uma pessoa, de um laboratório ou a sigla.'));
       return;
     }
-    var ul = el('ul', 'painel__lista');
-    r.forEach(function (l) { ul.appendChild(botaoLocal(l)); });
-    painel.appendChild(ul);
+    if (ents.length) painel.appendChild(listaEntradas(ents));
+    if (ps.length) painel.appendChild(secao('Pessoas', ps.map(function (p) { return botaoPessoa(p, true); })));
+    if (us.length) painel.appendChild(secao('Laboratórios e serviços', us.map(function (u) { return botaoUnidade(u, true); })));
+    if (r.length) painel.appendChild(secao(ps.length || us.length ? 'Salas' : (r.length === 1 ? 'Sala' : 'Salas'), r.map(botaoLocal)));
   }
 
   function renderLocal() {
     var l = porId[estado.local];
-    painel.appendChild(botaoFechar('Fechar detalhes da sala ' + l.id));
-    var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
-    voltar.type = 'button';
-    voltar.setAttribute('data-voltar', '');
-    painel.appendChild(voltar);
-
-    var cab = el('div', 'painel__cabeca');
-    cab.appendChild(caixaNumero(l));
-    var tt = el('div', 'painel__cabeca-txt');
-    tt.appendChild(el('p', 'painel__eyebrow', 'Sala ' + l.id + ' · ' + l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ')));
-    tt.appendChild(el('h2', 'painel__titulo', titulo(l)));
-    tt.appendChild(el('span', 'painel__andar painel__andar--' + (l.andar || 0), andarDe(l)));
-    cab.appendChild(tt);
-    painel.appendChild(cab);
-
-    if (!l.itens.length) {
-      painel.appendChild(el('p', 'painel__texto', 'Ainda não há informações sobre este local.'));
-    } else {
-      var ul = el('ul', 'painel__itens');
-      l.itens.forEach(function (i) {
-        var li = el('li');
-        var nome = el('p', 'painel__item-nome', i.nome);
-        if (i.sigla && i.nome.indexOf(i.sigla) === -1) {
-          nome.appendChild(document.createTextNode(' '));
-          nome.appendChild(el('span', 'badge', i.sigla));
-        }
-        li.appendChild(nome);
-        if (i.descricao) li.appendChild(el('p', 'painel__item-sub', i.descricao));
-        var ct = contatos(i);
-        if (ct) li.appendChild(ct);
-        ul.appendChild(li);
-      });
-      painel.appendChild(ul);
+    topoCartao('Fechar detalhes da sala ' + l.id);
+    painel.appendChild(cabecalho(l, 'Sala ' + l.id + ' · ' + l.categorias.map(function (c) { return nomesCat[c]; }).join(' · '), titulo(l)));
+    if (l.acesso) painel.appendChild(el('p', 'painel__texto', l.acesso));
+    // O que funciona na sala (laboratórios, serviços) e quem trabalha nela
+    var us = l.unidades.map(function (id) { return porUnidade[id]; });
+    if (us.length && !(us.length === 1 && us[0].nome === titulo(l) && !us[0].descricao && !(us[0].coordenacao || []).length && !us[0].site)) {
+      painel.appendChild(secao(us.length > 1 ? 'Nesta sala' : 'Nesta sala', us.map(function (u) {
+        var sub = u.descricao || ((u.coordenacao || []).length ? 'Coordenação: ' + u.coordenacao.map(function (c) { return c.nome; }).join(', ') : nomesCat[u.tipo]);
+        if (u.salas.length > 1) sub += ' · também em ' + salasTexto(u.salas.filter(function (s) { return s !== l.id; })).toLowerCase();
+        return botaoItem('data-ir-unidade', u.id, u.nome, sub, null, u.sigla);
+      })));
     }
-
-    var acoes = el('div', 'painel__acoes');
-    var imprime = el('button', 'btn btn--ghost btn--sm', 'Imprimir');
-    imprime.type = 'button';
-    imprime.setAttribute('data-imprimir', '');
-    var centra = el('button', 'btn btn--secondary btn--sm', 'Centralizar na planta');
-    centra.type = 'button';
-    centra.setAttribute('data-centralizar', '');
-    acoes.appendChild(centra);
-    var link = el('a', 'btn btn--ghost btn--sm', 'Ver na lista');
-    link.href = '#local-' + l.id;
-    link.setAttribute('data-ver-lista', l.id);
-    acoes.appendChild(link);
-    acoes.appendChild(imprime);
-    painel.appendChild(acoes);
-    painel.appendChild(blocoCompartilhar(l));
+    if (l.pessoas.length) {
+      painel.appendChild(secao(l.categoria === 'sala-prof' ? (l.pessoas.length > 1 ? 'Professores' : 'Professor ou professora') : 'Pessoas',
+        l.pessoas.map(function (id) { return botaoPessoa(porPessoa[id], false); })));
+    }
+    if (!us.length && !l.pessoas.length && !l.acesso) {
+      painel.appendChild(el('p', 'painel__texto', 'Ainda não há informações sobre este local.'));
+    }
+    painel.appendChild(acoesCartao(true, l.id));
+    painel.appendChild(blocoCompartilhar());
     // Só na impressão: o endereço para abrir a sala no celular
     var url = el('p', 'painel__url');
     url.appendChild(el('strong', '', 'Ver na planta: '));
@@ -771,9 +950,22 @@
     s.appendChild(u);
     return s;
   }
+  function linkExterno(url, rotulo) {
+    var w = el('a', 'contato contato--site');
+    w.href = url;
+    w.target = '_blank';
+    w.rel = 'noopener noreferrer';
+    w.appendChild(iconeSprite('external'));
+    w.appendChild(document.createTextNode(rotulo));
+    w.appendChild(el('span', 'visually-hidden', ' (abre em nova aba)'));
+    return w;
+  }
+  // E-mail institucional, currículo Lattes e site; vazios não aparecem
   function contatos(i) {
-    if (!i.email && !(i.site && /^https?:\/\//i.test(i.site))) return null;
+    var ok = function (u) { return u && /^https?:\/\//i.test(u); };
+    if (!i.email && !ok(i.site) && !ok(i.lattes)) return null;
     var p = el('p', 'contatos');
+    if (ok(i.lattes)) p.appendChild(linkExterno(i.lattes, 'Currículo Lattes'));
     if (i.email) {
       var m = el('a', 'contato contato--email');
       m.href = 'mailto:' + i.email;
@@ -781,26 +973,34 @@
       m.appendChild(document.createTextNode(i.email));
       p.appendChild(m);
     }
-    if (i.site && /^https?:\/\//i.test(i.site)) {
-      var w = el('a', 'contato contato--site');
-      w.href = i.site;
-      w.target = '_blank';
-      w.rel = 'noopener noreferrer';
-      w.appendChild(iconeSprite('external'));
-      w.appendChild(document.createTextNode(i.site.replace(/^https?:\/\/(www\.)?|\/$/g, '')));
-      w.appendChild(el('span', 'visually-hidden', ' (site, abre em nova aba)'));
-      p.appendChild(w);
-    }
+    if (ok(i.site)) p.appendChild(linkExterno(i.site, i.site.replace(/^https?:\/\/(www\.)?|\/$/g, '')));
     return p;
   }
-  function blocoCompartilhar(l) {
+  // O que se compartilha: a sala (página com prévia própria), a pessoa ou a unidade
+  function alvoShare() {
+    var base = window.location.origin + '/mapa/', fim = ' | Mapa Digital, Química UFPR';
+    if (estado.local) {
+      var l = porId[estado.local];
+      return { url: urlLocal(l), titulo: 'Mapa Digital · Sala ' + l.id, texto: textoLocal(l), rotulo: 'Compartilhar este local' };
+    }
+    if (estado.pessoa) {
+      var p = porPessoa[estado.pessoa];
+      return { url: base + '?pessoa=' + encodeURIComponent(p.id), titulo: 'Mapa Digital · ' + p.nome,
+        texto: p.nome + (p.sala ? ' · Sala ' + p.sala : '') + fim, rotulo: 'Compartilhar' };
+    }
+    var u = porUnidade[estado.unidade];
+    return { url: base + '?unidade=' + encodeURIComponent(u.id), titulo: 'Mapa Digital · ' + u.nome,
+      texto: u.nome + (u.salas && u.salas.length ? ' · ' + salasTexto(u.salas) : '') + fim, rotulo: 'Compartilhar este laboratório' };
+  }
+  function blocoCompartilhar() {
+    var a = alvoShare();
     var box = el('div', 'painel__compartilhar');
-    box.appendChild(el('p', 'painel__eyebrow', 'Compartilhar este local'));
+    box.appendChild(el('p', 'painel__eyebrow', a.rotulo));
     var row = el('div', 'painel__share');
     var wa = el('a', 'painel__share-btn painel__share-btn--whatsapp');
     wa.setAttribute('aria-label', 'Compartilhar pelo WhatsApp');
     wa.title = 'WhatsApp';
-    wa.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(textoLocal(l) + '\n' + urlLocal(l));
+    wa.href = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(a.texto + '\n' + a.url);
     wa.target = '_blank';
     wa.rel = 'noopener';
     wa.appendChild(icone('whatsapp'));
@@ -877,9 +1077,8 @@
   // compartilhar do sistema (onde ele aparece) e, em todo caso, copia o link.
   // "Enviar" abre a mesma folha; sem ela (computador), copia o link.
   function compartilha(tipo) {
-    var l = porId[estado.local];
-    if (!l) return;
-    var url = urlLocal(l), dadosShare = { title: 'Mapa Digital · Sala ' + l.id, text: textoLocal(l), url: url };
+    if (!estado.local && !estado.pessoa && !estado.unidade) return;
+    var a = alvoShare(), url = a.url, dadosShare = { title: a.titulo, text: a.texto, url: url };
     var podeShare = !!navigator.share && (!navigator.canShare || navigator.canShare(dadosShare));
     if (tipo === 'copiar') {
       copia(url).then(marcaCopiado, function () { avisaShare(url); });
@@ -899,10 +1098,12 @@
   function renderEntrada() {
     var e = porEntrada[estado.entrada];
     painel.appendChild(botaoFechar('Fechar ' + e.nome));
-    var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
-    voltar.type = 'button';
-    voltar.setAttribute('data-voltar', '');
-    painel.appendChild(voltar);
+    if (estado.busca.trim()) { // "Voltar" para os resultados da busca
+      var voltar = el('button', 'btn btn--ghost btn--sm painel__voltar', '← Voltar');
+      voltar.type = 'button';
+      voltar.setAttribute('data-voltar', '');
+      painel.appendChild(voltar);
+    }
     var tipo = { entrada: 'Entrada do prédio', rampa: 'Rampa', escada: 'Escada' }[e.tipo] || 'Entrada do prédio';
     painel.appendChild(el('p', 'painel__eyebrow', tipo + ' · ' + andarDe(e)));
     painel.appendChild(el('h2', 'painel__titulo', e.nome));
@@ -943,6 +1144,8 @@
     aplicaFiltro();
     painel.textContent = '';
     if (estado.local) renderLocal();
+    else if (estado.pessoa && porPessoa[estado.pessoa]) renderPessoa();
+    else if (estado.unidade && porUnidade[estado.unidade]) renderUnidade();
     else if (estado.entrada && porEntrada[estado.entrada]) renderEntrada();
     else if (filtroAtivo()) renderResultados();
     else renderVisaoGeral();
@@ -950,7 +1153,7 @@
     // Só com destaques, a planta fica livre (as cores dos botões servem de legenda).
     // No celular, escolher uma entrada só move o mapa: o cartão não abre
     var soMapa = estado.entrada && celular.matches && porEntrada[estado.entrada] && porEntrada[estado.entrada].tipo === 'entrada';
-    var folha = !!(estado.local || (estado.entrada && !soMapa) || estado.busca.trim());
+    var folha = !!(estado.local || estado.pessoa || estado.unidade || (estado.entrada && !soMapa) || estado.busca.trim());
     if (folha && !root.classList.contains('tem-folha')) painelEl.scrollTop = 0;
     root.classList.toggle('tem-folha', folha);
   }
@@ -958,6 +1161,7 @@
   // Fechar o cartão: tira a seleção e a busca
   function fechaFolha() {
     estado.local = null;
+    pilha = [];
     desenhaSelecao(null);
     if (estado.busca) { estado.busca = ''; busca.value = ''; }
     abreBusca(false);
@@ -966,7 +1170,7 @@
   }
 
   painel.addEventListener('click', function (e) {
-    var t = e.target.closest('[data-ir], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir], [data-ir-entrada]');
+    var t = e.target.closest('[data-ir], [data-ir-pessoa], [data-ir-unidade], [data-voltar], [data-centralizar], [data-fechar], [data-ver-lista], [data-todos], [data-compartilhar], [data-imprimir], [data-ir-entrada]');
     if (!t) return;
     if (t.hasAttribute('data-imprimir')) {
       window.print();
@@ -977,13 +1181,17 @@
       render();
       var b = painel.querySelector('[data-todos]');
       if (b) b.focus();
-    } else if (t.hasAttribute('data-ir')) seleciona(t.getAttribute('data-ir'), true);
+    } else if (t.hasAttribute('data-ir')) { empilha(); seleciona(t.getAttribute('data-ir'), true); }
+    else if (t.hasAttribute('data-ir-pessoa')) { empilha(); selecionaPessoa(t.getAttribute('data-ir-pessoa')); }
+    else if (t.hasAttribute('data-ir-unidade')) { empilha(); selecionaUnidade(t.getAttribute('data-ir-unidade')); }
     else if (t.hasAttribute('data-ir-entrada')) selecionaEntrada(t.getAttribute('data-ir-entrada'), true);
-    else if (t.hasAttribute('data-voltar')) desseleciona();
+    else if (t.hasAttribute('data-voltar')) volta();
     else if (t.hasAttribute('data-centralizar')) {
       var ve = estado.entrada && porEntrada[estado.entrada].tipo === 'entrada' && vistaEntrada(estado.entrada);
       if (ve) animaPara(ve);
       else if (estado.entrada) enquadraEntrada(estado.entrada);
+      else if (estado.pessoa) enquadra(porPessoa[estado.pessoa].sala);
+      else if (estado.unidade) enquadraNos(areasDe(salasNoAndar(porUnidade[estado.unidade])));
       else enquadra(estado.local);
     }
     else if (t.hasAttribute('data-fechar')) fechaFolha();
@@ -1136,6 +1344,7 @@
     var id = b.getAttribute('data-ver-local');
     var jaNoLugar = Math.abs(root.getBoundingClientRect().top - (parseFloat(getComputedStyle(root).scrollMarginTop) || 0)) < 2;
     root.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'start' });
+    pilha = [];
     if (jaNoLugar) seleciona(id, true);
     else depoisDaRolagem(function () { seleciona(id, true); });
   });
@@ -1169,8 +1378,17 @@
   });
   busca.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
-      var r = resultados();
-      if (r.length) { seleciona(r[0].id, true); if (celular.matches) busca.blur(); }
+      // Número de sala primeiro; depois pessoa, laboratório ou serviço, e sala
+      var q = normalize(estado.busca.trim()), r = salasDaBusca();
+      var exata = r.filter(function (l) { return normalize(l.id) === q; })[0];
+      var ps = pessoasDaBusca(), us = unidadesDaBusca();
+      pilha = [];
+      if (exata) seleciona(exata.id, true);
+      else if (ps.length) selecionaPessoa(ps[0].id);
+      else if (us.length) selecionaUnidade(us[0].id);
+      else if (r.length) seleciona(r[0].id, true);
+      else return;
+      if (celular.matches) busca.blur();
     } else if (e.key === 'Escape' && celular.matches) {
       fechaFolha(); lupa.focus();
     }
@@ -1196,8 +1414,10 @@
     if (!window.history.replaceState) return;
     var p = new URLSearchParams();
     if (estado.local) p.set('local', estado.local);
+    if (estado.pessoa) p.set('pessoa', estado.pessoa);
+    if (estado.unidade) p.set('unidade', estado.unidade);
     if (estado.entrada) p.set('entrada', estado.entrada);
-    if (estado.piso && !estado.local && !estado.entrada) p.set('andar', '1');
+    if (estado.piso && !estado.local && !estado.entrada && !estado.pessoa && !estado.unidade) p.set('andar', '1');
     if (estado.destaques.length) p.set('destaque', estado.destaques.join(','));
     var q = p.toString();
     window.history.replaceState(null, '', window.location.pathname + (q ? '?' + q : '') + window.location.hash);
@@ -1206,12 +1426,20 @@
     var p = new URLSearchParams(window.location.search);
     var validas = botoesDestaque.map(function (b) { return b.getAttribute('data-destaque'); });
     estado.destaques = (p.get('destaque') || '').split(',').filter(function (c) { return validas.indexOf(c) !== -1; });
-    var local = p.get('local'), entrada = p.get('entrada');
+    var local = p.get('local'), entrada = p.get('entrada'), pessoa = p.get('pessoa'), unidade = p.get('unidade');
     if (p.get('andar') === '1') mudaPiso(1);
     if (local && porId[local]) {
       estado.local = local;
       mudaPiso(porId[local].andar);
       desenhaSelecao(local);
+    } else if (pessoa && porPessoa[pessoa]) {
+      var pp = porPessoa[pessoa];
+      if (pp.sala) { mudaPiso(porId[pp.sala].andar); desenhaSelecao(pp.sala); }
+      estado.pessoa = pessoa;
+    } else if (unidade && porUnidade[unidade]) {
+      var uu = porUnidade[unidade];
+      if (uu.salas && uu.salas.length) { mudaPiso(porId[uu.salas[0]].andar); desenhaSelecao(uu.salas); }
+      estado.unidade = unidade;
     } else if (entrada && porEntrada[entrada]) {
       mudaPiso(porEntrada[entrada].andar);
       estado.entrada = entrada;
@@ -1356,7 +1584,17 @@
       dados.categorias.forEach(function (c) { nomesCat[c.id] = c.nome; });
       nomesCat.outros = nomesCat.outros || 'Outros';
       (dados.andares || []).forEach(function (a) { nomesAndar[a.id] = a.nome; });
-      dados.locais.forEach(function (l) { l._busca = textoBusca(l); porId[l.id] = l; });
+      dados.pessoas = dados.pessoas || [];
+      dados.unidades = dados.unidades || [];
+      dados.pessoas.forEach(function (p) { p._busca = textoPessoa(p); porPessoa[p.id] = p; });
+      dados.unidades.forEach(function (u) { u.salas = u.salas || []; u._busca = textoUnidade(u); porUnidade[u.id] = u; });
+      dados.locais.forEach(function (l) {
+        l.pessoas = l.pessoas || [];
+        l.unidades = l.unidades || [];
+        l._sala = textoSala(l);
+        l._busca = textoBusca(l);
+        porId[l.id] = l;
+      });
       var termos = {
         entrada: 'entrada porta acesso',
         rampa: 'rampa acessibilidade acessivel cadeira de rodas',
@@ -1373,6 +1611,8 @@
       render();
       if (estado.entrada) enquadraEntrada(estado.entrada);
       if (estado.local) enquadra(estado.local); // depois do render: no celular, o cartão já tem altura
+      if (estado.pessoa && porPessoa[estado.pessoa].sala) enquadra(porPessoa[estado.pessoa].sala);
+      if (estado.unidade && porUnidade[estado.unidade].salas.length) enquadraNos(areasDe(salasNoAndar(porUnidade[estado.unidade])));
     })
     .catch(function (err) {
       console.error('Mapa Digital: erro ao carregar ' + DADOS_URL, err);

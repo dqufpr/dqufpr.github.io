@@ -1,5 +1,25 @@
 # Histórico de mudanças do Mapa Digital
 
+## 3.3.0 — 2026-11-14
+
+### Novo
+- **Cartão da pessoa** (professores e técnicos): cargo e área, sala marcada na planta, e-mail institucional, currículo Lattes e os laboratórios que coordena. Endereço `/mapa/?pessoa=<nome>`.
+- **Cartão do laboratório ou serviço:** descrição, site, coordenação (cada nome abre o cartão da pessoa) e todas as salas, marcadas juntas na planta. Endereço `/mapa/?unidade=<sigla>`.
+- **Busca agrupada:** Pessoas, Laboratórios e serviços, e Salas. O Enter abre o primeiro resultado, nesta ordem: número de sala exato, pessoa, unidade, sala.
+- **"Voltar"** retorna ao cartão anterior (ex.: do laboratório para a pessoa) ou aos resultados da busca.
+- **Compartilhar** também a pessoa e o laboratório.
+
+### Mudado
+- **Planilha:** `dados/dados-mapa.xlsx`, com as abas Salas, Pessoas e Unidades, substitui `dados/locais.xlsx`. Cada sala, pessoa e laboratório aparece uma vez só. O laboratório que ocupa várias salas é uma linha, com as salas separadas por `;`. A coluna `n` é só numeração e é ignorada.
+- **`scripts/gerar_mapa.py`** lê as três abas e confere as ligações:
+  - coordenação que não está em Pessoas;
+  - sala inexistente;
+  - e-mail que não é `@ufpr.br`;
+  - Lattes e site inválidos.
+- **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
+- **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
+- **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+
 ## 3.2.0 — 2026-11-14
 
 ### Novo

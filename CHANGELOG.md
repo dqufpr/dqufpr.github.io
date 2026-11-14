@@ -1,5 +1,10 @@
 # Histórico de mudanças
 
+## 3.3.0 — 2026-11-14
+
+### Novo
+- Mapa Digital: busca e cartões de **pessoas** e de **laboratórios e serviços**, a partir de uma planilha reorganizada (abas Salas, Pessoas e Unidades). Detalhes em `docs/MAPA-CHANGELOG.md`.
+
 ## 3.2.0 — 2026-11-14
 
 ### Novo

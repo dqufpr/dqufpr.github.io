@@ -1,19 +1,20 @@
-"""Gera os dados e a planta do Mapa Digital a partir da planilha de locais.
+"""Gera os dados e a planta do Mapa Digital a partir da planilha.
 
-Uso (na raiz do repositório):
+Uso (na pasta mapa/):
     pip install openpyxl
     python scripts/gerar_mapa.py
 
 Entradas
-    dados/locais.xlsx         Planilha de locais. Colunas usadas (pelo nome do cabeçalho):
-                              n · ID_fisico · Nome do Local · Sigla · Descrição · Tipo de local
-                              e, opcionais, E-mail (pessoas) e Site (laboratórios)
-                              (a coluna ID_digital, se existir, é ignorada)
-    dados/planta-areas.json   Áreas clicáveis do desenho, cada uma ligada a um ID_fisico
+    dados/dados-mapa.xlsx     Planilha com as abas (colunas lidas pelo nome do cabeçalho; a coluna n,
+                              de numeração, é ignorada; a ordem das linhas é a ordem no mapa):
+                                Salas     Sala · Tipo · Nome · Acesso ou observação
+                                Pessoas   Nome · Cargo · Área ou setor · Sala · E-mail · Lattes
+                                Unidades  Nome · Sigla · Tipo · Salas · Coordenação · Descrição · Site
+    dados/planta-areas.json   Áreas clicáveis do desenho, cada uma ligada ao número de uma sala
     dados/planta-base.svg     Paredes, corredores e portas (sem números)
 
 Saídas
-    dados/locais.json         Locais agrupados por número físico (lido por js/mapa.js)
+    dados/locais.json         Salas, pessoas e unidades, ligadas entre si (lido por js/mapa.js)
     index.html                Recebe o desenho da planta e a lista de locais entre os marcadores
                               <!-- DESTAQUES:… -->, <!-- PLANTA:… --> e <!-- LISTA:… -->
 
@@ -28,6 +29,7 @@ import json
 import pathlib
 import re
 import sys
+import unicodedata
 
 try:
     import openpyxl
@@ -37,7 +39,7 @@ except ImportError:
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
 DADOS = RAIZ / "dados"
 
-# Coluna "Tipo de local" da planilha → categoria do site (classe loc--* do global.css)
+# Categorias do site (classe loc--* do global.css): chave antiga, nome (coluna Tipo da planilha) e plural
 CATEGORIAS = {
     "salaaula": ("sala-aula", "Sala de aula", "Salas de aula"),
     "salaprof": ("sala-prof", "Sala de professores", "Salas de professores"),
@@ -47,6 +49,9 @@ CATEGORIAS = {
     "banheiro": ("banheiro", "Banheiro", "Banheiros"),
 }
 OUTROS = ("outros", "Outros", "Outros")
+# Coluna Tipo das abas Salas e Unidades → categoria
+TIPOS = {c[1].lower(): c[0] for c in list(CATEGORIAS.values()) + [OUTROS]}
+NOMES_CAT = {c[0]: c[1] for c in list(CATEGORIAS.values()) + [OUTROS]}
 # Só a categoria "outros" (cinza claro) recebe número escuro; as demais, branco
 CLARAS = {"outros"}
 
@@ -175,103 +180,207 @@ def chave_natural(local):
     return (int(m.group(1)), m.group(2)) if m else (10**6, local)
 
 
-EMAIL = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+EMAIL = re.compile(r"^[^@\s]+@ufpr\.br$", re.I)
 SITE = re.compile(r"^https?://[^\s/]+\.[^\s]+$", re.I)
+LATTES = re.compile(r"^https?://(www\.)?lattes\.cnpq\.br/\S+$", re.I)
 
 
-def le_email(v, linha):
-    """E-mail da coluna opcional; um valor inválido é avisado e ignorado."""
-    v = limpa(v)
-    if not v:
-        return None
-    v = re.sub(r"^mailto:", "", v, flags=re.I)
-    if not EMAIL.match(v):
-        print(f"aviso: linha {linha}: e-mail '{v}' inválido, ignorado")
-        return None
-    return v
+def aviso(msg):
+    print("aviso: " + msg)
 
 
-def le_site(v, linha):
-    """Endereço da coluna opcional Site (sem https://, ele é acrescentado); inválido é ignorado."""
+def le_link(v, onde, padrao, tipo):
+    """Site ou Lattes (o https:// é acrescentado se faltar); inválido é avisado e ignorado."""
     v = limpa(v)
     if not v:
         return None
     if not re.match(r"^https?://", v, re.I):
         v = "https://" + v
-    if not SITE.match(v):
-        print(f"aviso: linha {linha}: site '{v}' inválido, ignorado")
+    if not padrao.match(v):
+        aviso(f"{onde}: {tipo} '{v}' inválido, ignorado")
         return None
     return v
 
 
-def le_planilha():
-    ws = openpyxl.load_workbook(DADOS / "locais.xlsx", data_only=True).active
-    linhas = ws.iter_rows(values_only=True)
+def le_email(v, onde):
+    v = limpa(v)
+    if not v:
+        return None
+    v = re.sub(r"^mailto:", "", v, flags=re.I)
+    if not EMAIL.match(v):
+        aviso(f"{onde}: e-mail '{v}' ignorado (só o institucional, @ufpr.br)")
+        return None
+    return v.lower()
+
+
+def sem_acento(s):
+    return unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().lower()
+
+
+def slug(s):
+    return re.sub(r"[^a-z0-9]+", "-", sem_acento(s)).strip("-") or "x"
+
+
+def lista_salas(v):
+    return [p.strip() for p in re.split(r"[;,]", limpa(v) or "") if p.strip()]
+
+
+def le_aba(wb, nome, colunas):
+    """Linhas da aba como dicionários, pela ordem; a coluna n (numeração) não é usada."""
+    if nome not in wb.sheetnames:
+        sys.exit(f"dados/dados-mapa.xlsx: falta a aba {nome} (veja docs/MAPA-ATUALIZAR-DADOS.md)")
+    linhas = wb[nome].iter_rows(values_only=True)
     cab = [limpa(c) for c in next(linhas)]
-    obrigatorias = ("n", "ID_fisico", "Nome do Local", "Sigla", "Descrição", "Tipo de local")
-    faltando = [c for c in obrigatorias if c not in cab]
+    faltando = [c for c in colunas if c not in cab]
     if faltando:
-        sys.exit("dados/locais.xlsx: falta a coluna " + ", ".join(faltando) + " na primeira linha (veja docs/ATUALIZAR-DADOS.md)")
-    col = {nome: cab.index(nome) for nome in obrigatorias}
-    opcionais = {"E-mail": "email", "Site": "site"}
-    for nome in opcionais:
-        if nome in cab:
-            col[nome] = cab.index(nome)
-    itens = []
+        sys.exit(f"dados/dados-mapa.xlsx, aba {nome}: falta a coluna " + ", ".join(faltando))
+    out = []
     for i, r in enumerate(linhas, start=2):
-        local = limpa(r[col["ID_fisico"]])
-        nome = limpa(r[col["Nome do Local"]])
-        if not local or not nome:
+        d = {c: limpa(r[cab.index(c)]) if cab.index(c) < len(r) else None for c in colunas}
+        if any(d.values()):
+            d["_linha"] = i
+            out.append(d)
+    return out
+
+
+def le_dados(areas):
+    try:
+        import openpyxl
+    except ImportError:
+        sys.exit("Instale o openpyxl: pip install openpyxl")
+    wb = openpyxl.load_workbook(DADOS / "dados-mapa.xlsx", data_only=True)
+    salas_l = le_aba(wb, "Salas", ["Sala", "Tipo", "Nome", "Acesso ou observação"])
+    pessoas_l = le_aba(wb, "Pessoas", ["Nome", "Cargo", "Área ou setor", "Sala", "E-mail", "Lattes"])
+    unidades_l = le_aba(wb, "Unidades", ["Nome", "Sigla", "Tipo", "Salas", "Coordenação", "Descrição", "Site"])
+    na_planta = {a["local"] for a in areas}
+
+    # ---- Salas ----
+    salas = collections.OrderedDict()
+    for r in salas_l:
+        sid = r["Sala"]
+        onde = f"Salas, linha {r['_linha']}"
+        if not sid:
             continue
-        tipo = (limpa(r[col["Tipo de local"]]) or "").lower()
-        if tipo not in CATEGORIAS:
-            print(f"aviso: linha {i}: tipo '{tipo}' desconhecido, usando 'outros'")
-        n = r[col["n"]]
-        itens.append({
-            "ordem": n if isinstance(n, (int, float)) else i,
-            "local": local,
-            "nome": nome,
-            "sigla": limpa(r[col["Sigla"]]),
-            "descricao": limpa(r[col["Descrição"]]),
-            "email": le_email(r[col["E-mail"]], i) if "E-mail" in col else None,
-            "site": le_site(r[col["Site"]], i) if "Site" in col else None,
-            "categoria": CATEGORIAS.get(tipo, OUTROS)[0],
-        })
-    return itens
+        if sid in salas:
+            aviso(f"{onde}: a sala {sid} aparece mais de uma vez; vale a primeira")
+            continue
+        tipo = TIPOS.get((r["Tipo"] or "").lower())
+        if not tipo:
+            aviso(f"{onde}: tipo '{r['Tipo']}' desconhecido, usando 'Outros'")
+            tipo = "outros"
+        if sid not in na_planta:
+            aviso(f"{onde}: a sala {sid} não existe no desenho da planta; aparece só na lista")
+        salas[sid] = {"id": sid, "tipo": tipo, "nome": r["Nome"], "acesso": r["Acesso ou observação"]}
+    for sid in sorted(na_planta - set(salas), key=chave_natural):
+        aviso(f"a sala {sid} está desenhada na planta, mas não está na aba Salas")
+        salas[sid] = {"id": sid, "tipo": "outros", "nome": None, "acesso": None}
+
+    # ---- Pessoas ----
+    pessoas, ids = [], set()
+    for r in pessoas_l:
+        onde = f"Pessoas, linha {r['_linha']}"
+        if not r["Nome"]:
+            continue
+        pid = slug(r["Nome"])
+        if pid in ids:
+            aviso(f"{onde}: '{r['Nome']}' aparece mais de uma vez; vale a primeira")
+            continue
+        ids.add(pid)
+        sala = r["Sala"]
+        if sala and sala not in salas:
+            aviso(f"{onde}: sala {sala} de '{r['Nome']}' não está na aba Salas")
+            sala = None
+        p = {"id": pid, "nome": r["Nome"], "cargo": r["Cargo"], "area": r["Área ou setor"], "sala": sala,
+             "email": le_email(r["E-mail"], onde), "lattes": le_link(r["Lattes"], onde, LATTES, "Lattes")}
+        pessoas.append({k: v for k, v in p.items() if v})
+    por_nome = {sem_acento(p["nome"]): p for p in pessoas}
+
+    # ---- Unidades ----
+    unidades, ids = [], set()
+    for r in unidades_l:
+        onde = f"Unidades, linha {r['_linha']}"
+        if not r["Nome"]:
+            continue
+        tipo = TIPOS.get((r["Tipo"] or "").lower())
+        if tipo not in ("lab-pesquisa", "lab-ensino", "servico"):
+            aviso(f"{onde}: tipo '{r['Tipo']}' de '{r['Nome']}' deve ser Laboratório de pesquisa, Laboratório de ensino ou Serviço; usando Serviço")
+            tipo = "servico"
+        uid = slug(r["Sigla"] or r["Nome"])
+        if uid in ids:
+            uid = slug(r["Nome"])
+        while uid in ids:
+            uid += "-2"
+        ids.add(uid)
+        sl = []
+        for s_ in lista_salas(r["Salas"]):
+            if s_ in salas:
+                sl.append(s_)
+            else:
+                aviso(f"{onde}: sala {s_} de '{r['Nome']}' não está na aba Salas")
+        if not sl:
+            aviso(f"{onde}: '{r['Nome']}' não tem sala; não aparece na planta")
+        coord = []
+        for nome in [c.strip() for c in (r["Coordenação"] or "").split(";") if c.strip()]:
+            p = por_nome.get(sem_acento(nome))
+            if p:
+                coord.append({"nome": p["nome"], "pessoa": p["id"]})
+                p.setdefault("coordena", []).append(uid)
+            else:
+                aviso(f"{onde}: '{nome}' (coordenação de '{r['Nome']}') não está na aba Pessoas; aparece só o nome")
+                coord.append({"nome": nome})
+        u = {"id": uid, "nome": r["Nome"], "sigla": r["Sigla"], "tipo": tipo, "salas": sl, "coordenacao": coord,
+             "descricao": r["Descrição"], "site": le_link(r["Site"], onde, SITE, "site")}
+        unidades.append({k: v for k, v in u.items() if v})
+    return salas, pessoas, unidades
 
 
-def monta_locais(itens, areas):
-    por_local = collections.defaultdict(list)
-    for it in sorted(itens, key=lambda x: x["ordem"]):
-        por_local[it["local"]].append({k: v for k, v in it.items() if k not in ("ordem", "local") and v})
-    areas_por_local = collections.defaultdict(list)
-    for a in areas:
-        areas_por_local[a["local"]].append(a)
-
-    sem_area = sorted(set(por_local) - set(areas_por_local), key=chave_natural)
-    sem_dados = sorted(set(areas_por_local) - set(por_local), key=chave_natural)
-    for l in sem_area:
-        print(f"aviso: o local {l} está na planilha, mas não tem área na planta (dados/planta-areas.json); aparece só na lista")
-    for l in sem_dados:
-        print(f"aviso: a área {l} da planta não tem linhas na planilha")
-
+def monta_locais(salas, pessoas, unidades):
+    """Uma entrada por sala, com as pessoas e as unidades que estão nela."""
     locais = []
-    for local in sorted(set(por_local) | set(areas_por_local), key=chave_natural):
-        its = por_local.get(local, [])
-        cats = list(dict.fromkeys(i["categoria"] for i in its)) or ["outros"]
-        locais.append({"id": local, "andar": andar(local), "categoria": cats[0], "categorias": cats, "itens": its})
+    for sid in sorted(salas, key=chave_natural):
+        s_ = salas[sid]
+        ps = [p for p in pessoas if p.get("sala") == sid]
+        us = [u for u in unidades if sid in u.get("salas", [])]
+        cats = list(dict.fromkeys([s_["tipo"]] + [u["tipo"] for u in us]))
+        l = {"id": sid, "andar": andar(sid), "categoria": s_["tipo"], "categorias": cats,
+             "nome": s_["nome"], "acesso": s_["acesso"],
+             "pessoas": [p["id"] for p in ps], "unidades": [u["id"] for u in us]}
+        l["titulo"] = titulo(l, ps, us)
+        l["resumo"] = resumo(l, ps, us)
+        if not ps and not us and not s_["nome"]:
+            aviso(f"a sala {sid} não tem nome, pessoas nem unidades")
+        locais.append({k: v for k, v in l.items() if v or k in ("andar", "pessoas", "unidades")})
     return locais
 
 
-def titulo(local):
-    """Nome curto de um local: o do primeiro item ou 'Sala de professores'."""
-    its = local["itens"]
-    if not its:
+def titulo(l, ps, us):
+    """Nome curto da sala: o nome próprio, a primeira unidade ou o tipo."""
+    if l.get("nome"):
+        return l["nome"]
+    if us:
+        return us[0]["nome"]
+    if ps and l["categoria"] == "sala-prof":
+        return "Sala de professores" if len(ps) > 1 else "Sala de professor"
+    if l["categoria"] == "outros" and not ps:
         return "Sem informações"
-    if all(i["categoria"] == "sala-prof" for i in its):
-        return "Sala de professores" if len(its) > 1 else "Sala de professor"
-    # O primeiro item (ordem da coluna n) dá nome ao local; os demais aparecem na lista de itens
-    return next(i["nome"] for i in its if i["categoria"] != "sala-prof")
+    return NOMES_CAT[l["categoria"]]
+
+
+def resumo(l, ps, us):
+    """Uma linha sobre a sala, para os cartões da lista e as prévias de compartilhamento."""
+    if ps and l["categoria"] == "sala-prof":
+        return ", ".join(p["nome"] for p in ps)
+    if len(us) > 1:
+        return " · ".join(u["nome"] for u in us)
+    if us:
+        u = us[0]
+        if u.get("descricao"):
+            return u["descricao"]
+        if u.get("coordenacao"):
+            return "Coordenação: " + ", ".join(c["nome"] for c in u["coordenacao"])
+    if ps:
+        return ", ".join(p["nome"] for p in ps)
+    return l.get("acesso") or ""
 
 
 # Corte entre os andares no desenho-base (o 1º andar está desenhado abaixo do térreo)
@@ -318,7 +427,7 @@ def gera_planta(locais, areas, base):
     """Planta com um grupo por andar (.piso--0, .piso--1). Sem classe de vista, os dois andares aparecem
     como no desenho original (impressão e imagens de compartilhamento); js/mapa.js mostra um por vez."""
     cat = {l["id"]: l["categoria"] for l in locais}
-    nomes = {l["id"]: titulo(l) for l in locais}
+    nomes = {l["id"]: l["titulo"] for l in locais}
     poly, rot = {0: [], 1: []}, {0: [], 1: []}
     for a in areas:
         c = cat.get(a["local"], "outros")
@@ -391,49 +500,59 @@ def gera_andares(areas, andar_):
     return f'<g class="andares" aria-hidden="true">\n' + "\n".join(partes) + "\n</g>\n"
 
 
+ICONE = '<svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#{}"></use></svg>'
+
+
+def rotulo_link(u):
+    return re.sub(r"^https?://(www\.)?|/$", "", u)
+
+
 def contatos(i):
-    """Links de e-mail e site de um item (lista "Todos os locais"); iguais aos do painel."""
+    """Links de e-mail, Lattes e site (lista "Todos os locais"); iguais aos do painel."""
     links = []
     if i.get("email"):
         e = html.escape(i["email"])
-        links.append(f'<a class="contato contato--email" href="mailto:{e}">'
-                     f'<svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#mail"></use></svg>{e}</a>')
-    if i.get("site"):
-        u = html.escape(i["site"])
-        rot = html.escape(re.sub(r"^https?://(www\.)?|/$", "", i["site"]))
-        links.append(f'<a class="contato contato--site" href="{u}" target="_blank" rel="noopener noreferrer">'
-                     f'<svg class="icon" aria-hidden="true" focusable="false"><use href="/img/icons/sprite.svg#external"></use></svg>{rot}'
-                     f'<span class="visually-hidden"> (site, abre em nova aba)</span></a>')
+        links.append(f'<a class="contato contato--email" href="mailto:{e}">{ICONE.format("mail")}{e}</a>')
+    for chave, rot in (("lattes", "Currículo Lattes"), ("site", None)):
+        if i.get(chave):
+            u = html.escape(i[chave])
+            txt = rot or html.escape(rotulo_link(i[chave]))
+            links.append(f'<a class="contato contato--{chave}" href="{u}" target="_blank" rel="noopener noreferrer">'
+                         f'{ICONE.format("external")}{txt}<span class="visually-hidden"> (abre em nova aba)</span></a>')
     return f'<p class="contatos">{"".join(links)}</p>' if links else ""
 
 
-def gera_lista(locais):
+def gera_lista(locais, pessoas, unidades):
     """Cards da lista "Todos os locais": número, tipo e andar, nome, resumo e ações.
+    Os detalhes mostram as unidades (laboratórios, serviços) e as pessoas da sala.
     js/mapa.js pagina a lista (9 por página) e abre e fecha os detalhes; sem JavaScript,
     todos os cards e detalhes ficam à mostra."""
-    nomes_cat = {c[0]: c[1] for c in list(CATEGORIAS.values()) + [OUTROS]}
+    por_p = {p["id"]: p for p in pessoas}
+    por_u = {u["id"]: u for u in unidades}
     out = []
     for l in locais:
         e = html.escape(l["id"])
         cats = " ".join(l["categorias"])
-        its = l["itens"]
         itens = []
-        for i in its:
-            sig = f' <span class="badge">{html.escape(i["sigla"])}</span>' if i.get("sigla") and i["sigla"] not in i["nome"] else ""
-            desc = f'<p class="local__desc">{html.escape(i["descricao"])}</p>' if i.get("descricao") else ""
-            itens.append(f'<li><span class="local__item">{html.escape(i["nome"])}</span>{sig}{desc}{contatos(i)}</li>')
-        cat_txt = " · ".join(nomes_cat[c] for c in l["categorias"])
+        for uid in l["unidades"]:
+            u = por_u[uid]
+            sig = f' <span class="badge">{html.escape(u["sigla"])}</span>' if u.get("sigla") and u["sigla"] not in u["nome"] else ""
+            desc = f'<p class="local__desc">{html.escape(u["descricao"])}</p>' if u.get("descricao") else ""
+            coord = (f'<p class="local__desc">Coordenação: {html.escape(", ".join(c["nome"] for c in u["coordenacao"]))}</p>'
+                     if u.get("coordenacao") else "")
+            itens.append(f'<li><span class="local__item">{html.escape(u["nome"])}</span>{sig}{desc}{coord}{contatos(u)}</li>')
+        for pid in l["pessoas"]:
+            p = por_p[pid]
+            sub = " · ".join(x for x in (p.get("cargo"), p.get("area")) if x)
+            sub = f'<p class="local__desc">{html.escape(sub)}</p>' if sub else ""
+            itens.append(f'<li><span class="local__item">{html.escape(p["nome"])}</span>{sub}{contatos(p)}</li>')
+        if l.get("acesso"):
+            itens.append(f'<li><p class="local__desc">{html.escape(l["acesso"])}</p></li>')
+        cat_txt = " · ".join(NOMES_CAT[c] for c in l["categorias"])
         piso = ANDARES[l["andar"]]["nome"]
-        profs = bool(its) and all(i["categoria"] == "sala-prof" for i in its)
-        # Resumo: quem está na sala, quantos itens há ou a descrição do único item
-        if profs:
-            resumo = ", ".join(i["nome"] for i in its)
-        elif len(its) > 1:
-            resumo = f"{len(its)} itens neste local"
-        else:
-            resumo = its[0].get("descricao", "") if its else "Ainda não há informações sobre este local."
-        resumo_html = f'  <p class="local__resumo">{html.escape(resumo)}</p>\n' if resumo else ""
-        tem_detalhes = bool(its) and (len(its) > 1 or any(i.get(k) for i in its for k in ("descricao", "sigla", "email", "site")))
+        resumo_ = l.get("resumo") or ("" if itens else "Ainda não há informações sobre este local.")
+        resumo_html = f'  <p class="local__resumo">{html.escape(resumo_)}</p>\n' if resumo_ else ""
+        tem_detalhes = bool(itens)
         detalhes = (f'  <div class="local__detalhes" id="local-{e}-detalhes"><ul class="local__itens">{"".join(itens)}</ul></div>\n'
                     if tem_detalhes else "")
         abrir = (f'<button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">Detalhes</button>'
@@ -442,7 +561,7 @@ def gera_lista(locais):
             f'<li class="local loc--{l["categoria"]}" id="local-{e}" data-local="{e}" data-categorias="{cats}" data-andar="{l["andar"]}">\n'
             f'  <div class="local__topo"><span class="local__num"><span class="visually-hidden">Sala </span>{e}</span>'
             f'<span class="local__tags"><span class="local__cat">{cat_txt}</span><span class="local__andar">{piso}</span></span></div>\n'
-            f'  <h3 class="local__nome">{html.escape(titulo(l))}</h3>\n'
+            f'  <h3 class="local__nome">{html.escape(l["titulo"])}</h3>\n'
             + resumo_html + detalhes +
             f'  <div class="local__acoes"><button type="button" class="btn btn--secondary btn--sm local__ver" data-ver-local="{e}">Ver na planta</button>{abrir}</div>\n'
             f"</li>"
@@ -466,10 +585,10 @@ def substitui(texto, marcador, conteudo):
 
 
 def main():
-    itens = le_planilha()
     areas = json.loads((DADOS / "planta-areas.json").read_text(encoding="utf-8"))
     base = (DADOS / "planta-base.svg").read_text(encoding="utf-8")
-    locais = monta_locais(itens, areas)
+    salas, pessoas, unidades = le_dados(areas)
+    locais = monta_locais(salas, pessoas, unidades)
 
     # Contagem de locais por categoria (um local conta em cada categoria que tiver)
     contagem = collections.Counter(c for l in locais for c in l["categorias"])
@@ -482,8 +601,8 @@ def main():
     entradas = [{"id": e["id"], "tipo": "entrada", "nome": e["nome"], "andar": 0, "descricao": e["descricao"],
                  "fora": list(e["fora"])} for e in ENTRADAS]
     acessos = [{k: a[k] for k in ("id", "tipo", "nome", "andar", "descricao", "liga") if k in a} for a in ACESSOS]
-    saida = {"fonte": "dados/locais.xlsx", "categorias": categorias, "andares": andares,
-             "entradas": entradas, "acessos": acessos, "locais": locais}
+    saida = {"fonte": "dados/dados-mapa.xlsx", "categorias": categorias, "andares": andares,
+             "entradas": entradas, "acessos": acessos, "locais": locais, "pessoas": pessoas, "unidades": unidades}
     (DADOS / "locais.json").write_text(
         json.dumps(saida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 
@@ -491,10 +610,10 @@ def main():
     texto = pagina.read_text(encoding="utf-8")
     texto = substitui(texto, "DESTAQUES", gera_destaques(categorias))
     texto = substitui(texto, "PLANTA", gera_planta(locais, areas, base))
-    texto = substitui(texto, "LISTA", gera_lista(locais))
+    texto = substitui(texto, "LISTA", gera_lista(locais, pessoas, unidades))
     pagina.write_text(texto, encoding="utf-8", newline="\n")
 
-    print(f"{len(itens)} linhas da planilha → {len(locais)} locais em {len(areas)} áreas da planta")
+    print(f"{len(locais)} salas, {len(pessoas)} pessoas e {len(unidades)} unidades (planta com {len(areas)} áreas)")
     for c in categorias:
         print(f"  {c['plural']}: {c['locais']}")
 

@@ -1,6 +1,6 @@
 # Proposta: nova organização dos dados do Mapa Digital
 
-Situação (14/11/2026): decisões tomadas (seção 6). A etapa 1 está feita: a planilha nova `mapa/dados/dados-mapa.xlsx` foi gerada a partir da antiga, com a aba Revisão. O site ainda usa a planilha antiga.
+Situação (14/11/2026): **implementada.** O mapa lê `mapa/dados/dados-mapa.xlsx` (abas Salas, Pessoas e Unidades) e tem cartões de pessoa e de laboratório. A planilha antiga e o script de conversão saíram do repositório depois da migração. Como atualizar os dados: [MAPA-ATUALIZAR-DADOS.md](MAPA-ATUALIZAR-DADOS.md).
 
 ## 1. Como os dados estão hoje
 
@@ -134,9 +134,9 @@ O script `mapa/scripts/converter_planilha.py` leu a planilha antiga e gerou `map
 
 A aba **Revisão** tem 75 itens. A maioria é dado que falta: descrição, site e coordenação dos laboratórios; descrição dos laboratórios de ensino; cargo dos 4 técnicos.
 
-## 8. Próximas etapas
+## 8. Etapas seguintes (feitas)
 
-2. **Revisão dos dados** (manual): resolver os itens da aba Revisão, preencher e-mails institucionais e Lattes.
-3. **Gerador** lendo `dados-mapa.xlsx`, com os avisos novos. O site continua igual.
-4. **Interface:** cartões de pessoa e de laboratório, busca agrupada e links novos.
-5. **Documentação** refeita; a planilha antiga sai do repositório.
+2. **Revisão dos dados:** feita na planilha (a aba Revisão ficou vazia).
+3. **Gerador:** `scripts/gerar_mapa.py` lê as três abas e confere as ligações. A coluna `n` é ignorada.
+4. **Interface:** cartões de pessoa e de laboratório, busca agrupada, "Voltar" para o cartão anterior e os endereços `?pessoa=` e `?unidade=`.
+5. **Documentação:** `MAPA-ATUALIZAR-DADOS.md` e `MAPA.md` refeitos. A planilha antiga (`locais.xlsx`) e o script de conversão saíram do repositório.

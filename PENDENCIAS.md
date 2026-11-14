@@ -25,8 +25,14 @@
 ### Nova organização dos dados (proposta)
 - [x] Decidir sobre a proposta em `docs/MAPA-PROPOSTA-DADOS.md` (decisões na seção 6).
 - [x] Etapa 1: planilha nova `mapa/dados/dados-mapa.xlsx` gerada a partir da antiga.
-- [ ] Etapa 2: resolver a aba Revisão da planilha nova (75 itens) e preencher e-mails institucionais e Lattes.
-- [ ] Etapas 3 a 5: gerador lendo a planilha nova, cartões de pessoa e de laboratório, documentação.
+- [x] Etapa 2: aba Revisão resolvida.
+- [x] Etapas 3 a 5: gerador lendo a planilha nova, cartões de pessoa e de laboratório, busca agrupada, documentação.
+- [ ] Preencher os dados que faltam:
+  - e-mails institucionais e Lattes dos professores e técnicos;
+  - descrição e site dos laboratórios de pesquisa (hoje, 2 de 31 têm);
+  - descrição breve dos 8 laboratórios de ensino.
+- [ ] Incluir em Pessoas, se forem do departamento, dois coordenadores que hoje aparecem sem link: Brás H. de Oliveira (Laboratório de Química Orgânica) e Luiz Humberto Marcolino Jr (Laboratório de Sensores Eletroquímicos).
+- [ ] Sala 65: está na planilha, mas sem nome, pessoas nem unidades.
 
 ### Usabilidade no celular (avaliação de 14/11)
 - [ ] **Botão "voltar" do celular fecha o cartão.** Hoje, com uma sala aberta, o "voltar" sai do mapa e leva à página anterior. Registrar a sala aberta no histórico do navegador (`history.pushState`) e fechar o cartão no `popstate`.

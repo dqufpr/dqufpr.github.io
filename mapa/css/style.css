@@ -308,6 +308,12 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
   font-weight: var(--fw-black); font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: var(--sombra-num);
 }
 .painel__item-txt { display: grid; gap: 2px; min-width: 0; }
+/* Pessoa ou unidade dentro do cartão da sala: sem a caixa do número */
+.painel__item--sem-num { grid-template-columns: minmax(0, 1fr) auto; padding-left: var(--space-3); }
+/* Seções dos cartões (Nesta sala, Coordenação, Salas…) */
+.painel__secao { display: grid; gap: var(--space-2); }
+.painel__secao .painel__eyebrow { margin: 0; }
+.painel__nome-solto { padding: var(--space-2) var(--space-3); border: 1px dashed var(--border); border-radius: var(--radius-md); }
 .painel__item-nome { margin: 0; font-weight: var(--fw-bold); line-height: var(--lh-tight); overflow-wrap: anywhere; }
 .painel__item-sub { margin: 0; color: var(--text-muted); font-size: var(--fs-sm); line-height: var(--lh-tight); overflow-wrap: anywhere; }
 .painel__itens li { padding-block: var(--space-2); border-bottom: 1px solid var(--border); }
@@ -511,7 +517,6 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   margin-right: calc(var(--tap) + var(--space-2));
 }
 /* "Voltar" só faz sentido para voltar aos resultados da busca; sem ela, o X fecha */
-.mapa-js .explorador:not(.is-buscando) .painel__voltar { display: none; }
 .mapa-js .painel__voltar { min-height: var(--tap); }
 .mapa-js .section-head { margin-bottom: 0; }
 .mapa-js .locais__lista { margin-top: var(--space-5); }

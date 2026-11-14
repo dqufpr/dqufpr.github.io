@@ -1,8 +1,14 @@
 # Como atualizar os dados do Mapa Digital
 
-Guia passo a passo para quem mantém o mapa: trocar o nome de um laboratório, mudar um professor de sala, incluir um serviço novo e publicar a mudança.
+Guia passo a passo para quem mantém o mapa. Ele cobre os casos comuns (trocar a descrição de um laboratório, mudar um professor de sala, incluir um serviço) e como publicar a mudança.
 
-**Resumo:** edite `mapa/dados/locais.xlsx` → rode `python mapa/scripts/gerar_mapa.py` → confira → faça o commit e o push. O site atualiza sozinho em 1 ou 2 minutos.
+**Resumo:**
+1. Edite `mapa/dados/dados-mapa.xlsx`.
+2. Rode `python mapa/scripts/gerar_mapa.py`.
+3. Confira o resultado.
+4. Faça o commit e o push.
+
+O site atualiza sozinho em 1 ou 2 minutos.
 
 ## Sumário
 
@@ -32,62 +38,89 @@ Baixe o repositório uma vez (GitHub Desktop: *File → Clone repository → dqu
 
 ## 2. Entenda a planilha
 
-O arquivo é **`mapa/dados/locais.xlsx`**. É a única fonte dos locais: o site não lê mais o Google Sheets. Cada **linha** é um item que aparece numa sala: um laboratório, um professor, um serviço.
+O arquivo é **`mapa/dados/dados-mapa.xlsx`**. Ele é a única fonte dos dados do mapa e tem três abas de dados. Cada sala, cada pessoa e cada laboratório ou serviço aparece **uma vez só**.
+
+Regras que valem para todas as abas:
+- **Colunas pelo nome:** o script encontra cada coluna pelo nome do cabeçalho. Não renomeie os cabeçalhos.
+- **Coluna `n`:** é só a numeração das linhas, para organizar. O script ignora essa coluna.
+- **Ordem:** a ordem das linhas é a ordem em que aparecem no mapa.
+- **Campos vazios:** não aparecem no mapa (e-mail, Lattes, site, descrição).
+
+### Aba `Salas`: uma linha por sala
 
 | Coluna | Obrigatória | Exemplo | O que faz |
 |---|---|---|---|
-| `n` | sim | `139` | Ordem dentro da sala. O item de **menor `n`** dá nome à sala na planta e na lista. |
-| `ID_fisico` | sim | `45-B` | **Número da sala, igual ao da porta.** É o que liga a linha à sala desenhada. |
-| `Nome do Local` | sim | `Secretaria da Pós-graduação em Química` | Nome do item. Linhas sem nome são ignoradas. |
-| `Sigla` | não | `PPGQ` | Aparece num selo ao lado do nome (some se já estiver no nome). |
-| `Descrição` | não | `Acesso mediante reserva prévia` | Texto abaixo do nome: responsável, horário, restrições. |
-| `Tipo de local` | sim | `servico` | Categoria e cor da sala. |
-| `E-mail` | não | `fulano@ufpr.br` | Para pessoas (professores, secretarias). Vira um link que abre o programa de e-mail. |
-| `Site` | não | `www.quimica.ufpr.br/lab` | Para laboratórios de pesquisa. Pode ser escrito sem `https://`. Abre em nova aba. |
-| `ID_digital` | **não usar** | | Coluna antiga. É ignorada e pode ser apagada. |
+| `Sala` | sim | `45-B` | **Número da sala, igual ao da porta.** Liga a linha à sala desenhada na planta. |
+| `Tipo` | sim | `Sala de professores` | Cor da sala na planta (lista de escolha). |
+| `Nome` | não | `Banheiro Feminino` | Só quando a sala tem nome próprio: sala de aula, banheiro, auditório. |
+| `Acesso ou observação` | não | `Acesso restrito/servidores` | Aparece no cartão da sala. |
 
-Valores aceitos em **`Tipo de local`** (escreva exatamente assim, sem acento e sem espaço):
+Valores de **`Tipo`**: Sala de aula, Sala de professores, Laboratório de ensino, Laboratório de pesquisa, Serviço, Banheiro e Outros (cinza).
 
-| Valor | Categoria no site |
-|---|---|
-| `salaaula` | Sala de aula |
-| `salaprof` | Sala de professores |
-| `labensino` | Laboratório de ensino |
-| `labpesquisa` | Laboratório de pesquisa |
-| `servico` | Serviço |
-| `banheiro` | Banheiro |
+### Aba `Pessoas`: professores e técnicos
 
-Qualquer outro valor vira "Outros", em cinza, e o script avisa.
+| Coluna | Obrigatória | Exemplo | O que faz |
+|---|---|---|---|
+| `Nome` | sim | `Shirley Nakagaki` | Nome completo. É o nome usado na coordenação dos laboratórios. |
+| `Cargo` | sim | `Professora` | Professor, Professora, Técnico ou Técnica (lista de escolha). |
+| `Área ou setor` | não | `Química Inorgânica` | Área do professor ou setor do técnico. |
+| `Sala` | sim | `7` | Sala da pessoa (o número da aba `Salas`). |
+| `E-mail` | não | `nome@ufpr.br` | **Só o institucional (`@ufpr.br`).** Publique só com o consentimento da pessoa. |
+| `Lattes` | não | `lattes.cnpq.br/1234567890123456` | Endereço do currículo Lattes; o `https://` pode ficar de fora. |
+
+Só entram pessoas com cargo público e sala no departamento (professores e técnicos). Alunos não entram.
+
+### Aba `Unidades`: laboratórios e serviços
+
+| Coluna | Obrigatória | Exemplo | O que faz |
+|---|---|---|---|
+| `Nome` | sim | `Laboratório de Bioinorgânica` | Nome da unidade. |
+| `Sigla` | não | `LaBioInC` | Selo ao lado do nome; também serve para buscar. |
+| `Tipo` | sim | `Laboratório de pesquisa` | Laboratório de pesquisa, Laboratório de ensino ou Serviço (lista de escolha). |
+| `Salas` | sim | `8; 9` | Uma ou mais salas, separadas por ponto e vírgula. |
+| `Coordenação` | não | `Shirley Nakagaki; Jaísa Fernandes Soares` | Um ou mais nomes, separados por ponto e vírgula, **escritos igual à aba `Pessoas`**. |
+| `Descrição` | não | `Síntese e caracterização de…` | O que a unidade faz. Nos laboratórios de ensino, uma descrição breve. |
+| `Site` | não | `laesb.ufpr.br` | Site do laboratório; o `https://` pode ficar de fora. |
+
+**O que se espera de cada tipo de unidade:**
+- **Laboratório de pesquisa:** descrição, site e coordenação.
+- **Laboratório de ensino:** uma descrição breve.
+- **Serviço:** descrição com horário ou regras de acesso, se houver.
+
+**No mapa:**
+- Cada pessoa e cada laboratório tem um cartão próprio.
+- O cartão da pessoa mostra o cargo, a sala, o e-mail, o Lattes e os laboratórios que ela coordena.
+- O cartão do laboratório mostra a descrição, o site, a coordenação (tocar num nome abre a pessoa) e as salas.
+- O cartão da sala mostra o que funciona nela e quem trabalha nela.
 
 **Regras importantes**
 
-- **Uma sala, várias linhas.** Professores que dividem a sala 23 são quatro linhas com `ID_fisico` = `23`. A planta mostra uma sala só, com os quatro nomes.
-- **A cor da sala vem do primeiro item** (menor `n`). Se a sala tem um laboratório e um professor, deixe o laboratório com o `n` menor.
-- **Não use o mesmo `ID_fisico` para salas diferentes.** Se duas portas têm o mesmo número, diferencie (ex.: `49-A` e `49-B`) e ajuste o desenho (seção 8).
-- **Não deixe espaços sobrando** nem quebre linha dentro da célula. O script limpa espaços nas pontas, mas não corrige erros de digitação.
-- **Use letras maiúsculas iguais às da porta** no `ID_fisico`: `45-A`, não `45-a`.
+- **Um nome, um jeito de escrever.** Na `Coordenação`, use o nome exatamente como está na aba `Pessoas`. Acentos e maiúsculas não importam, mas abreviações sim: "Jaísa Soares" não encontra "Jaísa Fernandes Soares". Se o coordenador não estiver em `Pessoas`, o nome aparece no cartão, mas sem link.
+- **O número da sala é o da porta**, com letras maiúsculas: `45-A`, não `45-a`.
+- **Não quebre linha dentro da célula.** O script limpa os espaços nas pontas, mas não corrige erros de digitação.
 
 ## 3. Casos comuns
 
-### Trocar o nome, a sigla ou a descrição
-Edite a célula e siga para a [seção 4](#4-gerar-os-dados-do-site).
-
-### Incluir o e-mail de uma pessoa ou o site de um laboratório
-Preencha a coluna `E-mail` ou `Site` na **linha da pessoa ou do laboratório**, não na da sala. Cada linha tem o próprio contato. O e-mail e o site aparecem no painel da sala e nos detalhes do cartão da lista.
-
-Use de preferência o e-mail institucional e só publique o e-mail de quem concordou com isso.
-
 ### Professor mudou de sala
-Na linha do professor, troque o `ID_fisico` pelo número da sala nova.
+Na aba `Pessoas`, troque a `Sala` da pessoa. O cartão da sala antiga e o da nova se ajustam sozinhos.
 
-### Pessoa ou laboratório saiu
-Apague a linha inteira (não só o conteúdo das células).
+### Pessoa saiu do departamento
+Apague a linha da pessoa em `Pessoas`. Se ela coordenava algum laboratório, tire o nome da `Coordenação` desse laboratório. O script avisa se esquecer.
 
-### Novo laboratório ou serviço numa sala que já existe
-Crie uma linha com o `ID_fisico` da sala, o nome, a categoria e um `n` que ainda não exista (use o maior `n` da planilha + 1).
+### Novo professor ou técnico
+Inclua uma linha em `Pessoas`, com nome, cargo, área e sala.
+
+### Laboratório mudou de descrição, site ou coordenação
+Edite a linha do laboratório em `Unidades`. Como cada laboratório aparece uma vez só, a mudança vale para todas as salas dele.
+
+### Laboratório ganhou ou perdeu uma sala
+Na coluna `Salas` da unidade, acrescente ou tire o número (ex.: `8; 9; 10`). Confira o `Tipo` da sala na aba `Salas`.
+
+### Novo laboratório ou serviço
+Inclua uma linha em `Unidades`. Se a sala é nova no cadastro, inclua também a linha dela em `Salas`.
 
 ### A sala mudou de uso (ex.: virou sala de aula)
-Atualize o `Tipo de local` de todas as linhas daquela sala. A cor muda sozinha.
+Na aba `Salas`, troque o `Tipo`. A cor na planta muda sozinha.
 
 ### Sala nova, que não aparece no desenho
 Veja a [seção 8](#8-quando-a-sala-não-existe-no-desenho).
@@ -108,52 +141,53 @@ pip install openpyxl
 
 O script:
 
-1. lê `mapa/dados/locais.xlsx`;
-2. gera `mapa/dados/locais.json`, que o navegador usa para o painel de detalhes;
-3. reescreve, em `mapa/index.html`, a planta, os botões "Destacar na planta" (com as contagens) e a lista "Todos os locais".
+1. lê as abas `Salas`, `Pessoas` e `Unidades` de `mapa/dados/dados-mapa.xlsx`;
+2. confere as ligações (salas que existem, nomes da coordenação, e-mails, endereços);
+3. gera `mapa/dados/locais.json`, que o navegador usa para os cartões e a busca;
+4. reescreve, em `mapa/index.html`, a planta, os botões "Destacar na planta" (com as contagens) e a lista "Todos os locais".
 
 Saída esperada (os números mudam conforme a planilha):
 
 ```
-144 linhas da planilha → 101 locais em 104 áreas da planta
-  Salas de aula: 7
+101 salas, 59 pessoas e 57 unidades (planta com 104 áreas)
+  Salas de aula: 6
   Salas de professores: 22
   ...
 ```
 
 Linhas começando com `aviso:` pedem atenção: veja a [seção 7](#7-avisos-do-script-e-como-resolver).
 
+As imagens de prévia dos links compartilhados são refeitas sozinhas pelo GitHub, depois do push.
+
 ## 5. Conferir antes de publicar
 
-O jeito mais seguro é abrir o site no seu computador. O portal e o mapa ficam no mesmo repositório, então basta:
+O jeito mais seguro é abrir o site no seu computador:
 
 1. Na raiz do repositório, rode `python -m http.server 8000`.
 2. Abra <http://localhost:8000/mapa/>.
 
 Confira:
 
-- a sala que você mudou aparece com o nome e a cor certos (clique nela na planta);
-- a busca encontra o que você incluiu;
-- os números dos botões "Destacar na planta" fazem sentido.
-
-Se não der para testar localmente, ao menos abra `mapa/index.html` num editor de texto e procure (Ctrl+F) pelo nome que você mudou.
+- **a sala:** a sala que você mudou aparece com o nome e a cor certos (clique nela na planta);
+- **a busca:** busque o nome da pessoa ou do laboratório; o cartão mostra o que você preencheu;
+- **a coordenação:** no cartão do laboratório, os nomes da coordenação abrem o cartão da pessoa.
 
 ## 6. Publicar
 
 Faça o commit dos três arquivos que mudaram:
 
-- `mapa/dados/locais.xlsx`
+- `mapa/dados/dados-mapa.xlsx`
 - `mapa/dados/locais.json`
 - `mapa/index.html`
 
-No GitHub Desktop: escreva um resumo (ex.: "Atualiza salas dos professores de Química Orgânica"), clique em **Commit to main** e depois em **Push origin**. Pela linha de comando:
+No GitHub Desktop: escreva um resumo (ex.: "Atualiza a coordenação do LAESB"), clique em **Commit to main** e depois em **Push origin**. Pela linha de comando:
 
 ```bash
-git add mapa/dados/locais.xlsx mapa/dados/locais.json mapa/index.html
+git add mapa/dados/dados-mapa.xlsx mapa/dados/locais.json mapa/index.html
 ```
 
 ```bash
-git commit -m "Atualiza salas dos professores de Química Orgânica"
+git commit -m "Atualiza a coordenação do LAESB"
 ```
 
 ```bash
@@ -168,13 +202,17 @@ Registre mudanças grandes (muitas salas de uma vez, nova categoria) na página 
 
 | Aviso | O que significa | O que fazer |
 |---|---|---|
-| `o local X está na planilha, mas não tem área na planta` | O número `X` não existe no desenho. A sala aparece só na lista, não na planta. | Confira se o número está certo (ex.: `45B` em vez de `45-B`). Se for uma sala nova, veja a seção 8. |
-| `a área X da planta não tem linhas na planilha` | A sala existe no desenho, mas ninguém está nela. Aparece em cinza, como "Sem informações". | Normal para sala vazia. Se não for, inclua as linhas na planilha. |
-| `linha N: e-mail 'x' inválido, ignorado` | O e-mail da linha N não tem o formato `nome@dominio.br`. | Corrija o e-mail. Enquanto isso, a linha aparece sem e-mail. |
-| `linha N: site 'x' inválido, ignorado` | O site da linha N não parece um endereço (ex.: tem espaços ou não tem domínio). | Corrija o endereço. Enquanto isso, a linha aparece sem site. |
-| `linha N: tipo 'x' desconhecido` | O `Tipo de local` da linha N está escrito diferente da tabela da seção 2. | Corrija para um dos valores aceitos. |
+| `'X' (coordenação de 'Y') não está na aba Pessoas` | O nome na `Coordenação` não bate com nenhuma pessoa. Ele aparece no cartão, mas sem link. | Escreva o nome igual à aba `Pessoas`, ou inclua a pessoa lá (se for professor ou técnico). |
+| `sala X de 'Y' não está na aba Salas` | A unidade ou a pessoa aponta para uma sala que não existe. | Confira o número (ex.: `45B` em vez de `45-B`) ou inclua a sala em `Salas`. |
+| `a sala X não existe no desenho da planta` | A sala está em `Salas`, mas não no desenho. Aparece só na lista. | Confira o número. Se for uma sala nova, veja a seção 8. |
+| `a sala X está desenhada na planta, mas não está na aba Salas` | Falta a linha da sala. Ela aparece em cinza. | Inclua a sala em `Salas`. |
+| `a sala X não tem nome, pessoas nem unidades` | A sala existe, mas nada está ligado a ela. | Normal para sala vazia. Se não for, ligue uma pessoa ou unidade a ela. |
+| `e-mail 'x' ignorado (só o institucional, @ufpr.br)` | O e-mail não é `@ufpr.br`. | Use o e-mail institucional. |
+| `Lattes 'x' inválido` / `site 'x' inválido` | O endereço não parece válido. | Corrija o endereço. Enquanto isso, ele não aparece. |
+| `tipo 'x' desconhecido` | O `Tipo` está escrito diferente da lista. | Escolha um valor da lista de escolha da célula. |
+| `'X' aparece mais de uma vez` | Sala ou pessoa repetida. | Apague a linha repetida. |
+| `falta a aba ...` / `falta a coluna ...` | Uma aba ou um cabeçalho foi renomeado ou apagado. | Restaure o nome exato (seção 2). |
 | `Instale o openpyxl` | Falta a biblioteca que lê o Excel. | `pip install openpyxl` |
-| `falta a coluna ...` | Uma coluna obrigatória foi renomeada ou apagada. | Restaure o nome exato do cabeçalho (seção 2). |
 | `PermissionError` | A planilha pode estar aberta no Excel. | Feche o Excel e rode de novo. |
 
 ## 8. Quando a sala não existe no desenho
@@ -188,7 +226,7 @@ O desenho da planta fica em dois arquivos:
 {"local": "45-B", "pontos": [[5288.8, 3020.1], [5414.9, 3020.1], [5414.9, 3273.3], [5288.8, 3273.3]], "rotulo": [5352, 3147]}
 ```
 
-**Mudou só o número de uma sala existente:** em `planta-areas.json`, troque o `local` da área pelo número novo (Ctrl+F pelo número antigo) e atualize a planilha. Rode o script.
+**Mudou só o número de uma sala existente:** em `planta-areas.json`, troque o `local` da área pelo número novo (Ctrl+F pelo número antigo). Depois troque o número na planilha, nas três abas, e rode o script.
 
 **Uma sala foi dividida em duas:** é preciso desenhar duas áreas no lugar de uma. As coordenadas usam o mesmo sistema do desenho (`viewBox` `480 600 6460 2760`). Abra `planta-base.svg` num editor vetorial (Inkscape, Illustrator), meça os cantos das novas salas e substitua a área antiga por duas novas no JSON. Se não tiver experiência com isso, abra uma *issue* no repositório descrevendo a mudança.
 
@@ -197,8 +235,8 @@ O desenho da planta fica em dois arquivos:
 ## 9. Checklist
 
 - [ ] Fiz *Pull* antes de começar.
-- [ ] Editei `mapa/dados/locais.xlsx` seguindo as regras da seção 2.
+- [ ] Editei `mapa/dados/dados-mapa.xlsx` seguindo as regras da seção 2.
 - [ ] Rodei `python mapa/scripts/gerar_mapa.py` e não sobrou nenhum `aviso:` inesperado.
-- [ ] Conferi a sala alterada na planta (seção 5).
-- [ ] Fiz commit de `locais.xlsx`, `locais.json` e `mapa/index.html` juntos.
+- [ ] Conferi a sala, a pessoa ou o laboratório alterado no mapa (seção 5).
+- [ ] Fiz commit de `dados-mapa.xlsx`, `locais.json` e `mapa/index.html` juntos.
 - [ ] Fiz *Push* e conferi o site publicado.
