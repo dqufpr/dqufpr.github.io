@@ -19,6 +19,11 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Celular e tablet mais compactos:**
+  - **A planta vai até o pé da tela,** sem a faixa vazia embaixo. A altura é calculada a partir da barra de busca medida, e a planta passa a ocupar de 82% a 90% da tela (antes, cerca de 75%).
+  - **Lupa:** fica redonda, com borda, igual aos botões de destaque. Antes tinha um fundo branco quadrado.
+  - **Controles menores:** seletor de andar, barra de ferramentas (botões de 40px) e barra das entradas.
+  - **Barra de ferramentas:** os grupos são separados por linhas finas.
 - **Ao abrir o mapa:** ondas saem da seta da entrada principal por alguns segundos, mostrando por onde se chega. O efeito não aparece em links de sala, pessoa ou entrada, nem para quem pediu menos movimento ao sistema.
 - **Dica de uso no computador:** numa linha só, com um ícone de ajuda. Em telas de computador com menos de 1320px, ela não aparece, porque encostaria na barra das entradas.
 - **Sombras:** a busca, os destaques, o seletor de andar, as ferramentas e a barra das entradas usam a mesma sombra, curta. A sombra dos botões de destaque não é mais cortada pela rolagem da fileira.
