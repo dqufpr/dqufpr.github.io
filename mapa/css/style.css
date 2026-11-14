@@ -150,6 +150,19 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 /* Entradas do prédio (scripts/gerar_mapa.py): círculo verde com seta para dentro */
 .entrada { cursor: pointer; }
 .entrada__circulo { fill: var(--planta-entrada); stroke: var(--planta-fundo); stroke-width: 8; }
+/* Ondas da entrada principal, só ao abrir o mapa (js/mapa.js: chamaEntradaPrincipal) */
+.entrada__onda {
+  fill: none; stroke: var(--planta-entrada); stroke-width: 12; opacity: 0; pointer-events: none;
+  transform-box: fill-box; transform-origin: center; animation: entrada-onda 1.8s ease-out 3 both;
+}
+.entrada__onda--2 { animation-delay: 0.6s; }
+.entrada__onda--3 { animation-delay: 1.2s; }
+@keyframes entrada-onda {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .entrada__onda { display: none; } }
+@media print { .entrada__onda { display: none; } }
 .entrada__halo { fill: var(--planta-entrada); opacity: 0.22; }
 .entrada__seta { fill: none; stroke: #fff; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .entrada__nome {
@@ -193,7 +206,7 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
   position: absolute; left: 50%; bottom: var(--space-2); z-index: 2; transform: translateX(-50%); max-width: calc(100% - 2 * var(--space-2));
   display: flex; align-items: center; gap: var(--space-1); padding: 4px 4px 4px var(--space-3); overflow-x: auto; scrollbar-width: none;
   border: 1px solid var(--border); border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--shadow-md);
+  background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--sombra-sobre);
 }
 .planta__entradas-rot { margin-right: var(--space-1); color: var(--text-muted); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.06em; text-transform: uppercase; }
 .planta__entradas .painel__ponto { flex: none; min-height: 34px; padding: 0 var(--space-3); }
@@ -227,10 +240,14 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
    - o painel à direita (computador) ou no pé da tela (celular e tablet).
    --mapa-x / --mapa-y: recuo a partir do canto da planta (no computador, abaixo da busca) */
 .planta { --mapa-x: var(--space-2); --mapa-y: var(--space-2); --pisos-h: 46px; }
+/* Sombra única dos elementos que ficam sobre a planta (busca, destaques, seletor de andar,
+   ferramentas, entradas): curta, para não borrar o desenho embaixo */
+:root { --sombra-sobre: 0 1px 2px rgba(11, 31, 59, 0.10), 0 3px 10px -2px rgba(11, 31, 59, 0.20); }
+[data-theme="dark"] { --sombra-sobre: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 10px -2px rgba(0, 0, 0, 0.6); }
 .planta__pisos {
   position: absolute; top: var(--mapa-y); left: var(--mapa-x); z-index: 2;
   display: flex; padding: 3px; gap: 2px; border: 1px solid var(--border); border-radius: var(--radius-pill);
-  background: var(--surface); box-shadow: var(--shadow-md);
+  background: var(--surface); box-shadow: var(--sombra-sobre);
 }
 .planta__pisos[hidden] { display: none; }
 .planta__piso {
@@ -249,7 +266,7 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 .planta__controles {
   position: absolute; top: calc(var(--mapa-y) + var(--pisos-h) + var(--space-2)); left: var(--mapa-x); z-index: 2;
   display: flex; flex-direction: column; overflow: hidden;
-  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-md);
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--sombra-sobre);
 }
 .planta__controles[hidden] { display: none; }
 .planta__btn {
@@ -267,10 +284,14 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 .planta__ampliar[aria-pressed="true"] .icon-expand { display: none; }
 .planta__ampliar[aria-pressed="true"] .icon-shrink { display: block; }
 .planta__dica {
-  position: absolute; left: var(--space-2); bottom: var(--space-2); max-width: calc(100% - 80px); margin: 0;
-  padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--surface) 88%, transparent); color: var(--text-muted); font-size: var(--fs-xs);
+  position: absolute; left: var(--space-2); bottom: var(--space-2); margin: 0;
+  display: inline-flex; align-items: center; gap: var(--space-2); white-space: nowrap;
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2); border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--text-muted); font-size: var(--fs-xs);
 }
+.planta__dica .icon { width: 16px; height: 16px; flex: none; color: var(--accent); }
+/* Computador estreito: numa linha só, a dica encostaria na barra das entradas */
+@media (min-width: 1024px) and (max-width: 1319.98px) { .mapa-js .planta__dica { display: none; } }
 .planta__dica[hidden] { display: none; }
 
 /* 7. Painel de informações */
@@ -630,7 +651,10 @@ body:has(.explorador) .site-footer { margin-top: 0; }
     display: flex; align-items: center; gap: var(--space-4); pointer-events: none;
   }
   .mapa-js .explorador__barra > * { pointer-events: auto; }
-  .mapa-js .explorador__busca .input, .mapa-js .explorador__destaques button { box-shadow: var(--shadow-md); }
+  .mapa-js .explorador__busca .input, .mapa-js .explorador__destaques button { box-shadow: var(--sombra-sobre); }
+  .mapa-js .explorador__busca .input:focus { box-shadow: var(--sombra-sobre), 0 0 0 3px color-mix(in srgb, var(--focus-ring) 30%, transparent); }
+  /* A fileira de destaques rola para o lado; o recuo em cima e embaixo deixa a sombra inteira */
+  .mapa-js .explorador__destaques .quick-links { padding-block: 6px 12px; margin-block: -6px -12px; }
   .mapa-js .explorador__busca { flex: 0 1 clamp(200px, 20vw, 300px); min-width: 180px; max-width: none; margin: 0; }
   .mapa-js .explorador__busca .input { min-height: 40px; padding-block: var(--space-2); }
   .mapa-js .explorador__busca .label, .mapa-js .explorador__busca .hint,
@@ -665,7 +689,7 @@ body:has(.explorador) .site-footer { margin-top: 0; }
   /* Controles à esquerda, alinhados à busca, para o painel não cobri-los */
   .mapa-js .planta { --mapa-x: var(--gutter); --mapa-y: var(--topo-livre); }
   /* Dica no canto de baixo à direita, para não disputar lugar com a barra das entradas */
-  .mapa-js .planta__dica { left: var(--gutter); max-width: min(360px, calc(50% - 180px)); }
+  .mapa-js .planta__dica { left: var(--gutter); bottom: var(--space-3); }
 
   /* Ampliado: a planta cobre a tela inteira, com a barra por cima */
   .mapa-js .explorador:fullscreen, .mapa-js .explorador.is-expanded { padding: 0; grid-template-rows: minmax(0, 1fr); }

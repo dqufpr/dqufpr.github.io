@@ -629,6 +629,25 @@
     render(); // antes de enquadrar: no celular, o cartão já ocupa o pé da tela
     if (enquadrar) enquadra(id); else garanteVisivel(id);
   }
+  // Ao abrir o mapa: ondas saindo da seta da entrada principal, por alguns segundos, para
+  // mostrar por onde se chega (não repete; sem animação para quem pediu menos movimento)
+  function chamaEntradaPrincipal() {
+    if (reduzMovimento) return;
+    var g = svg.querySelector('.entrada[data-entrada="principal"]');
+    var c = g && g.querySelector('.entrada__circulo');
+    if (!c) return;
+    var ns = 'http://www.w3.org/2000/svg', ondas = [];
+    for (var i = 1; i <= 3; i++) {
+      var o = document.createElementNS(ns, 'circle');
+      o.setAttribute('class', 'entrada__onda entrada__onda--' + i);
+      ['cx', 'cy', 'r'].forEach(function (k) { o.setAttribute(k, c.getAttribute(k)); });
+      g.insertBefore(o, g.firstChild.nextSibling); // atrás do círculo (depois do <title>)
+      ondas.push(o);
+    }
+    ondas[2].addEventListener('animationend', function () {
+      ondas.forEach(function (o) { if (o.parentNode) o.parentNode.removeChild(o); });
+    });
+  }
   function marcaEntrada(id) {
     Array.prototype.forEach.call(svg.querySelectorAll('[data-entrada]'), function (g) {
       g.classList.toggle('is-sel', g.getAttribute('data-entrada') === id);
@@ -1681,6 +1700,7 @@
       leEndereco();
       render();
       if (estado.entrada) enquadraEntrada(estado.entrada);
+      if (!estado.local && !estado.pessoa && !estado.unidade && !estado.entrada) chamaEntradaPrincipal();
       if (estado.local) enquadra(estado.local); // depois do render: no celular, o cartão já tem altura
       if (estado.pessoa && porPessoa[estado.pessoa].sala) enquadra(porPessoa[estado.pessoa].sala);
       if (estado.unidade && porUnidade[estado.unidade].salas.length) enquadraNos(areasDe(salasNoAndar(porUnidade[estado.unidade])));
