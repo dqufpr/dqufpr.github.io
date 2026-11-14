@@ -700,20 +700,17 @@
     b.appendChild(el('span', 'painel__item-num', l.id));
     var t = el('span', 'painel__item-txt');
     t.appendChild(el('span', 'painel__item-nome', titulo(l)));
-    var sub = subtitulo(l);
-    if (sub) t.appendChild(el('span', 'painel__item-sub', sub));
+    t.appendChild(el('span', 'painel__item-sub', subtitulo(l)));
+    if (l.resumo) t.appendChild(el('span', 'painel__item-sub painel__item-resumo', l.resumo)); // o que compõe a sala
     b.appendChild(t);
     li.appendChild(b);
     return li;
   }
-  // Nome curto da sala (calculado em scripts/gerar_mapa.py)
-  function titulo(l) { return l.titulo || 'Sem informações'; }
+  // A sala se identifica pelo número ("Sala 88") e pela categoria dela
+  function titulo(l) { return 'Sala ' + l.id; }
+  function categoriaDe(l) { return nomesCat[l.categoria] || nomesCat.outros; }
   function andarDe(l) { return nomesAndar[l.andar || 0] || nomesAndar[0]; }
-  function subtitulo(l) {
-    var base = l.categoria === 'sala-prof' && l.resumo ? l.resumo
-      : l.categorias.map(function (c) { return nomesCat[c]; }).join(' · ');
-    return andarDe(l) + ' · ' + base;
-  }
+  function subtitulo(l) { return categoriaDe(l) + ' · ' + andarDe(l); }
   function cargoArea(p) { return [p.cargo, p.area].filter(Boolean).join(' · '); }
   function salasTexto(salas) { return (salas.length > 1 ? 'Salas ' : 'Sala ') + salas.join(', '); }
   // Botão de pessoa ou de unidade nos cartões e nos resultados. Com a sala, mostra o
@@ -805,7 +802,7 @@
     var ct = contatos(p);
     if (ct) painel.appendChild(ct);
     if (l) painel.appendChild(secao(l.pessoas.length > 1 ? 'Sala, com ' + (l.pessoas.length - 1) + (l.pessoas.length > 2 ? ' colegas' : ' colega') : 'Sala',
-      [botaoItem('data-ir', l.id, titulo(l), andarDe(l), l.id)]));
+      [botaoItem('data-ir', l.id, titulo(l), subtitulo(l), l.id)]));
     var coord = (p.coordena || []).map(function (id) { return botaoUnidade(porUnidade[id], true); });
     if (coord.length) painel.appendChild(secao(coord.length > 1 ? 'Coordena os laboratórios' : 'Coordena', coord));
     if (l) painel.appendChild(acoesCartao(false));
@@ -830,8 +827,8 @@
     }
     // Salas da unidade: "Sala 8" quando a sala leva o nome da própria unidade
     var botaoSala = function (id) {
-      var x = porId[id], nome = titulo(x) === u.nome ? 'Sala ' + id : titulo(x);
-      return botaoItem('data-ir', id, nome, andarDe(x), id);
+      var x = porId[id];
+      return botaoItem('data-ir', id, titulo(x), subtitulo(x), id);
     };
     if (salas.length) painel.appendChild(secao(salas.length > 1 ? 'Salas' : 'Sala', salas.map(botaoSala)));
     if (l) painel.appendChild(acoesCartao(false));
@@ -905,6 +902,7 @@
   // contatos escritos por extenso (no papel, link não se clica)
   function blocoImpressao(l, us) {
     var box = el('div', 'painel__impressao');
+    if (l.nome) box.appendChild(el('p', 'imp__nome', l.nome));
     var semProto = function (u) { return u.replace(/^https?:\/\/(www\.)?|\/$/g, ''); };
     us.forEach(function (u) {
       var d = el('div', 'imp__item');
@@ -935,12 +933,14 @@
   function renderLocal() {
     var l = porId[estado.local];
     topoCartao('Fechar detalhes da sala ' + l.id);
-    painel.appendChild(cabecalho(l, 'Sala ' + l.id + ' · ' + l.categorias.map(function (c) { return nomesCat[c]; }).join(' · '), titulo(l)));
+    // Cabeçalho: "Sala 88" e a categoria; embaixo, o que compõe a sala
+    painel.appendChild(cabecalho(l, categoriaDe(l), titulo(l)));
+    if (l.nome) painel.appendChild(el('p', 'painel__item-nome painel__nome-sala', l.nome));
     if (l.acesso) painel.appendChild(el('p', 'painel__texto', l.acesso));
     // O que funciona na sala (laboratórios, serviços) e quem trabalha nela
     var us = l.unidades.map(function (id) { return porUnidade[id]; });
-    if (us.length && !(us.length === 1 && us[0].nome === titulo(l) && !us[0].descricao && !(us[0].coordenacao || []).length && !us[0].site)) {
-      painel.appendChild(secao(us.length > 1 ? 'Nesta sala' : 'Nesta sala', us.map(function (u) {
+    if (us.length) {
+      painel.appendChild(secao('Nesta sala', us.map(function (u) {
         var sub = u.descricao || ((u.coordenacao || []).length ? 'Coordenação: ' + u.coordenacao.map(function (c) { return c.nome; }).join(', ') : nomesCat[u.tipo]);
         if (u.salas.length > 1) sub += ' · também em ' + salasTexto(u.salas.filter(function (s) { return s !== l.id; })).toLowerCase();
         return botaoItem('data-ir-unidade', u.id, u.nome, sub, null, u.sigla);
@@ -950,7 +950,7 @@
       painel.appendChild(secao(l.categoria === 'sala-prof' ? (l.pessoas.length > 1 ? 'Professores' : 'Professor ou professora') : 'Pessoas',
         l.pessoas.map(function (id) { return botaoPessoa(porPessoa[id], false); })));
     }
-    if (!us.length && !l.pessoas.length && !l.acesso) {
+    if (!us.length && !l.pessoas.length && !l.acesso && !l.nome) {
       painel.appendChild(el('p', 'painel__texto', 'Ainda não há informações sobre este local.'));
     }
     painel.appendChild(acoesCartao(true, l.id));
@@ -969,7 +969,7 @@
   function urlLocal(l) {
     return window.location.origin + '/mapa/l/' + encodeURIComponent(l.id);
   }
-  function textoLocal(l) { return 'Sala ' + l.id + ' · ' + titulo(l) + ' | Mapa Digital, Química UFPR'; }
+  function textoLocal(l) { return titulo(l) + ' · ' + categoriaDe(l) + ' | Mapa Digital, Química UFPR'; }
   // WhatsApp e Instagram vêm do sprite do site; "Enviar" é um ícone de traço
   var ENVIAR = ['M12 3v12', 'M7.5 7.5L12 3l4.5 4.5', 'M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7'];
   function icone(nome) {

@@ -354,33 +354,20 @@ def monta_locais(salas, pessoas, unidades):
 
 
 def titulo(l, ps, us):
-    """Nome curto da sala: o nome próprio, a primeira unidade ou o tipo."""
-    if l.get("nome"):
-        return l["nome"]
-    if us:
-        return us[0]["nome"]
-    if ps and l["categoria"] == "sala-prof":
-        return "Sala de professores" if len(ps) > 1 else "Sala de professor"
-    if l["categoria"] == "outros" and not ps:
-        return "Sem informações"
-    return NOMES_CAT[l["categoria"]]
+    """A sala se identifica só pelo número ("Sala 88"); a categoria vem ao lado."""
+    return f"Sala {l['id']}"
 
 
 def resumo(l, ps, us):
-    """Uma linha sobre a sala, para os cartões da lista e as prévias de compartilhamento."""
-    if ps and l["categoria"] == "sala-prof":
-        return ", ".join(p["nome"] for p in ps)
-    if len(us) > 1:
-        return " · ".join(u["nome"] for u in us)
-    if us:
-        u = us[0]
-        if u.get("descricao"):
-            return u["descricao"]
-        if u.get("coordenacao"):
-            return "Coordenação: " + ", ".join(c["nome"] for c in u["coordenacao"])
+    """O que compõe a sala, numa linha: nome próprio, unidades e pessoas (cartões da lista,
+    resultados da busca e prévias de compartilhamento)."""
+    partes = []
+    if l.get("nome"):
+        partes.append(l["nome"])
+    partes += [u["nome"] for u in us]
     if ps:
-        return ", ".join(p["nome"] for p in ps)
-    return l.get("acesso") or ""
+        partes.append(", ".join(p["nome"] for p in ps))
+    return " · ".join(partes) or (l.get("acesso") or "")
 
 
 # Corte entre os andares no desenho-base (o 1º andar está desenhado abaixo do térreo)
@@ -427,14 +414,14 @@ def gera_planta(locais, areas, base):
     """Planta com um grupo por andar (.piso--0, .piso--1). Sem classe de vista, os dois andares aparecem
     como no desenho original (impressão e imagens de compartilhamento); js/mapa.js mostra um por vez."""
     cat = {l["id"]: l["categoria"] for l in locais}
-    nomes = {l["id"]: l["titulo"] for l in locais}
+    nomes = {l["id"]: f'{l["titulo"]} · {NOMES_CAT[l["categoria"]]}' for l in locais}
     poly, rot = {0: [], 1: []}, {0: [], 1: []}
     for a in areas:
         c = cat.get(a["local"], "outros")
         n = andar(a["local"])
         pts = " ".join(f"{x:g},{y:g}" for x, y in a["pontos"])
         e = html.escape(a["local"])
-        poly[n].append(f'<polygon class="area loc--{c}" data-local="{e}" points="{pts}"><title>{e} · {html.escape(nomes.get(a["local"], ""))}</title></polygon>')
+        poly[n].append(f'<polygon class="area loc--{c}" data-local="{e}" points="{pts}"><title>{html.escape(nomes.get(a["local"], ""))}</title></polygon>')
         tom = " rotulo--escuro" if c in CLARAS else ""
         rx, ry = posicao_rotulo(a)
         rot[n].append(f'<text class="rotulo{tom}" data-local="{e}" x="{rx}" y="{ry}">{e}</text>')
@@ -546,9 +533,11 @@ def gera_lista(locais, pessoas, unidades):
             sub = " · ".join(x for x in (p.get("cargo"), p.get("area")) if x)
             sub = f'<p class="local__desc">{html.escape(sub)}</p>' if sub else ""
             itens.append(f'<li><span class="local__item">{html.escape(p["nome"])}</span>{sub}{contatos(p)}</li>')
-        if l.get("acesso"):
-            itens.append(f'<li><p class="local__desc">{html.escape(l["acesso"])}</p></li>')
-        cat_txt = " · ".join(NOMES_CAT[c] for c in l["categorias"])
+        if l.get("nome") or l.get("acesso"):
+            nome = f'<span class="local__item">{html.escape(l["nome"])}</span>' if l.get("nome") else ""
+            acesso = f'<p class="local__desc">{html.escape(l["acesso"])}</p>' if l.get("acesso") else ""
+            itens.insert(0, f'<li>{nome}{acesso}</li>')
+        cat_txt = NOMES_CAT[l["categoria"]]  # a categoria da sala (os filtros usam data-categorias)
         piso = ANDARES[l["andar"]]["nome"]
         resumo_ = l.get("resumo") or ("" if itens else "Ainda não há informações sobre este local.")
         resumo_html = f'  <p class="local__resumo">{html.escape(resumo_)}</p>\n' if resumo_ else ""

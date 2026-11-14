@@ -80,7 +80,7 @@ O detalhe de cada coluna, os casos comuns e os avisos do script estão em [MAPA-
 
 ### O que o mapa mostra
 
-- **Cartão da sala:** o que funciona nela (unidades) e quem trabalha nela (pessoas).
+- **Cartão da sala:** identificado só pelo número e pela categoria ("Sala 88 · Laboratório de pesquisa"); embaixo, o que funciona nela (unidades) e quem trabalha nela (pessoas).
 - **Cartão da pessoa:** cargo e área, sala, e-mail, Lattes e os laboratórios que coordena.
 - **Cartão do laboratório ou serviço:** descrição, site, coordenação e todas as salas, marcadas juntas na planta.
 - **Busca:** resultados agrupados em Pessoas, Laboratórios e serviços, e Salas. O Enter abre o primeiro, nesta ordem: número de sala exato, pessoa, unidade, sala.

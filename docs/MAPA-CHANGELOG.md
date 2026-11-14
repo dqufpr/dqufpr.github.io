@@ -19,6 +19,7 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Cada espaço é identificado pelo número e pela categoria:** "Sala 88 · Laboratório de pesquisa", em vez do nome do laboratório ou de "Sala de professores" como título. O que compõe a sala (nome próprio, laboratórios, serviços e pessoas) aparece embaixo: em "Nesta sala" no cartão, numa linha de resumo nos resultados e na lista "Todos os locais", e nas imagens e descrições de compartilhamento. A dica da planta, os títulos das páginas de compartilhamento e o texto compartilhado seguem o mesmo formato.
 - **Elementos sobre a planta organizados do mesmo jeito em todos os tamanhos:**
   - **Canto de cima à esquerda:** o seletor Térreo | 1º andar e, logo abaixo, uma barra de ferramentas única (aproximar, afastar, planta inteira, girar e ampliar).
   - **Ampliar:** virou um ícone dentro dessa barra; antes era um botão separado.

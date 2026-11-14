@@ -49,17 +49,12 @@ const porUnidade = {};
 const porPessoa = {};
 (dados.unidades || []).forEach((u) => { porUnidade[u.id] = u; });
 (dados.pessoas || []).forEach((p) => { porPessoa[p.id] = p; });
-function titulo(l) { return l.titulo || 'Sem informações'; }
-function subtitulo(l) {
-  if (l.categoria === 'sala-prof' && l.resumo) return l.resumo;
-  return l.categorias.map((c) => nomesCat[c]).join(' · ');
-}
+// A sala se identifica pelo número ("Sala 88") e pela categoria; o resumo diz o que a compõe
+function titulo(l) { return 'Sala ' + l.id; }
+function subtitulo(l) { return nomesCat[l.categoria] || nomesCat.outros; }
 function descricao(l) {
   const partes = [andarDe(l) + ' · ' + subtitulo(l)];
-  const outros = (l.unidades || []).map((id) => porUnidade[id].nome)
-    .concat((l.pessoas || []).map((id) => porPessoa[id].nome))
-    .filter((n) => n !== titulo(l) && partes[0].indexOf(n) === -1);
-  if (outros.length) partes.push(outros.join(', '));
+  if (l.resumo) partes.push(l.resumo);
   partes.push('Veja onde fica na planta do Departamento de Química da UFPR.');
   return partes.join('. ').replace(/\.\./g, '.');
 }
@@ -112,6 +107,9 @@ const CARTAO = `<!DOCTYPE html>
   .tit.longo { font-size: 31px; }
   .sub { margin: 0; color: var(--text-muted); font-size: 22px; line-height: 1.3;
     display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .res { margin: 0; color: var(--text); font-size: 20px; line-height: 1.3;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .res:empty { display: none; }
 </style></head><body>
 <div class="quadro">
   <div class="fundo">${planta}</div>
@@ -122,6 +120,7 @@ const CARTAO = `<!DOCTYPE html>
     <span class="andar"></span>
     <p class="tit"></p>
     <p class="sub"></p>
+    <p class="res"></p>
   </div>
 </div>
 <script>
@@ -156,6 +155,7 @@ const CARTAO = `<!DOCTYPE html>
     tit.textContent = l.titulo;
     tit.classList.toggle('longo', l.titulo.length > 48);
     document.querySelector('.sub').textContent = l.subtitulo;
+    document.querySelector('.res').textContent = l.resumo || '';
     return true;
   };
 </script></body></html>`;
@@ -213,7 +213,7 @@ function aplicaCapa(url) {
 }
 
 function pagina(l, img) {
-  const t = 'Sala ' + l.id + ' (' + andarDe(l) + ') · ' + titulo(l);
+  const t = titulo(l) + ' · ' + subtitulo(l) + ' (' + andarDe(l) + ')';
   const d = descricao(l);
   const destino = '/mapa/?local=' + encodeURIComponent(l.id);
   return `<!DOCTYPE html>
@@ -269,7 +269,7 @@ function pagina(l, img) {
   const feitos = new Set();
   let n = 0;
   for (const l of dados.locais) {
-    const ok = await page.evaluate((x) => window.desenha(x), { id: l.id, categoria: l.categoria, andar: l.andar || 0, andarNome: andarDe(l), titulo: titulo(l), subtitulo: subtitulo(l) });
+    const ok = await page.evaluate((x) => window.desenha(x), { id: l.id, categoria: l.categoria, andar: l.andar || 0, andarNome: andarDe(l), titulo: titulo(l), subtitulo: subtitulo(l), resumo: l.resumo || '' });
     if (!ok) { console.warn('Sem área na planta, pulado: ' + l.id); continue; }
     const arq = l.id + '.jpg';
     const buf = await page.screenshot({ type: 'jpeg', quality: 82 });
