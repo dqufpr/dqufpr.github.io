@@ -75,10 +75,10 @@
   --btn-bg: #1d3c69;
   --btn-bg-hover: #274e88;
   --btn-text: #ffffff;
-  --btn-2-bg: transparent;      /* botão secundário (contorno) */
+  --btn-2-bg: rgba(43, 122, 147, 0.10);   /* botão secundário: fundo claro, sem contorno */
   --btn-2-text: #1d3c69;
-  --btn-2-border: #1d3c69;
-  --btn-2-hover: rgba(29, 60, 105, 0.08);
+  --btn-2-border: transparent;
+  --btn-2-hover: rgba(43, 122, 147, 0.18);
   --focus-ring: #2b7a93;
   --hover-soft: rgba(29, 60, 105, 0.06);
 
@@ -183,9 +183,10 @@
   --accent: #6cc0d8;
   --btn-bg: #2c5a94;
   --btn-bg-hover: #366aa9;
+  --btn-2-bg: rgba(108, 192, 216, 0.12);
   --btn-2-text: #dde5ee;
-  --btn-2-border: #5a7290;
-  --btn-2-hover: rgba(255, 255, 255, 0.06);
+  --btn-2-border: transparent;
+  --btn-2-hover: rgba(108, 192, 216, 0.20);
   --focus-ring: #6cc0d8;
   --hover-soft: rgba(255, 255, 255, 0.05);
 
@@ -349,7 +350,7 @@ code, kbd { font-family: var(--font-mono); font-size: 0.9em; background: var(--s
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
   min-height: var(--tap); padding: 0 var(--space-5);
-  border: 2px solid transparent; border-radius: var(--radius-md);
+  border: 1px solid transparent; border-radius: var(--radius-md); /* 1px, como as demais bordas */
   background: var(--btn-bg); color: var(--btn-text);
   font: inherit; font-weight: var(--fw-bold); line-height: 1.2; text-align: center; text-decoration: none;
   cursor: pointer; transition: background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast);

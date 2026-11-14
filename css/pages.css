@@ -81,7 +81,7 @@
 .sw-loc-outros { --sw: var(--loc-outros); }
 
 .type-scale { display: grid; gap: var(--space-3); }
-.type-scale > div { display: grid; gap: var(--space-1); padding-bottom: var(--space-3); border-bottom: 1px dashed var(--border); }
+.type-scale > div { display: grid; gap: var(--space-1); padding-bottom: var(--space-3); border-bottom: 1px solid var(--border); }
 .type-scale code { justify-self: start; font-size: var(--fs-xs); }
 .demo-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin-bottom: var(--space-4); }
 .token-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }

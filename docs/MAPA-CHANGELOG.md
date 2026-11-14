@@ -19,6 +19,12 @@
 - **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
 - **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
 - **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Cartões da lista mais limpos:** fechado, o cartão mostra só o número, "Sala N", a categoria e o andar. O que há na sala (laboratórios, serviços, pessoas) aparece em "Detalhes", sob o rótulo "Nesta sala".
+- **Bordas padronizadas:**
+  - 1px em tudo, inclusive nos botões (antes, 2px);
+  - separadores em linha contínua (antes, tracejados);
+  - etiquetas e botão secundário sem contorno, só com fundo claro ("Centralizar na planta" fica igual a "Ver na planta");
+  - "Detalhes" com o mesmo raio dos outros botões.
 - **Lista "Todos os locais" na grade de 12 colunas:** 12 locais por página (antes, 9), em 1, 2, 3 ou 4 cartões por linha, conforme a tela; as linhas sempre fecham.
 - **Celular e tablet mais compactos:**
   - **A planta vai até o pé da tela,** sem a faixa vazia embaixo. A altura é calculada a partir da barra de busca medida, e a planta passa a ocupar de 82% a 90% da tela (antes, cerca de 75%).

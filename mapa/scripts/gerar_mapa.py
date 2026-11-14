@@ -539,10 +539,10 @@ def gera_lista(locais, pessoas, unidades):
             itens.insert(0, f'<li>{nome}{acesso}</li>')
         cat_txt = NOMES_CAT[l["categoria"]]  # a categoria da sala (os filtros usam data-categorias)
         piso = ANDARES[l["andar"]]["nome"]
-        resumo_ = l.get("resumo") or ("" if itens else "Ainda não há informações sobre este local.")
-        resumo_html = f'  <p class="local__resumo">{html.escape(resumo_)}</p>\n' if resumo_ else ""
+        # Fechado, o cartão mostra só o número e o tipo; o que há na sala fica em "Detalhes"
+        resumo_html = "" if itens else '  <p class="local__resumo">Ainda não há informações sobre este local.</p>\n'
         tem_detalhes = bool(itens)
-        detalhes = (f'  <div class="local__detalhes" id="local-{e}-detalhes"><ul class="local__itens">{"".join(itens)}</ul></div>\n'
+        detalhes = (f'  <div class="local__detalhes" id="local-{e}-detalhes"><p class="local__rot">Nesta sala</p><ul class="local__itens">{"".join(itens)}</ul></div>\n'
                     if tem_detalhes else "")
         abrir = (f'<button type="button" class="local__abrir" aria-expanded="false" aria-controls="local-{e}-detalhes">Detalhes</button>'
                  if tem_detalhes else "")

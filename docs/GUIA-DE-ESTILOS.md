@@ -166,6 +166,20 @@ Regras:
 
 **Raios:** `--radius-sm` 6px (código, itens de menu) · `--radius-md` 10px (botões, campos, avisos) · `--radius-lg` 16px (cartões, formulário) · `--radius-pill` (selos, etiquetas).
 
+**Bordas:** um só padrão, para o conjunto ficar uniforme.
+
+| Regra | Valor | Onde |
+|---|---|---|
+| Espessura | **1px** em tudo | Cartões, painéis, botões, controles, separadores |
+| Cor de contêiner e controle | `--border` | Cartões, painel, barra de ferramentas, seletor de andar, destaques, paginação |
+| Cor de campo de formulário | `--border-strong` | `input`, `textarea`, `select` (contraste mínimo de 3:1 com o fundo) |
+| Separador | `1px solid var(--border)`, nunca tracejado | Entre itens de uma lista, acima dos detalhes de um cartão |
+| Botão secundário e "Ver na planta" | Sem contorno: fundo claro (`--btn-2-bg`) | Em todo o site (na faixa escura da página inicial, contorno branco) |
+| Etiquetas (`.local__cat`, `.local__andar`, `.badge`) | Sem contorno: só fundo | Em todo o site |
+| Estado escolhido | Borda na cor da categoria ou fundo cheio | Cartão aberto, página atual, entrada escolhida |
+
+As exceções têm função: o foco usa contorno de 3px (`--focus-ring`); a faixa de cor no topo do cartão de local e a linha de 4px no alto do rodapé são decorativas.
+
 **Sombras:**
 - `--shadow-sm`: cartão em repouso.
 - `--shadow-md`: cartão ao passar o mouse.
