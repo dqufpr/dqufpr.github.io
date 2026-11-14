@@ -30,6 +30,7 @@ import pathlib
 import re
 import sys
 import unicodedata
+import urllib.parse
 
 try:
     import openpyxl
@@ -494,6 +495,21 @@ def rotulo_link(u):
     return re.sub(r"^https?://(www\.)?|/$", "", u)
 
 
+# Parâmetros UTM (padrão do Google Analytics) nos sites de laboratórios e serviços,
+# iguais aos de js/mapa.js: o site de destino sabe que o acesso veio do Mapa Digital.
+UTM = {"utm_source": "dq_digital", "utm_medium": "referral", "utm_campaign": "mapa_digital"}
+SEM_UTM = re.compile(r"^(www\.)?(lattes\.cnpq\.br|dqufpr\.github\.io)$", re.I)
+
+
+def com_utm(url, onde):
+    """Acrescenta os UTM ao endereço, sem mexer no que já existe (consulta e âncora)."""
+    u = urllib.parse.urlsplit(url)
+    if SEM_UTM.match(u.hostname or "") or "utm_" in u.query:
+        return url
+    q = urllib.parse.parse_qsl(u.query, keep_blank_values=True) + list(UTM.items()) + [("utm_content", onde)]
+    return urllib.parse.urlunsplit(u._replace(query=urllib.parse.urlencode(q)))
+
+
 def contatos(i):
     """Links de e-mail, Lattes e site (lista "Todos os locais"); iguais aos do painel."""
     links = []
@@ -502,7 +518,7 @@ def contatos(i):
         links.append(f'<a class="contato contato--email" href="mailto:{e}">{ICONE.format("mail")}{e}</a>')
     for chave, rot in (("lattes", "Currículo Lattes"), ("site", None)):
         if i.get(chave):
-            u = html.escape(i[chave])
+            u = html.escape(com_utm(i[chave], "lista") if chave == "site" else i[chave])
             txt = rot or html.escape(rotulo_link(i[chave]))
             links.append(f'<a class="contato contato--{chave}" href="{u}" target="_blank" rel="noopener noreferrer">'
                          f'{ICONE.format("external")}{txt}<span class="visually-hidden"> (abre em nova aba)</span></a>')

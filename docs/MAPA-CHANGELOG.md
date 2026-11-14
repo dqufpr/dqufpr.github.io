@@ -10,6 +10,7 @@
 - **Compartilhar** também a pessoa e o laboratório.
 
 ### Mudado
+- **Origem dos acessos nos sites dos laboratórios e serviços:** os links do cartão e da lista levam parâmetros UTM (`utm_source=dq_digital`, `utm_medium=referral`, `utm_campaign=mapa_digital`, `utm_content=cartao` ou `lista`). O Google Analytics do site de destino passa a mostrar que o acesso veio do Mapa Digital. O Lattes e o e-mail ficam sem UTM.
 - **Botões de compartilhar padronizados, sem mensagem escrita:**
   - **WhatsApp e Instagram** só abrem o aplicativo (celular) ou o site (computador). O Instagram abre as mensagens (Direct) e não copia mais o link nem mostra "Link copiado".
   - **Copiar o link** confirma no próprio botão, que fica verde com um visto.

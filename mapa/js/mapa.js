@@ -1026,9 +1026,22 @@
     s.appendChild(u);
     return s;
   }
+  // Parâmetros UTM (padrão do Google Analytics) nos sites de laboratórios e serviços,
+  // para que eles saibam que o acesso veio do Mapa Digital. O link sai com
+  // rel="noreferrer", que esconde a origem; os UTM a informam sem expor a página.
+  var UTM = { utm_source: 'dq_digital', utm_medium: 'referral', utm_campaign: 'mapa_digital' };
+  function comUtm(url, onde) {
+    try {
+      var u = new URL(url);
+      if (/^(www\.)?(lattes\.cnpq\.br|dqufpr\.github\.io)$/i.test(u.hostname) || u.search.indexOf('utm_') !== -1) return url;
+      Object.keys(UTM).forEach(function (k) { u.searchParams.set(k, UTM[k]); });
+      u.searchParams.set('utm_content', onde);
+      return u.href;
+    } catch (e) { return url; }
+  }
   function linkExterno(url, rotulo) {
     var w = el('a', 'contato contato--site');
-    w.href = url;
+    w.href = comUtm(url, 'cartao');
     w.target = '_blank';
     w.rel = 'noopener noreferrer';
     w.appendChild(iconeSprite('external'));

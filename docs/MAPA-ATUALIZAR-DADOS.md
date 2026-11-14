@@ -80,7 +80,7 @@ Só entram pessoas com cargo público e sala no departamento (professores e téc
 | `Salas` | sim | `8; 9` | Uma ou mais salas, separadas por ponto e vírgula. |
 | `Coordenação` | não | `Shirley Nakagaki; Jaísa Fernandes Soares` | Um ou mais nomes, separados por ponto e vírgula, **escritos igual à aba `Pessoas`**. |
 | `Descrição` | não | `Síntese e caracterização de…` | O que a unidade faz. Nos laboratórios de ensino, uma descrição breve. |
-| `Site` | não | `laesb.ufpr.br` | Site do laboratório; o `https://` pode ficar de fora. |
+| `Site` | não | `laesb.ufpr.br` | Site do laboratório; o `https://` pode ficar de fora. Escreva só o endereço: o mapa acrescenta sozinho os parâmetros de origem (UTM). |
 
 **O que se espera de cada tipo de unidade:**
 - **Laboratório de pesquisa:** descrição, site e coordenação.
@@ -91,6 +91,7 @@ Só entram pessoas com cargo público e sala no departamento (professores e téc
 - Cada pessoa e cada laboratório tem um cartão próprio.
 - O cartão da pessoa mostra o cargo, a sala, o e-mail, o Lattes e os laboratórios que ela coordena.
 - O cartão do laboratório mostra a descrição, o site, a coordenação (tocar num nome abre a pessoa) e as salas.
+- **Origem dos acessos (UTM):** os links para os sites saem com `utm_source=dq_digital`, `utm_medium=referral`, `utm_campaign=mapa_digital` e `utm_content=cartao` (cartão) ou `lista` (lista "Todos os locais"). No Google Analytics do laboratório, os acessos aparecem em *Aquisição › Aquisição de tráfego*, com origem/mídia `dq_digital / referral`. O Lattes, o e-mail e os links do próprio DQ Digital ficam sem UTM. Um endereço que já tenha UTM na planilha é mantido como está.
 - O cartão da sala mostra o que funciona nela e quem trabalha nela.
 
 **Regras importantes**
