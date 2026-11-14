@@ -450,6 +450,9 @@ html.mapa-js, html.mapa-js body { touch-action: pan-x pan-y; }
 .contato { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; overflow-wrap: anywhere; text-underline-offset: 2px; }
 .contato .icon { width: 16px; height: 16px; flex: none; }
 .local__acoes { display: flex; align-items: center; gap: var(--space-2); margin-top: auto; padding-top: var(--space-2); }
+/* "Ver na planta" sem borda: um fundo claro já indica que é botão */
+.local__ver { border-color: transparent; background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.local__ver:hover { border-color: transparent; background: color-mix(in srgb, var(--accent) 18%, transparent); }
 .local__abrir {
   display: none; align-items: center; gap: var(--space-1); margin-left: auto; min-height: 36px; padding: 0 var(--space-2);
   border: 0; border-radius: var(--radius-sm); background: none; color: var(--accent);
