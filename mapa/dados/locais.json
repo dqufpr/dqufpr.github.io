@@ -1,0 +1,2927 @@
+{
+ "fonte": "dados-mapa.xlsx",
+ "categorias": [
+  {
+   "id": "sala-aula",
+   "nome": "Sala de aula",
+   "plural": "Salas de aula",
+   "locais": 6
+  },
+  {
+   "id": "sala-prof",
+   "nome": "Sala de professores",
+   "plural": "Salas de professores",
+   "locais": 22
+  },
+  {
+   "id": "lab-ensino",
+   "nome": "Laboratório de ensino",
+   "plural": "Laboratórios de ensino",
+   "locais": 12
+  },
+  {
+   "id": "lab-pesquisa",
+   "nome": "Laboratório de pesquisa",
+   "plural": "Laboratórios de pesquisa",
+   "locais": 36
+  },
+  {
+   "id": "servico",
+   "nome": "Serviço",
+   "plural": "Serviços",
+   "locais": 18
+  },
+  {
+   "id": "banheiro",
+   "nome": "Banheiro",
+   "plural": "Banheiros",
+   "locais": 8
+  }
+ ],
+ "andares": [
+  {
+   "id": 0,
+   "nome": "Térreo"
+  },
+  {
+   "id": 1,
+   "nome": "1º andar"
+  }
+ ],
+ "entradas": [
+  {
+   "id": "principal",
+   "tipo": "entrada",
+   "nome": "Entrada principal",
+   "andar": 0,
+   "descricao": "Entrada pela frente do prédio principal.",
+   "fora": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "A",
+   "tipo": "entrada",
+   "nome": "Entrada A",
+   "andar": 0,
+   "descricao": "Entrada lateral.",
+   "fora": [
+    -1,
+    0
+   ]
+  },
+  {
+   "id": "B",
+   "tipo": "entrada",
+   "nome": "Entrada B",
+   "andar": 0,
+   "descricao": "Entrada pelos fundos.",
+   "fora": [
+    0,
+    -1
+   ]
+  },
+  {
+   "id": "C",
+   "tipo": "entrada",
+   "nome": "Entrada C",
+   "andar": 0,
+   "descricao": "Entrada pelos fundos.",
+   "fora": [
+    0,
+    -1
+   ]
+  }
+ ],
+ "acessos": [
+  {
+   "id": "rampa-1",
+   "tipo": "rampa",
+   "nome": "Rampa 1",
+   "andar": 0,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "rampa-1-1"
+  },
+  {
+   "id": "rampa-2",
+   "tipo": "rampa",
+   "nome": "Rampa 2",
+   "andar": 0,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "rampa-2-1"
+  },
+  {
+   "id": "rampa-1-1",
+   "tipo": "rampa",
+   "nome": "Rampa 1",
+   "andar": 1,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "rampa-1"
+  },
+  {
+   "id": "rampa-2-1",
+   "tipo": "rampa",
+   "nome": "Rampa 2",
+   "andar": 1,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "rampa-2"
+  },
+  {
+   "id": "escada-1",
+   "tipo": "escada",
+   "nome": "Escada 1",
+   "andar": 0,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-1-1"
+  },
+  {
+   "id": "escada-2",
+   "tipo": "escada",
+   "nome": "Escada 2",
+   "andar": 0,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-2-1"
+  },
+  {
+   "id": "escada-1-1",
+   "tipo": "escada",
+   "nome": "Escada 1",
+   "andar": 1,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-1"
+  },
+  {
+   "id": "escada-2-1",
+   "tipo": "escada",
+   "nome": "Escada 2",
+   "andar": 1,
+   "descricao": "Liga o térreo ao 1º andar.",
+   "liga": "escada-2"
+  }
+ ],
+ "locais": [
+  {
+   "id": "1",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "auditorio-principal"
+   ],
+   "titulo": "Sala 1",
+   "resumo": "Auditório Principal"
+  },
+  {
+   "id": "4",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Privativo",
+   "acesso": "Acesso restrito/servidores",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 4",
+   "resumo": "Banheiro Privativo"
+  },
+  {
+   "id": "6",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "labrmn"
+   ],
+   "titulo": "Sala 6",
+   "resumo": "Laboratório Multiusuário de Ressonância Magnética Nuclear"
+  },
+  {
+   "id": "7",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "fabio-souza-nunes",
+    "jaisa-fernandes-soares",
+    "shirley-nakagaki"
+   ],
+   "unidades": [],
+   "titulo": "Sala 7",
+   "resumo": "Fabio Souza Nunes, Jaísa Fernandes Soares, Shirley Nakagaki"
+  },
+  {
+   "id": "8",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "labioinc"
+   ],
+   "titulo": "Sala 8",
+   "resumo": "Laboratório de Bioinorgânica"
+  },
+  {
+   "id": "9",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "labioinc"
+   ],
+   "titulo": "Sala 9",
+   "resumo": "Laboratório de Bioinorgânica"
+  },
+  {
+   "id": "10",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaa"
+   ],
+   "titulo": "Sala 10",
+   "resumo": "Laboratório de Química Analítica Ambiental"
+  },
+  {
+   "id": "11",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-multiusuario"
+   ],
+   "titulo": "Sala 11",
+   "resumo": "Laboratório Multiusuário"
+  },
+  {
+   "id": "12",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lia"
+   ],
+   "titulo": "Sala 12",
+   "resumo": "Laboratório de Instrumentação Analítica"
+  },
+  {
+   "id": "13",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lia"
+   ],
+   "titulo": "Sala 13",
+   "resumo": "Laboratório de Instrumentação Analítica"
+  },
+  {
+   "id": "14",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "gcc"
+   ],
+   "titulo": "Sala 14",
+   "resumo": "Grupo de Catálise e Cinética"
+  },
+  {
+   "id": "15",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-de-quimica-inorganica-aplicada"
+   ],
+   "titulo": "Sala 15",
+   "resumo": "Laboratório de Química Inorgânica Aplicada"
+  },
+  {
+   "id": "16",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "andrea-pinto-de-oliveira",
+    "antonio-salvio-mangrich"
+   ],
+   "unidades": [],
+   "titulo": "Sala 16",
+   "resumo": "Andrea Pinto de Oliveira, Antonio Salvio Mangrich"
+  },
+  {
+   "id": "17",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "gaea",
+    "labpam"
+   ],
+   "titulo": "Sala 17",
+   "resumo": "Grupo de Ações e Estudos Ambientais · Laboratório de Processos e Projetos Ambientais"
+  },
+  {
+   "id": "19",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "elisa-souza-orth",
+    "izabel-cristina-riegel-vidotti-miyata",
+    "marcio-eduardo-vidotti-miyata"
+   ],
+   "unidades": [],
+   "titulo": "Sala 19",
+   "resumo": "Elisa Souza Orth, Izabel Cristina Riegel Vidotti Miyata, Marcio Eduardo Vidotti Miyata"
+  },
+  {
+   "id": "20",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "gpmin"
+   ],
+   "titulo": "Sala 20",
+   "resumo": "Grupo de Pesquisa em Macromoléculas e Interfaces"
+  },
+  {
+   "id": "22",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lfq"
+   ],
+   "titulo": "Sala 22",
+   "resumo": "Laboratório de Físico-Química"
+  },
+  {
+   "id": "23",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "andersson-barison",
+    "clarice-dias-britto-do-amaral",
+    "marcio-peres-de-araujo",
+    "noemi-nagata"
+   ],
+   "unidades": [],
+   "titulo": "Sala 23",
+   "resumo": "Andersson Barison, Clarice Dias Britto do Amaral, Márcio Peres de Araujo, Noemi Nagata"
+  },
+  {
+   "id": "24",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de Aula da Pós-Graduação em Química",
+   "acesso": "Sala de aula do PPGQ",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 24",
+   "resumo": "Sala de Aula da Pós-Graduação em Química"
+  },
+  {
+   "id": "26",
+   "andar": 1,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "semioquimicos"
+   ],
+   "titulo": "Sala 26",
+   "resumo": "Laboratório de Semioquímicos"
+  },
+  {
+   "id": "27",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "giovana-g-nunes",
+    "liliana-micaroni",
+    "regina-m-q-de-mello"
+   ],
+   "unidades": [],
+   "titulo": "Sala 27",
+   "resumo": "Giovana G. Nunes, Liliana Micaroni, Regina M. Q. de Mello"
+  },
+  {
+   "id": "28",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de aula - PQ 12",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 28",
+   "resumo": "Sala de aula - PQ 12"
+  },
+  {
+   "id": "29",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "eduardo-lemos-de-sa",
+    "joaquim-motta-neto"
+   ],
+   "unidades": [],
+   "titulo": "Sala 29",
+   "resumo": "Eduardo Lemos de Sá, Joaquim Motta Neto"
+  },
+  {
+   "id": "30",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de aula - PQ 13",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 30",
+   "resumo": "Sala de aula - PQ 13"
+  },
+  {
+   "id": "31",
+   "andar": 1,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Feminino",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 31",
+   "resumo": "Banheiro Feminino"
+  },
+  {
+   "id": "32",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "diego-guedes-sobrinho",
+    "fernando-wypych",
+    "glaucia-pantano"
+   ],
+   "unidades": [],
+   "titulo": "Sala 32",
+   "resumo": "Diego Guedes Sobrinho, Fernando Wypych, Glaucia Pantano"
+  },
+  {
+   "id": "33",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "s-ppgq"
+   ],
+   "titulo": "Sala 33",
+   "resumo": "Sala de Estudos - Pós-Graduação"
+  },
+  {
+   "id": "34",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "denio-emanuel-pires-souto",
+    "frederico-luis-felipe-soares",
+    "patricio-peralta-zamora"
+   ],
+   "unidades": [],
+   "titulo": "Sala 34",
+   "resumo": "Dênio Emanuel Pires Souto, Frederico Luis Felipe Soares, Patricio Peralta Zamora"
+  },
+  {
+   "id": "35",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de aula - PQ 15",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 35",
+   "resumo": "Sala de aula - PQ 15"
+  },
+  {
+   "id": "36",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de aula - PQ 16",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 36",
+   "resumo": "Sala de aula - PQ 16"
+  },
+  {
+   "id": "37",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "bruno-jose-goncalves-da-silva",
+    "gilberto-abate",
+    "lauro-camargo-dias-junior"
+   ],
+   "unidades": [],
+   "titulo": "Sala 37",
+   "resumo": "Bruno José Gonçalves da Silva, Gilberto Abate, Lauro Camargo Dias Junior"
+  },
+  {
+   "id": "38",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "herbert-winnischofer",
+    "joao-b-m-novo",
+    "tatiana-renata-gomes-simoes"
+   ],
+   "unidades": [],
+   "titulo": "Sala 38",
+   "resumo": "Herbert Winnischofer, João B. M. Novo, Tatiana Renata Gomes Simões"
+  },
+  {
+   "id": "39",
+   "andar": 1,
+   "categoria": "sala-aula",
+   "categorias": [
+    "sala-aula"
+   ],
+   "nome": "Sala de aula - PQ 17",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 39",
+   "resumo": "Sala de aula - PQ 17"
+  },
+  {
+   "id": "40",
+   "andar": 1,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "fabio-simonelli",
+    "george",
+    "leandro-piovan"
+   ],
+   "unidades": [],
+   "titulo": "Sala 40",
+   "resumo": "Fábio Simonelli, George, Leandro Piovan"
+  },
+  {
+   "id": "41",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "afm"
+   ],
+   "titulo": "Sala 41",
+   "resumo": "Sala de equipamento/Microscopia de Força Atômica"
+  },
+  {
+   "id": "42",
+   "andar": 1,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Masculino",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 42",
+   "resumo": "Banheiro Masculino"
+  },
+  {
+   "id": "43",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "daeq"
+   ],
+   "titulo": "Sala 43",
+   "resumo": "Diretório Acadêmico de Engenharia Química"
+  },
+  {
+   "id": "44",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "caqui"
+   ],
+   "titulo": "Sala 44",
+   "resumo": "Centro Acadêmico de Química"
+  },
+  {
+   "id": "45-A",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "coordenacao-da-graduacao-em-quimica"
+   ],
+   "titulo": "Sala 45-A",
+   "resumo": "Coordenação da Graduação em Química"
+  },
+  {
+   "id": "45-B",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [
+    "fernanda-g-d-pinheiro",
+    "marcelino-camara"
+   ],
+   "unidades": [
+    "ppgq"
+   ],
+   "titulo": "Sala 45-B",
+   "resumo": "Secretaria da Pós-graduação em Química · Fernanda G. D. Pinheiro, Marcelino Câmara"
+  },
+  {
+   "id": "45-C",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [
+    "lucas-f-de-campos",
+    "marco-a-l-de-miranda"
+   ],
+   "unidades": [
+    "secretaria-do-departamento-de-quimica"
+   ],
+   "titulo": "Sala 45-C",
+   "resumo": "Secretaria do Departamento de Química · Lucas F. de Campos, Marco A. L. de Miranda"
+  },
+  {
+   "id": "45-D",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "escaninho-professores"
+   ],
+   "titulo": "Sala 45-D",
+   "resumo": "Escaninho Professores"
+  },
+  {
+   "id": "45-E",
+   "andar": 1,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "sala-de-reunioes-do-departamento-de-quimica"
+   ],
+   "titulo": "Sala 45-E",
+   "resumo": "Sala de Reuniões do Departamento de Química"
+  },
+  {
+   "id": "46",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqo"
+   ],
+   "titulo": "Sala 46",
+   "resumo": "Laboratório de Química Orgânica"
+  },
+  {
+   "id": "47",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqo"
+   ],
+   "titulo": "Sala 47",
+   "resumo": "Laboratório de Química Orgânica"
+  },
+  {
+   "id": "48",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-multiusuario"
+   ],
+   "titulo": "Sala 48",
+   "resumo": "Laboratório Multiusuário"
+  },
+  {
+   "id": "49",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "nome": "Sala de aula - PQ 7",
+   "pessoas": [],
+   "unidades": [
+    "lqo"
+   ],
+   "titulo": "Sala 49",
+   "resumo": "Sala de aula - PQ 7 · Laboratório de Química Orgânica"
+  },
+  {
+   "id": "50",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "claudiney-s-cordeiro",
+    "juliete-silva-neves",
+    "nadia-krieger"
+   ],
+   "unidades": [],
+   "titulo": "Sala 50",
+   "resumo": "Claudiney S. Cordeiro, Juliete Silva Neves, Nadia Krieger"
+  },
+  {
+   "id": "51",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "isomeria"
+   ],
+   "titulo": "Sala 51",
+   "resumo": "Empresa Júnior de Química"
+  },
+  {
+   "id": "52",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Feminino",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 52",
+   "resumo": "Banheiro Feminino"
+  },
+  {
+   "id": "53",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "leq"
+   ],
+   "titulo": "Sala 53",
+   "resumo": "Laboratório de Engenharia Química"
+  },
+  {
+   "id": "54",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "caroline-r-montes-d-oca",
+    "marcelo-g-montes-d-oca",
+    "daniel-s-rampon"
+   ],
+   "unidades": [],
+   "titulo": "Sala 54",
+   "resumo": "Caroline R. Montes D'Oca, Marcelo G. Montes D'Oca, Daniel S. Rampon"
+  },
+  {
+   "id": "57",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "beatriz-helena-lameiro-noronha-sales-maia",
+    "sonia-faria-zawadzki"
+   ],
+   "unidades": [],
+   "titulo": "Sala 57",
+   "resumo": "Beatriz Helena Lameiro Noronha Sales Maia, Sônia Faria Zawadzki"
+  },
+  {
+   "id": "58",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqo"
+   ],
+   "titulo": "Sala 58",
+   "resumo": "Laboratório de Química Orgânica"
+  },
+  {
+   "id": "59",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro",
+    "lab-pesquisa"
+   ],
+   "nome": "Banheiro Privativo",
+   "acesso": "Exclusivo Feminino",
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-de-extensao-em-quimica"
+   ],
+   "titulo": "Sala 59",
+   "resumo": "Banheiro Privativo · Laboratório de Extensão em Química"
+  },
+  {
+   "id": "60",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lapoca"
+   ],
+   "titulo": "Sala 60",
+   "resumo": "Laboratório de Polímeros e Catálise"
+  },
+  {
+   "id": "62",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "kolbe"
+   ],
+   "titulo": "Sala 62",
+   "resumo": "Grupo Kolbe de Síntese Orgânica"
+  },
+  {
+   "id": "63",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lapneq"
+   ],
+   "titulo": "Sala 63",
+   "resumo": "Laboratório de Produtos Naturais e Ecologia Química"
+  },
+  {
+   "id": "64",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lteb"
+   ],
+   "titulo": "Sala 64",
+   "resumo": "Laboratório de Tecnologia Enzimática e Biocatálise"
+  },
+  {
+   "id": "65",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 65"
+  },
+  {
+   "id": "66",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lequipe"
+   ],
+   "titulo": "Sala 66",
+   "resumo": "Laboratório de Química de Polímeros e Síntese Orgânica"
+  },
+  {
+   "id": "67",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "ana-luisa-lacava-lordello",
+    "flavio-m-matsumoto",
+    "maria-aparecida-f-cesar-oliveira"
+   ],
+   "unidades": [],
+   "titulo": "Sala 67",
+   "resumo": "Ana Luísa Lacava Lordello, Flávio M. Matsumoto, Maria Aparecida F. César-Oliveira"
+  },
+  {
+   "id": "67-A",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "luiz-humberto-marcolino-junior",
+    "marcio-fernando-bergamini"
+   ],
+   "unidades": [],
+   "titulo": "Sala 67-A",
+   "resumo": "Luiz Humberto Marcolino Junior, Marcio Fernando Bergamini"
+  },
+  {
+   "id": "68",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laa"
+   ],
+   "titulo": "Sala 68",
+   "resumo": "Laboratório de Análises Ambientais"
+  },
+  {
+   "id": "69",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqo-ii"
+   ],
+   "titulo": "Sala 69",
+   "resumo": "Laboratório de Química Orgânica II"
+  },
+  {
+   "id": "70",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "francisco-de-a-marques",
+    "kahlil-schwanka-salome"
+   ],
+   "unidades": [],
+   "titulo": "Sala 70",
+   "resumo": "Francisco de A. Marques, Kahlil Schwanka Salome"
+  },
+  {
+   "id": "71",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "oficina-hialotecnia"
+   ],
+   "titulo": "Sala 71",
+   "resumo": "Oficina Hialotecnia"
+  },
+  {
+   "id": "72",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "labrmn"
+   ],
+   "titulo": "Sala 72",
+   "resumo": "Laboratório Multiusuário de Ressonância Magnética Nuclear"
+  },
+  {
+   "id": "73",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqo-i"
+   ],
+   "titulo": "Sala 73",
+   "resumo": "Laboratório de Química Orgânica I"
+  },
+  {
+   "id": "74",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "area-de-seguranca"
+   ],
+   "titulo": "Sala 74",
+   "resumo": "Central elétrica"
+  },
+  {
+   "id": "75",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "camila-silveira-da-silva",
+    "roberto-dalmo-varallo-lima-de-oliveira"
+   ],
+   "unidades": [],
+   "titulo": "Sala 75",
+   "resumo": "Camila Silveira da Silva, Roberto Dalmo Varallo Lima de Oliveira"
+  },
+  {
+   "id": "76",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "sala-de-instrumentacao-analitica"
+   ],
+   "titulo": "Sala 76",
+   "resumo": "Sala de Instrumentação Analítica"
+  },
+  {
+   "id": "77",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lasque"
+   ],
+   "titulo": "Sala 77",
+   "resumo": "Laboratório de Síntese Química e Enzimática"
+  },
+  {
+   "id": "78",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-de-ecologia-quimica-e-sintese-de-produtos-naturais"
+   ],
+   "titulo": "Sala 78",
+   "resumo": "Laboratório de Ecologia Química e Síntese de Produtos Naturais"
+  },
+  {
+   "id": "79",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laboratorio-de-difracao-de-raio-x-e-raman"
+   ],
+   "titulo": "Sala 79",
+   "resumo": "Laboratório de Difração de Raio-X e Raman"
+  },
+  {
+   "id": "80",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "everton-bedin",
+    "joanez-aparecida-aires",
+    "leonir-lorenzetti"
+   ],
+   "unidades": [],
+   "titulo": "Sala 80",
+   "resumo": "Everton Bedin, Joanez Aparecida Aires, Leonir Lorenzetti"
+  },
+  {
+   "id": "81",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "sala-de-apoio-laboratorio-de-quimica-geral"
+   ],
+   "titulo": "Sala 81",
+   "resumo": "Sala de apoio - Laboratório de Química Geral"
+  },
+  {
+   "id": "82",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqg"
+   ],
+   "titulo": "Sala 82",
+   "resumo": "Laboratório de Química Geral"
+  },
+  {
+   "id": "83",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "pet-quimica"
+   ],
+   "titulo": "Sala 83",
+   "resumo": "PET Química"
+  },
+  {
+   "id": "84",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Masculino",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 84",
+   "resumo": "Banheiro Masculino"
+  },
+  {
+   "id": "85",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqi"
+   ],
+   "titulo": "Sala 85",
+   "resumo": "Laboratório de Química Inorgânica"
+  },
+  {
+   "id": "86",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "sala-de-refrigeracao"
+   ],
+   "titulo": "Sala 86",
+   "resumo": "Sala de refrigeração"
+  },
+  {
+   "id": "87",
+   "andar": 0,
+   "categoria": "servico",
+   "categorias": [
+    "servico"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "central-de-produtos-quimicos"
+   ],
+   "titulo": "Sala 87",
+   "resumo": "Central de Produtos Químicos"
+  },
+  {
+   "id": "88",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "laesb"
+   ],
+   "titulo": "Sala 88",
+   "resumo": "Laboratório de Espectrometria, Sensores e Biossensores"
+  },
+  {
+   "id": "89",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Feminino",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 89",
+   "resumo": "Banheiro Feminino"
+  },
+  {
+   "id": "90",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "paulo-zarbin"
+   ],
+   "unidades": [],
+   "titulo": "Sala 90",
+   "resumo": "Paulo Zarbin"
+  },
+  {
+   "id": "91",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "semioquimicos"
+   ],
+   "titulo": "Sala 91",
+   "resumo": "Laboratório de Semioquímicos"
+  },
+  {
+   "id": "92",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "crome",
+    "gqa",
+    "tecnotrater"
+   ],
+   "titulo": "Sala 92",
+   "resumo": "Grupo de Cromatografia e Técnicas de Microextração · Grupo de Química Ambiental · Grupo de Técnicas Avançadas para Tratamento de Resíduos"
+  },
+  {
+   "id": "93",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "marco-tadeu-grassi"
+   ],
+   "unidades": [],
+   "titulo": "Sala 93",
+   "resumo": "Marco Tadeu Grassi"
+  },
+  {
+   "id": "94",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "anexo"
+   ],
+   "titulo": "Sala 94",
+   "resumo": "Anexo"
+  },
+  {
+   "id": "95",
+   "andar": 0,
+   "categoria": "sala-prof",
+   "categorias": [
+    "sala-prof"
+   ],
+   "pessoas": [
+    "aldo-zarbin"
+   ],
+   "unidades": [],
+   "titulo": "Sala 95",
+   "resumo": "Aldo Zarbin"
+  },
+  {
+   "id": "96",
+   "andar": 0,
+   "categoria": "banheiro",
+   "categorias": [
+    "banheiro"
+   ],
+   "nome": "Banheiro Privativo",
+   "acesso": "Acesso restrito/servidores",
+   "pessoas": [],
+   "unidades": [],
+   "titulo": "Sala 96",
+   "resumo": "Banheiro Privativo"
+  },
+  {
+   "id": "97",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "gaqq",
+    "datalab"
+   ],
+   "titulo": "Sala 97",
+   "resumo": "Grupo de Análise Química e Quimiometria · Laboratório de Análise de Dados em Química"
+  },
+  {
+   "id": "98",
+   "andar": 0,
+   "categoria": "lab-pesquisa",
+   "categorias": [
+    "lab-pesquisa"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "labsense"
+   ],
+   "titulo": "Sala 98",
+   "resumo": "Laboratório de Sensores Eletroquímicos"
+  },
+  {
+   "id": "99",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaquanti"
+   ],
+   "titulo": "Sala 99",
+   "resumo": "Laboratório de Química Analítica Quantitativa"
+  },
+  {
+   "id": "99-A",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "anexo-sala-de-balancas"
+   ],
+   "titulo": "Sala 99-A",
+   "resumo": "Anexo - Sala de Balanças"
+  },
+  {
+   "id": "99-B",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaq"
+   ],
+   "titulo": "Sala 99-B",
+   "resumo": "Anexo - Laboratório Química Analítica Quantitativa"
+  },
+  {
+   "id": "99-C",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaq"
+   ],
+   "titulo": "Sala 99-C",
+   "resumo": "Anexo - Laboratório Química Analítica Quantitativa"
+  },
+  {
+   "id": "99-D",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaq"
+   ],
+   "titulo": "Sala 99-D",
+   "resumo": "Anexo - Laboratório Química Analítica Quantitativa"
+  },
+  {
+   "id": "99-E",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaq"
+   ],
+   "titulo": "Sala 99-E",
+   "resumo": "Anexo - Laboratório Química Analítica Quantitativa"
+  },
+  {
+   "id": "99-F",
+   "andar": 0,
+   "categoria": "lab-ensino",
+   "categorias": [
+    "lab-ensino"
+   ],
+   "pessoas": [],
+   "unidades": [
+    "lqaq"
+   ],
+   "titulo": "Sala 99-F",
+   "resumo": "Anexo - Laboratório Química Analítica Quantitativa"
+  }
+ ],
+ "pessoas": [
+  {
+   "id": "fabio-souza-nunes",
+   "nome": "Fabio Souza Nunes",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "7",
+   "coordena": [
+    "labioinc"
+   ]
+  },
+  {
+   "id": "jaisa-fernandes-soares",
+   "nome": "Jaísa Fernandes Soares",
+   "cargo": "Professora",
+   "area": "Química Inorgânica",
+   "sala": "7",
+   "email": "jaisa.soares@ufpr.br",
+   "coordena": [
+    "labioinc",
+    "lia"
+   ]
+  },
+  {
+   "id": "shirley-nakagaki",
+   "nome": "Shirley Nakagaki",
+   "cargo": "Professora",
+   "area": "Química Inorgânica",
+   "sala": "7",
+   "email": "shirleyn@ufpr.br",
+   "coordena": [
+    "labioinc"
+   ]
+  },
+  {
+   "id": "andrea-pinto-de-oliveira",
+   "nome": "Andrea Pinto de Oliveira",
+   "cargo": "Professora",
+   "area": "Química Analítica",
+   "sala": "16",
+   "email": "andrea.oliveira@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/4654484364970262",
+   "coordena": [
+    "labpam"
+   ]
+  },
+  {
+   "id": "antonio-salvio-mangrich",
+   "nome": "Antonio Salvio Mangrich",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "16"
+  },
+  {
+   "id": "elisa-souza-orth",
+   "nome": "Elisa Souza Orth",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "19",
+   "email": "elisaorth@ufpr.br",
+   "coordena": [
+    "gcc"
+   ]
+  },
+  {
+   "id": "izabel-cristina-riegel-vidotti-miyata",
+   "nome": "Izabel Cristina Riegel Vidotti Miyata",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "19",
+   "email": "izabel.riegel@ufpr.br",
+   "coordena": [
+    "gpmin"
+   ]
+  },
+  {
+   "id": "marcio-eduardo-vidotti-miyata",
+   "nome": "Marcio Eduardo Vidotti Miyata",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "19",
+   "email": "mvidotti@ufpr.br",
+   "coordena": [
+    "gpmin"
+   ]
+  },
+  {
+   "id": "andersson-barison",
+   "nome": "Andersson Barison",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "23",
+   "email": "andernmr@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/0924773081596557"
+  },
+  {
+   "id": "clarice-dias-britto-do-amaral",
+   "nome": "Clarice Dias Britto do Amaral",
+   "cargo": "Professora",
+   "area": "Química Analítica",
+   "sala": "23",
+   "email": "clariceamaral@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/5612247812337113",
+   "coordena": [
+    "laesb"
+   ]
+  },
+  {
+   "id": "marcio-peres-de-araujo",
+   "nome": "Márcio Peres de Araujo",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "23",
+   "email": "mparaujo@ufpr.br",
+   "coordena": [
+    "laboratorio-de-quimica-inorganica-aplicada"
+   ]
+  },
+  {
+   "id": "noemi-nagata",
+   "nome": "Noemi Nagata",
+   "cargo": "Professora",
+   "area": "Química Analítica",
+   "sala": "23",
+   "email": "nnagata@ufpr.br",
+   "coordena": [
+    "gaqq"
+   ]
+  },
+  {
+   "id": "giovana-g-nunes",
+   "nome": "Giovana G. Nunes",
+   "cargo": "Professora",
+   "area": "Química Inorgânica",
+   "sala": "27",
+   "email": "nunesgg@ufpr.br"
+  },
+  {
+   "id": "liliana-micaroni",
+   "nome": "Liliana Micaroni",
+   "cargo": "Professora",
+   "area": "Físico-Química",
+   "sala": "27",
+   "email": "micaroni@ufpr.br"
+  },
+  {
+   "id": "regina-m-q-de-mello",
+   "nome": "Regina M. Q. de Mello",
+   "cargo": "Professora",
+   "area": "Físico-Química",
+   "sala": "27"
+  },
+  {
+   "id": "eduardo-lemos-de-sa",
+   "nome": "Eduardo Lemos de Sá",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "29",
+   "email": "edulsa@ufpr.br"
+  },
+  {
+   "id": "joaquim-motta-neto",
+   "nome": "Joaquim Motta Neto",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "29",
+   "email": "quim@ufpr.br"
+  },
+  {
+   "id": "diego-guedes-sobrinho",
+   "nome": "Diego Guedes Sobrinho",
+   "cargo": "Professor",
+   "area": "Físico-Química",
+   "sala": "32",
+   "email": "guedessobrinho@ufpr.br"
+  },
+  {
+   "id": "fernando-wypych",
+   "nome": "Fernando Wypych",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "32"
+  },
+  {
+   "id": "glaucia-pantano",
+   "nome": "Glaucia Pantano",
+   "cargo": "Professora",
+   "area": "Química Analítica",
+   "sala": "32",
+   "email": "glaucia.pantano@ufpr.br",
+   "coordena": [
+    "gaea"
+   ]
+  },
+  {
+   "id": "denio-emanuel-pires-souto",
+   "nome": "Dênio Emanuel Pires Souto",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "34",
+   "email": "denio.souto@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/0601403644789424",
+   "coordena": [
+    "laesb"
+   ]
+  },
+  {
+   "id": "frederico-luis-felipe-soares",
+   "nome": "Frederico Luis Felipe Soares",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "34",
+   "email": "frederico.soares@ufpr.br",
+   "coordena": [
+    "datalab"
+   ]
+  },
+  {
+   "id": "patricio-peralta-zamora",
+   "nome": "Patricio Peralta Zamora",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "34",
+   "email": "zamora@ufpr.br",
+   "coordena": [
+    "tecnotrater"
+   ]
+  },
+  {
+   "id": "bruno-jose-goncalves-da-silva",
+   "nome": "Bruno José Gonçalves da Silva",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "37",
+   "email": "brunojose@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/6550581465780888",
+   "coordena": [
+    "crome"
+   ]
+  },
+  {
+   "id": "gilberto-abate",
+   "nome": "Gilberto Abate",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "37",
+   "email": "gilbertoabate@ufpr.br",
+   "coordena": [
+    "lqaa",
+    "laa"
+   ]
+  },
+  {
+   "id": "lauro-camargo-dias-junior",
+   "nome": "Lauro Camargo Dias Junior",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "37",
+   "email": "laurocd@ufpr.br"
+  },
+  {
+   "id": "herbert-winnischofer",
+   "nome": "Herbert Winnischofer",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "38",
+   "email": "hwin@ufpr.br",
+   "coordena": [
+    "laboratorio-de-quimica-inorganica-aplicada"
+   ]
+  },
+  {
+   "id": "joao-b-m-novo",
+   "nome": "João B. M. Novo",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "38"
+  },
+  {
+   "id": "tatiana-renata-gomes-simoes",
+   "nome": "Tatiana Renata Gomes Simões",
+   "cargo": "Professora",
+   "area": "Química Inorgânica",
+   "sala": "38",
+   "email": "tatiana.renata@ufpr.br",
+   "coordena": [
+    "laboratorio-de-quimica-inorganica-aplicada"
+   ]
+  },
+  {
+   "id": "fabio-simonelli",
+   "nome": "Fábio Simonelli",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "40"
+  },
+  {
+   "id": "george",
+   "nome": "George",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "40"
+  },
+  {
+   "id": "leandro-piovan",
+   "nome": "Leandro Piovan",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "40",
+   "email": "lpiovan@ufpr.br",
+   "coordena": [
+    "lasque"
+   ]
+  },
+  {
+   "id": "fernanda-g-d-pinheiro",
+   "nome": "Fernanda G. D. Pinheiro",
+   "cargo": "Técnica",
+   "area": "Secretaria da Pós-Graduação",
+   "sala": "45-B"
+  },
+  {
+   "id": "marcelino-camara",
+   "nome": "Marcelino Câmara",
+   "cargo": "Técnico",
+   "area": "Secretaria da Pós-Graduação",
+   "sala": "45-B"
+  },
+  {
+   "id": "lucas-f-de-campos",
+   "nome": "Lucas F. de Campos",
+   "cargo": "Técnico",
+   "area": "Secretaria da Graduação",
+   "sala": "45-C"
+  },
+  {
+   "id": "marco-a-l-de-miranda",
+   "nome": "Marco A. L. de Miranda",
+   "cargo": "Técnico",
+   "area": "Secretaria da Graduação",
+   "sala": "45-C"
+  },
+  {
+   "id": "claudiney-s-cordeiro",
+   "nome": "Claudiney S. Cordeiro",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "50",
+   "email": "claudiney.cordeiro@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/6924278564981100",
+   "coordena": [
+    "lqo",
+    "kolbe"
+   ]
+  },
+  {
+   "id": "juliete-silva-neves",
+   "nome": "Juliete Silva Neves",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "50",
+   "email": "julieteneves@ufpr.br",
+   "coordena": [
+    "lqo",
+    "kolbe"
+   ]
+  },
+  {
+   "id": "nadia-krieger",
+   "nome": "Nadia Krieger",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "50",
+   "coordena": [
+    "lteb"
+   ]
+  },
+  {
+   "id": "caroline-r-montes-d-oca",
+   "nome": "Caroline R. Montes D'Oca",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "54",
+   "email": "carolinedoca@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/7233778164985994",
+   "coordena": [
+    "lapoca"
+   ]
+  },
+  {
+   "id": "marcelo-g-montes-d-oca",
+   "nome": "Marcelo G. Montes D'Oca",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "54",
+   "email": "marcelodoca@ufpr.br",
+   "coordena": [
+    "lqo",
+    "kolbe"
+   ]
+  },
+  {
+   "id": "beatriz-helena-lameiro-noronha-sales-maia",
+   "nome": "Beatriz Helena Lameiro Noronha Sales Maia",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "57",
+   "email": "noronha@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/8041834010315273",
+   "coordena": [
+    "lapneq"
+   ]
+  },
+  {
+   "id": "sonia-faria-zawadzki",
+   "nome": "Sônia Faria Zawadzki",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "57",
+   "email": "zawadzki@ufpr.br"
+  },
+  {
+   "id": "ana-luisa-lacava-lordello",
+   "nome": "Ana Luísa Lacava Lordello",
+   "cargo": "Professora",
+   "area": "Química Orgânica",
+   "sala": "67",
+   "email": "lordello@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/0187329084887740"
+  },
+  {
+   "id": "flavio-m-matsumoto",
+   "nome": "Flávio M. Matsumoto",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "67",
+   "email": "fmatsumo@ufpr.br"
+  },
+  {
+   "id": "maria-aparecida-f-cesar-oliveira",
+   "nome": "Maria Aparecida F. César-Oliveira",
+   "cargo": "Professora",
+   "area": "Química Orgânica",
+   "sala": "67",
+   "email": "mafco@ufpr.br",
+   "coordena": [
+    "lequipe"
+   ]
+  },
+  {
+   "id": "luiz-humberto-marcolino-junior",
+   "nome": "Luiz Humberto Marcolino Junior",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "67-A",
+   "email": "luiz1berto@ufpr.br",
+   "coordena": [
+    "labsense"
+   ]
+  },
+  {
+   "id": "marcio-fernando-bergamini",
+   "nome": "Marcio Fernando Bergamini",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "67-A",
+   "email": "bergamini@ufpr.br",
+   "coordena": [
+    "labsense"
+   ]
+  },
+  {
+   "id": "francisco-de-a-marques",
+   "nome": "Francisco de A. Marques",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "70",
+   "email": "tic@ufpr.br",
+   "coordena": [
+    "laboratorio-de-ecologia-quimica-e-sintese-de-produtos-naturais"
+   ]
+  },
+  {
+   "id": "kahlil-schwanka-salome",
+   "nome": "Kahlil Schwanka Salome",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "70",
+   "email": "kahlil.salome@ufpr.br"
+  },
+  {
+   "id": "camila-silveira-da-silva",
+   "nome": "Camila Silveira da Silva",
+   "cargo": "Professor",
+   "area": "Ensino de Química",
+   "sala": "75",
+   "email": "camilasilveira@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/2545977009055473"
+  },
+  {
+   "id": "roberto-dalmo-varallo-lima-de-oliveira",
+   "nome": "Roberto Dalmo Varallo Lima de Oliveira",
+   "cargo": "Professor",
+   "area": "Ensino de Química",
+   "sala": "75",
+   "email": "robertodalmo@ufpr.br"
+  },
+  {
+   "id": "everton-bedin",
+   "nome": "Everton Bedin",
+   "cargo": "Professor",
+   "area": "Ensino de Química",
+   "sala": "80",
+   "email": "everton.bedin@ufpr.br"
+  },
+  {
+   "id": "joanez-aparecida-aires",
+   "nome": "Joanez Aparecida Aires",
+   "cargo": "Professor",
+   "area": "Ensino de Química",
+   "sala": "80",
+   "email": "joanez@ufpr.br"
+  },
+  {
+   "id": "leonir-lorenzetti",
+   "nome": "Leonir Lorenzetti",
+   "cargo": "Professor",
+   "area": "Ensino de Química",
+   "sala": "80",
+   "email": "leonir@ufpr.br"
+  },
+  {
+   "id": "paulo-zarbin",
+   "nome": "Paulo Zarbin",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "90",
+   "email": "pzarbin@ufpr.br",
+   "coordena": [
+    "semioquimicos"
+   ]
+  },
+  {
+   "id": "marco-tadeu-grassi",
+   "nome": "Marco Tadeu Grassi",
+   "cargo": "Professor",
+   "area": "Química Analítica",
+   "sala": "93",
+   "email": "mtgrassi@ufpr.br",
+   "coordena": [
+    "laa",
+    "gqa"
+   ]
+  },
+  {
+   "id": "aldo-zarbin",
+   "nome": "Aldo Zarbin",
+   "cargo": "Professor",
+   "area": "Química Inorgânica",
+   "sala": "95",
+   "email": "aldozarbin@ufpr.br",
+   "lattes": "https://lattes.cnpq.br/4008495434236758",
+   "coordena": [
+    "laboratorio-de-difracao-de-raio-x-e-raman",
+    "afm"
+   ]
+  },
+  {
+   "id": "daniel-s-rampon",
+   "nome": "Daniel S. Rampon",
+   "cargo": "Professor",
+   "area": "Química Orgânica",
+   "sala": "54",
+   "coordena": [
+    "lapoca"
+   ]
+  }
+ ],
+ "unidades": [
+  {
+   "id": "labrmn",
+   "nome": "Laboratório Multiusuário de Ressonância Magnética Nuclear",
+   "sigla": "LabRMN",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "6",
+    "72"
+   ],
+   "descricao": "Análises avançadas por RMN com alta e baixa resolução para pesquisa, ensino e inovação em química e ciências afins.",
+   "site": "https://cmrmn.ufpr.br/"
+  },
+  {
+   "id": "labioinc",
+   "nome": "Laboratório de Bioinorgânica",
+   "sigla": "LaBioInC",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "8",
+    "9"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Fabio Souza Nunes",
+     "pessoa": "fabio-souza-nunes"
+    },
+    {
+     "nome": "Jaísa Fernandes Soares",
+     "pessoa": "jaisa-fernandes-soares"
+    },
+    {
+     "nome": "Shirley Nakagaki",
+     "pessoa": "shirley-nakagaki"
+    }
+   ]
+  },
+  {
+   "id": "lqaa",
+   "nome": "Laboratório de Química Analítica Ambiental",
+   "sigla": "LQAA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "10"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Gilberto Abate",
+     "pessoa": "gilberto-abate"
+    }
+   ]
+  },
+  {
+   "id": "laboratorio-multiusuario",
+   "nome": "Laboratório Multiusuário",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "11",
+    "48"
+   ]
+  },
+  {
+   "id": "lia",
+   "nome": "Laboratório de Instrumentação Analítica",
+   "sigla": "LIA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "12",
+    "13"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Jaísa Fernandes Soares",
+     "pessoa": "jaisa-fernandes-soares"
+    }
+   ]
+  },
+  {
+   "id": "gcc",
+   "nome": "Grupo de Catálise e Cinética",
+   "sigla": "GCC",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "14"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Elisa Souza Orth",
+     "pessoa": "elisa-souza-orth"
+    }
+   ]
+  },
+  {
+   "id": "laboratorio-de-quimica-inorganica-aplicada",
+   "nome": "Laboratório de Química Inorgânica Aplicada",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "15"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Herbert Winnischofer",
+     "pessoa": "herbert-winnischofer"
+    },
+    {
+     "nome": "Tatiana Renata Gomes Simões",
+     "pessoa": "tatiana-renata-gomes-simoes"
+    },
+    {
+     "nome": "Márcio Peres de Araujo",
+     "pessoa": "marcio-peres-de-araujo"
+    }
+   ]
+  },
+  {
+   "id": "gaea",
+   "nome": "Grupo de Ações e Estudos Ambientais",
+   "sigla": "GAEA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "17"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Glaucia Pantano",
+     "pessoa": "glaucia-pantano"
+    }
+   ]
+  },
+  {
+   "id": "labpam",
+   "nome": "Laboratório de Processos e Projetos Ambientais",
+   "sigla": "LABPAM",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "17"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Andrea Pinto de Oliveira",
+     "pessoa": "andrea-pinto-de-oliveira"
+    }
+   ]
+  },
+  {
+   "id": "gpmin",
+   "nome": "Grupo de Pesquisa em Macromoléculas e Interfaces",
+   "sigla": "GPMIn",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "20"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Marcio Eduardo Vidotti Miyata",
+     "pessoa": "marcio-eduardo-vidotti-miyata"
+    },
+    {
+     "nome": "Izabel Cristina Riegel Vidotti Miyata",
+     "pessoa": "izabel-cristina-riegel-vidotti-miyata"
+    }
+   ]
+  },
+  {
+   "id": "semioquimicos",
+   "nome": "Laboratório de Semioquímicos",
+   "sigla": "Semioquímicos",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "26",
+    "91"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Paulo Zarbin",
+     "pessoa": "paulo-zarbin"
+    }
+   ]
+  },
+  {
+   "id": "lqo",
+   "nome": "Laboratório de Química Orgânica",
+   "sigla": "LQO",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "46",
+    "47",
+    "49",
+    "58"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Brás H. de Oliveira"
+    },
+    {
+     "nome": "Marcelo G. Montes D'Oca",
+     "pessoa": "marcelo-g-montes-d-oca"
+    },
+    {
+     "nome": "Claudiney S. Cordeiro",
+     "pessoa": "claudiney-s-cordeiro"
+    },
+    {
+     "nome": "Juliete Silva Neves",
+     "pessoa": "juliete-silva-neves"
+    }
+   ]
+  },
+  {
+   "id": "leq",
+   "nome": "Laboratório de Engenharia Química",
+   "sigla": "LEQ",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "53"
+   ]
+  },
+  {
+   "id": "laboratorio-de-extensao-em-quimica",
+   "nome": "Laboratório de Extensão em Química",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "59"
+   ]
+  },
+  {
+   "id": "lapoca",
+   "nome": "Laboratório de Polímeros e Catálise",
+   "sigla": "LAPOCA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "60"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Caroline R. Montes D'Oca",
+     "pessoa": "caroline-r-montes-d-oca"
+    },
+    {
+     "nome": "Daniel S. Rampon",
+     "pessoa": "daniel-s-rampon"
+    }
+   ]
+  },
+  {
+   "id": "kolbe",
+   "nome": "Grupo Kolbe de Síntese Orgânica",
+   "sigla": "KOLBE",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "62"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Marcelo G. Montes D'Oca",
+     "pessoa": "marcelo-g-montes-d-oca"
+    },
+    {
+     "nome": "Claudiney S. Cordeiro",
+     "pessoa": "claudiney-s-cordeiro"
+    },
+    {
+     "nome": "Juliete Silva Neves",
+     "pessoa": "juliete-silva-neves"
+    }
+   ]
+  },
+  {
+   "id": "lapneq",
+   "nome": "Laboratório de Produtos Naturais e Ecologia Química",
+   "sigla": "LAPNEQ",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "63"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Beatriz Helena Lameiro Noronha Sales Maia",
+     "pessoa": "beatriz-helena-lameiro-noronha-sales-maia"
+    }
+   ]
+  },
+  {
+   "id": "lteb",
+   "nome": "Laboratório de Tecnologia Enzimática e Biocatálise",
+   "sigla": "LTEB",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "64"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Nadia Krieger",
+     "pessoa": "nadia-krieger"
+    }
+   ]
+  },
+  {
+   "id": "laesb",
+   "nome": "Laboratório de Espectrometria, Sensores e Biossensores",
+   "sigla": "LAESB",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "88"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Clarice Dias Britto do Amaral",
+     "pessoa": "clarice-dias-britto-do-amaral"
+    },
+    {
+     "nome": "Dênio Emanuel Pires Souto",
+     "pessoa": "denio-emanuel-pires-souto"
+    }
+   ],
+   "descricao": "Pesquisa de ponta em espectrometria e biossensores com foco em inovação, sustentabilidade e aplicações de alto impacto.",
+   "site": "https://laesb.ufpr.br/"
+  },
+  {
+   "id": "lequipe",
+   "nome": "Laboratório de Química de Polímeros e Síntese Orgânica",
+   "sigla": "LEQUIPE",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "66"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Maria Aparecida F. César-Oliveira",
+     "pessoa": "maria-aparecida-f-cesar-oliveira"
+    }
+   ]
+  },
+  {
+   "id": "laa",
+   "nome": "Laboratório de Análises Ambientais",
+   "sigla": "LAA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "68"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Marco Tadeu Grassi",
+     "pessoa": "marco-tadeu-grassi"
+    },
+    {
+     "nome": "Gilberto Abate",
+     "pessoa": "gilberto-abate"
+    }
+   ]
+  },
+  {
+   "id": "lasque",
+   "nome": "Laboratório de Síntese Química e Enzimática",
+   "sigla": "LASQUE",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "77"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Leandro Piovan",
+     "pessoa": "leandro-piovan"
+    }
+   ]
+  },
+  {
+   "id": "laboratorio-de-ecologia-quimica-e-sintese-de-produtos-naturais",
+   "nome": "Laboratório de Ecologia Química e Síntese de Produtos Naturais",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "78"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Francisco de A. Marques",
+     "pessoa": "francisco-de-a-marques"
+    }
+   ]
+  },
+  {
+   "id": "laboratorio-de-difracao-de-raio-x-e-raman",
+   "nome": "Laboratório de Difração de Raio-X e Raman",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "79"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Aldo Zarbin",
+     "pessoa": "aldo-zarbin"
+    }
+   ]
+  },
+  {
+   "id": "crome",
+   "nome": "Grupo de Cromatografia e Técnicas de Microextração",
+   "sigla": "CROME",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "92"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Bruno José Gonçalves da Silva",
+     "pessoa": "bruno-jose-goncalves-da-silva"
+    }
+   ]
+  },
+  {
+   "id": "gqa",
+   "nome": "Grupo de Química Ambiental",
+   "sigla": "GQA",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "92"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Marco Tadeu Grassi",
+     "pessoa": "marco-tadeu-grassi"
+    }
+   ]
+  },
+  {
+   "id": "tecnotrater",
+   "nome": "Grupo de Técnicas Avançadas para Tratamento de Resíduos",
+   "sigla": "TECNOTRATER",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "92"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Patricio Peralta Zamora",
+     "pessoa": "patricio-peralta-zamora"
+    }
+   ]
+  },
+  {
+   "id": "anexo",
+   "nome": "Anexo",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "94"
+   ]
+  },
+  {
+   "id": "gaqq",
+   "nome": "Grupo de Análise Química e Quimiometria",
+   "sigla": "GAQQ",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "97"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Noemi Nagata",
+     "pessoa": "noemi-nagata"
+    }
+   ]
+  },
+  {
+   "id": "datalab",
+   "nome": "Laboratório de Análise de Dados em Química",
+   "sigla": "DATAlab",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "97"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Frederico Luis Felipe Soares",
+     "pessoa": "frederico-luis-felipe-soares"
+    }
+   ]
+  },
+  {
+   "id": "labsense",
+   "nome": "Laboratório de Sensores Eletroquímicos",
+   "sigla": "LABSENSE",
+   "tipo": "lab-pesquisa",
+   "salas": [
+    "98"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Marcio Fernando Bergamini",
+     "pessoa": "marcio-fernando-bergamini"
+    },
+    {
+     "nome": "Luiz Humberto Marcolino Junior",
+     "pessoa": "luiz-humberto-marcolino-junior"
+    }
+   ]
+  },
+  {
+   "id": "lfq",
+   "nome": "Laboratório de Físico-Química",
+   "sigla": "LFQ",
+   "tipo": "lab-ensino",
+   "salas": [
+    "22"
+   ]
+  },
+  {
+   "id": "lqo-ii",
+   "nome": "Laboratório de Química Orgânica II",
+   "sigla": "LQO II",
+   "tipo": "lab-ensino",
+   "salas": [
+    "69"
+   ]
+  },
+  {
+   "id": "lqo-i",
+   "nome": "Laboratório de Química Orgânica I",
+   "sigla": "LQO I",
+   "tipo": "lab-ensino",
+   "salas": [
+    "73"
+   ]
+  },
+  {
+   "id": "lqg",
+   "nome": "Laboratório de Química Geral",
+   "sigla": "LQG",
+   "tipo": "lab-ensino",
+   "salas": [
+    "82"
+   ]
+  },
+  {
+   "id": "lqi",
+   "nome": "Laboratório de Química Inorgânica",
+   "sigla": "LQI",
+   "tipo": "lab-ensino",
+   "salas": [
+    "85"
+   ]
+  },
+  {
+   "id": "lqaquanti",
+   "nome": "Laboratório de Química Analítica Quantitativa",
+   "sigla": "LQAQuanti",
+   "tipo": "lab-ensino",
+   "salas": [
+    "99"
+   ]
+  },
+  {
+   "id": "anexo-sala-de-balancas",
+   "nome": "Anexo - Sala de Balanças",
+   "tipo": "lab-ensino",
+   "salas": [
+    "99-A"
+   ]
+  },
+  {
+   "id": "lqaq",
+   "nome": "Anexo - Laboratório Química Analítica Quantitativa",
+   "sigla": "LQAQ",
+   "tipo": "lab-ensino",
+   "salas": [
+    "99-B",
+    "99-C",
+    "99-D",
+    "99-E",
+    "99-F"
+   ]
+  },
+  {
+   "id": "auditorio-principal",
+   "nome": "Auditório Principal",
+   "tipo": "servico",
+   "salas": [
+    "1"
+   ],
+   "descricao": "Requer reserva de horários para eventos, defesas e confraternizações"
+  },
+  {
+   "id": "s-ppgq",
+   "nome": "Sala de Estudos - Pós-Graduação",
+   "sigla": "S-PPGQ",
+   "tipo": "servico",
+   "salas": [
+    "33"
+   ],
+   "descricao": "Acesso restrito a Alunos e Pesquisadores da Pós-Graduação"
+  },
+  {
+   "id": "afm",
+   "nome": "Sala de equipamento/Microscopia de Força Atômica",
+   "sigla": "AFM",
+   "tipo": "servico",
+   "salas": [
+    "41"
+   ],
+   "coordenacao": [
+    {
+     "nome": "Aldo Zarbin",
+     "pessoa": "aldo-zarbin"
+    }
+   ]
+  },
+  {
+   "id": "daeq",
+   "nome": "Diretório Acadêmico de Engenharia Química",
+   "sigla": "DAEQ",
+   "tipo": "servico",
+   "salas": [
+    "43"
+   ]
+  },
+  {
+   "id": "caqui",
+   "nome": "Centro Acadêmico de Química",
+   "sigla": "CAQUI",
+   "tipo": "servico",
+   "salas": [
+    "44"
+   ]
+  },
+  {
+   "id": "coordenacao-da-graduacao-em-quimica",
+   "nome": "Coordenação da Graduação em Química",
+   "tipo": "servico",
+   "salas": [
+    "45-A"
+   ]
+  },
+  {
+   "id": "ppgq",
+   "nome": "Secretaria da Pós-graduação em Química",
+   "sigla": "PPGQ",
+   "tipo": "servico",
+   "salas": [
+    "45-B"
+   ]
+  },
+  {
+   "id": "secretaria-do-departamento-de-quimica",
+   "nome": "Secretaria do Departamento de Química",
+   "tipo": "servico",
+   "salas": [
+    "45-C"
+   ]
+  },
+  {
+   "id": "escaninho-professores",
+   "nome": "Escaninho Professores",
+   "tipo": "servico",
+   "salas": [
+    "45-D"
+   ]
+  },
+  {
+   "id": "sala-de-reunioes-do-departamento-de-quimica",
+   "nome": "Sala de Reuniões do Departamento de Química",
+   "tipo": "servico",
+   "salas": [
+    "45-E"
+   ],
+   "descricao": "Acesso mediante reserva prévia"
+  },
+  {
+   "id": "isomeria",
+   "nome": "Empresa Júnior de Química",
+   "sigla": "ISOMERIA",
+   "tipo": "servico",
+   "salas": [
+    "51"
+   ],
+   "descricao": "Empresa Júnior"
+  },
+  {
+   "id": "oficina-hialotecnia",
+   "nome": "Oficina Hialotecnia",
+   "tipo": "servico",
+   "salas": [
+    "71"
+   ]
+  },
+  {
+   "id": "area-de-seguranca",
+   "nome": "Central elétrica",
+   "sigla": "Área de segurança",
+   "tipo": "servico",
+   "salas": [
+    "74"
+   ],
+   "descricao": "Acesso restrito"
+  },
+  {
+   "id": "sala-de-instrumentacao-analitica",
+   "nome": "Sala de Instrumentação Analítica",
+   "tipo": "servico",
+   "salas": [
+    "76"
+   ]
+  },
+  {
+   "id": "sala-de-apoio-laboratorio-de-quimica-geral",
+   "nome": "Sala de apoio - Laboratório de Química Geral",
+   "tipo": "servico",
+   "salas": [
+    "81"
+   ]
+  },
+  {
+   "id": "pet-quimica",
+   "nome": "PET Química",
+   "sigla": "PET Química",
+   "tipo": "servico",
+   "salas": [
+    "83"
+   ]
+  },
+  {
+   "id": "sala-de-refrigeracao",
+   "nome": "Sala de refrigeração",
+   "tipo": "servico",
+   "salas": [
+    "86"
+   ]
+  },
+  {
+   "id": "central-de-produtos-quimicos",
+   "nome": "Central de Produtos Químicos",
+   "tipo": "servico",
+   "salas": [
+    "87"
+   ]
+  }
+ ]
+}

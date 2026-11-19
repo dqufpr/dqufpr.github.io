@@ -1,0 +1,257 @@
+# Histórico de mudanças do Mapa Digital
+
+## 3.5.0 — 2026-11-15
+
+### Mudado
+- **Cards da lista:** sem o título "Sala N" visível (continua para leitores de tela); sem borda colorida ao passar o mouse; aberto, card e detalhes formam um bloco branco com sombra ampla.
+- **Controles sobre a planta (celular e tablet):** seletor de andar e barra das entradas em pílula, com a mesma altura; barra de ferramentas no canto de baixo à direita; barra das entradas mais acima do pé da tela, longe da barra de gestos do Android.
+- **Página de Atualizações** resumida às principais melhorias.
+
+## 3.4.0 — 2026-11-15
+
+### Novo
+- **"Estas informações estão corretas?"** nos cartões de sala, pessoa e laboratório: Sim ou Não (joinha), com um campo opcional "O que está errado?" no Não. As respostas vão para uma planilha do Google pelo Apps Script, com o item, o voto, o comentário e o endereço da página. O aparelho lembra o voto por 30 dias. O script e a instalação ficam no repositório privado `dqufpr/dq-apps-script`.
+- **Fale conosco pelo Apps Script:** a mensagem vai para a mesma planilha, quem escreveu recebe um e-mail de confirmação e a equipe recebe um aviso. O Google Forms anterior foi removido.
+- **Joinha com carregamento:** o botão gira enquanto envia e, no sucesso, fica verde e pisca. Ao reabrir o cartão, aparece o voto já dado. O motivo de uma recusa do servidor (ex.: link no comentário) aparece no cartão.
+
+### Mudado
+- **`dados/planta-base.svg` com as cores atuais:** aberto sozinho, o desenho mostra as cores finais do mapa (paredes azul-marinho, corredores cinza-azulado e cada sala na cor da sua categoria atual), em vez da paleta antiga e dos corredores pretos. As salas que estavam num caminho só foram separadas, uma por forma. No site nada muda: o CSS do mapa continua definindo as cores, inclusive no tema escuro.
+
+### Segurança
+- **O gerador também saiu do repositório público:** `scripts/gerar_mapa.py` agora é `dados/gerar_mapa.py` no repositório privado `dqufpr/dq-apps-script`, junto da planilha. Roda lá (`python dados/gerar_mapa.py`) e escreve `dados/locais.json` e `index.html` neste repositório. Os guias de atualização e de Analytics foram para `info/`, no privado. O resultado gerado é o mesmo.
+- **A planilha saiu do repositório público:** `dados-mapa.xlsx` agora fica no repositório privado `dqufpr/dq-apps-script` (`dados/`). `scripts/gerar_mapa.py` a procura no repositório privado clonado ao lado (`DQ-UFPR-DATA` ou `dq-apps-script`), ou pelo caminho dado em `--planilha`, `DQ_PLANILHA` ou `scripts/planilha.local`. O `.gitignore` impede commitar planilhas no repositório público.
+- Os índices de locais, pessoas, unidades e entradas não têm protótipo: endereços como `?local=__proto__` ou `?pessoa=constructor` deixavam o cartão em branco e agora são ignorados.
+- O domínio `docs.google.com` saiu da CSP de todas as páginas.
+
+## 3.3.0 — 2026-11-14
+
+### Novo
+- **Cartão da pessoa** (professores e técnicos): cargo e área, sala marcada na planta, e-mail institucional, currículo Lattes e os laboratórios que coordena. Endereço `/mapa/?pessoa=<nome>`.
+- **Cartão do laboratório ou serviço:** descrição, site, coordenação (cada nome abre o cartão da pessoa) e todas as salas, marcadas juntas na planta. Endereço `/mapa/?unidade=<sigla>`.
+- **Busca agrupada:** Pessoas, Laboratórios e serviços, e Salas. O Enter abre o primeiro resultado, nesta ordem: número de sala exato, pessoa, unidade, sala.
+- **"Voltar"** retorna ao cartão anterior (ex.: do laboratório para a pessoa) ou aos resultados da busca.
+- **Compartilhar** também a pessoa e o laboratório.
+
+### Mudado
+- **Estatísticas do mapa (GA4):** o mapa conta os cartões abertos (`select_content`, com tipo, identificador e nome), os compartilhamentos (`share`) e os termos buscados (`search`). Como configurar e ler os relatórios: [ANALYTICS.md](ANALYTICS.md).
+- **Origem dos acessos nos sites dos laboratórios e serviços:** os links do cartão e da lista levam parâmetros UTM (`utm_source=dq_digital`, `utm_medium=referral`, `utm_campaign=mapa_digital`, `utm_content=cartao` ou `lista`). O Google Analytics do site de destino passa a mostrar que o acesso veio do Mapa Digital. O Lattes e o e-mail ficam sem UTM.
+- **Botões de compartilhar padronizados, sem mensagem escrita:**
+  - **WhatsApp e Instagram** só abrem o aplicativo (celular) ou o site (computador). O Instagram abre as mensagens (Direct) e não copia mais o link nem mostra "Link copiado".
+  - **Copiar o link** confirma no próprio botão, que fica verde com um visto.
+  - **Enviar** abre a folha de compartilhar do sistema. Sem ela (computador), copia o link e confirma do mesmo jeito, no próprio botão.
+  - A confirmação escrita ficou só para leitores de tela.
+- **Planilha:** `dados/dados-mapa.xlsx`, com as abas Salas, Pessoas e Unidades, substitui `dados/locais.xlsx`. Cada sala, pessoa e laboratório aparece uma vez só. O laboratório que ocupa várias salas é uma linha, com as salas separadas por `;`. A coluna `n` é só numeração e é ignorada.
+- **`scripts/gerar_mapa.py`** lê as três abas e confere as ligações:
+  - coordenação que não está em Pessoas;
+  - sala inexistente;
+  - e-mail que não é `@ufpr.br`;
+  - Lattes e site inválidos.
+- **Cartão da sala:** separa o que funciona nela ("Nesta sala") de quem trabalha nela (professores ou equipe).
+- **Lista "Todos os locais":** os detalhes mostram as unidades, com descrição e coordenação, e as pessoas, com cargo e contatos.
+- **Prévias de compartilhamento:** usam o título e o resumo calculados pelo gerador.
+- **Cartão do pé da tela com duas alturas** (celular e tablet), como as folhas do iOS:
+  - **Abertura:** o cartão abre na altura média (até 45% da tela), com uma alça no topo e o pé esmaecido quando há mais conteúdo.
+  - **Para cima:** arrastar a alça ou o próprio cartão expande o cartão até logo abaixo do cabeçalho.
+  - **Para baixo:** volta à altura média; da altura média, fecha o cartão.
+  - **Expandido:** o conteúdo rola; com ele no topo, puxar para baixo reduz o cartão.
+  - **Toque na alça:** alterna as duas alturas.
+  - **Arraste:** não aciona o botão onde o dedo começou.
+- **Cartões da lista mais limpos:** fechado, o cartão mostra só o número, "Sala N", a categoria e o andar. O que há na sala (laboratórios, serviços, pessoas) aparece em "Detalhes", sob o rótulo "Nesta sala".
+- **Bordas padronizadas:**
+  - 1px em tudo, inclusive nos botões (antes, 2px);
+  - separadores em linha contínua (antes, tracejados);
+  - etiquetas e botão secundário sem contorno, só com fundo claro ("Centralizar na planta" fica igual a "Ver na planta");
+  - "Detalhes" com o mesmo raio dos outros botões.
+- **Lista "Todos os locais" na grade de 12 colunas:** 12 locais por página (antes, 9), em 1, 2, 3 ou 4 cartões por linha, conforme a tela; as linhas sempre fecham.
+- **Celular e tablet mais compactos:**
+  - **A planta vai até o pé da tela,** sem a faixa vazia embaixo. A altura é calculada a partir da barra de busca medida, e a planta passa a ocupar de 82% a 90% da tela (antes, cerca de 75%).
+  - **Lupa:** fica redonda, com borda, igual aos botões de destaque. Antes tinha um fundo branco quadrado.
+  - **Controles menores:** seletor de andar, barra de ferramentas (botões de 40px) e barra das entradas.
+  - **Barra de ferramentas:** os grupos são separados por linhas finas.
+- **Ao abrir o mapa:** ondas saem da seta da entrada principal por alguns segundos, mostrando por onde se chega. O efeito não aparece em links de sala, pessoa ou entrada, nem para quem pediu menos movimento ao sistema.
+- **Dica de uso no computador:** numa linha só, com um ícone de ajuda. Em telas de computador com menos de 1320px, ela não aparece, porque encostaria na barra das entradas.
+- **Sombras:** a busca, os destaques, o seletor de andar, as ferramentas e a barra das entradas usam a mesma sombra, curta. A sombra dos botões de destaque não é mais cortada pela rolagem da fileira.
+- **Cada espaço é identificado pelo número e pela categoria:** "Sala 88 · Laboratório de pesquisa", em vez do nome do laboratório ou de "Sala de professores" como título. O que compõe a sala (nome próprio, laboratórios, serviços e pessoas) aparece embaixo: em "Nesta sala" no cartão, numa linha de resumo nos resultados e na lista "Todos os locais", e nas imagens e descrições de compartilhamento. A dica da planta, os títulos das páginas de compartilhamento e o texto compartilhado seguem o mesmo formato.
+- **Elementos sobre a planta organizados do mesmo jeito em todos os tamanhos:**
+  - **Canto de cima à esquerda:** o seletor Térreo | 1º andar e, logo abaixo, uma barra de ferramentas única (aproximar, afastar, planta inteira, girar e ampliar).
+  - **Ampliar:** virou um ícone dentro dessa barra; antes era um botão separado.
+  - **Embaixo, no meio:** a barra das entradas.
+  - **Painel:** à direita no computador; cartão no pé da tela no celular e no tablet.
+  - **Antes:** o seletor ficava no centro, e os botões ficavam à esquerda no computador e à direita no celular.
+  - **Cartão aberto no celular e no tablet:** a barra das entradas some e a de ferramentas mostra só aproximar, afastar e ampliar.
+  - **Celular deitado:** a barra de ferramentas fica à direita.
+- **Computador: planta de borda a borda.** A planta ocupa a largura toda e a altura da tela abaixo do cabeçalho, sem moldura. A busca, os destaques, os botões de zoom, o seletor de andar, o painel e a barra das entradas ficam por cima dela, nos mesmos lugares. Os enquadramentos descontam a faixa da busca. No modo Ampliar, a planta cobre a tela inteira. No celular e no tablet, nada mudou.
+- **Impressão de uma sala:** folha deitada com a planta só do andar da sala, na largura da folha e com a sala em destaque, e os dados embaixo em texto corrido: unidades com descrição, coordenação e site; pessoas com cargo, e-mail e Lattes. Antes, a planta dos dois andares saía pequena e o cartão cobria a faixa do 1º andar, porque o Chrome aplicava ao papel as regras do celular. O botão Imprimir continua só no computador.
+
+## 3.2.0 — 2026-11-14
+
+### Novo
+- **E-mail e site:** colunas opcionais `E-mail` (pessoas) e `Site` (laboratórios de pesquisa) na planilha. Aparecem como links no painel da sala e nos detalhes do cartão da lista. O `gerar_mapa.py` avisa e ignora os valores inválidos.
+- **Girar a planta:** botão ao lado do zoom gira a planta de 90 em 90 graus, com animação. Os números, os nomes dos andares e os nomes das entradas continuam na horizontal, ao lado do que indicam.
+- **Entradas viram o mapa:** ao escolher uma entrada, a planta gira para quem chega por ela ficar olhando para dentro do prédio.
+- **Barra de entradas sobre a planta** (tablet e celular): Principal, A, B e C.
+  - No celular, a barra fica centralizada. Tocar numa entrada só move o mapa, sem abrir o cartão, e tocar de novo desmarca.
+  - A barra não sai na impressão.
+- **Copiar o link** no painel da sala, antes de Enviar. A confirmação fica no próprio ícone: o botão fica verde e mostra um visto animado por 2 segundos. O leitor de tela anuncia "Link copiado".
+- **Barra de busca fixa no computador:** ao rolar a página, a busca e os destaques ficam no alto e o cabeçalho do site se recolhe.
+
+### Mudado
+- **Barra de entradas em todos os tamanhos:** "Entrada · Principal A B C" aparece embaixo da planta também no computador. A dica de uso foi para o canto de baixo à direita.
+- **Planta e elementos centralizados na área inteira do mapa:** a abertura, as entradas, a vista "planta inteira", o seletor de andar e a barra das entradas não descontam mais o painel do computador. O painel só é considerado para empurrar uma sala tocada que tenha ficado embaixo dele.
+- **Mesma abertura em todos os tamanhos:** a planta abre no trecho da entrada principal, na escala do celular (1550 unidades em 390px de largura livre). Telas maiores mostram mais da planta em volta. Ao escolher uma entrada, o zoom é o mesmo em qualquer tamanho. O botão "Ver a planta inteira" continua mostrando o andar todo.
+- **Tablet igual ao celular:** busca recolhida na lupa, destaques numa linha, planta da altura da tela, barra de entradas centralizada e cartão da sala no pé da tela.
+  - Vale até 1023px e também para tablets de toque deitados, até 1399px. Computadores com mouse a partir de 1024px mantêm o painel à direita.
+  - No tablet, a abertura usa a mesma escala do celular e mostra mais da planta. Deitado, a abertura mostra a planta inteira.
+- **Zoom só na planta:** a pinça e o toque duplo não ampliam mais a página do mapa. A planta continua com a própria pinça e os botões + e −. Isso é feito pelo viewport `user-scalable=no`, por `touch-action` e, no Safari do iPhone, pelo bloqueio do `gesturestart` fora da planta.
+- **Zoom:** zoom suave pelos botões, pela roda do mouse (com Ctrl) e ao enquadrar uma sala.
+- **Celular:**
+  - Abre no trecho da entrada principal, com folga para a barra das entradas.
+  - As entradas usam o mesmo zoom da abertura.
+- **Números das salas:** centralizados na área, sempre em branco e com sombra leve. O número do painel também ficou branco.
+- **Botões de entradas, rampas e escadas no painel:** na cor do elemento, sem borda azul. A entrada selecionada tem borda verde.
+- **Resultados da busca e itens do painel:** em cartões.
+- **Botões de destaque:** a borda não muda mais de espessura ao ligar e desligar, então a linha não pula.
+- **Entradas:** a A e a C trocaram de nome. A descrição da principal agora é "Entrada pela frente do prédio principal".
+- **Impressão:** "Todos os locais" sai sem bordas.
+
+### Corrigido
+- **Celular, avaliação de usabilidade (14/11):**
+  - O cartão da sala ocupa no máximo 45% da tela (antes, 52%): cerca de 45px a mais de planta à vista.
+  - Com o cartão aberto, os botões "planta inteira" e "girar", que ficavam cortados embaixo dele, se escondem.
+  - A busca redesenha a planta numa pausa da digitação. Num celular simples, a pior resposta ao digitar caiu de 240 para 64 ms.
+  - No celular deitado, a planta cabe na altura da tela e a barra das entradas fica à vista.
+  - No Android, o teclado não cobre mais os resultados da busca (`interactive-widget=resizes-content`).
+- **"Ver na planta" no celular e no tablet:** a sala escolhida na lista aparece no meio da área visível do mapa. Antes, a posição era calculada antes de a página rolar até a planta, e a sala ficava embaixo do cartão do pé da tela.
+- **Carga em rede lenta:** a página "pulava" ao terminar de carregar, porque a classe `mapa-js` só era aplicada no fim. Agora o `theme-init.js` a aplica no `<head>`, via `data-js-class`.
+- **Nomes dos andares com a planta girada:** ficam alinhados à borda do prédio.
+
+### Removido
+- Aviso "Locais em atualização" abaixo da planta.
+
+## 3.1.0 — 2026-11-13
+
+### Novo
+- **Andares:** seletor Térreo | 1º andar. A planta abre no térreo; o 1º andar aparece na posição real, sobre o térreo desfocado. Troca de andar sozinha ao escolher um local do outro andar; o seletor mostra quantos resultados há em cada andar; endereço `?andar=1`. Cada local tem o andar (salas 23 a 45-E no 1º andar) no painel, na lista e na busca.
+- **Entradas:** principal, A, B e C marcadas na planta, clicáveis, com botões no painel, busca e endereço `?entrada=principal`.
+- **Rampas e escadas:** áreas nos dois andares, com pictogramas em círculo (escada; Símbolo Internacional de Acesso sobre a rampa) e a ligação entre os andares registrada.
+- **Compartilhar:** WhatsApp, Instagram e Enviar (folha de compartilhar do sistema ou cópia do link). Cada local tem uma página `mapa/l/<id>.html` com prévia própria (`mapa/img/compartilhar/<id>.jpg`: a sala em foco, o resto da planta desfocado). Gerado por `scripts/gerar_compartilhamento.js`, também pelo GitHub Actions.
+- **Capa de compartilhamento** (`mapa/img/capa.jpg`, 1200×630) para `/mapa/`, Sobre, Legal e Atualizações.
+- **Impressão:** a página inteira (planta com os dois andares e todos os locais) ou só o local escolhido, em folhas deitadas, com tema claro e cores das salas.
+- **Lista "Todos os locais":** cards com faixa da cor da categoria, número, tipo, andar, resumo e Detalhes; mesma altura; 9 por página em carrossel; filtros por tipo (os mesmos destaques da planta).
+
+### Mudado
+- Tablet e computador: barra numa linha só, planta com a largura e a altura da tela; no computador, painel flutuando à direita; no celular e no tablet, painel no pé da tela.
+- Botões de compartilhar só com ícones; "Imprimir" só no computador.
+- Modo ampliado cobre a tela toda em todos os tamanhos.
+- Sala 14 com contorno retangular (a faixa ao lado é a escada).
+
+### Removido
+- Botão Mostrar/Ocultar a lista; bloco "Viu algo desatualizado?" antes do rodapé; seção "Nomes de pessoas" do aviso legal.
+
+## 3.0.0 — 2026-11-08
+
+### Mudado
+- O mapa passou para a pasta `mapa/` do repositório `dqufpr.github.io`. A planta fica em `/mapa/` (era `/mapa/completo`, que agora redireciona mantendo a sala e os destaques do endereço).
+- `completo.html` virou `index.html`; `scripts/gerar_mapa.py` escreve em `index.html`.
+- O `sitemap.xml` e o `_config.yml` próprios saíram: valem os da raiz.
+
+## 2.4.1 — 2026-11-08
+
+### Mudado
+- O card aberto da lista cresce por cima dos de baixo, sem empurrar a grade, com animação suave da altura e esmaecimento dos detalhes. Um card aberto por vez; clique fora ou Esc fecham.
+
+## 2.4.0 — 2026-11-08
+
+### Mudado
+- A abertura da página ("Planta do prédio") saiu em todos os tamanhos de tela; o título continua para leitores de tela e a planta começa logo abaixo do cabeçalho.
+- Cards de "Todos os locais" com a mesma altura, mostrando só número, nome e tipo; um clique no card abre os itens, as descrições e "Ver na planta". "Ver na lista" e endereços `#local-…` já abrem o card. Sem JavaScript, os detalhes ficam sempre à mostra.
+
+## 2.3.0 — 2026-11-08
+
+### Mudado
+- Planta no celular (até 499px) ocupa quase a tela toda: abertura da página só para leitores de tela, planta de borda a borda e com a altura da tela, um dedo move a planta em qualquer direção.
+- Busca recolhida num botão de lupa; destaques numa linha só, rolando para o lado.
+- Detalhes da sala e resultados da busca num cartão fixo no pé da tela, com botão de fechar; a planta desliza para a sala não ficar atrás do cartão.
+- "Todos os locais" começa recolhida no celular (botão "Mostrar a lista"); "Ver na lista" abre a lista.
+- Telas maiores e navegação sem JavaScript continuam como antes.
+
+## 2.2.0 — 2026-10-31
+
+### Mudado
+- Cabeçalho com o logo quadrado do Mapa Digital (`img/logo.svg`) e o nome "Mapa Digital"; a marca leva à planta (`/mapa/completo`), e "Início" no menu continua levando ao portal.
+- Rodapé com a mesma marca do cabeçalho (logo do Mapa Digital + nome), `© <ano> · Todos os direitos reservados.` com o ano automático, crédito "Representação Discente · PPGQ · UFPR" e aviso de que o site não tem vínculo institucional com a UFPR.
+
+## 2.1.1 — 2026-10-31
+
+### Mudado
+- A página da planta usa a largura do portal (`--container`, agora 1440px); a classe `.container--mapa` e o token `--mapa-largura` saíram.
+- O aviso "Locais em atualização" passou do topo da página para logo abaixo da planta (some no modo ampliado).
+
+## 2.1.0 — 2026-10-31
+
+### Novo
+- Guia de atualização dos dados (`docs/ATUALIZAR-DADOS.md`), com casos comuns, avisos do script e checklist.
+- `sitemap.xml` com as páginas do mapa (apontado no `robots.txt` do portal).
+- Aviso "Locais em atualização" no topo da planta.
+- Favicon próprio do Mapa Digital (`img/favicon.svg`).
+
+### Mudado
+- Abertura da página, lista e avisos com a mesma largura da planta; espaço antes do aviso final.
+- Número da sala no painel centralizado.
+- Meta-descrições revistas; `_config.yml` com título, descrição, endereço e regras de indexação.
+- O script avisa com clareza quando falta uma coluna na planilha.
+
+### Removido
+- Logotipos próprios sem uso (`img/logo-site-*.svg`): as páginas usam os do portal.
+
+## 2026-10-31 — Planta interativa
+
+### Novo
+- `completo.html` é a única página do mapa: planta interativa com zoom, arraste, pinça e Ctrl + roda do mouse, botão Ampliar e painel de detalhes.
+- Clique numa sala para ver o que funciona nela; destaque categorias inteiras e combine com a busca (planta e lista filtram juntas).
+- Endereços compartilháveis: `?local=45-B` e `?destaque=sala-aula,servico`.
+- Salas identificadas pelo número físico (`ID_fisico`); o `ID_digital` deixou de ser usado.
+- `dados/locais.xlsx` como fonte; `scripts/gerar_mapa.py` gera `dados/locais.json` e escreve a planta, os botões de destaque e a lista em `completo.html`.
+- No celular, a planta começa preenchendo a altura do quadro; um dedo na horizontal move a planta e na vertical rola a página.
+
+### Mudado
+- Novas cores das categorias (no `global.css` do portal), distinguíveis com daltonismo.
+- Páginas por categoria, `index.html` e `sbpc.html` viraram redirecionamentos para a planta (com a categoria destacada).
+- Aviso legal: a lista de locais não depende mais do Google.
+
+### Removido
+- Leitura da planilha do Google (gviz) e a dependência de `docs.google.com` na CSP.
+- Desenhos antigos `map/*.html` (numerados pelo ID digital) e capas das categorias `img/*.svg`.
+
+## 2026-10-31 — Ajustes da versão 2
+
+### Novo
+- Mapa no computador com o maior tamanho que cabe inteiro na altura da tela, sem ficar mais estreito que o texto da página nem mais largo que a janela.
+- Botão "Ampliar/Reduzir" no canto do mapa: tela cheia do navegador ou, no iPhone, o mapa fixo sobre a página. Substitui o link que abria o desenho em outra aba.
+- Indicadores de carregamento: aviso com ícone girando sobre o mapa e cartões provisórios na lista de locais.
+- Linha do tempo na página de atualizações, com o histórico desde dezembro de 2022.
+
+### Mudado
+- Endereços sem `/p/`: `/mapa/sala-de-aula` em vez de `/mapa/p/sala-de-aula`. A pasta `p/` guarda só redirecionamentos para os endereços antigos.
+- `js/locais.js` virou `js/mapa.js` (lista de locais + aviso de carregamento do mapa).
+- Aviso legal reescrito: resumo, caráter não oficial, precisão, responsabilidade, nomes de pessoas e dados de quem visita.
+
+## 2026-10-31 — Migração para a base visual do DQ Digital
+
+### Novo
+- Páginas no padrão do portal: `/js/theme-init.js` + `/css/global.css` + `/js/app.js`, com cabeçalho, menu do celular, tema claro/escuro/sistema e rodapé iguais aos do site principal.
+- Página inicial do mapa com cartões das categorias (substitui o aviso de manutenção).
+- `js/locais.js`: um único script lê a planilha para todas as categorias (antes, um script inline por página), monta a lista sem `innerHTML`, mostra estado de carregamento e de erro.
+- Busca na lista de locais (sem diferenciar acentos), com contagem de resultados.
+- Cor da categoria mais o nome escrito no mapa completo; número com contraste AA.
+- Visualizador do mapa com borda, link para tela cheia e altura adaptada ao celular.
+- Content-Security-Policy nas páginas; `.editorconfig`, `_config.yml`, `CHANGELOG.md`.
+
+### Mudado
+- `css/style.css` reescrito: só o que é exclusivo do mapa, com os tokens do `global.css`.
+- Menu igual ao do portal (Início · Mapa Digital · Sobre · Contato); páginas do mapa (sobre, atualizações, aviso legal) no rodapé.
+- `fale-conosco.html` redireciona para o formulário único do portal (`/fale-conosco`).
+- Google Analytics só na página inicial do mapa, via `/js/analytics.js`.
+
+### Sem mudança
+- Desenhos do mapa (`map/*.html`), capas (`img/`) e a planilha do Google (mesmas abas e colunas).
