@@ -1,4 +1,4 @@
-# Padrão de formatação dos arquivos (https://editorconfig.org)
+# Padrão de formatação dos arquivos
 root = true
 
 [*]

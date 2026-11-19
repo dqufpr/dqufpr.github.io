@@ -1,7 +1,5 @@
 .vscode/settings.json
 .claude/settings.json
-
-# Dados críticos ficam no repositório privado dqufpr/dq-apps-script: nunca commitar planilhas aqui
 *.xlsx
 *.xls
 *.csv

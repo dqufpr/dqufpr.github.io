@@ -5,7 +5,6 @@
 - Before reading an entire file, use grep to search for relevant content and read only what is necessary.
 - Use a subagent to explore the project and provide me only with a summary.
 - Do not show me the diff or list every change. Mention only very important points (e.g. breaking changes, risks, something I must do).
-- Do not show commit messages, `Co-Authored-By` / `Claude-Session` lines, commit hashes, or branch/compare links in replies.
 - Do not repeat anything we have already decided in this session.
 - If we switch tasks, suggest using `/compact` or starting a new session.
 - Keep responses concise by default.
