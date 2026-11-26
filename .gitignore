@@ -1,5 +1,5 @@
-.vscode/settings.json
-.claude/settings.json
+.vscode/
+.claude/
 *.xlsx
 *.xls
 *.csv
